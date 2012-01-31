@@ -1,0 +1,47 @@
+# app/config/security.yml
+security:
+    providers:
+        fos_userbundle:
+            id: fos_user.user_manager
+
+    encoders:
+        "FOS\UserBundle\Model\UserInterface": sha512
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                default_target_path: /link
+            logout:
+                path:   /logout
+                target: /home
+            anonymous:    true
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/advisor/, role: ROLE_USER }
+        - { path: ^/area/, role: ROLE_USER } 
+        - { path: ^/calendar/, role: ROLE_USER } 
+        - { path: ^/course/, role: ROLE_USER } 
+        - { path: ^/description/, role: ROLE_USER } 
+        - { path: ^/file/, role: ROLE_USER } 
+        - { path: ^/gradcom/, role: ROLE_USER } 
+        - { path: ^/gradinfo/, role: ROLE_USER } 
+        - { path: ^/gradnotes/, role: ROLE_USER } 
+        - { path: ^/link/, role: ROLE_USER } 
+        - { path: ^/majornote/, role: ROLE_USER } 
+        - { path: ^/major/, role: ROLE_USER } 
+        - { path: ^/mentor/, role: ROLE_USER } 
+        - { path: ^/people/, role: ROLE_USER } 
+        - { path: ^/slideshow/, role: ROLE_USER } 
+        - { path: ^/spotlight/, role: ROLE_USER } 
+        - { path: ^/term/, role: ROLE_USER } 
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN

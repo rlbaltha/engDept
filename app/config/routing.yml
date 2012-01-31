@@ -1,0 +1,114 @@
+# app/config/routing.yml
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+EnglishHomeBundle:
+    resource: "@EnglishHomeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishTermBundle:
+    resource: "@EnglishTermBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishSpotlightBundle:
+    resource: "@EnglishSpotlightBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishSlideshowBundle:
+    resource: "@EnglishSlideshowBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishPeopleBundle:
+    resource: "@EnglishPeopleBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishMentorsBundle:
+    resource: "@EnglishMentorsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishMajornotesBundle:
+    resource: "@EnglishMajornotesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishMajorsBundle:
+    resource: "@EnglishMajorsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishLinksBundle:
+    resource: "@EnglishLinksBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishGradnotesBundle:
+    resource: "@EnglishGradnotesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishGradinfoBundle:
+    resource: "@EnglishGradinfoBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishGradcomBundle:
+    resource: "@EnglishGradcomBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishFilesBundle:
+    resource: "@EnglishFilesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishDescriptionsBundle:
+    resource: "@EnglishDescriptionsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishCoursesBundle:
+    resource: "@EnglishCoursesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishCalendarBundle:
+    resource: "@EnglishCalendarBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishAreasBundle:
+    resource: "@EnglishAreasBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+EnglishAdvisorsBundle:
+    resource: "@EnglishAdvisorsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal

@@ -1,0 +1,19 @@
+ {% extends 'EnglishDescriptionsBundle:Description:layout.html.twig' %}
+ 
+ {% block body %}
+
+<form action="{{ path('description_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('description') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

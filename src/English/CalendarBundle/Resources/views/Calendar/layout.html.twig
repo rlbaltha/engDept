@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+{% block title %}English Calendar {% endblock %}
+
+{% block stylesheets %}
+{% stylesheets 
+  'bundles/englishadvisors/css/*'
+  filter='cssrewrite'
+%}
+<link rel="stylesheet" href="{{ asset_url }}">
+{% endstylesheets %}
+{% endblock %}
+

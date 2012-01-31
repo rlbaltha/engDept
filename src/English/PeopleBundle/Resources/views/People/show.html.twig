@@ -1,0 +1,120 @@
+ {% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Lastname</th>
+            <td>{{ entity.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Firstname</th>
+            <td>{{ entity.firstName }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Rank</th>
+            <td>{{ entity.rank }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>Address2</th>
+            <td>{{ entity.address2 }}</td>
+        </tr>
+        <tr>
+            <th>Vitaurl</th>
+            <td>{{ entity.vitaUrl }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ entity.username }}</td>
+        </tr>
+        <tr>
+            <th>Officehours</th>
+            <td>{{ entity.officeHours }}</td>
+        </tr>
+        <tr>
+            <th>Spouse</th>
+            <td>{{ entity.spouse }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+        <tr>
+            <th>Homephone</th>
+            <td>{{ entity.homePhone }}</td>
+        </tr>
+        <tr>
+            <th>Cellphone</th>
+            <td>{{ entity.cellPhone }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Officenumber</th>
+            <td>{{ entity.officeNumber }}</td>
+        </tr>
+        <tr>
+            <th>Officephone</th>
+            <td>{{ entity.officePhone }}</td>
+        </tr>
+        <tr>
+            <th>Photourl</th>
+            <td>{{ entity.photoUrl }}</td>
+        </tr>
+        <tr>
+            <th>Bio</th>
+            <td>{{ entity.bio }}</td>
+        </tr>
+        <tr>
+            <th>Area</th>
+            <td>{{ entity.area }}</td>
+        </tr>
+        <tr>
+            <th>Homepageurl</th>
+            <td>{{ entity.homepageUrl }}</td>
+        </tr>
+        <tr>
+            <th>Active</th>
+            <td>{{ entity.active }}</td>
+        </tr>
+        <tr>
+            <th>Position</th>
+            <td>{{ entity.position }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('people') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('people_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('people_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

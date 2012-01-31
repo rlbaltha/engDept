@@ -1,0 +1,88 @@
+ {% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Coursename</th>
+            <td>{{ entity.courseName }}</td>
+        </tr>
+        <tr>
+            <th>Instructorname</th>
+            <td>{{ entity.instructorName }}</td>
+        </tr>
+        <tr>
+            <th>Callnumber</th>
+            <td>{{ entity.callNumber }}</td>
+        </tr>
+        <tr>
+            <th>Room</th>
+            <td>{{ entity.room }}</td>
+        </tr>
+        <tr>
+            <th>Days</th>
+            <td>{{ entity.days }}</td>
+        </tr>
+        <tr>
+            <th>Term</th>
+            <td>{{ entity.term }}</td>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <td>{{ entity.time }}</td>
+        </tr>
+        <tr>
+            <th>Building</th>
+            <td>{{ entity.building }}</td>
+        </tr>
+        <tr>
+            <th>Callnumber2</th>
+            <td>{{ entity.callNumber2 }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ entity.username }}</td>
+        </tr>
+        <tr>
+            <th>Period</th>
+            <td>{{ entity.period }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Area</th>
+            <td>{{ entity.area }}</td>
+        </tr>
+        <tr>
+            <th>May</th>
+            <td>{{ entity.may }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('course') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('course_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('course_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

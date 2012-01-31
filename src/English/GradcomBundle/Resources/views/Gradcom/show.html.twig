@@ -1,0 +1,48 @@
+ {% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Gid</th>
+            <td>{{ entity.gid }}</td>
+        </tr>
+        <tr>
+            <th>Fid</th>
+            <td>{{ entity.fid }}</td>
+        </tr>
+        <tr>
+            <th>Frole</th>
+            <td>{{ entity.frole }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('gradcom') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('gradcom_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('gradcom_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

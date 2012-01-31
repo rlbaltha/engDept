@@ -1,0 +1,19 @@
+ {% extends 'EnglishGradnotesBundle:Gradnotes:layout.html.twig' %}
+ 
+ {% block body %}
+
+<form action="{{ path('gradnotes_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('gradnotes') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

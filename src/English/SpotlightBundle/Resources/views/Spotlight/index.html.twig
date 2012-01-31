@@ -1,0 +1,46 @@
+ {% extends 'EnglishSpotlightBundle:Spotlight:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Photourl</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('spotlight_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.photoUrl }}</td>
+            <td>{{ entity.title }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.type }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('spotlight_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('spotlight_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('spotlight_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endblock %}

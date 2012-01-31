@@ -1,0 +1,66 @@
+ {% extends 'EnglishDescriptionsBundle:Description:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Callnumber</th>
+            <th>Term</th>
+            <th>Course</th>
+            <th>Instructorname</th>
+            <th>Description</th>
+            <th>Assignments</th>
+            <th>Requirements</th>
+            <th>Grading</th>
+            <th>Attendance</th>
+            <th>Material</th>
+            <th>Makeup</th>
+            <th>Url</th>
+            <th>Topicstitle</th>
+            <th>Topics</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('description_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.callNumber }}</td>
+            <td>{{ entity.term }}</td>
+            <td>{{ entity.course }}</td>
+            <td>{{ entity.instructorName }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.assignments }}</td>
+            <td>{{ entity.requirements }}</td>
+            <td>{{ entity.grading }}</td>
+            <td>{{ entity.attendance }}</td>
+            <td>{{ entity.material }}</td>
+            <td>{{ entity.makeup }}</td>
+            <td>{{ entity.url }}</td>
+            <td>{{ entity.topicsTitle }}</td>
+            <td>{{ entity.topics }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('description_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('description_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('description_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endblock %}

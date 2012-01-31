@@ -1,0 +1,43 @@
+{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
+ 
+ 
+{% block body %}
+    
+    <script language="javascript"> 
+    $(document).ready(function()
+    {
+    $("#loading").fadeOut("slow");
+    });
+    </script>
+    {% include 'EnglishPeopleBundle:Default:filter.html.twig' %}
+     {% for people in people %}
+     <div id="listing{{ people.id }}" class="row_even divider">
+     <div class="row">
+     <div class="cell bold"><a id="detailLink{{ people.id }}" href="javascript:void(0)" tabindex="1" title="Detail" >{{ people.firstName }} {{ people.lastName }}</a></div>
+     </div>
+     <div class="row">
+     <div class="cell">{{ people.title | raw }}</div>
+     </div>
+     <div class="row">
+     <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ people.email }}" tabindex="1" title="email address" >{{ people.email }}</a></div>
+     <div class="cell bold">Phone:</div> <div class="cell">{{ people.officePhone }}</div>
+     <div class="cell bold">Office:</div> <div class="cell">{{ people.officeNumber }}</div>
+     </div>
+     </div>    
+     <div id="detailWrapper{{ people.id }}" class="row_contrast divider hidden">
+     <div class="row_contrast">
+     <div class="cell right close">
+     <a class="button" href="javascript:void(0);" tabindex="1" title="Close" 
+        onclick="$('#detailWrapper{{ people.id }}').fadeOut('fast');$('#listing{{ people.id }}').addClass('row_even');$('#listing{{ people.id }}').removeClass('row_contrast');">x</a>
+     </div>
+     </div>
+         <div id="detail{{ people.id }}" class="row_contrast">
+         </div>
+     </div>
+    <script language="javascript"> 
+    $('#detailLink{{ people.id }}').click(function(){
+        ppu('#detail{{ people.id }}','detail/{{people.id }}');$('#detailWrapper{{ people.id }}').fadeIn('slow');$("#listing{{ people.id }}").removeClass("row_even");$("#listing{{ people.id }}").addClass("row_contrast");
+    });
+    </script>
+     {% endfor %}
+{% endblock %}

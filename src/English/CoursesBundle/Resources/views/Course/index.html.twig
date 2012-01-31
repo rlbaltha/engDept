@@ -1,0 +1,31 @@
+{% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
+ 
+{% block body %}
+
+<a href="{{ path('course_new') }}">Create a new entry</a>
+
+<table class="records_list">
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.courseName }}</td>
+            <td>{{ entity.instructorName }}</td>
+            <td>{{ entity.callNumber }} {{ entity.callNumber2 }}</td>
+            <td>{{ entity.room }}</td>
+            <td>{{ entity.days }}</td>
+            <td>{{ entity.term }}</td>
+            <td>{{ entity.time }}</td>
+            <td>{{ entity.building }}</td>
+            <td>{{ entity.period }}</td>           
+            <td>{{ entity.area }}</td>
+            <td>{{ entity.may }}</td>
+            <td>
+                        <a href="{{ path('course_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

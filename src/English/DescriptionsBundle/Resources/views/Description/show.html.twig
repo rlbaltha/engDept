@@ -1,0 +1,88 @@
+ {% extends 'EnglishDescriptionsBundle:Description:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Callnumber</th>
+            <td>{{ entity.callNumber }}</td>
+        </tr>
+        <tr>
+            <th>Term</th>
+            <td>{{ entity.term }}</td>
+        </tr>
+        <tr>
+            <th>Course</th>
+            <td>{{ entity.course }}</td>
+        </tr>
+        <tr>
+            <th>Instructorname</th>
+            <td>{{ entity.instructorName }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        <tr>
+            <th>Assignments</th>
+            <td>{{ entity.assignments }}</td>
+        </tr>
+        <tr>
+            <th>Requirements</th>
+            <td>{{ entity.requirements }}</td>
+        </tr>
+        <tr>
+            <th>Grading</th>
+            <td>{{ entity.grading }}</td>
+        </tr>
+        <tr>
+            <th>Attendance</th>
+            <td>{{ entity.attendance }}</td>
+        </tr>
+        <tr>
+            <th>Material</th>
+            <td>{{ entity.material }}</td>
+        </tr>
+        <tr>
+            <th>Makeup</th>
+            <td>{{ entity.makeup }}</td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td>{{ entity.url }}</td>
+        </tr>
+        <tr>
+            <th>Topicstitle</th>
+            <td>{{ entity.topicsTitle }}</td>
+        </tr>
+        <tr>
+            <th>Topics</th>
+            <td>{{ entity.topics }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('description') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('description_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('description_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,19 @@
+ {% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
+ 
+ {% block body %}
+
+<form action="{{ path('gradinfo_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('gradinfo') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}English Department{% endblock %}</title>
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/main.css') }}">
+        {% block stylesheets %}{% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    <div class="wrapper">    
+        <div class="container">
+        <div id="banner" class='banner'>
+        <img title="English Dept. banner" alt="English Dept. banner" src="{{ asset('bundles/englishhome/images/banner.jpg') }}">
+        </div>
+                
+        <div class="main_nav">
+        <div class="cell">Public</div>
+        <div class="cell"><a title="Home" href="{{ path('home') }}" >Home</a></div>
+        <div class="cell"><a title="People" href="{{ path('directory') }}" >People</a></div>
+        <div class="cell">
+        <a class='last' title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
+        </div>
+        </div>                   
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="main_nav">      
+        <div class="cell">Admin</div>            
+        <div class="cell"><a title="Areas" href="{{ path('area') }}" >Areas</a></div>
+        <div class="cell"><a title="Calendar" href="{{ path('calendar') }}" >Calendar</a></div>
+        <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>
+        <div class="cell"><a title="Descriptions" href="{{ path('description') }}" >Descriptions</a></div>
+        <div class="cell"><a title="Files" href="{{ path('file') }}" >Files</a></div>
+        <div class="cell"><a title="Links" href="{{ path('link') }}" >Link</a></div>
+        <div class="cell"><a title="People" href="{{ path('people') }}" >People</a></div>
+        <div class="cell"><a title="Slideshow" href="{{ path('slideshow') }}" >Slideshow</a></div>
+        <div class="cell"><a title="Spotlight" href="{{ path('spotlight') }}" >Spotlight</a></div>
+        <div class="cell"><a title="Term" href="{{ path('term') }}" >Term</a></div>
+        </div>
+
+        <div class="main_nav">
+        <div class="cell">Graduate</div>
+        <div class="cell"><a title="Gradcom" href="{{ path('gradcom') }}" >Grad Committees</a></div>
+        <div class="cell"><a title="Gradinfo" href="{{ path('gradinfo') }}" >Grad Student Info</a></div>
+        <div class="cell"><a title="Gradnotes" href="{{ path('gradnotes') }}" >Grad Notes</a></div>
+        </div>                
+                
+        <div class="main_nav">
+        <div class="cell">Advising</div>
+        <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >Advisors</a></div>
+        <div class="cell"><a title="Majornotes" href="{{ path('majornote') }}" >Majors Notes</a></div>
+        <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div>
+        <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></div>
+        </div>                
+        {% endif %}
+
+        {% block body %}{% endblock %}      
+                
+        
+        <div class="footer">
+        <div class="cell">
+        The Department of English | Franklin College of Arts &amp; Sciences | University of Georgia<br>
+        254 Park Hall, Athens, Georgia, 30602-6205 | Phone: 706.542.1261 | Fax:  706.542.2181
+        </div>
+        </div>
+        </div>
+     </div> 
+     <script src="{{ asset('bundles/englishhome/js/jquery-1.7.1.min.js') }}"></script>        
+     {% block javascripts %}{% endblock %}
+    </body>
+</html>

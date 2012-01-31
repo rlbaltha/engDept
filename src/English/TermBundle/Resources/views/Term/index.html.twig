@@ -1,0 +1,44 @@
+ {% extends 'EnglishTermBundle:Term:layout.html.twig' %}
+ 
+ {% block body %}
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Term</th>
+            <th>Termname</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('term_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.term }}</td>
+            <td>{{ entity.termName }}</td>
+            <td>{{ entity.type }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('term_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('term_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('term_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endblock %}

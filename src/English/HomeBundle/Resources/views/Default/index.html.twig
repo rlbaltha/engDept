@@ -1,0 +1,45 @@
+{% extends 'EnglishHomeBundle:Default:layout.html.twig' %}
+ 
+{% block body %}
+
+<div class="welcome">
+
+<div class="head">Welcome</div>
+
+<div id='slideshow_wrapper' class="slideshow_wrapper" >
+    {% for slideshow in slideshow %}
+    <div id='slideshow{{ slideshow.id }}' class="photo"><img class="image" name="slideshow" alt="{{ slideshow.title }}" src="{{asset(slideshow.photoUrl) }}"/></div>
+    {% endfor %}    
+</div>
+
+<div class="cell">
+The English Department at the University of Georgia is a diverse scholarly community of over 40 faculty, 100 graduate students, and more than 600 undergraduate majors and minors held together by a common commitment to preserving, transmitting, and extending the rich cultural legacy of the English language. At the core of our discipline lie the complex skills of reading and writing, and though these can be productively applied to a wide range of professional goals our own work as scholars and teachers strives to deepen our understanding of the critical and creative imagination.
+<br/><br/>
+A sympathetic participation in the verbal worlds of other times and places, drawing on the full range of linguistic tools, historical knowledge, and interpretive experience at our disposal, allows our students to enhance their appreciation for expressive possibility. The diversity of the faculty's interests and research methods helps ensure that an English major at the University of Georgia develops a sophisticated, practical grasp of the central role that language plays in the preservation of human institutions.
+</div>
+
+</div>
+
+<div class="sub_wrapper">
+    
+<div class="calendar">
+<div class="head">Calendar</div>
+{% for calendar in calendar %}
+<div class="cell bold red">{{ calendar.title }}</div>
+<div class="cell bold">{{ calendar.date|date("g:i A l, F d") }} </div>
+<div class="cell divider">{% autoescape false %}{{ calendar.description }}{% endautoescape %}</div>
+{% endfor %}
+</div>
+    
+<div class="spotlight">
+<div class="head">Spotlight</div>
+{% for spotlight in spotlight %}
+<div class="photo_cell"><div class="photo"><img class="image" name="spotlight" alt="{{ spotlight.title }}" src="{{ spotlight.photoUrl }}"/></div></div>
+<div class="cell red">{{ spotlight.title }}</div>
+<div class="cell">{% autoescape false %}{{ spotlight.description }}{% endautoescape %}</div>
+{% endfor %}
+</div>
+    
+</div>
+
+{% endblock %}
