@@ -6,21 +6,13 @@
    
     {% for entity in entities %}
         <div class="row">
-            <div class="cell"><a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
-            <div class="cell">{{ entity.name }}</div>
-            <div class="cell">{{ entity.email }}</div>
-            <div class="cell">{{ entity.advisor }}</div>
-            <div class="cell">{{ entity.mentorUserName }}</div>
-            <div class="cell">{{ entity.firstMajor }}</div>
-            <div class="cell">{{ entity.secondMajor }}</div>
-            <div class="cell">{{ entity.aoe }}</div>
-            <div class="cell">{{ entity.can }}</div>
-            <div class="cell">{{ entity.minor }}</div>
-            <div class="cell">{{ entity.status }}</div>
-            <div class="cell">{{ entity.notes }}</div>
-            <div class="cell">{{ entity.honors }}</div>
-            <div class="cell">{{ entity.advisorId }}</div>
-            <div class="cell">{{ entity.mentorId }}</div>
+            <div class="cell bold width150">{{ entity.name }}</div>
+            <div class="cell width200">{{ entity.email }}</div>
+            <div class="cell width50">{{ entity.advisor }}</div>
+            <div class="cell width50">{{ entity.mentorUserName }}</div>
+            <div class="cell width50">{{ entity.firstMajor }}</div>
+            <div class="cell width50">{{ entity.secondMajor }}</div>
+            <div class="cell width150">{{ entity.aoe }}</div>
             <div class="cell">
                 <a href="{{ path('major_show', { 'id': entity.id }) }}">show</a>
                 <a href="{{ path('major_edit', { 'id': entity.id }) }}">edit</a>

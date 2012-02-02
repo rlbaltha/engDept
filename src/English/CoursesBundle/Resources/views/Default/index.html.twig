@@ -1,1 +1,40 @@
-Hello {{ name }}!
+{% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
+ 
+ {% block body %}
+
+{% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
+
+<script language="javascript"> 
+    $(document).ready(function()
+    {
+    $("#loading").fadeOut("slow");
+    });
+</script>
+
+{% for courses in courses %}
+<div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div class="row">
+<div class="cell right close">
+<a class="button" href="javascript:void(0);" tabindex="1" title="Close" onclick="$('#detailWrapper{{ courses.id }}').fadeOut('fast');$('#course{{ courses.id }}').removeClass('row_odd');$('#course{{ courses.id }}').addClass('row_even');">x</a>
+</div>
+</div>
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+   ppu('#detail{{ courses.id }}','detail/{{courses.callNumber}}{{courses.callNumber2}}');$('#detailWrapper{{ courses.id }}').fadeIn('slow');$("#course{{ courses.id }}").removeClass("row_even");$("#course{{ courses.id }}").addClass("row_odd");
+    });
+</script>
+{% endfor %}    
+ {% endblock %}

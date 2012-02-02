@@ -1,0 +1,34 @@
+<div class="welcome"><div class="head">{% if '08' in currentTerm %}Fall{% elseif '02' in currentTerm %}Spring{% else %}Summer{% endif %}</div></div>
+<div class="sub_nav divider">     
+    {% for terms in terms %}
+     <div class="cell red"><a id="termLink{{ terms.term }}" href="javascript:" tabindex="1" title="Select term" >{{ terms.termName }}</a></div>
+    {% endfor %}
+</div>
+<script language="javascript">
+    {% for terms in terms %}
+    $('#termLink{{ terms.term }}').click(function(){
+        ppu('#coursesBody','ENGL/{{ terms.term }}');$('#loading').fadeIn('fast');
+    });
+    {% endfor %}
+</script>
+
+<div class="sub_nav divider">
+        <div class="cell"><a id="compLink" href="javascript:void(0);" tabindex="1" title="Select term" >Composition</a></div>
+        <div class="cell"><a id="sophLink" href="javascript:void(0);" tabindex="1" title="Select term" >2nd Year Surveys</a></div>
+        <div class="cell"><a id="upperink" href="javascript:void(0);" tabindex="1" title="Select term" >Upper Division</a></div>
+        <div class="cell"><a id="gradink" href="javascript:void(0);" tabindex="1" title="Select term" >Graduate</a></div>
+</div> 
+    <script language="javascript">
+    $('#compLink').click(function(){
+        ppu('#coursesBody','COMP/{{currentTerm}}');$('#loading').fadeIn('fast');
+    });
+    $('#sophLink').click(function(){
+        ppu('#coursesBody','SOPH/{{currentTerm}}');$('#loading').fadeIn('fast');
+    });
+    $('#upperink').click(function(){
+        ppu('#coursesBody','UPPER/{{currentTerm}}');$('#loading').fadeIn('fast');
+    });
+    $('#gradink').click(function(){
+        ppu('#coursesBody','GRAD/{{currentTerm}}');$('#loading').fadeIn('fast');
+    });
+    </script>
