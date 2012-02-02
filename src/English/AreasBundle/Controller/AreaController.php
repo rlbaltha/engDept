@@ -154,7 +154,7 @@ class AreaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('area_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('area_show', array('id' => $id)));
         }
 
         return array(
