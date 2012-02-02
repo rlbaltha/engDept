@@ -1,7 +1,7 @@
- {% extends 'EnglishTermBundle:Term:layout.html.twig' %}
+{% extends 'EnglishTermBundle:Term:layout.html.twig' %}
  
- {% block body %}
-    
+{% block body %}
+<div class="row"><div class="cell"><a href="{{ path('term') }}">List</a></div></div>    
         <div class="row">
             <div class="cell">Id</div>
             <div class="cell">{{ entity.id }}</div>
@@ -19,21 +19,13 @@
             <div class="cell">{{ entity.type }}</div>
         </div>
  
-    
-        <a href="{{ path('term') }}">
-            Back to the list
-        </a>
-    
-    
-        <a href="{{ path('term_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    
-    
-        <form action="{{ path('term_delete', { 'id': entity.id }) }}" method="post">
+<div class="row"><div class="cell"><a href="{{ path('term_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
+<div class="row"><div class="cell"> 
+    <form action="{{ path('term_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
-        </form>
-    
+    </form>
+</div>
+</div> 
 
 {% endblock %}

@@ -4,35 +4,19 @@
 
 <div class="row"><div class="cell"><a href="{{ path('gradnotes_new') }}">New</a></div></div>
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Gid</th>
-            <th>Notes</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('gradnotes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.gid }}</td>
-            <td>{{ entity.notes }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('gradnotes_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('gradnotes_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('gradnotes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.gid }}</div>
+            <div class="cell">{{ entity.notes }}</div>
+            <div class="cell">
+                <a href="{{ path('gradnotes_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('gradnotes_edit', { 'id': entity.id }) }}">edit</a>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
+    
+
 
 
 {% endblock %}

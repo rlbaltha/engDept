@@ -1,7 +1,7 @@
- {% extends 'EnglishFilesBundle:File:layout.html.twig' %}
+{% extends 'EnglishFilesBundle:File:layout.html.twig' %}
  
- {% block body %}
-    
+{% block body %}
+<div class="row"><div class="cell"><a href="{{ path('file') }}">List</a></div></div>   
         <div class="row">
             <div class="cell">Id</div>
             <div class="cell">{{ entity.id }}</div>
@@ -19,20 +19,13 @@
             <div class="cell">{{ entity.username }}</div>
         </div>
     
-        <a href="{{ path('file') }}">
-            Back to the list
-        </a>
-    
-    
-        <a href="{{ path('file_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    
-    
-        <form action="{{ path('file_delete', { 'id': entity.id }) }}" method="post">
+<div class="row"><div class="cell"><a href="{{ path('file_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
+<div class="row"><div class="cell"> 
+    <form action="{{ path('file_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
-        </form>
+    </form>
+</div>
+</div> 
     
-
 {% endblock %}
