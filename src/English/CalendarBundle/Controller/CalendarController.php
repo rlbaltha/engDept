@@ -25,8 +25,9 @@ class CalendarController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishCalendarBundle:Calendar')->findAll();
+        $startDate = date("Y-m-d") ;
+        $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM English\CalendarBundle\Entity\Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
+        $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
 
         return array('entities' => $entities);
     }

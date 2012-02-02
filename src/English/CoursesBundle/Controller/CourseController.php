@@ -25,9 +25,8 @@ class CourseController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishCoursesBundle:Course')->findAll();
-
+        $dql1 = "SELECT c FROM English\CoursesBundle\Entity\Course c,English\TermBundle\Entity\Term t  WHERE c.term=t.term AND t.type = 2";
+        $entities = $em->createQuery($dql1)->getResult();
         return array('entities' => $entities);
     }
 
