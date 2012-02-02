@@ -1,7 +1,7 @@
 {% extends 'EnglishGradnotesBundle:Gradnotes:layout.html.twig' %}
  
 {% block body %}
-<div class="row"><div class="cell"><a href="{{ path('gradnote') }}">List</a></div></div>
+<div class="row"><div class="cell"><a href="{{ path('gradnotes') }}">List</a></div></div>
         <div class="row">
             <div class="cell">Id</div>
             <div class="cell">{{ entity.id }}</div>
@@ -15,9 +15,9 @@
             <div class="cell">{{ entity.notes }}</div>
         </div>
     
-<div class="row"><div class="cell"><a href="{{ path('gradnote_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
+<div class="row"><div class="cell"><a href="{{ path('gradnotes_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
 <div class="row"><div class="cell"> 
-    <form action="{{ path('gradnote_delete', { 'id': entity.id }) }}" method="post">
+    <form action="{{ path('gradnotes_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
     </form>
