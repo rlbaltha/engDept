@@ -3,59 +3,31 @@
  {% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('major_new') }}">New</a></div></div>
-
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Advisor</th>
-            <th>Mentorusername</th>
-            <th>Firstmajor</th>
-            <th>Secondmajor</th>
-            <th>Aoe</th>
-            <th>Can</th>
-            <th>Minor</th>
-            <th>Status</th>
-            <th>Notes</th>
-            <th>Honors</th>
-            <th>Advisorid</th>
-            <th>Mentorid</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+   
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.email }}</td>
-            <td>{{ entity.advisor }}</td>
-            <td>{{ entity.mentorUserName }}</td>
-            <td>{{ entity.firstMajor }}</td>
-            <td>{{ entity.secondMajor }}</td>
-            <td>{{ entity.aoe }}</td>
-            <td>{{ entity.can }}</td>
-            <td>{{ entity.minor }}</td>
-            <td>{{ entity.status }}</td>
-            <td>{{ entity.notes }}</td>
-            <td>{{ entity.honors }}</td>
-            <td>{{ entity.advisorId }}</td>
-            <td>{{ entity.mentorId }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('major_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('major_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.name }}</div>
+            <div class="cell">{{ entity.email }}</div>
+            <div class="cell">{{ entity.advisor }}</div>
+            <div class="cell">{{ entity.mentorUserName }}</div>
+            <div class="cell">{{ entity.firstMajor }}</div>
+            <div class="cell">{{ entity.secondMajor }}</div>
+            <div class="cell">{{ entity.aoe }}</div>
+            <div class="cell">{{ entity.can }}</div>
+            <div class="cell">{{ entity.minor }}</div>
+            <div class="cell">{{ entity.status }}</div>
+            <div class="cell">{{ entity.notes }}</div>
+            <div class="cell">{{ entity.honors }}</div>
+            <div class="cell">{{ entity.advisorId }}</div>
+            <div class="cell">{{ entity.mentorId }}</div>
+            <div class="cell">
+                <a href="{{ path('major_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('major_edit', { 'id': entity.id }) }}">edit</a>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
+    
+
 
 {% endblock %}

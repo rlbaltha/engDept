@@ -3,37 +3,20 @@
  {% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('majornote_new') }}">New</a></div></div>
-
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Mentorid</th>
-            <th>Mentor</th>
-            <th>Notes</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+    
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('majornote_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.mentorId }}</td>
-            <td>{{ entity.mentor }}</td>
-            <td>{{ entity.notes }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('majornote_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('majornote_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('majornote_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.mentorId }}</div>
+            <div class="cell">{{ entity.mentor }}</div>
+            <div class="cell">{{ entity.notes }}</div>
+            <div class="cell">
+                <a href="{{ path('majornote_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('majornote_edit', { 'id': entity.id }) }}">edit</a>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
+    
+
 
 {% endblock %}

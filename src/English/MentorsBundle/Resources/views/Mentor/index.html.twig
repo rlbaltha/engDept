@@ -3,36 +3,17 @@
  {% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('mentor_new') }}">New</a></div></div>
-
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+    
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('mentor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.username }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('mentor_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('mentor_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('mentor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.name }}</div>
+            <div class="cell">{{ entity.username }}</div>
+            <div class="cell">
+                <a href="{{ path('mentor_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('mentor_edit', { 'id': entity.id }) }}">edit</a>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
-
 
 {% endblock %}

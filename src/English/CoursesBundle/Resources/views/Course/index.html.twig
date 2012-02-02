@@ -3,29 +3,25 @@
 {% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('course_new') }}">New</a></div></div>
-
-<table class="records_list">
-    <tbody>
+    
     {% for entity in entities %}
-        <tr>
-            <td>{{ entity.courseName }}</td>
-            <td>{{ entity.instructorName }}</td>
-            <td>{{ entity.callNumber }} {{ entity.callNumber2 }}</td>
-            <td>{{ entity.room }}</td>
-            <td>{{ entity.days }}</td>
-            <td>{{ entity.term }}</td>
-            <td>{{ entity.time }}</td>
-            <td>{{ entity.building }}</td>
-            <td>{{ entity.period }}</td>           
-            <td>{{ entity.area }}</td>
-            <td>{{ entity.may }}</td>
-            <td>
+        <div class="row">
+            <div class="cell">{{ entity.courseName }}</div>
+            <div class="cell">{{ entity.instructorName }}</div>
+            <div class="cell">{{ entity.callNumber }} {{ entity.callNumber2 }}</div>
+            <div class="cell">{{ entity.room }}</div>
+            <div class="cell">{{ entity.days }}</div>
+            <div class="cell">{{ entity.term }}</div>
+            <div class="cell">{{ entity.time }}</div>
+            <div class="cell">{{ entity.building }}</div>
+            <div class="cell">{{ entity.period }}</div>           
+            <div class="cell">{{ entity.area }}</div>
+            <div class="cell">{{ entity.may }}</div>
+            <div class="cell">
                         <a href="{{ path('course_show', { 'id': entity.id }) }}">show</a>
                         <a href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
-            </td>
-        </tr>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
-
+    
 {% endblock %}

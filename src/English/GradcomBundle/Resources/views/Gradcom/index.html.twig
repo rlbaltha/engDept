@@ -3,40 +3,19 @@
  {% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('gradcom_new') }}">New</a></div></div>
-
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Gid</th>
-            <th>Fid</th>
-            <th>Frole</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+    
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('gradcom_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.gid }}</td>
-            <td>{{ entity.fid }}</td>
-            <td>{{ entity.frole }}</td>
-            <td>{{ entity.status }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('gradcom_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('gradcom_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('gradcom_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.gid }}</div>
+            <div class="cell">{{ entity.fid }}</div>
+            <div class="cell">{{ entity.frole }}</div>
+            <div class="cell">{{ entity.status }}</div>
+            <div class="cell">
+                <a href="{{ path('gradcom_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('gradcom_edit', { 'id': entity.id }) }}">edit</a>  
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
-
 
 {% endblock %}
