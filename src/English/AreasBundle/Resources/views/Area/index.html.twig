@@ -3,26 +3,26 @@
  {% block body %}
 <div class="row"><div class="cell"><a href="{{ path('area_new') }}">New</a></div></div>
 
-<table class="records_list">
-    <tbody>
+
+    
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('area_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.area }}</td>
-            <td>
-                <ul>
-                    <li>
+        <div class="row">
+            <div class="cell"><a href="{{ path('area_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.area }}</div>
+            <div class="cell">
+                
+                    
                         <a href="{{ path('area_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
+                    
+                    
                         <a href="{{ path('area_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+                    
+                
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
+    
+
 
 
 
