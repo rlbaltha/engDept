@@ -154,7 +154,7 @@ class AdvisorController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('advisor_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('advisor_show', array('id' => $id)));
         }
 
         return array(

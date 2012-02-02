@@ -154,7 +154,7 @@ class GradnotesController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gradnotes_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('gradnotes_show', array('id' => $id)));
         }
 
         return array(

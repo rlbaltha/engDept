@@ -154,7 +154,7 @@ class LinkController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('link_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('link_show', array('id' => $id)));
         }
 
         return array(

@@ -154,7 +154,7 @@ class FileController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('file_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('file_show', array('id' => $id)));
         }
 
         return array(

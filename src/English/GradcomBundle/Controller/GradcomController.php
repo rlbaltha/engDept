@@ -154,7 +154,7 @@ class GradcomController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gradcom_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('gradcom_show', array('id' => $id)));
         }
 
         return array(
