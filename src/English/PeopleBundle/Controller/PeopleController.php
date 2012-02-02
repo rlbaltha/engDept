@@ -154,7 +154,7 @@ class PeopleController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('people_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('people_show', array('id' => $id)));
         }
 
         return array(
