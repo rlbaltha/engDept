@@ -1,7 +1,7 @@
  {% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
  
  {% block body %}
-
+<div class="row"><div class="cell"><a href="{{ path('gradinfo_new') }}">New</a></div></div>
 <table class="records_list">
     <thead>
         <tr>
@@ -34,11 +34,5 @@
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('gradinfo_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+
 {% endblock %}

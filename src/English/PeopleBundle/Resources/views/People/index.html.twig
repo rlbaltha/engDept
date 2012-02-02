@@ -2,10 +2,11 @@
  
  
 {% block body %}
+
 {% if is_granted('ROLE_ADMIN') %}
 <div class='row divider'>
 <div class='cell'>
-<a href="{{ path('people_new') }}">Create a new entry</a>
+<a href="{{ path('people_new') }}">New</a>
 </div></div>
 {% endif %}
 
