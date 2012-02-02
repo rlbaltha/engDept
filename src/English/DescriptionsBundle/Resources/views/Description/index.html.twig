@@ -3,59 +3,29 @@
  {% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('description_new') }}">New</a></div></div>
-
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Callnumber</th>
-            <th>Term</th>
-            <th>Course</th>
-            <th>Instructorname</th>
-            <th>Description</th>
-            <th>Assignments</th>
-            <th>Requirements</th>
-            <th>Grading</th>
-            <th>Attendance</th>
-            <th>Material</th>
-            <th>Makeup</th>
-            <th>Url</th>
-            <th>Topicstitle</th>
-            <th>Topics</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+    
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('description_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.callNumber }}</td>
-            <td>{{ entity.term }}</td>
-            <td>{{ entity.course }}</td>
-            <td>{{ entity.instructorName }}</td>
-            <td>{{ entity.description }}</td>
-            <td>{{ entity.assignments }}</td>
-            <td>{{ entity.requirements }}</td>
-            <td>{{ entity.grading }}</td>
-            <td>{{ entity.attendance }}</td>
-            <td>{{ entity.material }}</td>
-            <td>{{ entity.makeup }}</td>
-            <td>{{ entity.url }}</td>
-            <td>{{ entity.topicsTitle }}</td>
-            <td>{{ entity.topics }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('description_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('description_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('description_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{{ entity.callNumber }}</div>
+            <div class="cell">{{ entity.term }}</div>
+            <div class="cell">{{ entity.course }}</div>
+            <div class="cell">{{ entity.instructorName }}</div>
+            <div class="cell">{{ entity.description }}</div>
+            <div class="cell">{{ entity.assignments }}</div>
+            <div class="cell">{{ entity.requirements }}</div>
+            <div class="cell">{{ entity.grading }}</div>
+            <div class="cell">{{ entity.attendance }}</div>
+            <div class="cell">{{ entity.material }}</div>
+            <div class="cell">{{ entity.makeup }}</div>
+            <div class="cell">{{ entity.url }}</div>
+            <div class="cell">{{ entity.topicsTitle }}</div>
+            <div class="cell">{{ entity.topics }}</div>
+            <div class="cell">
+               <a href="{{ path('description_show', { 'id': entity.id }) }}">show</a>
+               <a href="{{ path('description_edit', { 'id': entity.id }) }}">edit</a>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
 
 {% endblock %}

@@ -2,39 +2,19 @@
  
 {% block body %}
 <div class="row"><div class="cell"><a href="{{ path('calendar_new') }}">New</a></div></div>
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Username</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('calendar_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{{ entity.time|date('H:i') }}</td>
-            <td>{{ entity.title }}</td>
-            <td>{{ entity.description|raw }}</td>
-            <td>{{ entity.username }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('calendar_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('calendar_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row">
+            <div class="cell"><a href="{{ path('calendar_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
+            <div class="cell">{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif%}</div>
+            <div class="cell">{{ entity.time|date('H:i') }}</div>
+            <div class="cell">{{ entity.title }}</div>
+            <div class="cell">{{ entity.description|raw }}</div>
+            <div class="cell">{{ entity.username }}</div>
+            <div class="cell">
+                <a href="{{ path('calendar_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('calendar_edit', { 'id': entity.id }) }}">edit</a>
+            </div>
+        </div>
     {% endfor %}
-    </tbody>
-</table>
+    
 {% endblock %}

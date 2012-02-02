@@ -10,14 +10,8 @@
             <div class="cell"><a href="{{ path('area_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
             <div class="cell">{{ entity.area }}</div>
             <div class="cell">
-                
-                    
-                        <a href="{{ path('area_show', { 'id': entity.id }) }}">show</a>
-                    
-                    
-                        <a href="{{ path('area_edit', { 'id': entity.id }) }}">edit</a>
-                    
-                
+            <a href="{{ path('area_show', { 'id': entity.id }) }}">show</a>
+            <a href="{{ path('area_edit', { 'id': entity.id }) }}">edit</a>
             </div>
         </div>
     {% endfor %}
