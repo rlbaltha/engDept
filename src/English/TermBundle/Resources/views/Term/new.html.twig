@@ -2,6 +2,8 @@
  
  {% block body %}
 
+<div class="row"><div class="cell"><a href="{{ path('term') }}">List</a></div></div>
+
 <form action="{{ path('term_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
@@ -9,11 +11,4 @@
     </p>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('term') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}
