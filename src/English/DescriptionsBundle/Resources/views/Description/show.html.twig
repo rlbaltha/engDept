@@ -1,88 +1,82 @@
  {% extends 'EnglishDescriptionsBundle:Description:layout.html.twig' %}
  
  {% block body %}
+        <div class="row">
+            <div class="cell">Id</div>
+            <div class="cell">{{ entity.id }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Callnumber</div>
+            <div class="cell">{{ entity.callNumber }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Term</div>
+            <div class="cell">{{ entity.term }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Course</div>
+            <div class="cell">{{ entity.course }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Instructorname</div>
+            <div class="cell">{{ entity.instructorName }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Description</div>
+            <div class="cell">{{ entity.description }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Assignments</div>
+            <div class="cell">{{ entity.assignments }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Requirements</div>
+            <div class="cell">{{ entity.requirements }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Grading</div>
+            <div class="cell">{{ entity.grading }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Attendance</div>
+            <div class="cell">{{ entity.attendance }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Material</div>
+            <div class="cell">{{ entity.material }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Makeup</div>
+            <div class="cell">{{ entity.makeup }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Url</div>
+            <div class="cell">{{ entity.url }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Topicstitle</div>
+            <div class="cell">{{ entity.topicsTitle }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Topics</div>
+            <div class="cell">{{ entity.topics }}</div>
+        </div>
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Callnumber</th>
-            <td>{{ entity.callNumber }}</td>
-        </tr>
-        <tr>
-            <th>Term</th>
-            <td>{{ entity.term }}</td>
-        </tr>
-        <tr>
-            <th>Course</th>
-            <td>{{ entity.course }}</td>
-        </tr>
-        <tr>
-            <th>Instructorname</th>
-            <td>{{ entity.instructorName }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>Assignments</th>
-            <td>{{ entity.assignments }}</td>
-        </tr>
-        <tr>
-            <th>Requirements</th>
-            <td>{{ entity.requirements }}</td>
-        </tr>
-        <tr>
-            <th>Grading</th>
-            <td>{{ entity.grading }}</td>
-        </tr>
-        <tr>
-            <th>Attendance</th>
-            <td>{{ entity.attendance }}</td>
-        </tr>
-        <tr>
-            <th>Material</th>
-            <td>{{ entity.material }}</td>
-        </tr>
-        <tr>
-            <th>Makeup</th>
-            <td>{{ entity.makeup }}</td>
-        </tr>
-        <tr>
-            <th>Url</th>
-            <td>{{ entity.url }}</td>
-        </tr>
-        <tr>
-            <th>Topicstitle</th>
-            <td>{{ entity.topicsTitle }}</td>
-        </tr>
-        <tr>
-            <th>Topics</th>
-            <td>{{ entity.topics }}</td>
-        </tr>
-    </tbody>
-</table>
-
-<ul class="record_actions">
-    <li>
+    
         <a href="{{ path('description') }}">
             Back to the list
         </a>
-    </li>
-    <li>
+    
+    
         <a href="{{ path('description_edit', { 'id': entity.id }) }}">
             Edit
         </a>
-    </li>
-    <li>
+    
+    
         <form action="{{ path('description_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
         </form>
-    </li>
-</ul>
+    
+
 {% endblock %}

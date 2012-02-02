@@ -2,87 +2,85 @@
  
  {% block body %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Coursename</th>
-            <td>{{ entity.courseName }}</td>
-        </tr>
-        <tr>
-            <th>Instructorname</th>
-            <td>{{ entity.instructorName }}</td>
-        </tr>
-        <tr>
-            <th>Callnumber</th>
-            <td>{{ entity.callNumber }}</td>
-        </tr>
-        <tr>
-            <th>Room</th>
-            <td>{{ entity.room }}</td>
-        </tr>
-        <tr>
-            <th>Days</th>
-            <td>{{ entity.days }}</td>
-        </tr>
-        <tr>
-            <th>Term</th>
-            <td>{{ entity.term }}</td>
-        </tr>
-        <tr>
-            <th>Time</th>
-            <td>{{ entity.time }}</td>
-        </tr>
-        <tr>
-            <th>Building</th>
-            <td>{{ entity.building }}</td>
-        </tr>
-        <tr>
-            <th>Callnumber2</th>
-            <td>{{ entity.callNumber2 }}</td>
-        </tr>
-        <tr>
-            <th>Username</th>
-            <td>{{ entity.username }}</td>
-        </tr>
-        <tr>
-            <th>Period</th>
-            <td>{{ entity.period }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Area</th>
-            <td>{{ entity.area }}</td>
-        </tr>
-        <tr>
-            <th>May</th>
-            <td>{{ entity.may }}</td>
-        </tr>
-    </tbody>
-</table>
+        <div class="row">
+            <div class="cell">Id</div>
+            <div class="cell">{{ entity.id }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Coursename</div>
+            <div class="cell">{{ entity.courseName }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Instructorname</div>
+            <div class="cell">{{ entity.instructorName }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Callnumber</div>
+            <div class="cell">{{ entity.callNumber }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Room</div>
+            <div class="cell">{{ entity.room }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Days</div>
+            <div class="cell">{{ entity.days }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Term</div>
+            <div class="cell">{{ entity.term }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Time</div>
+            <div class="cell">{{ entity.time }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Building</div>
+            <div class="cell">{{ entity.building }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Callnumber2</div>
+            <div class="cell">{{ entity.callNumber2 }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Username</div>
+            <div class="cell">{{ entity.username }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Period</div>
+            <div class="cell">{{ entity.period }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Title</div>
+            <div class="cell">{{ entity.title }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Area</div>
+            <div class="cell">{{ entity.area }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">May</div>
+            <div class="cell">{{ entity.may }}</div>
+        </div>
+    
 
-<ul class="record_actions">
-    <li>
+
+
+    
         <a href="{{ path('course') }}">
             Back to the list
         </a>
-    </li>
-    <li>
+    
+    
         <a href="{{ path('course_edit', { 'id': entity.id }) }}">
             Edit
         </a>
-    </li>
-    <li>
+    
+    
         <form action="{{ path('course_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
         </form>
-    </li>
-</ul>
+    
+
 {% endblock %}

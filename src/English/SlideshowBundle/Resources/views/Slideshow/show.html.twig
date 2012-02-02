@@ -2,43 +2,38 @@
  
  {% block body %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Photourl</th>
-            <td>{{ entity.photoUrl }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Type</th>
-            <td>{{ entity.type }}</td>
-        </tr>
-    </tbody>
-</table>
-
-<ul class="record_actions">
-    <li>
+        <div class="row">
+            <div class="cell">Id</div>
+            <div class="cell">{{ entity.id }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Photourl</div>
+            <div class="cell">{{ entity.photoUrl }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Title</div>
+            <div class="cell">{{ entity.title }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Type</div>
+            <div class="cell">{{ entity.type }}</div>
+        </div>
+  
+    
         <a href="{{ path('slideshow') }}">
             Back to the list
         </a>
-    </li>
-    <li>
+    
+    
         <a href="{{ path('slideshow_edit', { 'id': entity.id }) }}">
             Edit
         </a>
-    </li>
-    <li>
+    
+    
         <form action="{{ path('slideshow_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
         </form>
-    </li>
-</ul>
+    
+
 {% endblock %}
