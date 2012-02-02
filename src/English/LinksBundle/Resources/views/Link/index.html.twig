@@ -1,6 +1,9 @@
  {% extends 'EnglishLinksBundle:Link:layout.html.twig' %}
  
  {% block body %}
+
+<div class="row"><div class="cell"><a href="{{ path('link_new') }}">New</a></div></div>
+
 <table class="records_list">
     <thead>
         <tr>
@@ -33,11 +36,5 @@
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('link_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+
 {% endblock %}

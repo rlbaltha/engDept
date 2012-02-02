@@ -2,6 +2,7 @@
  
  {% block body %}
 
+<div class="row"><div class="cell"><a href="{{ path('mentor_new') }}">New</a></div></div>
 
 <table class="records_list">
     <thead>
@@ -33,11 +34,5 @@
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('mentor_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+
 {% endblock %}
