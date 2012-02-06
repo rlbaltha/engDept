@@ -36,7 +36,8 @@
      </div>
     <script language="javascript"> 
     $('#detailLink{{ people.id }}').click(function(){
-        ppu('#detail{{ people.id }}','detail/{{people.id }}');$('#detailWrapper{{ people.id }}').fadeIn('slow');$("#listing{{ people.id }}").removeClass("row_even");$("#listing{{ people.id }}").addClass("row_contrast");
+        $('#detail{{ people.id }}').load('{{ path('directory_detail', { 'id': people.id }) }}');
+        $('#detailWrapper{{ people.id }}').fadeIn('slow');
     });
     </script>
      {% endfor %}

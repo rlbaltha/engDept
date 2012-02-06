@@ -1,12 +1,12 @@
-<div class="welcome"><div class="head">{% if '08' in currentTerm %}Fall{% elseif '02' in currentTerm %}Spring{% else %}Summer{% endif %} {{ currentType }}</div></div>
+<div class="welcome"><div class="head">{% if '08' in currentTerm.term %}Fall{% elseif '02' in currentTerm.term %}Spring{% else %}Summer{% endif %} {{ currentType }}</div></div>
 <div class="sub_nav divider">     
     {% for terms in terms %}
      <div class="cell red"><a id="termLink{{ terms.term }}" href="{{ path('listings_list', { 'term': terms.term, 'type': currentType  }) }}" tabindex="1" title="Select term" >{{ terms.termName }}</a></div>
     {% endfor %}
 </div>
 <div class="sub_nav divider">
-        <div class="cell"><a id="compLink" href="{{ path('listings_list', { 'term': currentTerm, 'type': 'COMP'  }) }}" tabindex="1" title="Select term" >Composition</a></div>
-        <div class="cell"><a id="sophLink" href="{{ path('listings_list', { 'term': currentTerm, 'type': 'SOMP'  }) }}" tabindex="1" title="Select term" >2nd Year Surveys</a></div>
-        <div class="cell"><a id="upperink" href="{{ path('listings_list', { 'term': currentTerm, 'type': 'UPPER'  }) }}" tabindex="1" title="Select term" >Upper Division</a></div>
-        <div class="cell"><a id="gradink" href="{{ path('listings_list', { 'term': currentTerm, 'type': 'GRAD'  }) }}" tabindex="1" title="Select term" >Graduate</a></div>
+        <div class="cell"><a id="compLink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'FYC'  }) }}" tabindex="1" title="Select term" >Composition</a></div>
+        <div class="cell"><a id="sophLink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Surveys'  }) }}" tabindex="1" title="Select term" >2nd Year Surveys</a></div>
+        <div class="cell"><a id="upperink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Upper'  }) }}" tabindex="1" title="Select term" >Upper Division</a></div>
+        <div class="cell"><a id="gradink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Graduate'  }) }}" tabindex="1" title="Select term" >Graduate</a></div>
 </div> 

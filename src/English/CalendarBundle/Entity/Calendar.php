@@ -22,9 +22,9 @@ class Calendar
     private $id;
 
     /**
-     * @var datetime $date
+     * @var date $date
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 
@@ -70,7 +70,7 @@ class Calendar
     /**
      * Set date
      *
-     * @param datetime $date
+     * @param date $date
      */
     public function setDate($date)
     {
@@ -80,7 +80,7 @@ class Calendar
     /**
      * Get date
      *
-     * @return datetime 
+     * @return date
      */
     public function getDate()
     {

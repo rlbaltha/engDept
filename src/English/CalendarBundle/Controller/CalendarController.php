@@ -63,7 +63,10 @@ class CalendarController extends Controller
      */
     public function newAction()
     {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
         $entity = new Calendar();
+        $entity->setUsername($username);
         $form   = $this->createForm(new CalendarType(), $entity);
 
         return array(
@@ -81,6 +84,7 @@ class CalendarController extends Controller
      */
     public function createAction()
     {
+
         $entity  = new Calendar();
         $request = $this->getRequest();
         $form    = $this->createForm(new CalendarType(), $entity);

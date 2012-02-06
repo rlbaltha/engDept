@@ -1,0 +1,31 @@
+{% if courseDetail %}
+{% for courseDetail in courseDetail %}
+
+{% if courseDetail.description != '' %}
+<div class="row"><div class="cell bold">Description</div><div class="cell">{% autoescape false %}{{ courseDetail.description }}{% endautoescape %}</div></div>
+{% endif %}
+{% if courseDetail.assignments != '' %}
+<div class="row"><div class="cell bold">Assignments</div><div class="cell">{% autoescape false %}{{ courseDetail.assignments }}{% endautoescape %}</div></div>
+{% endif %} 
+{% if courseDetail.requirements != '' %}
+<div class="row"><div class="cell bold">Requirements</div><div class="cell">{% autoescape false %}{{ courseDetail.requirements }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if courseDetail.grading != '' %}
+<div class="row"><div class="cell bold">Grading</div><div class="cell">{% autoescape false %}{{ courseDetail.grading }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if courseDetail.attendance != '' %}
+<div class="row"><div class="cell bold">Attendance</div><div class="cell">{% autoescape false %}{{ courseDetail.attendance }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if courseDetail.material != '' %}
+<div class="row"><div class="cell bold">Material</div><div class="cell">{% autoescape false %}{{ courseDetail.material }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if courseDetail.makeup != '' %}
+<div class="row"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ courseDetail.makeup }}{% endautoescape %}</div></div>
+{% endif %}  
+
+{% endfor %}
+{% else %} 
+<div class="row divider">
+<div class="cell">No description has been offered by the instructor at this time. </div>
+</div>
+{% endif %} 

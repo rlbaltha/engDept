@@ -4,8 +4,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}English Department{% endblock %}</title>
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/main.css') }}">
-        {% block stylesheets %}{% endblock %}
+        <script src="{{ asset('bundles/englishhome/js/jquery-1.7.1.min.js') }}"></script>
+        {% block javascripts %}{% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
     <div class="wrapper">    
@@ -15,7 +17,6 @@
         </div>
                 
         <div class="main_nav">
-        <div class="cell">Public</div>
         <div class="cell"><a title="Home" href="{{ path('home') }}" >Home</a></div>
         <div class="cell"><a title="People" href="{{ path('directory') }}" >People</a></div>
         <div class="cell"><a title="Courses" href="{{ path('listings') }}" >Courses</a></div>
@@ -65,8 +66,6 @@
         </div>
         </div>
         </div>
-     </div> 
-     <script src="{{ asset('bundles/englishhome/js/jquery-1.7.1.min.js') }}"></script>        
-     {% block javascripts %}{% endblock %}
+     </div>        
     </body>
 </html>

@@ -1,6 +1,30 @@
- {% extends 'EnglishCalendarBundle:Calendar:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishCalendarBundle:Calendar:layout.html.twig' %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/jquery-ui-1.8.17.custom.min.js') }}"></script> 
+<script src="{{ asset('bundles/englishhome/js/jquery-ui-timepicker-addon.js') }}"></script>
+{% endblock %}
+{% block stylesheets %}
+<link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/smoothness/jquery-ui-1.8.17.custom.css') }}">
+{% endblock %}
+
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_calendarbundle_calendartype_description').ckeditor( function() {}, {height:150, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Cut','Copy','Paste','PasteText','Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
+],} );
+$( '#english_calendarbundle_calendartype_time' ).timepicker({
+showButtonPanel: true,
+ampm: true,
+});
+});
+</script>
 
 <div class="row">
     <div class="cell"><a href="{{ path('calendar') }}">List</a></div>   

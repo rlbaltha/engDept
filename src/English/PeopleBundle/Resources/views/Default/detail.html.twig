@@ -1,0 +1,51 @@
+{% for peopleDetail in peopleDetail %}
+ <div class="row_contrast divider">
+ {% if peopleDetail.photoUrl != '' %}
+  <div class="cell bio_photo">
+  <div class="photo_cell">
+  <img class="image" alt="Photo" src="{{ peopleDetail.photoUrl }}"/>
+  </div>
+  </div>
+ {% endif %}
+  <div class="cell bio_text">{% autoescape false %}{{ peopleDetail.bio }}{% endautoescape %}</div>
+  <div class="cell bio_text">
+<span class="bold">Office hours: </span>{% autoescape false %}{{ peopleDetail.officeHours }}{% endautoescape %}
+  </div>
+  {% if peopleDetail.vitaUrl != '' %}
+  <div class="cell bio_text">
+<span class="bold">Vita: </span><a href="{{ peopleDetail.vitaUrl }}" tabindex="1" title="Vita" target="_blank" >{{ peopleDetail.vitaUrl }}</a>
+  </div>
+  {% endif %}
+  {% if peopleDetail.homepageUrl != '' %}
+  <div class="cell bio_text">
+<span class="bold">Website: </span><a href="{{ peopleDetail.homepageUrl }}" tabindex="1" title="Website" target="_blank" >{{ peopleDetail.homeUrl }}</a>
+  </div>
+  {% endif %}
+ </div>
+{% endfor %}
+{% for peopleCourses in peopleCourses %}
+  <div class="row_odd divider">
+  <div class="cell">{{ peopleCourses.termName }}</div>
+  <div class="cell"><a id="peopleCoursesLink{{ peopleCourses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ peopleCourses.courseName }}</a></div>
+  <div class="cell bold">{{ peopleCourses.title }}</div>
+  <div class="cell">{{ peopleCourses.instructorName|upper }}</div>
+  <div class="cell">{{ peopleCourses.callNumber }}</div>
+  <div class="cell">{{ peopleCourses.callNumber2 }}</div>
+  <div class="cell">{{ peopleCourses.days }}</div>
+  <div class="cell">{{ peopleCourses.time }}</div>
+  <div id="close{{ peopleCourses.id }}" class="cell right close hidden">
+  <a class="button" href="javascript:void(0);" tabindex="1" title="Close" onclick="$('#detailWrapper{{ peopleCourses.id }}').fadeOut('fast');$('#close{{ peopleCourses.id }}').fadeOut('fast');">x</a>
+  </div>
+  </div>
+  <div id="detailWrapper{{ peopleCourses.id }}" class="row_odd divider hidden">
+  <div id="detail{{ peopleCourses.id }}" class="row_odd">
+  </div>
+  </div>
+{% set call = "#{peopleCourses.callNumber}#{peopleCourses.callNumber2}" %}
+ <script language="javascript"> 
+     $('#peopleCoursesLink{{ peopleCourses.id }}').click(function(){
+        $('#detail{{ peopleCourses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
+        $('#detailWrapper{{ peopleCourses.id }}').fadeIn('slow');$('#close{{ peopleCourses.id }}').fadeIn('slow');
+    });
+ </script>
+{% endfor %}

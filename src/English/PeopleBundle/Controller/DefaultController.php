@@ -89,5 +89,23 @@ class DefaultController extends Controller
         $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p WHERE  p.position LIKE ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$typeWc )->getResult();
         return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading)); 
-    }    
+    }  
+    
+    /**
+     * Finds and displays detail of People.
+     *
+     * @Route("/{id}/detail", name="directory_detail")
+     * @Template()
+     */    
+    public function detailAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql1 = "SELECT p.bio,p.photoUrl,p.homepageUrl,p.vitaUrl,p.officeHours FROM EnglishPeopleBundle:People p WHERE p.id = ?1";
+        $peopleDetail = $em->createQuery($dql1)->setParameter('1', $id)->getResult();
+        $dql2 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,t.termName FROM EnglishCoursesBundle:Course c, EnglishPeopleBundle:People p, EnglishTermBundle:Term t WHERE c.username = p.username AND c.term = t.term AND t.type = '2' AND p.id = ?1 ORDER BY t.termName,c.courseName";
+        $peopleCourses = $em->createQuery($dql2)->setParameter('1', $id)->getResult();
+        return $this->render('EnglishPeopleBundle:Default:detail.html.twig', array('peopleDetail' => $peopleDetail,'peopleCourses' => $peopleCourses)); 
+            
+    } 
+    
 }

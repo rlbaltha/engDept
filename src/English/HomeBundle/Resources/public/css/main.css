@@ -7,6 +7,7 @@
 */
 
 body {background: #DCDDDE;margin:0px;}
+label {padding: .5em}
 #people div {padding: .5em;}
 #people label {padding: .5em;}
 #quicklinks {float:left;width:960px;margin-left: auto;margin-right: auto;height:12em;;color: #000}
@@ -29,8 +30,8 @@ body {background: #DCDDDE;margin:0px;}
 .modal .row {background: #b0cadc;}
 .modal .row .cell {padding: 10px;}
 .main_nav {float:left;background: black;width:960px;height:26px; border-bottom: solid 1px gray}
-.main_nav .cell {float:left;height:26px;text-align:center; color:white;;font-weight:bold;}
-.main_nav .cell a {padding: 5px; color:white;text-decoration: none;font-weight:bold;}
+.main_nav .cell {float:left;height:26px;text-align:center; color:white;}
+.main_nav .cell a {padding: 5px; color:white;text-decoration: none;}
 .main_nav a.last {border-right:0px}
 .sub_nav {float:left;clear:both;background: white;width:100%;padding-top: 5px;padding-bottom: 5px;}
 .sub_nav .cell {padding-top: 2px;padding-bottom: 2px;color:black;border-right:1px solid #cccccc}

@@ -7,7 +7,7 @@
 <script language="javascript"> 
     $(document).ready(function()
     {
-    $("#loading").fadeOut("slow");
+        
     });
 </script>
 
@@ -31,9 +31,11 @@
 </div>
 </div>
 
+{% set call = "#{courses.callNumber}#{courses.callNumber2}" %}
 <script language="javascript"> 
     $('#detailLink{{ courses.id }}').click(function(){
-   ppu('#detail{{ courses.id }}','detail/{{courses.callNumber}}{{courses.callNumber2}}');$('#detailWrapper{{ courses.id }}').fadeIn('slow');$("#course{{ courses.id }}").removeClass("row_even");$("#course{{ courses.id }}").addClass("row_odd");
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
+        $('#detailWrapper{{ courses.id }}').fadeIn('slow');
     });
 </script>
 {% endfor %}    
