@@ -13,7 +13,7 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-                default_target_path: /link
+                default_target_path: /people
             logout:
                 path:   /logout
                 target: /home
@@ -23,8 +23,7 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/admin_calendar/, role: ROLE_ADMIN }        
+        - { path: ^/admin/, role: ROLE_ADMIN }       
         - { path: ^/advisor/, role: ROLE_USER }
         - { path: ^/area/, role: ROLE_USER } 
         - { path: ^/calendar/, role: ROLE_USER } 
