@@ -16,9 +16,12 @@ $(document).ready(function()
 {
 $('#english_calendarbundle_calendartype_description').ckeditor( function() {}, {height:150, skin: 'chris',forcePasteAsPlainText : true,
 toolbar : [
-['Cut','Copy','Paste','PasteText','Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
-'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
+['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
 ],} );
+$( '#english_calendarbundle_calendartype_date' ).datepicker({
+showButtonPanel: true,
+});
 $( '#english_calendarbundle_calendartype_time' ).timepicker({
 showButtonPanel: true,
 ampm: true,
@@ -27,7 +30,7 @@ ampm: true,
 </script>
 
 <div class="row">
-    <div class="cell"><a href="{{ path('calendar') }}">List</a></div>   
+    <div class="cell">{{ app.session.all('roles') }}</div> <div class="cell"><a href="{{ path('calendar') }}">List</a></div>   
 </div>
 
 <div class="row">

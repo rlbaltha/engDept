@@ -24,11 +24,18 @@ class FileController extends Controller
      */
     public function indexAction()
     {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
-
         $entities = $em->getRepository('EnglishFilesBundle:File')->findAll();
-
+        return array('entities' => $entities);   
+        } else {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql1 = "SELECT f FROM EnglishFilesBundle:File f  WHERE f.username = ?1";
+        $entities = $em->createQuery($dql1)->setParameter('1',$username)->getResult();
         return array('entities' => $entities);
+        }        
     }
 
     /**

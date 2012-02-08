@@ -3,6 +3,8 @@
 namespace English\CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * English\CalendarBundle\Entity\Calendar
@@ -66,6 +68,18 @@ class Calendar
     {
         return $this->id;
     }
+
+    /**
+    * @ORM\Column(type="datetime")
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
+    /**
+    * @ORM\Column(type="datetime")
+    * @Gedmo\Timestampable(on="update")
+    */
+    protected $updated;
 
     /**
      * Set date
@@ -165,5 +179,45 @@ class Calendar
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

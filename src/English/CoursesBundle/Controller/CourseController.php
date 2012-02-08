@@ -24,10 +24,21 @@ class CourseController extends Controller
      */
     public function indexAction()
     {
+        
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT c FROM English\CoursesBundle\Entity\Course c,English\TermBundle\Entity\Term t  WHERE c.term=t.term AND t.type = 2";
+        $dql1 = "SELECT c FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
         $entities = $em->createQuery($dql1)->getResult();
+        return array('entities' => $entities);    
+        } else {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql1 = "SELECT c FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.username = ?1 AND c.term=t.term AND t.type = 2";
+        $entities = $em->createQuery($dql1)->setParameter('1',$username)->getResult();
         return array('entities' => $entities);
+        }
+
     }
 
     /**

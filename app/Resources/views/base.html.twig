@@ -55,6 +55,16 @@
         <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></div>
         </div>                
         {% endif %}
+                
+        {% if is_granted('ROLE_USER') %}
+        <div class="main_nav">      
+        <div class="cell">User</div>            
+        <div class="cell"><a title="Calendar" href="{{ path('calendar') }}" >Calendar</a></div>
+        <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>
+        <div class="cell"><a title="Files" href="{{ path('file') }}" >Files</a></div>
+        <div class="cell"><a title="Profile" href="{{ path('people') }}" >Profile</a></div>
+        </div>               
+        {% endif %}                
 
         {% block body %}{% endblock %}      
                 

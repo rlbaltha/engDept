@@ -1,120 +1,64 @@
- {% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Lastname</th>
-            <td>{{ entity.lastName }}</td>
-        </tr>
-        <tr>
-            <th>Firstname</th>
-            <td>{{ entity.firstName }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Rank</th>
-            <td>{{ entity.rank }}</td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td>{{ entity.address }}</td>
-        </tr>
-        <tr>
-            <th>Address2</th>
-            <td>{{ entity.address2 }}</td>
-        </tr>
-        <tr>
-            <th>Vitaurl</th>
-            <td>{{ entity.vitaUrl }}</td>
-        </tr>
-        <tr>
-            <th>Username</th>
-            <td>{{ entity.username }}</td>
-        </tr>
-        <tr>
-            <th>Officehours</th>
-            <td>{{ entity.officeHours }}</td>
-        </tr>
-        <tr>
-            <th>Spouse</th>
-            <td>{{ entity.spouse }}</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>{{ entity.status }}</td>
-        </tr>
-        <tr>
-            <th>Homephone</th>
-            <td>{{ entity.homePhone }}</td>
-        </tr>
-        <tr>
-            <th>Cellphone</th>
-            <td>{{ entity.cellPhone }}</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ entity.email }}</td>
-        </tr>
-        <tr>
-            <th>Officenumber</th>
-            <td>{{ entity.officeNumber }}</td>
-        </tr>
-        <tr>
-            <th>Officephone</th>
-            <td>{{ entity.officePhone }}</td>
-        </tr>
-        <tr>
-            <th>Photourl</th>
-            <td>{{ entity.photoUrl }}</td>
-        </tr>
-        <tr>
-            <th>Bio</th>
-            <td>{{ entity.bio }}</td>
-        </tr>
-        <tr>
-            <th>Area</th>
-            <td>{{ entity.area }}</td>
-        </tr>
-        <tr>
-            <th>Homepageurl</th>
-            <td>{{ entity.homepageUrl }}</td>
-        </tr>
-        <tr>
-            <th>Active</th>
-            <td>{{ entity.active }}</td>
-        </tr>
-        <tr>
-            <th>Position</th>
-            <td>{{ entity.position }}</td>
-        </tr>
-    </tbody>
-</table>
+{% block body %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('people') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('people_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('people_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+{% if is_granted('ROLE_ADMIN') %}
+<div class='row divider'>
+<div class='cell'><a href="{{ path('people_new') }}">New</a></div>
+<div class='cell'><a href="{{ path('people') }}">List</a></div>
+</div>
+{% endif %}
+
+     <div id="listing{{ entity.id }}" class="row_even divider">
+     <div class="row">
+     <div class="cell bold">{{ entity.firstname }} {{ entity.lastname }}</div>
+     </div>
+     <div class="row">
+     <div class="cell">{{ entity.title |raw }}</div>
+     </div>
+     <div class="row">
+     <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ entity.email }}" tabindex="1" title="email address" >{{ entity.email }}</a></div>
+     <div class="cell bold">Phone:</div> <div class="cell">{{ entity.officePhone }}</div>
+     <div class="cell bold">Office:</div> <div class="cell">{{ entity.officeNumber }}</div>
+     </div>
+     </div>  
+
+    <div class="row_contrast divider">
+    {% if entity.photoUrl != '' %}
+        <div class="cell bio_photo">
+        <div class="photo_cell">
+        <img class="image" alt="Photo" src="{{ entity.photoUrl }}"/>
+        </div>
+        </div>
+    {% endif %}
+        <div class="cell bio_text">{% autoescape false %}{{ entity.bio }}{% endautoescape %}</div>
+        <div class="cell bio_text">
+            <span class="bold">Office hours: </span>{% autoescape false %}{{ entity.officeHours }}{% endautoescape %}
+        </div>
+        {% if entity.vitaUrl != '' %}
+        <div class="cell bio_text">
+            <span class="bold">Vita: </span><a href="{{ entity.vitaUrl }}" tabindex="1" title="Vita" target="_blank" >{{ entity.vitaUrl }}</a>
+        </div>
+        {% endif %}
+        {% if entity.homepageUrl != '' %}
+        <div class="cell bio_text">
+            <span class="bold">Website: </span><a href="{{ entity.homepageUrl }}" tabindex="1" title="Website" target="_blank" >{{ entity.homepageUrl }}</a>
+        </div>
+        {% endif %}
+    </div>
+
+     <div class="row"><div class="cell bold">Internal Information</div></div>
+            <div class="row"><div class="cell bold">Rank</div><div class="cell">{{ entity.rank }}</div></div>
+            <div class="row"><div class="cell bold">Address</div><div class="cell">{{ entity.address }}</div></div>
+            <div class="row"><div class="cell bold"></div><div class="cell">{{ entity.address2 }}</div></div>
+            <div class="row"><div class="cell bold">Spouse</div><div class="cell">{{ entity.spouse }}</div></div>
+            <div class="row"><div class="cell bold">Home phone</div><div class="cell">{{ entity.homePhone }}</div></div>
+            <div class="row"><div class="cell bold">Cell phone</div><div class="cell">{{ entity.cellPhone }}</div></div>
+            <div class="row"><div class="cell bold">Area(s)</div>{% for area in entity.area %}<div class="cell">{{ area}}</div> {% endfor %}</div>
+
+            <div class="row divider"><div class="cell">
+            <a href="{{ path('people_edit', { 'id': entity.id }) }}">Edit</a>
+           </div>
+            </div>
+
 {% endblock %}

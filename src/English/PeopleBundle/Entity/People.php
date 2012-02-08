@@ -45,28 +45,28 @@ class People
     /**
      * @var string $rank
      *
-     * @ORM\Column(name="rank", type="string", length=255)
+     * @ORM\Column(name="rank", type="string", length=255, nullable=true)
      */
     private $rank;
 
     /**
      * @var string $address
      *
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
     /**
      * @var string $address2
      *
-     * @ORM\Column(name="address2", type="string", length=255)
+     * @ORM\Column(name="address2", type="string", length=255, nullable=true)
      */
     private $address2;
 
     /**
      * @var string $vitaUrl
      *
-     * @ORM\Column(name="vitaUrl", type="string", length=255)
+     * @ORM\Column(name="vitaUrl", type="string", length=255, nullable=true)
      */
     private $vitaUrl;
 
@@ -80,84 +80,84 @@ class People
     /**
      * @var text $officeHours
      *
-     * @ORM\Column(name="officeHours", type="text")
+     * @ORM\Column(name="officeHours", type="text", nullable=true)
      */
     private $officeHours;
 
     /**
      * @var string $spouse
      *
-     * @ORM\Column(name="spouse", type="string", length=255)
+     * @ORM\Column(name="spouse", type="string", length=255, nullable=true)
      */
     private $spouse;
 
     /**
      * @var string $status
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
      */
     private $status;
 
     /**
      * @var string $homePhone
      *
-     * @ORM\Column(name="homePhone", type="string", length=255)
+     * @ORM\Column(name="homePhone", type="string", length=255, nullable=true)
      */
     private $homePhone;
 
     /**
      * @var string $cellPhone
      *
-     * @ORM\Column(name="cellPhone", type="string", length=255)
+     * @ORM\Column(name="cellPhone", type="string", length=255, nullable=true)
      */
     private $cellPhone;
 
     /**
      * @var string $email
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string $officeNumber
      *
-     * @ORM\Column(name="officeNumber", type="string", length=255)
+     * @ORM\Column(name="officeNumber", type="string", length=255, nullable=false)
      */
     private $officeNumber;
 
     /**
      * @var string $officePhone
      *
-     * @ORM\Column(name="officePhone", type="string", length=255)
+     * @ORM\Column(name="officePhone", type="string", length=255, nullable=true)
      */
     private $officePhone;
 
     /**
      * @var string $photoUrl
      *
-     * @ORM\Column(name="photoUrl", type="string", length=255)
+     * @ORM\Column(name="photoUrl", type="string", length=255, nullable=true)
      */
     private $photoUrl;
 
     /**
      * @var text $bio
      *
-     * @ORM\Column(name="bio", type="text")
+     * @ORM\Column(name="bio", type="text", nullable=true)
      */
     private $bio;
 
     /**
      * @var text $area
      *
-     * @ORM\Column(name="area", type="text")
+     * @ORM\Column(name="area", type="text", nullable=true)
      */
     private $area;
 
     /**
      * @var string $homepageUrl
      *
-     * @ORM\Column(name="homepageUrl", type="string", length=255)
+     * @ORM\Column(name="homepageUrl", type="string", length=255, nullable=true)
      */
     private $homepageUrl;
 
@@ -171,7 +171,7 @@ class People
     /**
      * @var text $position
      *
-     * @ORM\Column(name="position", type="text")
+     * @ORM\Column(name="position", type="text", nullable=true)
      */
     private $position;
 

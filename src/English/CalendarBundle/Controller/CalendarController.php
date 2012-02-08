@@ -12,26 +12,38 @@ use English\CalendarBundle\Form\CalendarType;
 /**
  * Calendar controller.
  *
- * @Route("/calendar")
+ * @Route(" calendar")
  */
 class CalendarController extends Controller
 {
+    
     /**
-     * Lists all Calendar entities.
+     * Lists Calendar entities for user.
      *
      * @Route("/", name="calendar")
      * @Template()
      */
     public function indexAction()
     {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
         $startDate = date("Y-m-d") ;
-        $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM English\CalendarBundle\Entity\Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
+        $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
         $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
-
+        return array('entities' => $entities);     
+        } else {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
+        $em = $this->getDoctrine()->getEntityManager();
+        $startDate = date("Y-m-d") ;
+        $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2  and c.username = ?3 ORDER BY c.date ASC";
+        $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
         return array('entities' => $entities);
-    }
+        }
 
+    }    
+
+    
     /**
      * Finds and displays a Calendar entity.
      *
@@ -67,6 +79,7 @@ class CalendarController extends Controller
         $username = $securityContext->getToken()->getUsername();  
         $entity = new Calendar();
         $entity->setUsername($username);
+        $entity->setDescription('<p>  </p>');
         $form   = $this->createForm(new CalendarType(), $entity);
 
         return array(

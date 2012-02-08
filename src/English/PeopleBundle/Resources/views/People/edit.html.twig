@@ -1,20 +1,46 @@
- {% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
+{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
  
- {% block body %}
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+{% endblock %}
 
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_peoplebundle_peopletype_bio').ckeditor( function() {}, {height:100, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
+],} );
+$('#english_peoplebundle_peopletype_officeHours').ckeditor( function() {}, {height:50, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Link','Unlink','SpecialChar','RemoveFormat'],
+],} );
+$('#english_peoplebundle_peopletype_title').ckeditor( function() {}, {height:50, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Link','Unlink','SpecialChar','RemoveFormat'],
+],} );
+});
+
+</script>
+
+{% if is_granted('ROLE_ADMIN') %}
 <div class="row">
     <div class="cell"><a href="{{ path('people') }}">List</a></div>   
 </div>
+{% endif %}
 
 <div class="row">
     <div class="cell">
-        <form action="{{ path('people_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        <form action="{{ path('people_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
         {{ form_widget(edit_form) }}
         <button type="submit">Update</button>
         </form>
     </div>    
 </div>
-
+{% if is_granted('ROLE_ADMIN') %}
 <div class="row">
     <div class="cell"> 
         <form action="{{ path('people_delete', { 'id': entity.id }) }}" method="post">
@@ -23,5 +49,5 @@
         </form>
     </div>
 </div>
-
+{% endif %}
 {% endblock %}

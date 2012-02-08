@@ -20,16 +20,50 @@ class PeopleController extends Controller
      * Lists all People entities.
      *
      * @Route("/", name="people")
-     * @Template()
      */
     public function indexAction()
     {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishPeopleBundle:People')->findAll();
-
-        return array('entities' => $entities);
+        $entities = $em->getRepository('EnglishPeopleBundle:People')->findAll();      
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p ORDER BY p.lastName,p.firstName";
+        $entities = $em->createQuery($dql1)->getResult();
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        } else {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity));
+        } 
     }
+    
+    /**
+     * Find People entity.
+     *
+     * @Route("/find", name="people_find")
+     * @Method("post")
+     */
+    public function findAction()
+    {   $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $lastname = $postData['lastName'];
+        $em = $this->getDoctrine()->getEntityManager();
+        $entities = $em->getRepository('EnglishPeopleBundle:People')->findByLastName($lastname);
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        if (!$entities) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        }     
 
     /**
      * Finds and displays a People entity.
@@ -153,8 +187,11 @@ class PeopleController extends Controller
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();
-
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             return $this->redirect($this->generateUrl('people_show', array('id' => $id)));
+            } else {
+            return $this->redirect($this->generateUrl('people'));    
+            }
         }
 
         return array(
