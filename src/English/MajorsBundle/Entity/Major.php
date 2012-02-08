@@ -3,6 +3,7 @@
 namespace English\MajorsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * English\MajorsBundle\Entity\Major
@@ -36,13 +37,6 @@ class Major
     private $email;
 
     /**
-     * @var string $advisor
-     *
-     * @ORM\Column(name="advisor", type="string", length=255)
-     */
-    private $advisor;
-
-    /**
      * @var string $mentorUserName
      *
      * @ORM\Column(name="mentorUserName", type="string", length=255)
@@ -66,14 +60,14 @@ class Major
     /**
      * @var string $aoe
      *
-     * @ORM\Column(name="aoe", type="string", length=255)
+     * @ORM\Column(name="aoe", type="string", length=255, nullable=true)
      */
     private $aoe;
 
     /**
      * @var string $can
      *
-     * @ORM\Column(name="can", type="string", length=255)
+     * @ORM\Column(name="can", type="string", length=255, nullable=true)
      */
     private $can;
 
@@ -87,7 +81,7 @@ class Major
     /**
      * @var integer $status
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="status", type="integer", nullable=true)
      */
     private $status;
 
@@ -119,7 +113,29 @@ class Major
      */
     private $mentorId;
 
-
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="update")
+    */
+    protected $updated; 
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor", inversedBy="major")
+    */
+    protected $advisor;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="English\MentorsBundle\Entity\Mentor", inversedBy="major")
+    */
+    protected $mentor;  
+      
+    
     /**
      * Get id
      *
@@ -168,26 +184,6 @@ class Major
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set advisor
-     *
-     * @param string $advisor
-     */
-    public function setAdvisor($advisor)
-    {
-        $this->advisor = $advisor;
-    }
-
-    /**
-     * Get advisor
-     *
-     * @return string 
-     */
-    public function getAdvisor()
-    {
-        return $this->advisor;
     }
 
     /**
@@ -408,5 +404,86 @@ class Major
     public function getMentorId()
     {
         return $this->mentorId;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+
+    /**
+     * Set advisor
+     *
+     * @param English\AdvisorsBundle\Entity\Advisor $advisor
+     */
+    public function setAdvisor(\English\AdvisorsBundle\Entity\Advisor $advisor)
+    {
+        $this->advisor = $advisor;
+    }
+
+    /**
+     * Get advisor
+     *
+     * @return English\AdvisorsBundle\Entity\Advisor 
+     */
+    public function getAdvisor()
+    {
+        return $this->advisor;
+    }
+
+    /**
+     * Set mentor
+     *
+     * @param English\MentorsBundle\Entity\Mentor $mentor
+     */
+    public function setMentor(\English\MentorsBundle\Entity\Mentor $mentor)
+    {
+        $this->mentor = $mentor;
+    }
+
+    /**
+     * Get mentor
+     *
+     * @return English\MentorsBundle\Entity\Mentor 
+     */
+    public function getMentor()
+    {
+        return $this->mentor;
     }
 }

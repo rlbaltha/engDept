@@ -70,13 +70,13 @@ class Calendar
     }
 
     /**
-    * @ORM\Column(type="datetime")
+    * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="create")
     */
     protected $created;
     
     /**
-    * @ORM\Column(type="datetime")
+    * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="update")
     */
     protected $updated;

@@ -1,6 +1,22 @@
- {% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_majorsbundle_majortype_notes').ckeditor( function() {}, {height:150, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
+],} );
+});
+</script>
 
 <div class="row">
     <div class="cell"><a href="{{ path('major') }}">List</a></div>   
@@ -8,7 +24,7 @@
 
 <div class="row">
     <div class="cell">
-        <form action="{{ path('major_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        <form action="{{ path('major_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
         {{ form_widget(edit_form) }}
         <button type="submit">Update</button>
         </form>

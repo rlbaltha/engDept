@@ -17,20 +17,29 @@ use English\MajorsBundle\Form\MajorType;
 class MajorController extends Controller
 {
     /**
-     * Lists all Major entities.
+     * Lists all Major or majors by user.
      *
      * @Route("/", name="major")
      * @Template()
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishMajorsBundle:Major')->findAll();
-
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+         $em = $this->getDoctrine()->getEntityManager()
+         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e ORDER BY m.name ASC');
+        $entities = $em->getResult();
+        return array('entities' => $entities);  
+        } else {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
+         $em = $this->getDoctrine()->getEntityManager()
+         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
+        $entities = $em->setParameter('1',$username)->getResult();
         return array('entities' => $entities);
-    }
+        }
 
+    }     
+     
     /**
      * Finds and displays a Major entity.
      *
@@ -42,15 +51,21 @@ class MajorController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+        $advisor = $entity->getAdvisor()->getName();
+        $mentor = $entity->getMentor()->getName();
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Major entity.');
+            throw $this->createNotFoundException('Unable to find Majors.');
         }
-
+        $notes = $em->createQuery('SELECT n
+                FROM EnglishMajornotesBundle:Majornote n, EnglishMajorsBundle:Major m WHERE n.mentorId = ?1 ORDER BY n.created DESC')->setParameter('1',$id)->getResult();
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
+            'advisor'      => $advisor,
+            'mentor'      => $mentor,
+            'notes'       => $notes,
             'delete_form' => $deleteForm->createView(),        );
     }
 

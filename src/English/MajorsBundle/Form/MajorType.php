@@ -11,19 +11,16 @@ class MajorType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('email')
-            ->add('advisor')
-            ->add('mentorUserName')
+            ->add('email', 'text', array('attr' => array('class' => 'width300')))
+            ->add('advisor','entity', array('class'=>'EnglishAdvisorsBundle:Advisor', 'property'=>'name', ))
+            ->add('mentor','entity', array('class'=>'EnglishMentorsBundle:Mentor', 'property'=>'name', ))
             ->add('firstMajor')
             ->add('secondMajor')
-            ->add('aoe')
+            ->add('aoe', 'text', array('attr' => array('class' => 'width300')))
             ->add('can')
-            ->add('minor')
-            ->add('status')
-            ->add('notes')
+            ->add('minor')   
             ->add('honors')
-            ->add('advisorId')
-            ->add('mentorId')
+            ->add('notes')    
         ;
     }
 

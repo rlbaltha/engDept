@@ -3,6 +3,7 @@
 namespace English\GradnotesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * English\GradnotesBundle\Entity\Gradnotes

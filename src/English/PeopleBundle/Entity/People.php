@@ -3,6 +3,7 @@
 namespace English\PeopleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * English\PeopleBundle\Entity\People

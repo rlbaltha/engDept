@@ -1,11 +1,20 @@
 {% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
  
 {% block body %}
-<div class="row divider"><div class="cell"><a href="{{ path('major') }}">List</a></div></div>
+<div class="row divider">
+    <div class="cell"><a href="{{ path('major') }}">List Majors</a></div>
+    <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div>
+    <div class="cell"> 
+    <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+    <button type="submit">Delete</button>
+    </form>
+    </div>
+</div>
 
         <div class="row">
-            <div class="cell">Name</div>
-            <div class="cell">{{ entity.name }}</div>
+            <div class="cell bold">{{ entity.name }}</div>
+
         </div>
         <div class="row">
             <div class="cell">Email</div>
@@ -13,11 +22,11 @@
         </div>
         <div class="row">
             <div class="cell">Advisor</div>
-            <div class="cell">{{ entity.advisor }}</div>
+            <div class="cell">{{ advisor }}</div>
         </div>
         <div class="row">
-            <div class="cell">Mentorusername</div>
-            <div class="cell">{{ entity.mentorUserName }}</div>
+            <div class="cell">Mentor</div>
+            <div class="cell">{{ mentor }}</div>
         </div>
         <div class="row">
             <div class="cell">Firstmajor</div>
@@ -51,12 +60,23 @@
             <div class="cell">Notes</div>
             <div class="cell">{{ entity.notes | raw }}</div>
         </div>
-<div class="row"><div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
-<div class="row"><div class="cell"> 
-    <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-    </form>
-</div>
+        <div class="row_contrast">
+            <div class="cell bold">Mentor Notes</div>
+            <div class="cell"><a href="{{ path('majornote_new', { 'id': entity.id }) }}">New Note</a></div>
+        </div>
+        {% for notes in notes %}
+        <div class="row">
+            <div class="cell">{{ notes.notes | raw}}</div>
+        </div>
+        <div class="row divider">
+            <div class="cell">{{ notes.updated |date('m-d-Y h:i A')}}</div>
+        <div class="cell">
+         <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit</a>
+         </div>
+         </div>
+        {% endfor %}
+
+<div class="row"></div>   
+<div class="row">
 </div> 
 {% endblock %}

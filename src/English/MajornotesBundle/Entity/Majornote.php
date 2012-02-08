@@ -3,6 +3,7 @@
 namespace English\MajornotesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * English\MajornotesBundle\Entity\Majornote
@@ -42,6 +43,17 @@ class Majornote
      */
     private $notes;
 
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="update")
+    */
+    protected $updated;     
 
     /**
      * Get id
@@ -111,5 +123,45 @@ class Majornote
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

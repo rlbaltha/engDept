@@ -3,6 +3,7 @@
 namespace English\MentorsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * English\MentorsBundle\Entity\Mentor
