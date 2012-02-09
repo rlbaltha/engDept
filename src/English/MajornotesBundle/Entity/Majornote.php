@@ -32,14 +32,14 @@ class Majornote
     /**
      * @var string $mentor
      *
-     * @ORM\Column(name="mentor", type="string", length=255)
+     * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
      */
     private $mentor;
 
     /**
      * @var text $notes
      *
-     * @ORM\Column(name="notes", type="text")
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 

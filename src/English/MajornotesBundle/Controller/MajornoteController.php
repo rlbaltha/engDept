@@ -57,19 +57,21 @@ class MajornoteController extends Controller
     /**
      * Displays a form to create a new Majornote entity.
      *
-     * @Route("/new", name="majornote_new")
+     * @Route("/{id}/new", name="majornote_new")
      * @Template()
      */
-    public function newAction()
+     public function newAction($id)
     {
         $entity = new Majornote();
+        $entity->setMentorId($id);
+        $entity->setNotes('<p></p>');
         $form   = $this->createForm(new MajornoteType(), $entity);
 
         return array(
             'entity' => $entity,
             'form'   => $form->createView()
         );
-    }
+    }   
 
     /**
      * Creates a new Majornote entity.
@@ -90,7 +92,7 @@ class MajornoteController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('majornote_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getMentorId())));
             
         }
 
@@ -154,7 +156,7 @@ class MajornoteController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('majornote_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getMentorId())));
         }
 
         return array(

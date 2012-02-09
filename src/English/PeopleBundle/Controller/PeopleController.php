@@ -83,7 +83,8 @@ class PeopleController extends Controller
         $postData = $request->request->get('form');
         $lastname = $postData['lastName'];
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('EnglishPeopleBundle:People')->findByLastName($lastname);
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.lastName like ?1 ORDER BY p.lastName,p.firstName";
+        $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         
         $form = $this->createFormBuilder(new People())
             ->add('lastName')

@@ -10,8 +10,7 @@ class MajornoteType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('mentorId')
-            ->add('mentor')
+            ->add('mentorId', 'hidden')
             ->add('notes')
         ;
     }

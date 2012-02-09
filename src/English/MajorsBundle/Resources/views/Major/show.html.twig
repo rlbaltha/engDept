@@ -3,6 +3,7 @@
 {% block body %}
 <div class="row divider">
     <div class="cell"><a href="{{ path('major') }}">List Majors</a></div>
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div>
     <div class="cell"> 
     <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
@@ -10,51 +11,36 @@
     <button type="submit">Delete</button>
     </form>
     </div>
+    {% endif %}
 </div>
 
         <div class="row">
-            <div class="cell bold">{{ entity.name }}</div>
+            <div class="cell bold">{{ entity.name }}</div><div class="cell">{{ entity.email }}</div>
 
         </div>
         <div class="row">
-            <div class="cell">Email</div>
-            <div class="cell">{{ entity.email }}</div>
-        </div>
-        <div class="row">
             <div class="cell">Advisor</div>
-            <div class="cell">{{ advisor }}</div>
-        </div>
-        <div class="row">
+            <div class="cell bold">{{ advisor }}</div>
             <div class="cell">Mentor</div>
-            <div class="cell">{{ mentor }}</div>
+            <div class="cell bold">{{ mentor }}</div>
         </div>
         <div class="row">
             <div class="cell">Firstmajor</div>
-            <div class="cell">{{ entity.firstMajor }}</div>
-        </div>
-        <div class="row">
+            <div class="cell bold">{{ entity.firstMajor }}</div>
             <div class="cell">Secondmajor</div>
-            <div class="cell">{{ entity.secondMajor }}</div>
-        </div>
-        <div class="row">
+            <div class="cell bold">{{ entity.secondMajor }}</div>
             <div class="cell">Aoe</div>
-            <div class="cell">{{ entity.aoe }}</div>
+            <div class="cell bold">{{ entity.aoe }}</div>
+            <div class="cell">Minor</div>
+            <div class="cell bold">{{ entity.minor }}</div>
+            <div class="cell">Honors</div>
+            <div class="cell bold">{{ entity.honors }}</div>
         </div>
         <div class="row">
             <div class="cell">Can</div>
-            <div class="cell">{{ entity.can }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Minor</div>
-            <div class="cell">{{ entity.minor }}</div>
-        </div>
-        <div class="row">
+            <div class="cell bold">{{ entity.can }}</div>
             <div class="cell">Status</div>
-            <div class="cell">{{ entity.status }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell">Honors</div>
-            <div class="cell">{{ entity.honors }}</div>
+            <div class="cell bold">{{ entity.status }}</div>
         </div>
         <div class="row divider">
             <div class="cell">Notes</div>
@@ -69,7 +55,7 @@
             <div class="cell">{{ notes.notes | raw}}</div>
         </div>
         <div class="row divider">
-            <div class="cell">{{ notes.updated |date('m-d-Y h:i A')}}</div>
+            <div class="cell">{{ notes.updated |date('h:i A M d, Y')}}</div>
         <div class="cell">
          <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit</a>
          </div>
