@@ -86,6 +86,7 @@ class Calendar
      *
      * @param date $date
      */
+    
     public function setDate($date)
     {
         $this->date = $date;

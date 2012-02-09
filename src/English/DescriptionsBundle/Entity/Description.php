@@ -53,74 +53,86 @@ class Description
     /**
      * @var text $description
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var text $assignments
      *
-     * @ORM\Column(name="assignments", type="text")
+     * @ORM\Column(name="assignments", type="text", nullable=true)
      */
     private $assignments;
 
     /**
      * @var text $requirements
      *
-     * @ORM\Column(name="requirements", type="text")
+     * @ORM\Column(name="requirements", type="text", nullable=true)
      */
     private $requirements;
 
     /**
      * @var text $grading
      *
-     * @ORM\Column(name="grading", type="text")
+     * @ORM\Column(name="grading", type="text", nullable=true)
      */
     private $grading;
 
     /**
      * @var text $attendance
      *
-     * @ORM\Column(name="attendance", type="text")
+     * @ORM\Column(name="attendance", type="text", nullable=true)
      */
     private $attendance;
 
     /**
      * @var text $material
      *
-     * @ORM\Column(name="material", type="text")
+     * @ORM\Column(name="material", type="text", nullable=true)
      */
     private $material;
 
     /**
      * @var text $makeup
      *
-     * @ORM\Column(name="makeup", type="text")
+     * @ORM\Column(name="makeup", type="text", nullable=true)
      */
     private $makeup;
 
     /**
      * @var text $url
      *
-     * @ORM\Column(name="url", type="text")
+     * @ORM\Column(name="url", type="text", nullable=true)
      */
     private $url;
 
     /**
      * @var text $topicsTitle
      *
-     * @ORM\Column(name="topicsTitle", type="text")
+     * @ORM\Column(name="topicsTitle", type="text", nullable=true)
      */
     private $topicsTitle;
 
     /**
      * @var text $topics
      *
-     * @ORM\Column(name="topics", type="text")
+     * @ORM\Column(name="topics", type="text", nullable=true)
      */
     private $topics;
 
-
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="update")
+    */
+    protected $updated;
+    
+    
     /**
      * Get id
      *
@@ -409,5 +421,45 @@ class Description
     public function getTopics()
     {
         return $this->topics;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

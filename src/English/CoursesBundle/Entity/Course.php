@@ -46,14 +46,14 @@ class Course
     /**
      * @var string $room
      *
-     * @ORM\Column(name="room", type="string", length=255)
+     * @ORM\Column(name="room", type="string", length=255, nullable=true)
      */
     private $room;
 
     /**
      * @var string $days
      *
-     * @ORM\Column(name="days", type="string", length=255)
+     * @ORM\Column(name="days", type="string", length=255, nullable=true)
      */
     private $days;
 
@@ -67,21 +67,21 @@ class Course
     /**
      * @var string $time
      *
-     * @ORM\Column(name="time", type="string", length=255)
+     * @ORM\Column(name="time", type="string", length=255, nullable=true)
      */
     private $time;
 
     /**
      * @var string $building
      *
-     * @ORM\Column(name="building", type="string", length=255)
+     * @ORM\Column(name="building", type="string", length=255, nullable=true)
      */
     private $building;
 
     /**
      * @var string $callNumber2
      *
-     * @ORM\Column(name="callNumber2", type="string", length=255)
+     * @ORM\Column(name="callNumber2", type="string", length=255, nullable=true)
      */
     private $callNumber2;
 
@@ -95,14 +95,14 @@ class Course
     /**
      * @var string $period
      *
-     * @ORM\Column(name="period", type="string", length=255)
+     * @ORM\Column(name="period", type="string", length=255, nullable=true)
      */
     private $period;
 
     /**
      * @var string $title
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
 
@@ -116,10 +116,21 @@ class Course
     /**
      * @var boolean $may
      *
-     * @ORM\Column(name="may", type="boolean")
+     * @ORM\Column(name="may", type="boolean", nullable=true)
      */
     private $may;
-
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="update")
+    */
+    protected $updated;
 
     /**
      * Get id
@@ -409,5 +420,45 @@ class Course
     public function getMay()
     {
         return $this->may;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

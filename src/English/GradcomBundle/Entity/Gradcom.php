@@ -32,25 +32,36 @@ class Gradcom
     /**
      * @var integer $fid
      *
-     * @ORM\Column(name="fid", type="integer")
+     * @ORM\Column(name="fid", type="integer", nullable=true)
      */
     private $fid;
 
     /**
      * @var integer $frole
      *
-     * @ORM\Column(name="frole", type="integer")
+     * @ORM\Column(name="frole", type="integer", nullable=true)
      */
     private $frole;
 
     /**
      * @var boolean $status
      *
-     * @ORM\Column(name="status", type="boolean")
+     * @ORM\Column(name="status", type="boolean", nullable=true)
      */
     private $status;
 
-
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="update")
+    */
+    protected $updated;
+    
     /**
      * Get id
      *
@@ -139,5 +150,45 @@ class Gradcom
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

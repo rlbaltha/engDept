@@ -2,7 +2,23 @@
  
 {% block body %}
 
-<div class="row"><div class="cell"><a href="{{ path('course_new') }}">New</a></div></div>
+{% if is_granted('ROLE_ADMIN') %}
+<div class='row divider'>
+<div class='cell pad10'>
+<a href="{{ path('course_new') }}">New Listing</a>
+</div>        
+        <form action="{{ path('course_find') }}" method="post" {{ form_enctype(form) }}>
+        <div class='cell right'>
+        <div class="cell">
+        {{ form_widget(form) }}
+        </div>         
+        <div class="cell">
+        <button type="submit">Find</button>
+        </div> 
+        </div>        
+        </form>         
+</div>
+{% endif %}
     
     {% for entity in entities %}
         <div class="row">

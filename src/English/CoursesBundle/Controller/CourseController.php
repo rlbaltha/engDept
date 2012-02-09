@@ -29,8 +29,15 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $dql1 = "SELECT c FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
         $entities = $em->createQuery($dql1)->getResult();
-        return array('entities' => $entities);    
-        } else {
+      
+        
+        $form = $this->createFormBuilder(new Course())
+            ->add('courseName')
+            ->getForm();
+        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        
+        }  
+        else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getEntityManager();
@@ -40,7 +47,32 @@ class CourseController extends Controller
         }
 
     }
+    
+     /**
+     * Find Course entity.
+     *
+     * @Route("/find", name="course_find")
+     * @Method("post")
+     */
+    public function findAction()
+    {   $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $coursename = $postData['courseName'];
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        $entities = $em->getRepository('EnglishCoursesBundle:Course')->findByCourseName($coursename);
+        
+        $form = $this->createFormBuilder(new Course())
+            ->add('courseName')
+            ->getForm();
+        
+        if (!$entities) {
+            throw $this->createNotFoundException('Unable to find Course entity.');
+        }
+        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        }  
 
+        
     /**
      * Finds and displays a Course entity.
      *
