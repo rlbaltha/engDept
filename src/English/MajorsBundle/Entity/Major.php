@@ -39,7 +39,7 @@ class Major
     /**
      * @var string $mentorUserName
      *
-     * @ORM\Column(name="mentorUserName", type="string", length=255)
+     * @ORM\Column(name="mentorUserName", type="string", length=255, nullable=true)
      */
     private $mentorUserName;
 
@@ -114,6 +114,16 @@ class Major
     private $mentorId;
 
     /**
+    * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor", inversedBy="major")
+    */
+    protected $advisor;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="English\MentorsBundle\Entity\Mentor", inversedBy="major")
+    */
+    protected $mentor;  
+      
+    /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="create")
     */
@@ -125,18 +135,7 @@ class Major
     */
     protected $updated; 
     
-    /**
-    * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor", inversedBy="major")
-    */
-    protected $advisor;
-    
-    /**
-    * @ORM\ManyToOne(targetEntity="English\MentorsBundle\Entity\Mentor", inversedBy="major")
-    */
-    protected $mentor;  
-      
-    
-    /**
+     /**
      * Get id
      *
      * @return integer 

@@ -31,7 +31,8 @@ class PeopleType extends AbstractType
             ->add('position', 'text', array('attr' => array('class' => 'width640')))
             ->add('username', 'hidden') 
             ->add('active', 'hidden')
-            ->add('status', 'hidden')    
+            ->add('status', 'hidden')
+            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status', ))    
         ;
     }
 

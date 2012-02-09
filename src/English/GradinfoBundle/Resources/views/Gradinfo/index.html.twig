@@ -6,8 +6,6 @@
     {% for entity in entities %}
         <div class="row">
             <div class="cell"><a href="{{ path('gradinfo_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
-            <div class="cell">{{ entity.gid }}</div>
-            <div class="cell">{{ entity.degree }}</div>
             <div class="cell">{{ entity.status }}</div>
             <div class="cell">
                 <a href="{{ path('gradinfo_show', { 'id': entity.id }) }}">show</a>

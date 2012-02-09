@@ -23,23 +23,9 @@ class Gradinfo
     private $id;
 
     /**
-     * @var integer $gid
+     * @var string $status
      *
-     * @ORM\Column(name="gid", type="integer")
-     */
-    private $gid;
-
-    /**
-     * @var string $degree
-     *
-     * @ORM\Column(name="degree", type="string", length=255, nullable=true)
-     */
-    private $degree;
-
-    /**
-     * @var integer $status
-     *
-     * @ORM\Column(name="status", type="integer", nullable=true)
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
      */
     private $status;
 
@@ -63,46 +49,6 @@ class Gradinfo
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set gid
-     *
-     * @param integer $gid
-     */
-    public function setGid($gid)
-    {
-        $this->gid = $gid;
-    }
-
-    /**
-     * Get gid
-     *
-     * @return integer 
-     */
-    public function getGid()
-    {
-        return $this->gid;
-    }
-
-    /**
-     * Set degree
-     *
-     * @param string $degree
-     */
-    public function setDegree($degree)
-    {
-        $this->degree = $degree;
-    }
-
-    /**
-     * Get degree
-     *
-     * @return string 
-     */
-    public function getDegree()
-    {
-        return $this->degree;
     }
 
     /**

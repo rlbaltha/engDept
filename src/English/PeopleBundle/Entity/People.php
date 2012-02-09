@@ -175,6 +175,12 @@ class People
      * @ORM\Column(name="position", type="text", nullable=true)
      */
     private $position;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="English\GradinfoBundle\Entity\Gradinfo", inversedBy="people")
+    */
+    protected $gradinfo;
+
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -677,5 +683,25 @@ class People
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set gradinfo
+     *
+     * @param English\GradinfoBundle\Entity\Gradinfo $gradinfo
+     */
+    public function setGradinfo(\English\GradinfoBundle\Entity\Gradinfo $gradinfo)
+    {
+        $this->gradinfo = $gradinfo;
+    }
+
+    /**
+     * Get gradinfo
+     *
+     * @return English\GradinfoBundle\Entity\Gradinfo 
+     */
+    public function getGradinfo()
+    {
+        return $this->gradinfo;
     }
 }
