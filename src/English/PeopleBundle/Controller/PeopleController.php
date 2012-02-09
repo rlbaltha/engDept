@@ -28,10 +28,17 @@ class PeopleController extends Controller
         $entities = $em->getRepository('EnglishPeopleBundle:People')->findAll();      
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
+        
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        $gradform = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+        
+        
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
@@ -64,6 +71,32 @@ class PeopleController extends Controller
         }
         return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
         }     
+        
+     /**
+     * Find Grad entity.
+     *
+     * @Route("/gradfind", name="grad_find")
+     * @Method("post")
+     */
+    public function gradfindAction()
+    {   $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $lastname = $postData['lastName'];
+        $em = $this->getDoctrine()->getEntityManager();
+        $entities = $em->getRepository('EnglishPeopleBundle:People')->findByLastName($lastname);
+        
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        $gradform = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        
+        if (!$entities) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+        }  
 
     /**
      * Finds and displays a People entity.

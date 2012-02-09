@@ -21,6 +21,23 @@
 </div>
 {% endif %}
 
+
+<div class='row divider'>
+<div class='cell pad10'>Grad Find
+</div>        
+        <form action="{{ path('grad_find') }}" method="post" {{ form_enctype(gradform) }}>
+        <div class='cell right'>
+        <div class="cell">
+        {{ form_widget(gradform) }}
+        </div>         
+        <div class="cell">
+        <button type="submit">Find Grad</button>
+        </div> 
+        </div>        
+        </form>         
+</div>
+
+
     {% for entity in entities %}
 
      <div id="listing{{ entity.id }}" class="row_even divider">
