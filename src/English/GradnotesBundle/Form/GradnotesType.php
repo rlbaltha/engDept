@@ -10,7 +10,7 @@ class GradnotesType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('gid')
+            ->add('gid','hidden')
             ->add('notes')
         ;
     }

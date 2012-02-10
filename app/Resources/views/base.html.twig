@@ -22,6 +22,7 @@
         <div class="cell"><a title="Courses" href="{{ path('listings') }}" >Courses</a></div>
         <div class="cell">
         <a class='last' title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
+        <a class='last' title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
         </div>
         </div>                   
 
@@ -39,14 +40,9 @@
         <div class="cell"><a title="Spotlight" href="{{ path('spotlight') }}" >Spotlight</a></div>
         <div class="cell"><a title="Term" href="{{ path('term') }}" >Term</a></div>
         </div>
-
-        <div class="main_nav">
-        <div class="cell">Graduate</div>
-        <div class="cell"><a title="Gradcom" href="{{ path('gradcom') }}" >Grad Committees</a></div>
-        <div class="cell"><a title="Gradinfo" href="{{ path('gradinfo') }}" >Grad Student Info</a></div>
-        <div class="cell"><a title="Gradnotes" href="{{ path('gradnotes') }}" >Grad Notes</a></div>
-        </div>                
+        {% endif %}
                 
+        {% if is_granted('ROLE_ADVISOR') %} 
         <div class="main_nav">
         <div class="cell">Advising</div>
         <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >Advisors</a></div>
@@ -55,6 +51,14 @@
         <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></div>
         </div>                
         {% endif %}
+
+        {% if is_granted('ROLE_GRADFAC') %}        
+        <div class="main_nav">
+        <div class="cell">Graduate</div>
+        <div class="cell"><a title="Graduate Students" href="{{ path('people_grad') }}" >Grad Students</a></div>
+        <div class="cell"><a title="Gradcom" href="{{ path('gradcom') }}" >Grad Committees</a></div>
+        </div> 
+         {% endif %}               
                 
         {% if is_granted('ROLE_USER') %}
         <div class="main_nav">      

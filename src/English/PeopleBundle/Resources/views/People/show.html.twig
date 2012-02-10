@@ -61,4 +61,24 @@
            </div>
             </div>
 
+            
+{% if is_granted('ROLE_GRADFAC') %}   
+<div class="row_contrast"><div class="cell bold">Graduate Information</div></div>           
+
+<div class="row_contrast"><div class="cell bold">Graduate Advisor Notes</div></div>
+        <div class="row">
+            <div class="cell"><a href="{{ path('gradnotes_new', { 'id': entity.id }) }}">New Note</a></div>
+        </div>
+        {% for notes in notes %}
+        <div class="row">
+            <div class="cell">{{ notes.notes | raw}}</div>
+        </div>
+        <div class="row divider">
+            <div class="cell">{{ notes.updated |date('h:i A M d, Y')}}</div>
+        <div class="cell">
+         <a href="{{ path('gradnotes_edit', { 'id': notes.id }) }}">Edit</a>
+         </div>
+         </div>
+        {% endfor %}
+{% endif %}            
 {% endblock %}

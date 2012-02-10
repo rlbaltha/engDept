@@ -71,6 +71,28 @@ class PeopleController extends Controller
         }
         return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
         }     
+
+    /**
+     * Find Grad of People entity.
+     *
+     * @Route("/grad", name="people_grad")
+     */        
+    public function gradAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entities = $em->getRepository('EnglishPeopleBundle:People')->findAll();      
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 ORDER BY p.lastName,p.firstName";
+        $entities = $em->createQuery($dql1)->getResult();
+        
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        $gradform = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+    }        
         
      /**
      * Find Grad entity.
@@ -115,10 +137,13 @@ class PeopleController extends Controller
             throw $this->createNotFoundException('Unable to find People entity.');
         }
 
+        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 ORDER BY g.created DESC')->setParameter('1',$id)->getResult();
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
+            'notes'       => $notes,
             'delete_form' => $deleteForm->createView(),        );
     }
 

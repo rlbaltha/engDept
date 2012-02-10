@@ -3,7 +3,7 @@
  
 {% block body %}
 
-{% if is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_ADMIN')  %}
 <div class='row divider'>
 <div class='cell pad10'>
 <a href="{{ path('people_new') }}">New Listing</a>
@@ -21,7 +21,7 @@
 </div>
 {% endif %}
 
-
+{% if app.request.pathinfo == '/people/grad' or app.request.pathinfo == '/people/gradfind' %}
 <div class='row divider'>
 <div class='cell pad10'>Grad Find</div>         
         <form action="{{ path('grad_find') }}" method="post" {{ form_enctype(gradform) }}>
@@ -35,7 +35,7 @@
         </div>        
         </form>         
 </div>
-
+{% endif %}
 
     {% for entity in entities %}
 

@@ -57,12 +57,14 @@ class GradnotesController extends Controller
     /**
      * Displays a form to create a new Gradnotes entity.
      *
-     * @Route("/new", name="gradnotes_new")
+     * @Route("/{id}/new", name="gradnotes_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($id)
     {
         $entity = new Gradnotes();
+        $entity->setGid($id);
+        $entity->setNotes('<p></p>');
         $form   = $this->createForm(new GradnotesType(), $entity);
 
         return array(
