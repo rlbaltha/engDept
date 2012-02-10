@@ -57,12 +57,17 @@ class GradcomController extends Controller
     /**
      * Displays a form to create a new Gradcom entity.
      *
-     * @Route("/new", name="gradcom_new")
+     * @Route("/{id}/new", name="gradcom_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($id)
     {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();
         $entity = new Gradcom();
+        $entity->setGid($id);
+        $entity->setFid($username);
+        $entity->setStatus('t');
         $form   = $this->createForm(new GradcomType(), $entity);
 
         return array(
@@ -90,7 +95,7 @@ class GradcomController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gradcom_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('people_show', array('id' => $entity->getGid())));
             
         }
 
@@ -154,7 +159,7 @@ class GradcomController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gradcom_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('people_show', array('id' => $entity->getGid())));
         }
 
         return array(
@@ -167,10 +172,10 @@ class GradcomController extends Controller
     /**
      * Deletes a Gradcom entity.
      *
-     * @Route("/{id}/delete", name="gradcom_delete")
+     * @Route("/{id}/{gid}/delete", name="gradcom_delete")
      * @Method("post")
      */
-    public function deleteAction($id)
+    public function deleteAction($id, $gid)
     {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
@@ -189,7 +194,7 @@ class GradcomController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('gradcom'));
+        return $this->redirect($this->generateUrl('people_show', array('id' => $gid)));
     }
 
     private function createDeleteForm($id)

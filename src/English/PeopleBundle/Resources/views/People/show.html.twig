@@ -62,8 +62,20 @@
             </div>
 
             
-{% if is_granted('ROLE_GRADFAC') %}   
-<div class="row_contrast"><div class="cell bold">Graduate Information</div></div>           
+{% if is_granted('ROLE_GRADFAC') and 'show' in app.request.pathinfo %}   
+<div class="row_contrast"><div class="cell bold">Graduate Information</div></div> 
+<div class="row"><div class="cell bold">Committee</div></div> 
+        {% for gradcom in gradcom %}
+        <div class="row">
+            <div class="cell">{{ gradcom.firstName}} {{ gradcom.lastName}}{% if gradcom.frole == 2 %}, Chair {% endif %}
+            {% if gradcom.fid == app.security.token.user %}<a href="{{ path('gradcom_edit', { 'id': gradcom.id }) }}">Update</a>{% endif %}</div>
+        </div>
+        {% endfor %}
+
+{% if join[1] == 0  %}
+<div class="row divider"><div class="cell">
+        <a href="{{ path('gradcom_new', { 'id': entity.id }) }}">Join Committee</a></div></div>
+{% endif %}
 
 <div class="row_contrast"><div class="cell bold">Graduate Advisor Notes</div></div>
         <div class="row">

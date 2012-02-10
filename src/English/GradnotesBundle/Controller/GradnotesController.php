@@ -92,7 +92,7 @@ class GradnotesController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gradnotes_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('people_show', array('id' => $entity->getGid())));
             
         }
 
@@ -156,7 +156,7 @@ class GradnotesController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('gradnotes_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('people_show', array('id'=>$entity->getGid())));
         }
 
         return array(

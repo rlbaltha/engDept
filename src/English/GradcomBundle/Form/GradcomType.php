@@ -10,10 +10,10 @@ class GradcomType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('gid')
-            ->add('fid')
-            ->add('frole')
-            ->add('status')
+            ->add('gid','hidden')
+            ->add('fid','hidden')
+            ->add('frole', 'choice', array('choices' => array('1' => 'Member', '2' => 'Chair'),'required'  => true,'label'  => 'Committee Role'))
+            ->add('status', 'hidden')             
         ;
     }
 

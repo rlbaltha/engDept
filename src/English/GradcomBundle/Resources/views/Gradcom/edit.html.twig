@@ -1,10 +1,7 @@
- {% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
+{% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
  
- {% block body %}
+{% block body %}
 
-<div class="row">
-    <div class="cell"><a href="{{ path('gradcom') }}">List</a></div>   
-</div>
 
 <div class="row">
     <div class="cell">
@@ -17,7 +14,7 @@
 
 <div class="row">
     <div class="cell"> 
-        <form action="{{ path('gradcom_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('gradcom_delete', { 'id': entity.id, 'gid' : entity.gid  }) }}" method="post">
         {{ form_widget(delete_form) }} 
         <button type="submit">Delete</button> 
         </form>

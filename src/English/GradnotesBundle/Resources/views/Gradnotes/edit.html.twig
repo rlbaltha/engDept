@@ -1,10 +1,20 @@
- {% extends 'EnglishGradnotesBundle:Gradnotes:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishGradnotesBundle:Gradnotes:layout.html.twig' %}
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+{% endblock %}
 
-<div class="row">
-    <div class="cell"><a href="{{ path('gradnotes') }}">List</a></div>   
-</div>
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_gradnotesbundle_gradnotestype_notes').ckeditor( function() {}, {height:150,width:800, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','Smiley','SpecialChar','RemoveFormat'],
+],} );
+});
+</script>
 
 <div class="row">
     <div class="cell">

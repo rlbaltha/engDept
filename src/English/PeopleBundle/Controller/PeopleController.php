@@ -87,10 +87,12 @@ class PeopleController extends Controller
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
+        
+        
         $gradform = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-        
+               
         return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
     }        
         
@@ -129,21 +131,23 @@ class PeopleController extends Controller
      */
     public function showAction($id)
     {
+        $securityContext = $this->get('security.context');
+        $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
-
+        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);       
+        $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.fid,g.id FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.fid=p.username AND g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
+        $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.fid = ?1 AND g.gid = ?2')->setParameter('1',$username)->setParameter('2',$id)->getSingleResult(); 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
+        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 ORDER BY g.created DESC')->setParameter('1',$id)->getResult();      
 
-        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 ORDER BY g.created DESC')->setParameter('1',$id)->getResult();
-        
         $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity'      => $entity,
+            'gradcom'     => $gradcom,
             'notes'       => $notes,
+            'join'        => $join,
             'delete_form' => $deleteForm->createView(),        );
     }
 

@@ -29,10 +29,10 @@ class Gradcom
      */
     private $gid;
 
-    /**
-     * @var integer $fid
+     /**
+     * @var string $fid
      *
-     * @ORM\Column(name="fid", type="integer", nullable=true)
+     * @ORM\Column(name="fid", type="string", length=255)
      */
     private $fid;
 
