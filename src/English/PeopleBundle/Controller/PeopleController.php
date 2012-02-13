@@ -25,7 +25,6 @@ class PeopleController extends Controller
     {
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('EnglishPeopleBundle:People')->findAll();      
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
         

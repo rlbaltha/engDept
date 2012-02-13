@@ -97,9 +97,11 @@ class CalendarController extends Controller
      */
     public function createAction()
     {
-
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
         $entity  = new Calendar();
         $request = $this->getRequest();
+        $entity->setUserid($userid);
         $form    = $this->createForm(new CalendarType(), $entity);
         $form->bindRequest($request);
 

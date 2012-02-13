@@ -25,9 +25,8 @@ class SpotlightController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishSpotlightBundle:Spotlight')->findAll();
-
+        $dql1 = "SELECT s FROM EnglishSpotlightBundle:Spotlight s ORDER BY s.sortOrder";
+        $entities = $em->createQuery($dql1)->getResult();
         return array('entities' => $entities);
     }
 
@@ -80,7 +79,10 @@ class SpotlightController extends Controller
      */
     public function createAction()
     {
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
         $entity  = new Spotlight();
+        $entity->setUserid($userid);
         $request = $this->getRequest();
         $form    = $this->createForm(new SpotlightType(), $entity);
         $form->bindRequest($request);

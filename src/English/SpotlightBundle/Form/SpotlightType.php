@@ -10,10 +10,11 @@ class SpotlightType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('photoUrl')
-            ->add('title')
+            ->add('photoUrl', 'text', array('attr' => array('class' => 'width640')))
+            ->add('title', 'text', array('attr' => array('class' => 'width300')))
             ->add('description')
-            ->add('type')
+            ->add('sortOrder', 'choice', array('choices'   => array(1, 2), 'multiple'  => false, 'expanded'  => true,))    
+            ->add('type', 'hidden')
         ;
     }
 

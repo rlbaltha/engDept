@@ -21,8 +21,13 @@
         <div class="cell"><a title="People" href="{{ path('directory') }}" >People</a></div>
         <div class="cell"><a title="Courses" href="{{ path('listings') }}" >Courses</a></div>
         <div class="cell">
-        <a class='last' title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
+        
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <a class='last' title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
+        {% else %}
+        <a class='last' title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
+        {% endif %}
+        
         </div>
         </div>                   
 

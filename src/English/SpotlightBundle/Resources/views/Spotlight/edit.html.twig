@@ -1,7 +1,22 @@
- {% extends 'EnglishSpotlightBundle:Spotlight:layout.html.twig' %}
- 
- {% block body %}
- 
+{% extends 'EnglishSpotlightBundle:Spotlight:layout.html.twig' %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_spotlightbundle_spotlighttype_description').ckeditor( function() {}, {height:150, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
+],} );
+});
+</script>
+
 <div class="row">
     <div class="cell"><a href="{{ path('spotlight') }}">List</a></div>   
 </div>

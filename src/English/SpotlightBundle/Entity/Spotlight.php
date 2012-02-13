@@ -51,6 +51,20 @@ class Spotlight
     private $type;
 
     /**
+     * @var integer $sortOrder
+     *
+     * @ORM\Column(name="sortOrder", type="integer", nullable=true)
+     */
+    private $sortOrder;
+    
+    /**
+     * @var integer $userid
+     *
+     * @ORM\Column(name="userid", type="integer", nullable=true)
+     */
+    private $userid;    
+
+    /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="create")
     */
@@ -190,5 +204,46 @@ class Spotlight
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer 
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
     }
 }
