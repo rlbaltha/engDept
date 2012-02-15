@@ -25,33 +25,25 @@ class GradcomController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishGradcomBundle:Gradcom')->findAll();
-
+        $dql1 = "SELECT pg.lastName as glastname, pf.lastName as flastname,g.frole,g.gid FROM EnglishPeopleBundle:People pg, EnglishPeopleBundle:People pf, 
+            EnglishGradcomBundle:Gradcom g WHERE pg.id=g.gid and pf.username=g.fid AND g.frole=2 ORDER BY pg.lastName,pg.firstName";
+        $entities = $em->createQuery($dql1)->getResult();
         return array('entities' => $entities);
     }
 
     /**
      * Finds and displays a Gradcom entity.
      *
-     * @Route("/{id}/show", name="gradcom_show")
+     * @Route("/{gid}/show", name="gradcom_show")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($gid)
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('EnglishGradcomBundle:Gradcom')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Gradcom entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
+        $dql1 = "SELECT pg.lastName as glastname,pg.firstName as gfirstname, pf.lastName as flastname,g.frole,g.gid FROM EnglishPeopleBundle:People pg, EnglishPeopleBundle:People pf, 
+            EnglishGradcomBundle:Gradcom g WHERE pg.id=g.gid and pf.username=g.fid AND g.gid = ?1 ORDER BY g.frole DESC";
+        $entities = $em->createQuery($dql1)->setParameter('1',$gid)->getResult();
+        return array('entities' => $entities);
     }
 
     /**

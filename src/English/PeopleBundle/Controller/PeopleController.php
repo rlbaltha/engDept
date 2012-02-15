@@ -17,7 +17,7 @@ use English\PeopleBundle\Form\PeopleType;
 class PeopleController extends Controller
 {
     /**
-     * Lists all People entities.
+     * Lists all People
      *
      * @Route("/", name="people")
      */
@@ -39,8 +39,7 @@ class PeopleController extends Controller
         
         
         } else {
-        $securityContext = $this->get('security.context');
-        $username = $securityContext->getToken()->getUsername();  
+        $username = $this->get('security.context')->getToken()->getUsername();
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         if (!$entity) {
@@ -51,7 +50,7 @@ class PeopleController extends Controller
     }
     
     /**
-     * Find People entity.
+     * Find People
      *
      * @Route("/find", name="people_find")
      * @Method("post")
@@ -59,9 +58,11 @@ class PeopleController extends Controller
     public function findAction()
     {   $request = $this->get('request');
         $postData = $request->request->get('form');
-        $lastname = $postData['lastName'];
+        $lastname = $postData['lastName'] . "%";
+        $lastname = strtolower($lastname);
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('EnglishPeopleBundle:People')->findByLastName($lastname);
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
+        $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
@@ -72,14 +73,13 @@ class PeopleController extends Controller
         }     
 
     /**
-     * Find Grad of People entity.
+     * Find Grad of People
      *
      * @Route("/grad", name="people_grad")
      */        
     public function gradAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('EnglishPeopleBundle:People')->findAll();      
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
         
@@ -93,10 +93,35 @@ class PeopleController extends Controller
             ->getForm();
                
         return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
-    }        
+    }
+    
+     /**
+     * Find My Grad
+     *
+     * @Route("/mygrad", name="people_mygrad")
+     * 
+     */   
+    public function mygradAction()
+    {   $username = $this->get('security.context')->getToken()->getUsername();
+        $em = $this->getDoctrine()->getEntityManager();  
+        $entities = $em->createQuery('SELECT p FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.gid=p.id AND 
+            g.fid = ?1 ORDER BY p.lastName')->setParameter('1',$username)->getResult(); 
+        
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        
+        
+        $gradform = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+               
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+    }
+    
         
      /**
-     * Find Grad entity.
+     * Find Grad
      *
      * @Route("/gradfind", name="grad_find")
      * @Method("post")
@@ -104,9 +129,10 @@ class PeopleController extends Controller
     public function gradfindAction()
     {   $request = $this->get('request');
         $postData = $request->request->get('form');
-        $lastname = $postData['lastName'];
+        $lastname = $postData['lastName'] . "%";
+        $lastname = strtolower($lastname);
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.lastName like ?1 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         
         $form = $this->createFormBuilder(new People())

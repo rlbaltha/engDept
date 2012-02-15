@@ -1,14 +1,42 @@
- {% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
- 
- {% block body %}
- 
-<div class="row"><div class="cell"><a href="{{ path('people') }}">List</a></div></div>
+{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
 
-<form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_peoplebundle_peopletype_bio').ckeditor( function() {}, {height:100, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
+],} );
+$('#english_peoplebundle_peopletype_officeHours').ckeditor( function() {}, {height:50, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Link','Unlink','SpecialChar','RemoveFormat'],
+],} );
+$('#english_peoplebundle_peopletype_title').ckeditor( function() {}, {height:50, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','Link','Unlink','SpecialChar','RemoveFormat'],
+],} );
+});
+
+</script> 
+<div class="row divider"><div class="cell"><a href="{{ path('people') }}">Return to List</a></div></div>
+
+
+<div class="row">
+    <div class="cell">
+    <form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
     {{ form_widget(form) }}
     <p>
         <button type="submit">Create</button>
     </p>
-</form>
+    </form>
+    </div>
+</div>
 
 {% endblock %}

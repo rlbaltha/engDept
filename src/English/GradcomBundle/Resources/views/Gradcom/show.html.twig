@@ -1,35 +1,18 @@
 {% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
  
 {% block body %}
-<div class="row"><div class="cell"><a href="{{ path('gradcom') }}">List</a></div></div>    
-        <div class="row">
-            <div class="cell">Id</div>
-            <div class="cell">{{ entity.id }}</div>
+<div class="row divider"><div class="cell"><a href="{{ path('gradcom') }}">List Committee Chairs</a></div></div>
+    {% for entity in entities %}
+    {% if loop.index == 1 %}
+        <div class="row divider">        
+            <div class="cell">{{ entity.gfirstname }} {{ entity.glastname }}</div>
+            <div class="cell"><a href="{{ path('people_show', { 'id': entity.gid }) }}">Detail</a></div>
         </div>
-        <div class="row">
-            <div class="cell">Gid</div>
-            <div class="cell">{{ entity.gid }}</div>
+    {% endif %}
+        <div class="row">        
+            <div class="cell">{{ entity.flastname }}</div>
+            <div class="cell">{% if entity.frole == 2 %}Chair{% endif %}</div>
         </div>
-        <div class="row">
-            <div class="cell">Fid</div>
-            <div class="cell">{{ entity.fid }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Frole</div>
-            <div class="cell">{{ entity.frole }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Status</div>
-            <div class="cell">{{ entity.status }}</div>
-        </div>
-
-<div class="row"><div class="cell"><a href="{{ path('gradcom_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
-<div class="row"><div class="cell"> 
-    <form action="{{ path('gradcom_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-    </form>
-</div>
-</div> 
+    {% endfor %}
 
 {% endblock %}

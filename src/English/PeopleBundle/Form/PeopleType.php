@@ -29,10 +29,11 @@ class PeopleType extends AbstractType
             ->add('cellPhone')
             ->add('spouse')
             ->add('homePhone')    
-            ->add('position', 'text', array('attr' => array('class' => 'width640')))
+            ->add('position', 'choice', array( 'choices'   => array('Faculty' => 'Faculty','Adminstration' => 'Adminstration','Faculty and Administration' => 'Faculty and Administration',
+                'Graduate Student' => 'Graduate Student','Instructor' => 'Instructor', 'Retired' => 'Retired'), 'multiple' => false, 'expanded' => true,))
             ->add('active', 'hidden')
             ->add('status', 'hidden')
-            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status', ))    
+            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status','expanded'=>true,'multiple'=>false, ))    
         ;
     }
 

@@ -59,15 +59,14 @@
 
         {% if is_granted('ROLE_GRADFAC') %}        
         <div class="main_nav">
-        <div class="cell">Graduate</div>
-        <div class="cell"><a title="Graduate Students" href="{{ path('people_grad') }}" >Grad Students</a></div>
+        <div class="cell"><a title="Graduate Students" href="{{ path('people_mygrad') }}" >My Grad Students</a></div>    
+        <div class="cell"><a title="Graduate Students" href="{{ path('people_grad') }}" >List Grad Students</a></div>
         <div class="cell"><a title="Gradcom" href="{{ path('gradcom') }}" >Grad Committees</a></div>
         </div> 
          {% endif %}               
                 
         {% if is_granted('ROLE_USER') %}
-        <div class="main_nav">      
-        <div class="cell">User</div>            
+        <div class="main_nav">           
         <div class="cell"><a title="Calendar" href="{{ path('calendar') }}" >Calendar</a></div>
         <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>
         <div class="cell"><a title="Files" href="{{ path('file') }}" >Files</a></div>
