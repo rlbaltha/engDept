@@ -2,70 +2,58 @@
  
 {% block body %}
 <div class="row"><div class="cell"><a href="{{ path('description') }}">List</a></div></div> 
-        <div class="row">
-            <div class="cell">Id</div>
-            <div class="cell">{{ entity.id }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Callnumber</div>
-            <div class="cell">{{ entity.callNumber }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Term</div>
-            <div class="cell">{{ entity.term }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Course</div>
+        <div class="row divider">
+            <div class="cell bold">Course</div>
             <div class="cell">{{ entity.course }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Instructorname</div>
+        <div class="row divider">
+            <div class="cell bold">Instructorname</div>
             <div class="cell">{{ entity.instructorName }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Description</div>
-            <div class="cell">{{ entity.description }}</div>
+        <div class="row divider">
+            <div class="cell bold">Description</div>
+            <div class="cell">{{ entity.description|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Assignments</div>
-            <div class="cell">{{ entity.assignments }}</div>
+        <div class="row divider">
+            <div class="cell bold">Assignments</div>
+            <div class="cell">{{ entity.assignments|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Requirements</div>
-            <div class="cell">{{ entity.requirements }}</div>
+        <div class="row divider">
+            <div class="cell bold">Requirements</div>
+            <div class="cell">{{ entity.requirements|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Grading</div>
-            <div class="cell">{{ entity.grading }}</div>
+        <div class="row divider">
+            <div class="cell bold">Grading</div>
+            <div class="cell">{{ entity.grading|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Attendance</div>
-            <div class="cell">{{ entity.attendance }}</div>
+        <div class="row divider">
+            <div class="cell bold">Attendance</div>
+            <div class="cell">{{ entity.attendance|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Material</div>
-            <div class="cell">{{ entity.material }}</div>
+        <div class="row divider">
+            <div class="cell bold">Material</div>
+            <div class="cell">{{ entity.material|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Makeup</div>
-            <div class="cell">{{ entity.makeup }}</div>
+        <div class="row divider">
+            <div class="cell bold">Makeup</div>
+            <div class="cell">{{ entity.makeup|raw }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Url</div>
+        <div class="row divider">
+            <div class="cell bold">Url</div>
             <div class="cell">{{ entity.url }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Topicstitle</div>
+        <div class="row divider">
+            <div class="cell bold">Topicstitle</div>
             <div class="cell">{{ entity.topicsTitle }}</div>
         </div>
-        <div class="row">
-            <div class="cell">Topics</div>
+        <div class="row divider">
+            <div class="cell bold">Topics</div>
             <div class="cell">{{ entity.topics }}</div>
         </div>
 
-<div class="row"><div class="cell"><a href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
+<div class="row"><div class="cell"><a href="{{ path('description_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
 <div class="row"><div class="cell"> 
-    <form action="{{ path('course_delete', { 'id': entity.id }) }}" method="post">
+    <form action="{{ path('description_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
     </form>

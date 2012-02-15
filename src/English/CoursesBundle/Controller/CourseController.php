@@ -17,10 +17,10 @@ use English\CoursesBundle\Form\CourseType;
 class CourseController extends Controller
 {
     /**
-     * Lists all Course entities.
+     * Internal Course listings.  The Default Controller handles public displays.
      *
      * @Route("/", name="course")
-     * @Template()
+     * @Template("EnglishCoursesBundle:Default:index.html.twig")
      */
     public function indexAction()
     {
@@ -42,8 +42,8 @@ class CourseController extends Controller
         $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getEntityManager();
         $dql1 = "SELECT c FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.username = ?1 AND c.term=t.term AND t.type = 2";
-        $entities = $em->createQuery($dql1)->setParameter('1',$username)->getResult();
-        return array('entities' => $entities);
+        $courses = $em->createQuery($dql1)->setParameter('1',$username)->getResult();
+        return array('courses' => $courses);
         }
 
     }

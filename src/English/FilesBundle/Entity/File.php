@@ -60,7 +60,21 @@ class File
         return 'uploads/files';
     }
     
-         
+     /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            $this->path = $this->file->getClientOriginalName();
+        }
+    }
+    
+     /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */     
     public function upload()
     {
     // the file property can be empty if the field is not required
@@ -80,6 +94,17 @@ class File
     // clean up the file property as you won't need it anymore
     $this->file = null;
     }  
+ 
+     /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+    
     
     /**
      * @Assert\File(maxSize="6000000")

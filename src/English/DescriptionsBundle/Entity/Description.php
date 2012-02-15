@@ -46,7 +46,7 @@ class Description
     /**
      * @var string $instructorName
      *
-     * @ORM\Column(name="instructorName", type="string", length=255)
+     * @ORM\Column(name="instructorName", type="string", length=255, nullable=true)
      */
     private $instructorName;
 

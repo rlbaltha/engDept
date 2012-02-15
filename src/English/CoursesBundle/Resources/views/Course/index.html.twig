@@ -20,24 +20,35 @@
 </div>
 {% endif %}
     
-    {% for entity in entities %}
-        <div class="row">
-            <div class="cell">{{ entity.courseName }}</div>
-            <div class="cell">{{ entity.instructorName }}</div>
-            <div class="cell">{{ entity.callNumber }} {{ entity.callNumber2 }}</div>
-            <div class="cell">{{ entity.room }}</div>
-            <div class="cell">{{ entity.days }}</div>
-            <div class="cell">{{ entity.term }}</div>
-            <div class="cell">{{ entity.time }}</div>
-            <div class="cell">{{ entity.building }}</div>
-            <div class="cell">{{ entity.period }}</div>           
-            <div class="cell">{{ entity.area }}</div>
-            <div class="cell">{{ entity.may }}</div>
-            <div class="cell">
-                        <a href="{{ path('course_show', { 'id': entity.id }) }}">show</a>
-                        <a href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
-            </div>
-        </div>
-    {% endfor %}
+<script language="javascript"> 
+    $(document).ready(function()
+    {
+        
+    });
+</script>
+
+{% for courses in courses %}
+<div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+{% set call = "#{courses.callNumber}#{courses.callNumber2}" %}
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
+        $('#detailWrapper{{ courses.id }}').toggle();
+    });
+</script>
+{% endfor %}  
     
 {% endblock %}

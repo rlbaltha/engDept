@@ -10,10 +10,10 @@ class DescriptionType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('callNumber')
-            ->add('term')
-            ->add('course')
-            ->add('instructorName')
+            ->add('callNumber','hidden')
+            ->add('term','hidden')
+            ->add('course','hidden')
+            ->add('instructorName','hidden')
             ->add('description')
             ->add('assignments')
             ->add('requirements')
@@ -21,9 +21,10 @@ class DescriptionType extends AbstractType
             ->add('attendance')
             ->add('material')
             ->add('makeup')
-            ->add('url')
-            ->add('topicsTitle')
-            ->add('topics')
+            ->add('url', 'text', array('attr' => array('class' => 'width640')))
+            ->add('topics', 'choice', array('choices' => array ('t' => 'Yes','f' => 'No'), 
+                'expanded' => true, 'required' => true,))
+            ->add('topicsTitle', 'text', array('attr' => array('class' => 'width640')))    
         ;
     }
 

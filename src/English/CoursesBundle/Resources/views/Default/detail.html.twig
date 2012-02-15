@@ -23,9 +23,13 @@
 <div class="row"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ courseDetail.makeup }}{% endautoescape %}</div></div>
 {% endif %}  
 
+<a href="{{ path('description_edit', { 'id': courseDetail.id }) }}">edit</a>
+
 {% endfor %}
 {% else %} 
 <div class="row divider">
 <div class="cell">No description has been offered by the instructor at this time. </div>
 </div>
 {% endif %} 
+
+

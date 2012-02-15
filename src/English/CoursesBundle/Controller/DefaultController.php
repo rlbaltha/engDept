@@ -75,7 +75,7 @@ class DefaultController extends Controller
     public function courseDetailAction($call)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
+        $dql1 = "SELECT d.id,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $call)->getResult();
         return $this->render('EnglishCoursesBundle:Default:detail.html.twig', array('courseDetail' => $courseDetail)); 
             

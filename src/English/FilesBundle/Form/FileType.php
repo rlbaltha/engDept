@@ -12,7 +12,6 @@ class FileType extends AbstractType
         $builder
             ->add('name')
             ->add('path')
-            ->add('username')
         ;
     }
 

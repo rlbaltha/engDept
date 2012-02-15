@@ -1,8 +1,9 @@
 {% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
  
- {% block body %}
-
+{% block body %}
+{% if '/listings/' in app.request.pathinfo %}
 {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
+{% endif %}
 
 <script language="javascript"> 
     $(document).ready(function()
@@ -22,11 +23,6 @@
 <div class="cell">{{ courses.time }}</div>
 </div>
 <div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
-<div class="row">
-<div class="cell right close">
-<a class="button" href="javascript:void(0);" tabindex="1" title="Close" onclick="$('#detailWrapper{{ courses.id }}').fadeOut('fast');$('#course{{ courses.id }}').removeClass('row_odd');$('#course{{ courses.id }}').addClass('row_even');">x</a>
-</div>
-</div>
 <div id="detail{{ courses.id }}" class="row_odd">
 </div>
 </div>
@@ -35,8 +31,8 @@
 <script language="javascript"> 
     $('#detailLink{{ courses.id }}').click(function(){
         $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
-        $('#detailWrapper{{ courses.id }}').fadeIn('slow');
+        $('#detailWrapper{{ courses.id }}').toggle();
     });
 </script>
 {% endfor %}    
- {% endblock %}
+{% endblock %}
