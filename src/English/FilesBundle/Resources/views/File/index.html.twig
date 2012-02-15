@@ -1,20 +1,16 @@
- {% extends 'EnglishFilesBundle:File:layout.html.twig' %}
+{% extends 'EnglishFilesBundle:File:layout.html.twig' %}
  
- {% block body %}
+{% block body %}
 
-<div class="row"><div class="cell"><a href="{{ path('file_new') }}">New</a></div></div>
+<div class="row"><div class="cell"><a href="{{ path('file_upload') }}">Upload</a></div></div>
     
-    {% for entity in entities %}
-        <div class="row">
-            <div class="cell"><a href="{{ path('file_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
-            <div class="cell">{{ entity.name }}</div>
-            <div class="cell">{{ entity.path }}</div>
-            <div class="cell">{{ entity.username }}</div>
-            <div class="cell">
-                <a href="{{ path('file_show', { 'id': entity.id }) }}">show</a>
-                <a href="{{ path('file_edit', { 'id': entity.id }) }}">edit</a>    
-            </div>
-        </div>
+{% for entity in entities %}
+    <div class='row divider'>
+        <div class="cell"><a title="{{ entity.name }}" href="../../uploads/files/{{ entity.path }}">{{ entity.name }}</a></div>
+        <div class="cell right"><a href="{{ path('file_show', { 'id': entity.id }) }}">Detail</a></div>
+        <div class="cell right"><a href="{{ path('file_edit', { 'id': entity.id }) }}">Edit</a></div>
+    </div>
+
     {% endfor %}
 
 {% endblock %}

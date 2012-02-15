@@ -16,6 +16,42 @@ use English\FilesBundle\Form\FileType;
  */
 class FileController extends Controller
 {
+    
+    /**
+     * Uploads a file with a Document entity.
+     *
+     * @Route("/upload", name="file_upload")
+     * @Template()
+     */    
+     public function uploadAction()
+     {
+         $username = $this->get('security.context')->getToken()->getUsername();
+         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
+         $file = new File();
+         $file->setUserid($userid);
+         $form = $this->createFormBuilder($file)
+             ->add('name')
+             ->add('userid', 'hidden')    
+             ->add('file')
+             ->getForm()
+         ;
+
+         if ($this->getRequest()->getMethod() === 'POST') {
+             $form->bindRequest($this->getRequest());
+             if ($form->isValid()) {
+                 $em = $this->getDoctrine()->getEntityManager();
+                 $file->upload();
+                 $em->persist($file);
+                 $em->flush(); 
+                 return $this->redirect($this->generateUrl('file_show', array('id' => $file->getId())));
+             }
+             
+         }
+
+    return array('form' => $form->createView());
+     }
+
+
     /**
      * Lists all File entities.
      *
@@ -29,11 +65,11 @@ class FileController extends Controller
         $entities = $em->getRepository('EnglishFilesBundle:File')->findAll();
         return array('entities' => $entities);   
         } else {
-        $securityContext = $this->get('security.context');
-        $username = $securityContext->getToken()->getUsername();  
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT f FROM EnglishFilesBundle:File f  WHERE f.username = ?1";
-        $entities = $em->createQuery($dql1)->setParameter('1',$username)->getResult();
+        $dql1 = "SELECT f FROM EnglishFilesBundle:File f  WHERE f.userid = ?1";
+        $entities = $em->createQuery($dql1)->setParameter('1',$userid)->getResult();
         return array('entities' => $entities);
         }        
     }

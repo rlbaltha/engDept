@@ -1,0 +1,14 @@
+{% extends 'EnglishFilesBundle:File:layout.html.twig' %}
+ 
+{% block body %}
+<div class='row divider'>
+    <div class="cell">
+<form action="#" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Upload Document" />
+</form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,6 +1,8 @@
+/web/uploads
 /web/bundles
 /app/bootstrap.php.cache
 /app/cache
 /app/logs
-/vendors/
+/vendor
 /app/config/parameters.ini
+/nbproject
