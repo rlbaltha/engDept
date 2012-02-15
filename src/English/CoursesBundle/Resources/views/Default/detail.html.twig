@@ -21,10 +21,12 @@
 {% endif %}  
 {% if courseDetail.makeup != '' %}
 <div class="row"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ courseDetail.makeup }}{% endautoescape %}</div></div>
-{% endif %}  
-
+{% endif %} 
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+<div class="row"><div class="cell">
 <a href="{{ path('description_edit', { 'id': courseDetail.id }) }}">edit</a>
-
+</div></div>
+{% endif %} 
 {% endfor %}
 {% else %} 
 <div class="row divider">
