@@ -33,7 +33,7 @@ class Calendar
     /**
      * @var time $time
      *
-     * @ORM\Column(name="time", type="time")
+     * @ORM\Column(name="time", type="time", nullable=true)
      */
     private $time;
 
@@ -47,7 +47,7 @@ class Calendar
     /**
      * @var text $description
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
