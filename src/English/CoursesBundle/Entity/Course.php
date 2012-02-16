@@ -32,7 +32,7 @@ class Course
     /**
      * @var string $instructorName
      *
-     * @ORM\Column(name="instructorName", type="string", length=255)
+     * @ORM\Column(name="instructorName", type="string", length=255, nullable=true)
      */
     private $instructorName;
 
@@ -88,7 +88,7 @@ class Course
     /**
      * @var string $username
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
      */
     private $username;
 
@@ -109,7 +109,7 @@ class Course
     /**
      * @var string $area
      *
-     * @ORM\Column(name="area", type="string", length=255)
+     * @ORM\Column(name="area", type="string", length=255, nullable=true)
      */
     private $area;
 
