@@ -36,18 +36,19 @@ class Advisor
      */
     private $username;
     
-    /**
-    * @ORM\Column(type="datetime", nullable=true)
-    * @Gedmo\Timestampable(on="create")
-    */
-    protected $created;
-    
      /**
      * @var integer $userid
      *
      * @ORM\Column(name="userid", type="integer", nullable=true)
      */
     private $userid; 
+    
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @Gedmo\Timestampable(on="create")
+    */
+    protected $created;
+    
     
     /**
     * @ORM\Column(type="datetime", nullable=true)

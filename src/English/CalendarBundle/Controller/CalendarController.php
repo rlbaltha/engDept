@@ -99,6 +99,7 @@ class CalendarController extends Controller
     {
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
+        
         $entity  = new Calendar();
         $request = $this->getRequest();
         $entity->setUserid($userid);

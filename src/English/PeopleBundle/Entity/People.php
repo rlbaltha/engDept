@@ -177,6 +177,13 @@ class People
     private $position;
 
     /**
+     * @var integer $userid
+     *
+     * @ORM\Column(name="userid", type="integer", nullable=true)
+     */
+    private $userid; 
+    
+    /**
     * @ORM\ManyToOne(targetEntity="English\GradinfoBundle\Entity\Gradinfo", inversedBy="people")
     */
     protected $gradinfo;
@@ -703,5 +710,25 @@ class People
     public function getGradinfo()
     {
         return $this->gradinfo;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
     }
 }

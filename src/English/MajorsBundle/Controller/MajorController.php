@@ -95,7 +95,13 @@ class MajorController extends Controller
      */
     public function createAction()
     {
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        
         $entity  = new Major();
+        
+        $entity->setUserid($userid);
+        
         $request = $this->getRequest();
         $form    = $this->createForm(new MajorType(), $entity);
         $form->bindRequest($request);

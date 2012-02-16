@@ -82,7 +82,13 @@ class GradnotesController extends Controller
      */
     public function createAction()
     {
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        
         $entity  = new Gradnotes();
+        
+        $entity->setUserid($userid);
+        
         $request = $this->getRequest();
         $form    = $this->createForm(new GradnotesType(), $entity);
         $form->bindRequest($request);

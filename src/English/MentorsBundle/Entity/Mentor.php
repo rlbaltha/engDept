@@ -35,6 +35,13 @@ class Mentor
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
+    
+    /**
+     * @var integer $userid
+     *
+     * @ORM\Column(name="userid", type="integer", nullable=true)
+     */
+    private $userid; 
 
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -136,5 +143,25 @@ class Mentor
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
     }
 }

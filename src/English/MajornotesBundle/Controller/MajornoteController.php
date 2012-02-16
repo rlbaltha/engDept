@@ -82,7 +82,13 @@ class MajornoteController extends Controller
      */
     public function createAction()
     {
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        
         $entity  = new Majornote();
+        
+        $entity->setUserid($userid);
+        
         $request = $this->getRequest();
         $form    = $this->createForm(new MajornoteType(), $entity);
         $form->bindRequest($request);

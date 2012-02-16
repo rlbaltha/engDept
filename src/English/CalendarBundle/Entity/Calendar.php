@@ -61,9 +61,9 @@ class Calendar
      /**
      * @var integer $userid
      *
-     * @ORM\Column(name="userid", type="integer")
+     * @ORM\Column(name="userid", type="integer", nullable=true)
      */
-    private $userid;
+    private $userid; 
 
 
     /**
