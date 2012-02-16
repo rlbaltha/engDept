@@ -81,8 +81,11 @@ class SpotlightController extends Controller
     {
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        
         $entity  = new Spotlight();
+        
         $entity->setUserid($userid);
+        
         $request = $this->getRequest();
         $form    = $this->createForm(new SpotlightType(), $entity);
         $form->bindRequest($request);

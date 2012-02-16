@@ -42,6 +42,13 @@ class Advisor
     */
     protected $created;
     
+     /**
+     * @var integer $userid
+     *
+     * @ORM\Column(name="userid", type="integer", nullable=true)
+     */
+    private $userid; 
+    
     /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="update")
@@ -137,5 +144,25 @@ class Advisor
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
     }
 }
