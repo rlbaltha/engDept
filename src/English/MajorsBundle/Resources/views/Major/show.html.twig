@@ -1,17 +1,10 @@
 {% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
  
 {% block body %}
-<div class="row divider">
-    <div class="cell"><a href="{{ path('major') }}">List Majors</a></div>
-    {% if is_granted('ROLE_ADMIN') %}
-    <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div>
-    <div class="cell"> 
-    <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button type="submit">Delete</button>
-    </form>
-    </div>
-    {% endif %}
+<div class="row_contrast divider">
+    <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></div>
+    <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></div>
+    <div class="cell"><a title="Majors" href="{{ path('major') }}" >List All Majors</a></div>
 </div>
 
         <div class="row">
@@ -36,7 +29,7 @@
             <div class="cell">Honors</div>
             <div class="cell bold">{{ entity.honors }}</div>
         </div>
-        <div class="row">
+        <div class="row divider">
             <div class="cell">Can</div>
             <div class="cell bold">{{ entity.can }}</div>
             <div class="cell">Status</div>
@@ -46,6 +39,19 @@
             <div class="cell">Notes</div>
             <div class="cell">{{ entity.notes | raw }}</div>
         </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="row divider">
+        <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div>
+        <div class="cell"> 
+        <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button type="submit">Delete</button>
+        </form>
+        </div>
+        </div>
+        {% endif %}
+
         <div class="row_contrast">
             <div class="cell bold">Mentor Notes</div>
             <div class="cell"><a href="{{ path('majornote_new', { 'id': entity.id }) }}">New Note</a></div>

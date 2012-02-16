@@ -2,21 +2,22 @@
  
  {% block body %}
 
-<div class="row"><div class="cell"><a href="{{ path('major_new') }}">New</a></div></div>
+<div class="row_contrast divider">
+    <div class="cell"><a href="{{ path('major_new') }}">New Major</a></div>
+    <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></div>
+    <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></div>
+    <div class="cell"><a title="Majors" href="{{ path('major') }}" >List All Majors</a></div>
+</div>
    
     {% for entity in entities %}
         <div class="row">
-            <div class="cell bold width150">{{ entity.name }}</div>
+            <div class="cell bold width150"><a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.name }}</a></div>
             <div class="cell width200">{{ entity.email }}</div>
-            <div class="cell width50">{{ entity.aName }}</div>
-            <div class="cell width50">{{ entity.eName }}</div>
+            <div class="cell width100">{{ entity.aName }}</div>
+            <div class="cell width100">{{ entity.eName }}</div>
             <div class="cell width50">{{ entity.firstMajor }}</div>
             <div class="cell width50">{{ entity.secondMajor }}</div>
             <div class="cell width150">{{ entity.aoe }}</div>
-            <div class="cell">
-                <a href="{{ path('major_show', { 'id': entity.id }) }}">show</a>
-                <a href="{{ path('major_edit', { 'id': entity.id }) }}">edit</a>
-            </div>
         </div>
     {% endfor %}
     

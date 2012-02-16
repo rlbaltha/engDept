@@ -2,13 +2,17 @@
  
  {% block body %}
 
-<div class="row"><div class="cell"><a href="{{ path('mentor_new') }}">New</a></div></div>
+<div class="row_contrast divider">
+    <div class="cell"><a href="{{ path('mentor_new') }}">New Mentor</a></div>
+    <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></div>
+    <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></div>
+    <div class="cell"><a title="Majors" href="{{ path('major') }}" >List All Majors</a></div>
+</div>
     
     {% for entity in entities %}
         <div class="row">
-            <div class="cell">{{ entity.name }}</div>
-            <div class="cell">{{ entity.username }}</div>
-            <div class="cell"><a href="{{ path('mentor_edit', { 'id': entity.id }) }}">edit</a></div>
+            <div class="cell bold">{{ entity.name }}</div>
+            <div class="cell"><a href="{{ path('mentor_edit', { 'id': entity.id }) }}">Edit</a></div>
             <div class="cell"><a href="{{ path('major_findbymentor', { 'id': entity.id }) }}">List Advisees</a></div>
         </div>
     {% endfor %}

@@ -3,7 +3,12 @@
 {% block body %}
 
 
-<div class="row"><div class="cell"><a href="{{ path('advisor_new') }}">New</a></div></div>
+<div class="row_contrast divider">
+    <div class="cell"><a href="{{ path('advisor_new') }}">New Advisor</a></div>
+    <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></div>
+    <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></div>
+    <div class="cell"><a title="Majors" href="{{ path('major') }}" >List All Majors</a></div>
+</div>
 
 
     {% for entity in entities %}

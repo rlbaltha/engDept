@@ -25,9 +25,8 @@ class MentorController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishMentorsBundle:Mentor')->findAll();
-
+        $dql1 = "SELECT a FROM EnglishMentorsBundle:Mentor a ORDER BY a.name";
+        $entities = $em->createQuery($dql1)->getResult();
         return array('entities' => $entities);
     }
     
