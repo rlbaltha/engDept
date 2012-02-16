@@ -32,7 +32,7 @@ class Major
     /**
      * @var string $email
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
@@ -53,7 +53,7 @@ class Major
     /**
      * @var string $secondMajor
      *
-     * @ORM\Column(name="secondMajor", type="string", length=255)
+     * @ORM\Column(name="secondMajor", type="string", length=255, nullable=true)
      */
     private $secondMajor;
 
@@ -74,7 +74,7 @@ class Major
     /**
      * @var string $minor
      *
-     * @ORM\Column(name="minor", type="string", length=255)
+     * @ORM\Column(name="minor", type="string", length=255, nullable=true)
      */
     private $minor;
 
@@ -88,7 +88,7 @@ class Major
     /**
      * @var text $notes
      *
-     * @ORM\Column(name="notes", type="text")
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
@@ -102,14 +102,14 @@ class Major
     /**
      * @var integer $advisorId
      *
-     * @ORM\Column(name="advisorId", type="integer")
+     * @ORM\Column(name="advisorId", type="integer", nullable=true)
      */
     private $advisorId;
 
     /**
      * @var integer $mentorId
      *
-     * @ORM\Column(name="mentorId", type="integer")
+     * @ORM\Column(name="mentorId", type="integer", nullable=true)
      */
     private $mentorId;
 
