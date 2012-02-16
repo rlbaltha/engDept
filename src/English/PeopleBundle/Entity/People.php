@@ -165,7 +165,7 @@ class People
     /**
      * @var integer $active
      *
-     * @ORM\Column(name="active", type="integer")
+     * @ORM\Column(name="active", type="integer", nullable=true)
      */
     private $active;
 

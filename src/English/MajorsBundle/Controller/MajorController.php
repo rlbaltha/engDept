@@ -40,6 +40,7 @@ class MajorController extends Controller
 
     }     
 
+
      /**
      * Lists all Major or majors by user.
      *
@@ -54,8 +55,24 @@ class MajorController extends Controller
         return array('entities' => $entities);
     } 
     
+        
+    /**
+     * Lists all majors by mentor.
+     *
+     * @Route("/{id}/findbymentor", name="major_findbymentor")
+     * @Template("EnglishMajorsBundle:Major:index.html.twig")
+     */
+    public function findbymentorAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager()
+        ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated
+            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE e.id = ?1 ORDER BY m.name ASC');
+       $entities = $em->setParameter('1',$id)->getResult();
+        return array('entities' => $entities);
+    }
     
-    
+     
+
     /**
      * Finds and displays a Major entity.
      *
