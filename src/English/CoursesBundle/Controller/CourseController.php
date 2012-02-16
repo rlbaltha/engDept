@@ -28,13 +28,13 @@ class CourseController extends Controller
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
         $dql1 = "SELECT c FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
-        $entities = $em->createQuery($dql1)->getResult();
+        $courses = $em->createQuery($dql1)->getResult();
       
         
         $form = $this->createFormBuilder(new Course())
             ->add('courseName')
             ->getForm();
-        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('courses' => $courses, 'form' => $form->createView()));
         
         }  
         else {
