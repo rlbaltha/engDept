@@ -1,14 +1,16 @@
- {% extends 'EnglishAdvisorsBundle:Advisor:layout.html.twig' %}
+{% extends 'EnglishAdvisorsBundle:Advisor:layout.html.twig' %}
  
- {% block body %}
+{% block body %}
 
 <div class="row"><div class="cell"><a href="{{ path('advisor') }}">List</a></div></div>
 
+<div class="row"><div class="cell">
 <form action="{{ path('advisor_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button type="submit">Create</button>
     </p>
 </form>
+</div></div>
 
 {% endblock %}

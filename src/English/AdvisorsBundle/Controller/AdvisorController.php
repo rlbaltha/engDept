@@ -25,9 +25,8 @@ class AdvisorController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishAdvisorsBundle:Advisor')->findAll();
-
+        $dql1 = "SELECT a FROM EnglishAdvisorsBundle:Advisor a ORDER BY a.name";
+        $entities = $em->createQuery($dql1)->getResult();
         return array('entities' => $entities);
     }
 

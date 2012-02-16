@@ -1,6 +1,6 @@
- {% extends 'EnglishAdvisorsBundle:Advisor:layout.html.twig' %}
+{% extends 'EnglishAdvisorsBundle:Advisor:layout.html.twig' %}
  
- {% block body %}
+{% block body %}
 
 
 <div class="row"><div class="cell"><a href="{{ path('advisor_new') }}">New</a></div></div>
@@ -8,12 +8,9 @@
 
     {% for entity in entities %}
         <div class="row">
-            <div class="cell">{{ entity.name }}</div>
-            <div class="cell">{{ entity.username }}</div>
-            <div class="cell">                      
-                        <a href="{{ path('advisor_edit', { 'id': entity.id }) }}">edit</a>                   
-            
-            </div>
+            <div class="cell bold">{{ entity.name }}</div>
+            <div class="cell"><a href="{{ path('advisor_edit', { 'id': entity.id }) }}">Edit</a></div>
+            <div class="cell"><a href="{{ path('major_findbyadvisor', { 'id': entity.id }) }}">List Advisees</a></div>
         </div>
     {% endfor %}
     
