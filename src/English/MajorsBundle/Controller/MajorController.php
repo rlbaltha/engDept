@@ -24,11 +24,17 @@ class MajorController extends Controller
      */
     public function indexAction()
     {
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if ($this->get('security.context')->isGranted('ROLE_ADVISOR')) {
          $em = $this->getDoctrine()->getEntityManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e ORDER BY m.name ASC');
         $entities = $em->getResult();
-        return array('entities' => $entities);  
+        
+        $form = $this->createFormBuilder(new Major())
+            ->add('name')
+            ->getForm();
+        
+        return array('entities' => $entities, 'form' => $form->createView(),);
+        
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
@@ -71,7 +77,31 @@ class MajorController extends Controller
         return array('entities' => $entities);
     }
     
-     
+
+    
+    /**
+     * Find Majors
+     *
+     * @Route("/find", name="major_find")
+     * @Method("post")
+     */
+    public function findAction()
+    {   $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $name = $postData['name'] . "%";
+        $name = strtolower($name);
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE LOWER(m.name) LIKE ?1 ORDER BY m.name";
+        $entities = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
+        $form = $this->createFormBuilder(new Major())
+            ->add('name')
+            ->getForm();
+        if (!$entities) {
+            throw $this->createNotFoundException('Unable to find Major entity.');
+        }
+        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        }   
+        
 
     /**
      * Finds and displays a Major entity.

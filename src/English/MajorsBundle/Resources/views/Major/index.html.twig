@@ -3,10 +3,23 @@
  {% block body %}
 
 <div class="row_contrast divider">
+    {% if is_granted('ROLE_ADVISOR') %}
     <div class="cell"><a href="{{ path('major_new') }}">New Major</a></div>
     <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></div>
     <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></div>
     <div class="cell"><a title="Majors" href="{{ path('major') }}" >List All Majors</a></div>
+   
+    <form action="{{ path('major_find') }}" method="post" {{ form_enctype(form) }}>
+        <div class='cell right'>
+        <div class="cell">
+        {{ form_widget(form) }}
+        </div>         
+        <div class="cell">
+        <button type="submit">Find</button>
+        </div> 
+        </div>        
+     </form> 
+    {% endif %}
 </div>
    
     {% for entity in entities %}
