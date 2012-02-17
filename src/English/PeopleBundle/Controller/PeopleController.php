@@ -73,7 +73,7 @@ class PeopleController extends Controller
         }     
 
     /**
-     * Find Grad of People
+     * Find Grad People
      *
      * @Route("/grad", name="people_grad")
      */        

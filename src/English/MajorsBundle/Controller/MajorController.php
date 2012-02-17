@@ -33,8 +33,7 @@ class MajorController extends Controller
             ->add('name')
             ->getForm();
         
-        return array('entities' => $entities, 'form' => $form->createView(),);
-        
+        return array('entities' => $entities, 'form' => $form->createView(),);  
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
@@ -77,8 +76,6 @@ class MajorController extends Controller
         return array('entities' => $entities);
     }
     
-
-    
     /**
      * Find Majors
      *
@@ -97,12 +94,12 @@ class MajorController extends Controller
             ->add('name')
             ->getForm();
         if (!$entities) {
+
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
         return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
         }   
         
-
     /**
      * Finds and displays a Major entity.
      *
