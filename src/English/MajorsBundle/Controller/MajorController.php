@@ -33,7 +33,7 @@ class MajorController extends Controller
             ->add('name')
             ->getForm();
         
-        return array('entities' => $entities, 'form' => $form->createView(),);  
+        return array('entities' => $entities, 'form' => $form->createView());  
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
@@ -47,7 +47,7 @@ class MajorController extends Controller
 
 
      /**
-     * Lists all Major or majors by user.
+     * Lists all Majors by Advisor.
      *
      * @Route("/{id}/findbyadvisor", name="major_findbyadvisor")
      * @Template("EnglishMajorsBundle:Major:index.html.twig")
@@ -57,7 +57,12 @@ class MajorController extends Controller
          $em = $this->getDoctrine()->getEntityManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE a.id = ?1 ORDER BY m.name ASC');
         $entities = $em->setParameter('1',$id)->getResult();
-        return array('entities' => $entities);
+        
+        $form = $this->createFormBuilder(new Major())
+            ->add('name')
+            ->getForm();
+        
+        return array('entities' => $entities, 'form' => $form->createView());
     } 
     
         
@@ -73,7 +78,12 @@ class MajorController extends Controller
         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE e.id = ?1 ORDER BY m.name ASC');
        $entities = $em->setParameter('1',$id)->getResult();
-        return array('entities' => $entities);
+       
+       $form = $this->createFormBuilder(new Major())
+            ->add('name')
+            ->getForm();
+       
+        return array('entities' => $entities, 'form' => $form->createView());
     }
     
     /**
