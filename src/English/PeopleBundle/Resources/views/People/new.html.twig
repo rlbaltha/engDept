@@ -28,15 +28,13 @@ toolbar : [
 <div class="row divider"><div class="cell"><a href="{{ path('people') }}">Return to List</a></div></div>
 
 
-<div class="row">
-    <div class="cell">
+<div class="row"><div class="cell">
     <form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
     {{ form_widget(form) }}
     <p>
         <button type="submit">Create</button>
     </p>
     </form>
-    </div>
-</div>
+</div></div>
 
 {% endblock %}
