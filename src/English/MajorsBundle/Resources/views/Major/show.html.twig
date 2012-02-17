@@ -42,7 +42,7 @@
             <div class="cell">{{ entity.notes | raw }}</div>
         </div>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ADVISOR') %}
         <div class="row divider">
         <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div>
         <div class="cell"> 
