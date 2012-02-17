@@ -32,14 +32,14 @@ class Description
     /**
      * @var string $term
      *
-     * @ORM\Column(name="term", type="string", length=255)
+     * @ORM\Column(name="term", type="string", length=255, nullable=true)
      */
     private $term;
 
     /**
      * @var string $course
      *
-     * @ORM\Column(name="course", type="string", length=255)
+     * @ORM\Column(name="course", type="string", length=255, nullable=true)
      */
     private $course;
 

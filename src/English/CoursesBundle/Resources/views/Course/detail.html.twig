@@ -23,11 +23,20 @@
 {% if courseDetail.makeup != '' %}
 <div class="row divider"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ courseDetail.makeup }}{% endautoescape %}</div></div>
 {% endif %} 
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+<div class="row"><div class="cell">
+<a href="{{ path('description_edit', { 'id': courseDetail.id }) }}">Edit</a>
+</div></div>
+{% endif %} 
+
 {% endfor %}
 
 {% else %} 
 <div class="row divider">
-<div class="cell">No description has been offered by the instructor at this time. </div>
+<div class="cell">No description has been offered by the instructor at this time.
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    <a href="{{ path('description_new', { 'callNumber': callNumber }) }}">Add Description</a> </div>
+    {% endif %}     
 </div>
 
 {% endif %} 

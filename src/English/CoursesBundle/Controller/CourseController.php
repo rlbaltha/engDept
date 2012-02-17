@@ -20,7 +20,7 @@ class CourseController extends Controller
      * Internal Course listings.  The Default Controller handles public displays.
      *
      * @Route("/", name="course")
-     * @Template("EnglishCoursesBundle:Default:index.html.twig")
+     * @Template("EnglishCoursesBundle:Course:index.html.twig")
      */
     public function indexAction()
     {
@@ -47,6 +47,23 @@ class CourseController extends Controller
         }
 
     }
+    
+     /**
+     * Finds and displays a Description.
+     *
+     * @Route("/{callNumber}/detail", name="course_detail")
+     * @Template()
+     */    
+    public function courseDetailAction($callNumber)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql1 = "SELECT d.id,d.userid,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
+        $courseDetail = $em->createQuery($dql1)->setParameter('1', $callNumber)->getResult();
+        $callNumber = $callNumber;
+        return $this->render('EnglishCoursesBundle:Course:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber)); 
+            
+    } 
+    
     
      /**
      * Find Course entity.

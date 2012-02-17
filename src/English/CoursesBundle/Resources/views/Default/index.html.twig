@@ -5,12 +5,6 @@
 {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
 {% endif %}
 
-<script language="javascript"> 
-    $(document).ready(function()
-    {
-        
-    });
-</script>
 
 {% for courses in courses %}
 <div id="course{{ courses.id }}" class="row_even divider">
@@ -27,10 +21,10 @@
 </div>
 </div>
 
-{% set call = "#{courses.callNumber}#{courses.callNumber2}" %}
+{% set callNumber = "#{courses.callNumber}#{courses.callNumber2}#{courses.term}" %}
 <script language="javascript"> 
     $('#detailLink{{ courses.id }}').click(function(){
-        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber }) }}');
         $('#detailWrapper{{ courses.id }}').toggle();
     });
 </script>

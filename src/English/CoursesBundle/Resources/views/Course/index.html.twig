@@ -20,13 +20,6 @@
 </div>
 {% endif %}
     
-<script language="javascript"> 
-    $(document).ready(function()
-    {
-        
-    });
-</script>
-
 {% for courses in courses %}
 <div id="course{{ courses.id }}" class="row_even divider">
 <div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
@@ -42,10 +35,10 @@
 </div>
 </div>
 
-{% set call = "#{courses.callNumber}#{courses.callNumber2}" %}
+{% set callNumber = "#{courses.callNumber}#{courses.callNumber2}#{courses.term}" %}
 <script language="javascript"> 
     $('#detailLink{{ courses.id }}').click(function(){
-        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
+        $('#detail{{ courses.id }}').load('{{ path('course_detail', { 'callNumber': callNumber }) }}');
         $('#detailWrapper{{ courses.id }}').toggle();
     });
 </script>

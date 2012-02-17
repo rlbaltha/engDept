@@ -57,14 +57,16 @@ class DescriptionController extends Controller
     /**
      * Displays a form to create a new Description entity.
      *
-     * @Route("/new", name="description_new")
+     * @Route("/{callNumber}/new", name="description_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($callNumber)
     {
         $entity = new Description();
+        $entity->setCallNumber($callNumber);
+        $entity->setTopics('f');
         $form   = $this->createForm(new DescriptionType(), $entity);
-
+        
         return array(
             'entity' => $entity,
             'form'   => $form->createView()
@@ -195,7 +197,7 @@ class DescriptionController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('description'));
+        return $this->redirect($this->generateUrl('course'));
     }
 
     private function createDeleteForm($id)

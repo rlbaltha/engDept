@@ -24,7 +24,7 @@ class DefaultController extends Controller
     {
         $currentType = 'Upper';
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
+        $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
         $courses = $em->createQuery($dql1)->getResult();
         $dql2 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type >= ?1 ORDER BY t.term";
         $terms = $em->createQuery($dql2)->setParameter('1','1')->getResult();
@@ -45,19 +45,19 @@ class DefaultController extends Controller
         $currentType = $type;
         $em = $this->get('doctrine.orm.entity_manager');
         if ($type == 'Upper') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area IN ('1','2','3','4','5') ORDER BY c.courseName";
+            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area IN ('1','2','3','4','5') ORDER BY c.courseName";
             }
         elseif ($type == 'FYC') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.courseName LIKE 'ENGL1%' ORDER BY c.courseName";
+            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.courseName LIKE 'ENGL1%' ORDER BY c.courseName";
             }
         elseif ($type == 'Surveys') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area > 'f' ORDER BY c.courseName";
+            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area > 'f' ORDER BY c.courseName";
             }
         elseif ($type == 'Graduate') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and (c.courseName LIKE 'ENGL5%' or c.courseName LIKE 'ENGL6%' or c.courseName LIKE 'ENGL7%' or c.courseName LIKE 'ENGL8%' or c.courseName LIKE 'ENGL9%' ) ORDER BY c.courseName";
+            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and (c.courseName LIKE 'ENGL5%' or c.courseName LIKE 'ENGL6%' or c.courseName LIKE 'ENGL7%' or c.courseName LIKE 'ENGL8%' or c.courseName LIKE 'ENGL9%' ) ORDER BY c.courseName";
             }
         else {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 ORDER BY c.courseName";
+            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 ORDER BY c.courseName";
             }
         $courses = $em->createQuery($dql1)->setParameter('1', $term)->getResult();
         $dql2 = "SELECT t.termName,t.term FROM EnglishTermBundle:Term t WHERE t.type >= ?1 ORDER BY t.term";
@@ -67,17 +67,18 @@ class DefaultController extends Controller
     } 
 
     /**
-     * Finds and displays a Course entity.
+     * Finds and displays a Description.
      *
-     * @Route("/{call}/detail", name="listings_detail")
+     * @Route("/{callNumber}/detail", name="listings_detail")
      * @Template()
      */    
-    public function courseDetailAction($call)
+    public function courseDetailAction($callNumber)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT d.id,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
-        $courseDetail = $em->createQuery($dql1)->setParameter('1', $call)->getResult();
-        return $this->render('EnglishCoursesBundle:Default:detail.html.twig', array('courseDetail' => $courseDetail)); 
+        $dql1 = "SELECT d.id,d.userid,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
+        $courseDetail = $em->createQuery($dql1)->setParameter('1', $callNumber)->getResult();
+        $callNumber = $callNumber;
+        return $this->render('EnglishCoursesBundle:Default:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber)); 
             
     }     
     

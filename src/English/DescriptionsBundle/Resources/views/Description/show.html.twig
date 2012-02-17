@@ -1,64 +1,35 @@
  {% extends 'EnglishDescriptionsBundle:Description:layout.html.twig' %}
  
 {% block body %}
-<div class="row"><div class="cell"><a href="{{ path('description') }}">List</a></div></div> 
-        <div class="row divider">
-            <div class="cell bold">Course</div>
-            <div class="cell">{{ entity.course }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Instructorname</div>
-            <div class="cell">{{ entity.instructorName }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Description</div>
-            <div class="cell">{{ entity.description|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Assignments</div>
-            <div class="cell">{{ entity.assignments|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Requirements</div>
-            <div class="cell">{{ entity.requirements|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Grading</div>
-            <div class="cell">{{ entity.grading|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Attendance</div>
-            <div class="cell">{{ entity.attendance|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Material</div>
-            <div class="cell">{{ entity.material|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Makeup</div>
-            <div class="cell">{{ entity.makeup|raw }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Url</div>
-            <div class="cell">{{ entity.url }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Topicstitle</div>
-            <div class="cell">{{ entity.topicsTitle }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell bold">Topics</div>
-            <div class="cell">{{ entity.topics }}</div>
-        </div>
-
-<div class="row"><div class="cell"><a href="{{ path('description_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
-<div class="row"><div class="cell"> 
-    <form action="{{ path('description_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-    </form>
+<div class="row divider">
+    <div class="cell"><a href="{{ path('course') }}">List Courses</a></div>   
 </div>
-</div> 
+{% if entity.description != '' %}
+<div class="row"><div class="cell bold">Description</div><div class="cell">{% autoescape false %}{{ entity.description }}{% endautoescape %}</div></div>
+{% endif %}
+{% if entity.assignments != '' %}
+<div class="row"><div class="cell bold">Assignments</div><div class="cell">{% autoescape false %}{{ entity.assignments }}{% endautoescape %}</div></div>
+{% endif %} 
+{% if entity.requirements != '' %}
+<div class="row"><div class="cell bold">Requirements</div><div class="cell">{% autoescape false %}{{ entity.requirements }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if entity.grading != '' %}
+<div class="row"><div class="cell bold">Grading</div><div class="cell">{% autoescape false %}{{ entity.grading }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if entity.attendance != '' %}
+<div class="row"><div class="cell bold">Attendance</div><div class="cell">{% autoescape false %}{{ entity.attendance }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if entity.material != '' %}
+<div class="row"><div class="cell bold">Material</div><div class="cell">{% autoescape false %}{{ entity.material }}{% endautoescape %}</div></div>
+{% endif %}  
+{% if entity.makeup != '' %}
+<div class="row divider"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ entity.makeup }}{% endautoescape %}</div></div>
+{% endif %} 
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+<div class="row"><div class="cell">
+<a href="{{ path('description_edit', { 'id': entity.id }) }}">Edit</a>
+</div></div>
+{% endif %} 
     
 
 {% endblock %}
