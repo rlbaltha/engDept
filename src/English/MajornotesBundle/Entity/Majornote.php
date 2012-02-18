@@ -171,4 +171,24 @@ class Majornote
     {
         return $this->updated;
     }
+
+    /**
+     * Set userid
+     *
+     * @param integer $userid
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return integer 
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
 }
