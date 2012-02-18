@@ -34,18 +34,17 @@
   <div class="cell">{{ peopleCourses.days }}</div>
   <div class="cell">{{ peopleCourses.time }}</div>
   <div id="close{{ peopleCourses.id }}" class="cell right close hidden">
-  <a class="button" href="javascript:void(0);" tabindex="1" title="Close" onclick="$('#detailWrapper{{ peopleCourses.id }}').fadeOut('fast');$('#close{{ peopleCourses.id }}').fadeOut('fast');">x</a>
   </div>
   </div>
   <div id="detailWrapper{{ peopleCourses.id }}" class="row_odd divider hidden">
   <div id="detail{{ peopleCourses.id }}" class="row_odd">
   </div>
   </div>
-{% set call = "#{peopleCourses.callNumber}#{peopleCourses.callNumber2}" %}
+{% set callNumber = "#{peopleCourses.callNumber}#{peopleCourses.callNumber2}#{peopleCourses.term}" %}
  <script language="javascript"> 
      $('#peopleCoursesLink{{ peopleCourses.id }}').click(function(){
-        $('#detail{{ peopleCourses.id }}').load('{{ path('listings_detail', { 'call': call }) }}');
-        $('#detailWrapper{{ peopleCourses.id }}').fadeIn('slow');$('#close{{ peopleCourses.id }}').fadeIn('slow');
+        $('#detail{{ peopleCourses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber }) }}');
+        $('#detailWrapper{{ peopleCourses.id }}').toggle();
     });
  </script>
 {% endfor %}

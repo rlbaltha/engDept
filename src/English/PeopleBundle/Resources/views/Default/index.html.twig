@@ -25,19 +25,13 @@
      </div>
      </div>    
      <div id="detailWrapper{{ people.id }}" class="row_contrast divider hidden">
-     <div class="row_contrast">
-     <div class="cell right close">
-     <a class="button" href="javascript:void(0);" tabindex="1" title="Close" 
-        onclick="$('#detailWrapper{{ people.id }}').fadeOut('fast');$('#listing{{ people.id }}').addClass('row_even');$('#listing{{ people.id }}').removeClass('row_contrast');">x</a>
-     </div>
-     </div>
          <div id="detail{{ people.id }}" class="row_contrast">
          </div>
      </div>
     <script language="javascript"> 
     $('#detailLink{{ people.id }}').click(function(){
         $('#detail{{ people.id }}').load('{{ path('directory_detail', { 'id': people.id }) }}');
-        $('#detailWrapper{{ people.id }}').fadeIn('slow');
+        $('#detailWrapper{{ people.id }}').toggle();
     });
     </script>
      {% endfor %}
