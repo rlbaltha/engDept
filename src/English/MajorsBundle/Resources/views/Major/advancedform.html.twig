@@ -1,0 +1,16 @@
+{% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
+ 
+{% block body %}
+
+<div class="row"><div class="cell"><a href="{{ path('major') }}">List All Majors</a></div></div>
+
+<div class="row"><div class="cell">
+<form action="{{ path('major_advancedfind') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Find Majors</button>
+    </p>
+</form>
+</div></div>
+
+{% endblock %}
