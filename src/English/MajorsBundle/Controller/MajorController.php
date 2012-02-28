@@ -95,8 +95,7 @@ class MajorController extends Controller
     public function findAction()
     {   $request = $this->get('request');
         $postData = $request->request->get('form');
-        $name = $postData['name'] . "%";
-        $name = strtolower($name);
+        $name = strtolower($postData['name'] . "%");
         $em = $this->getDoctrine()->getEntityManager();
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE LOWER(m.name) LIKE ?1 ORDER BY m.name";
         $entities = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
@@ -108,7 +107,63 @@ class MajorController extends Controller
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
         return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
-        }   
+        }  
+        
+      
+        
+    /**
+     * Displays a form to create an advance find
+     *
+     * @Route("/advancedform", name="major_advancedform")
+     * @Template()
+     */
+    public function advancedformAction()
+    {
+        $entity = new Major();
+        $form = $this->createFormBuilder(new Major())
+            ->add('name')
+            ->add('email')
+            ->add('firstMajor')
+            ->add('secondMajor')
+            ->add('aoe', 'text', array('attr' => array('class' => 'width300')))
+            ->add('can')
+            ->add('minor')     
+            ->getForm();
+
+        return array(
+             'form'   => $form->createView()
+        );
+    }        
+        
+        
+   /**
+     * Find Majors through advanced search
+     *
+     * @Route("/advancedfind", name="major_advancedfind")
+     * @Method("post")
+     */
+    public function advancedfindAction()
+    {   $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $name = strtolower($postData['name'] . "%");
+        $email = strtolower($postData['email'] . "%");
+        $firstMajor = strtolower($postData['firstMajor'] . "%");
+        $secondMajor = strtolower($postData['secondMajor'] . "%");
+        $aoe = strtolower($postData['aoe'] . "%");
+        $minor = strtolower($postData['minor'] . "%");
+        $can = $postData['can'] . "%";
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE LOWER(m.name) LIKE ?1 AND LOWER(m.email) LIKE ?2 AND LOWER(m.firstMajor) LIKE ?3 AND LOWER(m.secondMajor) LIKE ?4 AND LOWER(m.aoe) LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 ORDER BY m.name";
+        $entities = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->getResult();
+        $form = $this->createFormBuilder(new Major())
+            ->add('name')
+            ->getForm();
+        if (!$entities) {
+
+            throw $this->createNotFoundException('Unable to find Major entity.');
+        }
+        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        }         
         
     /**
      * Finds and displays a Major entity.

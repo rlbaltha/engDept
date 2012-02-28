@@ -156,8 +156,9 @@ class PeopleController extends Controller
      */
     public function showAction($id)
     {
-        $securityContext = $this->get('security.context');
-        $username = $securityContext->getToken()->getUsername();  
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);       
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.fid,g.id FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.fid=p.username AND g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
@@ -165,7 +166,8 @@ class PeopleController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
-        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 ORDER BY g.created DESC')->setParameter('1',$id)->getResult();      
+        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
+            ORDER BY g.created DESC')->setParameter('1',$id)->setParameter('2',$userid)->getResult();      
 
         $deleteForm = $this->createDeleteForm($id);
         return array(
