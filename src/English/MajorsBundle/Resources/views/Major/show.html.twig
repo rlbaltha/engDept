@@ -8,7 +8,7 @@
     <div class="cell"><a title="Majors" href="{{ path('major') }}" >List All Majors</a></div>
 </div>
 {% endif %}
-
+{% set mid = entity.id %}
         <div class="row">
             <div class="cell bold">{{ entity.name }}</div><div class="cell">{{ entity.email }}</div>
 
@@ -57,6 +57,7 @@
         <div class="row_contrast">
             <div class="cell bold">Mentor Notes</div>
             <div class="cell"><a href="{{ path('majornote_new', { 'id': entity.id }) }}">New Note</a></div>
+            <div class="cell"><a href="{{ path('majornote_email', { 'id': entity.id }) }}">Email Mentored Notification</a></div>
         </div>
         {% for notes in notes %}
         <div class="row">
@@ -67,6 +68,13 @@
         <div class="cell">
          <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit</a>
          </div>
+
+        <div class="cell"> 
+        <form action="{{ path('majornote_delete', { 'id': notes.id, 'mid': mid }) }}" method="post">
+        {{ form_widget(delete_form) }} 
+        <button type="submit">Delete</button> 
+        </form>
+        </div>  
          </div>
         {% endfor %}
 

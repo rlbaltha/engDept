@@ -1,6 +1,6 @@
 [symfony]
     git=http://github.com/symfony/symfony.git
-    version=v2.0.10
+    version=v2.0.11
 
 [twig]
     git=http://github.com/fabpot/Twig.git
@@ -65,6 +65,10 @@
 [FOSUserBundle]
     git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
     target=bundles/FOS/UserBundle
+
+[FR3DLdapBundle]
+    git=git://github.com/Maks3w/FR3DLdapBundle.git
+    target=/bundles/FR3D/LdapBundle
 
 [doctrine-migrations]
     git=http://github.com/doctrine/migrations.git
