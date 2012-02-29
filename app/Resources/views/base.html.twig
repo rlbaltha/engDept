@@ -25,7 +25,6 @@
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Change Password</a>
         <a class='last' title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
-        
         {% else %}
         <a class='last' title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
         {% endif %}
@@ -34,9 +33,10 @@
         </div>                   
 
         {% if is_granted('ROLE_ADMIN') %}
-        <div class="main_nav">      
+        <div class="row_contrast">      
         <div class="cell">Admin</div>            
         <div class="cell"><a title="Areas" href="{{ path('area') }}" >Areas</a></div>
+        <div class="cell"><a title="Positions" href="{{ path('position') }}" >Positions</a></div>
         <div class="cell"><a title="Calendar" href="{{ path('calendar') }}" >Calendar</a></div>
         <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>
         <div class="cell"><a title="Links" href="{{ path('link') }}" >Link</a></div>
@@ -47,33 +47,26 @@
         </div>
         {% endif %}
                 
-        {% if is_granted('ROLE_ADVISOR') %} 
-        <div class="main_nav">
-        <div class="cell">Advising</div>
-        <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >Advisors</a></div>
-        <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></div>
-        <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div>
-        </div>                
-        {% endif %}
-
-              
-        <div class="main_nav">        
-        {% if is_granted('ROLE_USER') %}                 
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}      
+        <div class="row_contrast">        
+        {% if is_granted('ROLE_USER') %} 
+        <div class="cell"><a title="Profile" href="{{ path('people') }}" >Profile</a></div>        
+        <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>       
+        <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div> 
         <div class="cell"><a title="Calendar" href="{{ path('calendar') }}" >Calendar</a></div>
-        <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>
-        <!--
-        <div class="cell"><a title="Files" href="{{ path('file') }}" >Files</a></div>
-        -->
-        <div class="cell"><a title="Profile" href="{{ path('people') }}" >Profile</a></div>
-        <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div>           
         {% endif %}                
         {% if is_granted('ROLE_GRADFAC') %}        
         <div class="cell"><a title="Graduate Students" href="{{ path('people_mygrad') }}" >Grad Students</a></div> 
         <div class="cell"><a title="Gradcom" href="{{ path('gradcom') }}" >Grad Committees</a></div>
         <div class="cell"><a title="Graduate Students" href="{{ path('people_grad') }}" >All Grad Students</a></div>       
         {% endif %} 
+        {% if is_granted('ROLE_ADVISOR') %} 
+        <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >Advisors</a></div>
+        <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></div>
+        <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div>            
+        {% endif %}
         </div> 
-                
+        {% endif %}        
         {% block body %}{% endblock %}      
                 
         

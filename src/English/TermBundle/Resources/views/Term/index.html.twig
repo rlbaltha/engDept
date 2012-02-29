@@ -2,16 +2,14 @@
  
  {% block body %}
 
-<div class="row"><div class="cell"><a href="{{ path('term_new') }}">New</a></div></div>
+<div class="row divider"><div class="cell"><a href="{{ path('term_new') }}">Add Term</a></div></div>
    
     {% for entity in entities %}
         <div class="row">
-            <div class="cell"><a href="{{ path('term_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
             <div class="cell">{{ entity.term }}</div>
             <div class="cell">{{ entity.termName }}</div>
-            <div class="cell">{{ entity.type }}</div>
+            <div class="cell">{% if entity.type == 1 %}Display in Menu{% elseif entity.type == 2 %}Default{% endif %}</div>
             <div class="cell">
-                <a href="{{ path('term_show', { 'id': entity.id }) }}">show</a>
                 <a href="{{ path('term_edit', { 'id': entity.id }) }}">edit</a>
             </div>
         </div>

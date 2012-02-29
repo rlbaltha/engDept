@@ -1,0 +1,20 @@
+{% extends 'EnglishPositionBundle:Position:layout.html.twig' %}
+ 
+{% block body %}
+<div class="row"><div class="cell"><a href="{{ path('position') }}">List</a></div></div>
+ 
+
+        <div class="row">
+            <div class="cell">{{ entity.position }}</div>
+        </div>
+    
+ <div class="row"><div class="cell"><a href="{{ path('position_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
+ <div class="row"><div class="cell"> 
+    <form action="{{ path('position_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+    </form>
+</div>
+</div>      
+
+{% endblock %}

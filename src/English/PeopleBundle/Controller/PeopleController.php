@@ -160,7 +160,11 @@ class PeopleController extends Controller
         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
         
         $em = $this->getDoctrine()->getEntityManager();
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);       
+        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+        $status = $entity->getGradinfo()->getStatus();
+        
+        
+        
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.fid,g.id FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.fid=p.username AND g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
         $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.fid = ?1 AND g.gid = ?2')->setParameter('1',$username)->setParameter('2',$id)->getSingleResult(); 
         if (!$entity) {
@@ -175,6 +179,7 @@ class PeopleController extends Controller
             'gradcom'     => $gradcom,
             'notes'       => $notes,
             'join'        => $join,
+            'status'        => $status,
             'delete_form' => $deleteForm->createView(),        );
     }
 

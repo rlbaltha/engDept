@@ -12,7 +12,7 @@ class TermType extends AbstractType
         $builder
             ->add('term')
             ->add('termName')
-            ->add('type')
+            ->add('type', 'choice', array('choices' => array('2' => 'Default', '1' => 'Display', '0' => 'Archive'), 'required'  => false, 'expanded' => true, 'multiple' => false,))
         ;
     }
 

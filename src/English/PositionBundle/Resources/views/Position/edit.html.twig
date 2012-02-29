@@ -1,14 +1,13 @@
-{% extends 'EnglishAreasBundle:Area:layout.html.twig' %}
-
+{% extends 'EnglishPositionBundle:Position:layout.html.twig' %}
+ 
 {% block body %}
-
 <div class="row divider">
-    <div class="cell"><a href="{{ path('area') }}">List Areas</a></div>   
+    <div class="cell"><a href="{{ path('position') }}">List Positions</a></div>   
 </div>
 
 <div class="row">
     <div class="cell">
-        <form action="{{ path('area_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        <form action="{{ path('position_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}
         <button type="submit">Update</button>
         </form>
@@ -17,11 +16,11 @@
 
 <div class="row">
     <div class="cell"> 
-        <form action="{{ path('area_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('position_delete', { 'id': entity.id }) }}" method="post">
         {{ form_widget(delete_form) }} 
         <button type="submit">Delete</button> 
         </form>
     </div>
 </div>
-
+    
 {% endblock %}

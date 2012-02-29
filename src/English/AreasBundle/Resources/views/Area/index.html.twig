@@ -1,17 +1,15 @@
  {% extends 'EnglishAreasBundle:Area:layout.html.twig' %}
  
  {% block body %}
-<div class="row"><div class="cell"><a href="{{ path('area_new') }}">New</a></div></div>
+<div class="row divider"><div class="cell"><a href="{{ path('area_new') }}">Add Area for Faculty Listings</a></div></div>
 
 
     
     {% for entity in entities %}
         <div class="row">
-            <div class="cell"><a href="{{ path('area_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
             <div class="cell">{{ entity.area }}</div>
             <div class="cell">
-            <a href="{{ path('area_show', { 'id': entity.id }) }}">show</a>
-            <a href="{{ path('area_edit', { 'id': entity.id }) }}">edit</a>
+            <a href="{{ path('area_edit', { 'id': entity.id }) }}">Edit</a>
             </div>
         </div>
     {% endfor %}

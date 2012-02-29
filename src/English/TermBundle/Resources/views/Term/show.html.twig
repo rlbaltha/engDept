@@ -1,11 +1,7 @@
 {% extends 'EnglishTermBundle:Term:layout.html.twig' %}
  
 {% block body %}
-<div class="row"><div class="cell"><a href="{{ path('term') }}">List</a></div></div>    
-        <div class="row">
-            <div class="cell">Id</div>
-            <div class="cell">{{ entity.id }}</div>
-        </div>
+<div class="row divider"><div class="cell"><a href="{{ path('term') }}">List Terms</a></div></div>    
         <div class="row">
             <div class="cell">Term</div>
             <div class="cell">{{ entity.term }}</div>
@@ -16,7 +12,7 @@
         </div>
         <div class="row">
             <div class="cell">Type</div>
-            <div class="cell">{{ entity.type }}</div>
+            <div class="cell">{% if entity.type == 1 %}Display in Menu{% elseif entity.type == 2 %}Default{% endif %}</div>
         </div>
  
 <div class="row"><div class="cell"><a href="{{ path('term_edit', { 'id': entity.id }) }}">Edit</a></div></div>   

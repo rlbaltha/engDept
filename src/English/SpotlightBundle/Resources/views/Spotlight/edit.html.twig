@@ -17,11 +17,11 @@ toolbar : [
 });
 </script>
 
-<div class="row">
-    <div class="cell"><a href="{{ path('spotlight') }}">List</a></div>   
+<div class="row divider">
+    <div class="cell"><a href="{{ path('spotlight') }}">List Spotlights</a></div>   
 </div>
 
-<div class="row">
+<div class="row divider">
     <div class="cell">
         <form action="{{ path('spotlight_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         {{ form_widget(edit_form) }}

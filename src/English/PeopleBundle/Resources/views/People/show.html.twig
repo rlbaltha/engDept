@@ -22,7 +22,7 @@
      </div>
      </div>  
 
-    <div class="row_contrast divider">
+    <div class="row divider">
     {% if entity.photoUrl != '' %}
         <div class="cell bio_photo">
         <div class="photo_cell">
@@ -46,6 +46,7 @@
         {% endif %}
     </div>
 
+{% if is_granted('ROLE_ADMIN')  %}
      <div class="row"><div class="cell bold">Internal Information</div></div>
             <div class="row"><div class="cell bold">Rank</div><div class="cell">{{ entity.rank }}</div></div>
             <div class="row"><div class="cell bold">Address</div><div class="cell">{{ entity.address }}</div></div>
@@ -59,9 +60,9 @@
             <a href="{{ path('people_edit', { 'id': entity.id }) }}">Edit</a>
            </div>
             </div>
-
+{% endif %}
             
-{% if is_granted('ROLE_GRADFAC') and 'show' in app.request.pathinfo %}   
+{% if is_granted('ROLE_GRADFAC') and 'show' in app.request.pathinfo and status != 'NA' %}   
 <div class="row_contrast"><div class="cell bold">Graduate Information</div></div> 
 <div class="row"><div class="cell bold">Committee</div></div> 
         {% for gradcom in gradcom %}

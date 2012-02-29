@@ -1,0 +1,16 @@
+{% extends 'EnglishAdvisorsBundle:Advisor:layout.html.twig' %}
+ 
+{% block body %}
+
+<div class="row divider"><div class="cell"><a href="{{ path('position') }}">List Positions</a></div></div>
+
+<div class="row"><div class="cell">
+<form action="{{ path('position_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+</div></div>
+
+{% endblock %}

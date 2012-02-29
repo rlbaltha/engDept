@@ -1,0 +1,12 @@
+{% extends 'EnglishPositionBundle:Position:layout.html.twig' %}
+
+{% block body %}
+<div class="row divider"><div class="cell"><a href="{{ path('position_new') }}">Add a Position for Dept. Listings</a></div></div>
+    {% for entity in entities %}
+        <div class="row">
+            <div class="cell bold">{{ entity.position }}</div>
+            <div class="cell"><a href="{{ path('position_edit', { 'id': entity.id }) }}">Edit</a></div> 
+        </div>
+    {% endfor %}
+    
+{% endblock %}

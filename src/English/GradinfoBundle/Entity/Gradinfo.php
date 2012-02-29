@@ -4,6 +4,7 @@ namespace English\GradinfoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * English\GradinfoBundle\Entity\Gradinfo
@@ -35,6 +36,19 @@ class Gradinfo
      * @ORM\Column(name="userid", type="integer", nullable=true)
      */
     private $userid; 
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity="English\PeopleBundle\Entity\People", mappedBy="gradinfo")
+     */
+    protected $people;
+
+    public function __construct()
+    {
+        $this->$people = new ArrayCollection();
+    }    
+    
+    
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -136,5 +150,25 @@ class Gradinfo
     public function getUserid()
     {
         return $this->userid;
+    }
+
+    /**
+     * Add people
+     *
+     * @param English\PeopleBundle\Entity\People $people
+     */
+    public function addPeople(\English\PeopleBundle\Entity\People $people)
+    {
+        $this->people[] = $people;
+    }
+
+    /**
+     * Get people
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPeople()
+    {
+        return $this->people;
     }
 }

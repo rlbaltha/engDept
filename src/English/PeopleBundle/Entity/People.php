@@ -170,13 +170,6 @@ class People
     private $active;
 
     /**
-     * @var text $position
-     *
-     * @ORM\Column(name="position", type="text", nullable=true)
-     */
-    private $position;
-
-    /**
      * @var integer $userid
      *
      * @ORM\Column(name="userid", type="integer", nullable=true)
@@ -188,6 +181,10 @@ class People
     */
     protected $gradinfo;
 
+    /**
+    * @ORM\ManyToMany(targetEntity="English\PositionBundle\Entity\Position")
+    */
+    protected $position;    
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -632,27 +629,6 @@ class People
     }
 
     /**
-     * Set position
-     *
-     * @param text $position
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    }
-
-    /**
-     * Get position
-     *
-     * @return text 
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-
-    /**
      * Set created
      *
      * @param datetime $created
@@ -730,5 +706,29 @@ class People
     public function getUserid()
     {
         return $this->userid;
+    }
+    public function __construct()
+    {
+        $this->position = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add position
+     *
+     * @param English\PositionBundle\Entity\Position $position
+     */
+    public function addPosition(\English\PositionBundle\Entity\Position $position)
+    {
+        $this->position[] = $position;
+    }
+
+    /**
+     * Get position
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 }

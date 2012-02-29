@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new English\SpotlightBundle\EnglishSpotlightBundle(),
             new English\TermBundle\EnglishTermBundle(),
             new English\HomeBundle\EnglishHomeBundle(),
+            new English\PositionBundle\EnglishPositionBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

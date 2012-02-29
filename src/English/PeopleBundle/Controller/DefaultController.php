@@ -24,8 +24,9 @@ class DefaultController extends Controller
     {
         $heading = 1;
     	$em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p WHERE p.position LIKE ?1 ORDER BY p.lastName,p.firstName";
-        $people = $em->createQuery($dql1)->setParameter('1','%Faculty%')->getResult();
+        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM 
+            EnglishPeopleBundle:People p JOIN p.position o WHERE o.position = ?1 ORDER BY p.lastName,p.firstName";
+        $people = $em->createQuery($dql1)->setParameter('1','Faculty')->getResult();
         return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,)); 
     }
 
@@ -62,7 +63,7 @@ class DefaultController extends Controller
 		{$areaWc = '%Nineteenth%';}
 	else {$areaWc = '%Twentieth%';}
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p WHERE  p.position LIKE '%Faculty%' AND p.area LIKE ?1 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o WHERE o.position = 'Faculty' AND p.area LIKE ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$areaWc )->getResult();
         return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,)); 
     }
@@ -77,16 +78,16 @@ class DefaultController extends Controller
     {
     	$heading = $type;
     	if ($type == 1)    
-    		{$typeWc = '%Faculty%';}
+    		{$typeWc = 'Faculty';}
 	elseif ($type == 2)
-		{$typeWc = '%Instructor%';}
+		{$typeWc = 'Instructor';}
 	elseif ($type == 3)
-		{$typeWc = '%Administration%';}
+		{$typeWc = 'Administration';}
 	elseif ($type == 4)
-		{$typeWc = '%Graduate%';}
-	else {$typeWc = '%Retired%';}
+		{$typeWc = 'Graduate Student';}
+	else {$typeWc = 'Retired';}
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p WHERE  p.position LIKE ?1 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o WHERE o.position = ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$typeWc )->getResult();
         return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading)); 
     }  
