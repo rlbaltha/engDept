@@ -131,6 +131,13 @@ class Major
     private $userid; 
     
     /**
+    * @var datetime $mentored
+    * @ORM\Column(type="datetime", nullable=true)
+    * 
+    */
+    protected $mentored;    
+    
+    /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="create")
     */
@@ -511,5 +518,25 @@ class Major
     public function getUserid()
     {
         return $this->userid;
+    }
+
+    /**
+     * Set mentored
+     *
+     * @param datetime $mentored
+     */
+    public function setMentored($mentored)
+    {
+        $this->mentored = $mentored;
+    }
+
+    /**
+     * Get mentored
+     *
+     * @return datetime 
+     */
+    public function getMentored()
+    {
+        return $this->mentored;
     }
 }

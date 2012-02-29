@@ -54,8 +54,11 @@ doctrine:
 swiftmailer:
     transport: %mailer_transport%
     host:      %mailer_host%
+    port:      %mailer_port%
+    encryption: %mailer_encryption%
     username:  %mailer_user%
     password:  %mailer_password%
+    sender_address: %mailer_sender_address%
 
 jms_security_extra:
     secure_controllers:  true
@@ -65,6 +68,33 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: English\PeopleBundle\Entity\User
+    registration:
+        confirmation:
+            enabled:    true
+    from_email:
+        address:        rlbaltha@uga.edu
+        sender_name:    English Dept.
+        
+fr3d_ldap:
+    client:
+        host:         your.host.foo
+#       port:         389    # Optional
+#       version:        3    # Optional
+#       username:     foo    # Optional
+#       password:     bar    # Optional
+#       optReferrals: false  # Optional
+#       useSsl:       true   # Enable SSL negotiation. Optional
+#       useStartTls:  true   # Enable TLS negotiation. Optional
+    user:
+        baseDn: ou=users, dc=host, dc=foo
+        filter: (&(ObjectClass=Person))
+        attributes:          # Expecify ldap attributes mapping [ldap attribute, user object method]
+#           - { ldap_attr: uid,  user_method: setUsername } # Default
+#           - { ldap_attr: cn,   user_method: setName }     # Optional
+#           - { ldap_attr: ...,  user_method: ... }         # Optional
+#   service:
+#       user_manager: fos_user.user_manager          # Overrides default user manager
+#       ldap_manager: fr3d_ldap.ldap_manager.default # Overrides default ldap manager        
 
 stof_doctrine_extensions:
     default_locale: en_US

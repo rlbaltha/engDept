@@ -107,6 +107,48 @@ class MajornoteController extends Controller
             'form'   => $form->createView()
         );
     }
+    
+
+    /**
+     * Emails a mentored notification and writes an update to Majornotes;  
+     * still to do: write update to timestamp Major:mentored
+     * 
+     * @Route("/{id}/email", name="majornote_email")
+     * @Template("EnglishMajornotesBundle:Majornote:new.html.twig")
+     */
+    public function emailAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+        $name = $entity->getName();
+        if( ($x_pos = strpos($name, ',')) !== FALSE )
+        $name = substr($name, $x_pos + 1) . ' ' . substr($name, 0, $x_pos);
+        $body =  $name . ' has been mentored.';   
+        $message = \Swift_Message::newInstance()
+        ->setSubject('Mentored Notification')
+        ->setFrom('rlbaltha@uga.edu')
+        ->setTo('ron.balthazor@gmail.com')
+        ->setBody($body)
+        ;
+        $this->get('mailer')->send($message);
+        
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $entity  = new Majornote();
+        $entity->setUserid($userid);
+        $entity->setMentorId($id);
+        $entity->setNotes($body);
+        $em->persist($entity);
+        $em->flush();
+        
+
+    return $this->redirect($this->generateUrl('major_show', array('id' => $id ))); 
+    }
+    
+    
+ 
+    
+    
 
     /**
      * Displays a form to edit an existing Majornote entity.
@@ -175,10 +217,10 @@ class MajornoteController extends Controller
     /**
      * Deletes a Majornote entity.
      *
-     * @Route("/{id}/delete", name="majornote_delete")
+     * @Route("/{id}/{mid}/delete", name="majornote_delete")
      * @Method("post")
      */
-    public function deleteAction($id)
+    public function deleteAction($id, $mid)
     {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
@@ -197,7 +239,7 @@ class MajornoteController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('majornote'));
+        return $this->redirect($this->generateUrl('major_show', array('id' => $mid)));
     }
 
     private function createDeleteForm($id)
