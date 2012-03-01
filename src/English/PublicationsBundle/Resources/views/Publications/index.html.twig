@@ -1,6 +1,11 @@
 {% extends 'EnglishPublicationsBundle:Publications:layout.html.twig' %}
  
 {% block body %}
+
+{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+<div class="welcome"><div class="head">Publications</div></div>
+{% endif %}
+
 {% if is_granted('ROLE_ADMIN')  %}
 <div class="row divider">
 <div class="cell"><a href="{{ path('publications_new') }}">Add Publication Description</a></div>
@@ -8,7 +13,7 @@
 {% endif %}
 
 {% for entity in entities %}
-<div class="row">
+<div class="row divider">
 <div class="cell">{{ entity.description | raw }}</div>
 </div>
 {% if is_granted('ROLE_ADMIN')  %}
