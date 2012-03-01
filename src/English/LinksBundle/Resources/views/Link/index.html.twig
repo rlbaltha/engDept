@@ -2,17 +2,15 @@
  
  {% block body %}
 
-<div class="row"><div class="cell"><a href="{{ path('link_new') }}">New</a></div></div>
+<div class="row divider"><div class="cell"><a href="{{ path('link_new') }}">New</a></div></div>
     {% for entity in entities %}
         <div class="row">
-            <div class="cell"><a href="{{ path('link_show', { 'id': entity.id }) }}">{{ entity.id }}</a></div>
-            <div class="cell">{{ entity.url }}</div>
-            <div class="cell">{{ entity.title }}</div>
-            <div class="cell">{{ entity.type }}</div>
+            <div class="cell"><a href="{{ entity.url }}" title="{{ entity.title}}" target="_blank">{{ entity.title}}</a></div>
+            {% if is_granted('ROLE_ADMIN') %}
             <div class="cell">
-                <a href="{{ path('link_show', { 'id': entity.id }) }}">show</a>
                 <a href="{{ path('link_edit', { 'id': entity.id }) }}">edit</a>
             </div>
+            {% endif %}
         </div>
     {% endfor %}
 
