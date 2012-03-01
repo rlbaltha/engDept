@@ -1,37 +1,21 @@
-<h1>Publications list</h1>
+{% extends 'EnglishPublicationsBundle:Publications:layout.html.twig' %}
+ 
+{% block body %}
+{% if is_granted('ROLE_ADMIN')  %}
+<div class="row divider">
+<div class="cell"><a href="{{ path('publications_new') }}">Add Publication Description</a></div>
+</div>
+{% endif %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('publications_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.description }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('publications_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('publications_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% for entity in entities %}
+<div class="row">
+<div class="cell">{{ entity.description | raw }}</div>
+</div>
+{% if is_granted('ROLE_ADMIN')  %}
+<div class="row divider">
+<div class="cell"><a href="{{ path('publications_edit', { 'id': entity.id }) }}">Edit</a></div>
+</div>
+{% endif %}
+{% endfor %}
 
-<ul>
-    <li>
-        <a href="{{ path('publications_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+{% endblock %}

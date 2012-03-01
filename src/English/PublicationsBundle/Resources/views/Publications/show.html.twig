@@ -1,33 +1,33 @@
-<h1>Publications</h1>
+{% extends 'EnglishPublicationsBundle:Publications:layout.html.twig' %}
+ 
+{% block body %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+<div class="cell">Id</div>
+<div class="cell">{{ entity.id }}</div>
+</div>
+<div class="row">
+<div class="cell">Description</div>
+<div class="cell">{{ entity.description }}</div>
+</div>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('publications') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('publications_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('publications_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+
+
+
+
+<a href="{{ path('publications') }}">
+Back to the list
+</a>
+
+
+<a href="{{ path('publications_edit', { 'id': entity.id }) }}">
+Edit
+</a>
+
+
+<form action="{{ path('publications_delete', { 'id': entity.id }) }}" method="post">
+{{ form_widget(delete_form) }}
+<button type="submit">Delete</button>
+</form>
+
+{% endblock %}

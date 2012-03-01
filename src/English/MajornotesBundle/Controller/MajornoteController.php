@@ -86,9 +86,7 @@ class MajornoteController extends Controller
         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
         
         $entity  = new Majornote();
-        
-        $entity->setUserid($userid);
-        
+        $entity->setUserid($userid);     
         $request = $this->getRequest();
         $form    = $this->createForm(new MajornoteType(), $entity);
         $form->bindRequest($request);

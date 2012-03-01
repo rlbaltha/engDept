@@ -20,6 +20,7 @@
         <div class="cell"><a title="Home" href="{{ path('home') }}" >Home</a></div>
         <div class="cell"><a title="People" href="{{ path('directory') }}" >People</a></div>
         <div class="cell"><a title="Courses" href="{{ path('listings') }}" >Courses</a></div>
+        <div class="cell"><a title="Publications" href="{{ path('publications') }}" >Publications</a></div>
         <div class="cell">
         
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
@@ -43,6 +44,7 @@
         <div class="cell"><a title="Slideshow" href="{{ path('slideshow') }}" >Slideshow</a></div>
         <div class="cell"><a title="Spotlight" href="{{ path('spotlight') }}" >Spotlight</a></div>
         <div class="cell"><a title="Term" href="{{ path('term') }}" >Term</a></div>
+        <div class="cell"><a title="Publications" href="{{ path('publications') }}" >Publications</a></div>
         </div>
         {% endif %}
                 

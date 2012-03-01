@@ -63,6 +63,7 @@ class PublicationsController extends Controller
     public function newAction()
     {
         $entity = new Publications();
+        $entity->setDescription('<p></p>');
         $form   = $this->createForm(new PublicationsType(), $entity);
 
         return array(
@@ -80,7 +81,11 @@ class PublicationsController extends Controller
      */
     public function createAction()
     {
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        
         $entity  = new Publications();
+        $entity->setUserid($userid);
         $request = $this->getRequest();
         $form    = $this->createForm(new PublicationsType(), $entity);
         $form->bindRequest($request);
@@ -90,7 +95,7 @@ class PublicationsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('publications_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('publications'));
             
         }
 
@@ -154,7 +159,7 @@ class PublicationsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('publications_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('publications'));
         }
 
         return array(
