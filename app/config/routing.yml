@@ -1,3 +1,8 @@
+EnglishPublicationsBundle:
+    resource: "@EnglishPublicationsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 EnglishPositionBundle:
     resource: "@EnglishPositionBundle/Controller/"
     type:     annotation
