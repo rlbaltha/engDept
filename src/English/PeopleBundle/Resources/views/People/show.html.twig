@@ -55,13 +55,10 @@
             <div class="row"><div class="cell bold">Home phone</div><div class="cell">{{ entity.homePhone }}</div></div>
             <div class="row"><div class="cell bold">Cell phone</div><div class="cell">{{ entity.cellPhone }}</div></div>
             <div class="row divider"><div class="cell bold">Area(s)</div>{% for area in entity.area %}<div class="cell">{{ area}}</div> {% endfor %}</div>
-
-            <div class="row divider"><div class="cell">
-            <a href="{{ path('people_edit', { 'id': entity.id }) }}">Edit</a>
-           </div>
-            </div>
 {% endif %}
-            
+            <div class="row divider">
+                <div class="cell"><a href="{{ path('people_edit', { 'id': entity.id }) }}">Edit</a></div>
+            </div>            
 {% if is_granted('ROLE_GRADFAC') and 'show' in app.request.pathinfo and status != 'NA' %}   
 <div class="row_contrast"><div class="cell bold">Graduate Information</div></div> 
 <div class="row"><div class="cell bold">Committee</div></div> 
