@@ -160,7 +160,7 @@ class MajorController extends Controller
             ->getForm();
         if (!$entities) {
 
-            throw $this->createNotFoundException('Unable to find Major entity.');
+            return $this->redirect($this->generateUrl('major_advancedform'));
         }
         return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
         }         

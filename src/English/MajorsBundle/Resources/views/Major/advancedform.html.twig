@@ -1,7 +1,9 @@
 {% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
  
 {% block body %}
-
+{% if is_granted('ROLE_ADVISORADMIN') %}
+    {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
+{% endif %}
 <div class="row"><div class="cell"><a href="{{ path('major') }}">List All Majors</a></div></div>
 
 <div class="row"><div class="cell">

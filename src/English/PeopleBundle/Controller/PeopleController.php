@@ -41,12 +41,13 @@ class PeopleController extends Controller
         
         } else {
         $username = $this->get('security.context')->getToken()->getUsername();
+        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
-        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity));
+        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid'     => $userid,));
         } 
     }
     
@@ -176,6 +177,7 @@ class PeopleController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         return array(
+            'userid'     => $userid,
             'entity'      => $entity,
             'gradcom'     => $gradcom,
             'notes'       => $notes,
