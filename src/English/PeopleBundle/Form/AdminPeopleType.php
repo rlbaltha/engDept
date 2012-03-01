@@ -5,12 +5,12 @@ namespace English\PeopleBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class PeopleType extends AbstractType
+class AdminPeopleType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('username','hidden')
+            ->add('username')
             ->add('lastName')
             ->add('firstName')
             ->add('title')

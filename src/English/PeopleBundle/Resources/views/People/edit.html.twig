@@ -27,8 +27,8 @@ toolbar : [
 </script>
 
 {% if is_granted('ROLE_ADMIN') %}
-<div class="row">
-    <div class="cell"><a href="{{ path('people') }}">List</a></div>   
+<div class="row divider">
+    <div class="cell"><a href="{{ path('people') }}">List People</a></div>   
 </div>
 {% endif %}
 

@@ -2,7 +2,10 @@
  
  {% block body %}
 
+{% if is_granted('ROLE_ADMIN') %}
 <div class="row divider"><div class="cell"><a href="{{ path('link_new') }}">New</a></div></div>
+{% endif %}
+
     {% for entity in entities %}
         <div class="row">
             <div class="cell"><a href="{{ entity.url }}" title="{{ entity.title}}" target="_blank">{{ entity.title}}</a></div>

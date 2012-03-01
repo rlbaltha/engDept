@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use English\PeopleBundle\Entity\People;
 use English\PeopleBundle\Form\PeopleType;
+use English\PeopleBundle\Form\AdminPeopleType;
 
 /**
  * People controller.
@@ -251,7 +252,14 @@ class PeopleController extends Controller
             throw $this->createNotFoundException('Unable to find People entity.');
         }
 
-        $editForm = $this->createForm(new PeopleType(), $entity);
+        
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $editForm = $this->createForm(new AdminPeopleType(), $entity);
+        }
+        else  {
+            $editForm = $this->createForm(new PeopleType(), $entity);
+        }    
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return array(

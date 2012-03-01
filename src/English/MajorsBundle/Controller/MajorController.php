@@ -24,7 +24,7 @@ class MajorController extends Controller
      */
     public function indexAction()
     {
-        if ($this->get('security.context')->isGranted('ROLE_ADVISOR')) {
+        if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
          $em = $this->getDoctrine()->getEntityManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e ORDER BY m.name ASC');
         $entities = $em->getResult();
