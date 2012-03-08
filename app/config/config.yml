@@ -72,7 +72,7 @@ fos_user:
         confirmation:
             enabled:    true
     from_email:
-        address:        ssteger@uga.edu
+        address:        %from_email%
         sender_name:    English Dept. 
 
 stof_doctrine_extensions:
