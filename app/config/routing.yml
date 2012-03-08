@@ -1,3 +1,8 @@
+EnglishAuthenticateBundle:
+    resource: "@EnglishAuthenticateBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 EnglishPublicationsBundle:
     resource: "@EnglishPublicationsBundle/Controller/"
     type:     annotation
