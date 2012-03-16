@@ -1,0 +1,16 @@
+{% extends 'EnglishDonateBundle:Donate:layout.html.twig' %}
+ 
+{% block body %}
+<div class="row"><div class="cell"><a href="{{ path('type_new') }}"> New Fund Type</a></div></div>   
+   
+    {% for entity in entities %}
+        <div class="row">
+            <div class="cell">{{ entity.name }}</div>
+            <div class="cell">           
+                        <a href="{{ path('type_edit', { 'id': entity.id }) }}">edit</a>                     
+            </div>
+        </div>
+    {% endfor %}
+    
+
+{% endblock %}

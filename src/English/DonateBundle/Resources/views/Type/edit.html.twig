@@ -1,0 +1,25 @@
+{% extends 'EnglishDonateBundle:Donate:layout.html.twig' %}
+ 
+{% block body %}
+<div class="row"><div class="cell">    
+        <a href="{{ path('type') }}">
+            Back to the list
+        </a>
+</div></div>  
+
+<div class="row"><div class="cell">
+<form action="{{ path('type_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <p>
+        <button type="submit">Edit</button>
+    </p>
+</form>
+</div></div> 
+
+<div class="row"><div class="cell">
+        <form action="{{ path('type_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+</div></div>     
+{% endblock %}

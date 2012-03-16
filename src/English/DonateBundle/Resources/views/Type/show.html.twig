@@ -1,0 +1,38 @@
+{% extends 'EnglishDonateBundle:Donate:layout.html.twig' %}
+ 
+{% block body %}
+    
+        <div class="row">
+            <div class="cell">Id</div>
+            <div class="cell">{{ entity.id }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Name</div>
+            <div class="cell">{{ entity.name }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Created</div>
+            <div class="cell">{{ entity.created|date('Y-m-d H:i:s') }}</div>
+        </div>
+        <div class="row">
+            <div class="cell">Updated</div>
+            <div class="cell">{{ entity.updated|date('Y-m-d H:i:s') }}</div>
+        </div>
+
+    
+        <a href="{{ path('type') }}">
+            Back to the list
+        </a>
+    
+    
+        <a href="{{ path('type_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    
+    
+        <form action="{{ path('type_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    
+{% endblock %}

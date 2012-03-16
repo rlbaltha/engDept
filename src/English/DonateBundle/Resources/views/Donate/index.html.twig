@@ -1,0 +1,33 @@
+{% extends 'EnglishDonateBundle:Donate:layout.html.twig' %}
+ 
+{% block body %}
+{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+<div class="welcome"><div class="head">Make a Gift</div></div>
+{% endif %}
+{% if is_granted('ROLE_ADMIN') %}
+<div class="row"><div class="cell">    
+        <a href="{{ path('donate_new') }}">
+            Create a Fund Description
+        </a>
+</div></div>
+{% endif %}
+    {% for entity in entities %}
+        <div class="row divider">
+            <div class="cell bold">{{ entity.fund }}</div>
+            <div class="cell"><a href="{{ entity.link }}" title="Make an Online Gift Now" target="_blank">Make an Online Gift Now</a></div>
+            <div class="cell">{{ entity.description|raw }}</div>
+            <div class="cell">
+                
+                    
+                        <a href="{{ path('donate_show', { 'id': entity.id }) }}">Read more ...</a>
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('donate_edit', { 'id': entity.id }) }}">edit</a>
+                    {% endif %}
+                
+            </div>
+        </div>
+    {% endfor %}
+   
+      
+{% endblock %}
