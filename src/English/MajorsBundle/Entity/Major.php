@@ -135,7 +135,13 @@ class Major
     * @ORM\Column(type="datetime", nullable=true)
     * 
     */
-    protected $mentored;    
+    protected $mentored;  
+     
+    /**
+     * @ORM\OneToOne(targetEntity="Hours")
+     * @ORM\JoinColumn(name="can", referencedColumnName="can")
+    */
+    private $hours;
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -538,5 +544,26 @@ class Major
     public function getMentored()
     {
         return $this->mentored;
+    }
+
+
+    /**
+     * Set hours
+     *
+     * @param English\MajorsBundle\Entity\Hours $hours
+     */
+    public function setHours(\English\MajorsBundle\Entity\Hours $hours)
+    {
+        $this->hours = $hours;
+    }
+
+    /**
+     * Get hours
+     *
+     * @return English\MajorsBundle\Entity\Hours 
+     */
+    public function getHours()
+    {
+        return $this->hours;
     }
 }

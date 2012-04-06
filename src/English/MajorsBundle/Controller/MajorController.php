@@ -38,7 +38,9 @@ class MajorController extends Controller
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
          $em = $this->getDoctrine()->getEntityManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
+         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,h.hours,h.gpa
+             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e LEFT JOIN m.hours h 
+             WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
         $entities = $em->setParameter('1',$username)->getResult();
         return array('entities' => $entities);
         }
