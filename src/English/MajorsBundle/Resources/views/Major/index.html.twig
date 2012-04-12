@@ -17,10 +17,15 @@
      </form> 
     {% endif %}
 </div>
-   
+<div class="row">
+    <div class="cell width200 bold">
+    Number found:  {{ entities|length }} 
+    </div>
+</div>
+
     {% for entity in entities %}
         <div class="row">
-            <div class="cell bold width150"><a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.name }}</a></div>
+            <div class="cell bold width150">{% if entity.checkedin ==0 %}**{% endif %}<a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.name }}</a></div>
             <div class="cell width200">{{ entity.email }}</div>
             <div class="cell width100">{{ entity.aName }}</div>
             <div class="cell width100">{{ entity.eName }}</div>

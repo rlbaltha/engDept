@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilder;
 class MajorType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
-    {
+    {  
         $builder
             ->add('name')
             ->add('email', 'text', array('attr' => array('class' => 'width300')))
@@ -20,7 +20,8 @@ class MajorType extends AbstractType
             ->add('can')
             ->add('minor')   
             ->add('honors')
-            ->add('notes')    
+            ->add('notes') 
+            ->add('checkedin','choice', array('choices' => array('0'=>'No','1'=> 'Yes'),'expanded'=>true,));    
         ;
     }
 

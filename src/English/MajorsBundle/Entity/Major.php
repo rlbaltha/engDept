@@ -67,7 +67,7 @@ class Major
     /**
      * @var string $can
      *
-     * @ORM\Column(name="can", type="string", length=255, nullable=true)
+     * @ORM\Column(name="can", type="string", length=255, unique=TRUE)
      */
     private $can;
 
@@ -131,16 +131,24 @@ class Major
     private $userid; 
     
     /**
+     * @var boolean $checkedin
+     *
+     * @ORM\Column(name="checkedin", type="boolean", nullable=true)
+     */
+    private $checkedin;    
+    
+    /**
     * @var datetime $mentored
     * @ORM\Column(type="datetime", nullable=true)
     * 
     */
     protected $mentored;  
      
-    /**
-     * @ORM\OneToOne(targetEntity="Hours")
+
+   /**
+     * @ORM\OneToMany(targetEntity="Hours", mappedBy="major")
      * @ORM\JoinColumn(name="can", referencedColumnName="can")
-    */
+     */
     private $hours;
     
     /**
@@ -565,5 +573,25 @@ class Major
     public function getHours()
     {
         return $this->hours;
+    }
+
+    /**
+     * Set checkedin
+     *
+     * @param boolean $checkedin
+     */
+    public function setCheckedin($checkedin)
+    {
+        $this->checkedin = $checkedin;
+    }
+
+    /**
+     * Get checkedin
+     *
+     * @return boolean 
+     */
+    public function getCheckedin()
+    {
+        return $this->checkedin;
     }
 }

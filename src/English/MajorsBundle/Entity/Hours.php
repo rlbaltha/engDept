@@ -42,6 +42,13 @@ class Hours
      */
     private $gpa;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Major", inversedBy="hours")
+     * @ORM\JoinColumn(name="can", referencedColumnName="can")
+     * 
+     */
+    private $major;    
+    
 
 
     /**
@@ -114,4 +121,24 @@ class Hours
         return $this->gpa;
     }
 
+
+    /**
+     * Set major
+     *
+     * @param English\MajorsBundle\Entity\Major $major
+     */
+    public function setMajor(\English\MajorsBundle\Entity\Major $major)
+    {
+        $this->major = $major;
+    }
+
+    /**
+     * Get major
+     *
+     * @return English\MajorsBundle\Entity\Major 
+     */
+    public function getMajor()
+    {
+        return $this->major;
+    }
 }

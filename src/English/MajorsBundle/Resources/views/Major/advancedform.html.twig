@@ -7,11 +7,21 @@
 <div class="row"><div class="cell"><a href="{{ path('major') }}">List All Majors</a></div></div>
 
 <div class="row"><div class="cell">
+                
 <form action="{{ path('major_advancedfind') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Find Majors</button>
-    </p>
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.aoe) }}
+    {{ form_row(form.can) }}
+    {{ form_row(form.minor) }}
+    {{ form_row(form.honors) }}
+    {{ form_row(form.checkedin) }}
+
+    {{ form_rest(form) }}
+
+    <button type="submit">Find Majors</button>
 </form>
 </div></div>
 
