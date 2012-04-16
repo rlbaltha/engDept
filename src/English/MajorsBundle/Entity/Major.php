@@ -53,14 +53,14 @@ class Major
     /**
      * @var string $secondMajor
      *
-     * @ORM\Column(name="secondMajor", type="string", length=255, nullable=true)
+     * @ORM\Column(name="secondMajor", type="string", length=255)
      */
     private $secondMajor;
 
     /**
      * @var string $aoe
      *
-     * @ORM\Column(name="aoe", type="string", length=255, nullable=true)
+     * @ORM\Column(name="aoe", type="string", length=255)
      */
     private $aoe;
 
@@ -74,14 +74,14 @@ class Major
     /**
      * @var string $minor
      *
-     * @ORM\Column(name="minor", type="string", length=255, nullable=true)
+     * @ORM\Column(name="minor", type="string", length=255)
      */
     private $minor;
 
     /**
      * @var integer $status
      *
-     * @ORM\Column(name="status", type="integer", nullable=true)
+     * @ORM\Column(name="status", type="integer")
      */
     private $status;
 
@@ -95,23 +95,9 @@ class Major
     /**
      * @var boolean $honors
      *
-     * @ORM\Column(name="honors", type="boolean", nullable=true)
+     * @ORM\Column(name="honors", type="boolean")
      */
     private $honors;
-
-    /**
-     * @var integer $advisorId
-     *
-     * @ORM\Column(name="advisorId", type="integer", nullable=true)
-     */
-    private $advisorId;
-
-    /**
-     * @var integer $mentorId
-     *
-     * @ORM\Column(name="mentorId", type="integer", nullable=true)
-     */
-    private $mentorId;
 
     /**
     * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor", inversedBy="major")
@@ -133,9 +119,25 @@ class Major
     /**
      * @var boolean $checkedin
      *
-     * @ORM\Column(name="checkedin", type="boolean", nullable=true)
+     * @ORM\Column(name="checkedin", type="boolean")
      */
-    private $checkedin;    
+    private $checkedin;  
+    
+    
+    /**
+     * @var integer $hours
+     *
+     * @ORM\Column(name="hours", type="integer", nullable=true)
+     */
+    private $hours; 
+    
+    /**
+     * @var decimal $gpa
+     *
+     * @ORM\Column(name="gpa", type="decimal", nullable=true)
+     */
+    private $gpa; 
+    
     
     /**
     * @var datetime $mentored
@@ -144,13 +146,7 @@ class Major
     */
     protected $mentored;  
      
-
-   /**
-     * @ORM\OneToMany(targetEntity="Hours", mappedBy="major")
-     * @ORM\JoinColumn(name="can", referencedColumnName="can")
-     */
-    private $hours;
-    
+  
     /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="create")
@@ -394,46 +390,6 @@ class Major
     }
 
     /**
-     * Set advisorId
-     *
-     * @param integer $advisorId
-     */
-    public function setAdvisorId($advisorId)
-    {
-        $this->advisorId = $advisorId;
-    }
-
-    /**
-     * Get advisorId
-     *
-     * @return integer 
-     */
-    public function getAdvisorId()
-    {
-        return $this->advisorId;
-    }
-
-    /**
-     * Set mentorId
-     *
-     * @param integer $mentorId
-     */
-    public function setMentorId($mentorId)
-    {
-        $this->mentorId = $mentorId;
-    }
-
-    /**
-     * Get mentorId
-     *
-     * @return integer 
-     */
-    public function getMentorId()
-    {
-        return $this->mentorId;
-    }
-
-    /**
      * Set created
      *
      * @param datetime $created
@@ -556,26 +512,6 @@ class Major
 
 
     /**
-     * Set hours
-     *
-     * @param English\MajorsBundle\Entity\Hours $hours
-     */
-    public function setHours(\English\MajorsBundle\Entity\Hours $hours)
-    {
-        $this->hours = $hours;
-    }
-
-    /**
-     * Get hours
-     *
-     * @return English\MajorsBundle\Entity\Hours 
-     */
-    public function getHours()
-    {
-        return $this->hours;
-    }
-
-    /**
      * Set checkedin
      *
      * @param boolean $checkedin
@@ -593,5 +529,45 @@ class Major
     public function getCheckedin()
     {
         return $this->checkedin;
+    }
+
+    /**
+     * Set gpa
+     *
+     * @param decimal $gpa
+     */
+    public function setGpa($gpa)
+    {
+        $this->gpa = $gpa;
+    }
+
+    /**
+     * Get gpa
+     *
+     * @return decimal 
+     */
+    public function getGpa()
+    {
+        return $this->gpa;
+    }
+
+    /**
+     * Set hours
+     *
+     * @param integer $hours
+     */
+    public function setHours($hours)
+    {
+        $this->hours = $hours;
+    }
+
+    /**
+     * Get hours
+     *
+     * @return integer 
+     */
+    public function getHours()
+    {
+        return $this->hours;
     }
 }
