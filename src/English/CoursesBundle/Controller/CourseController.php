@@ -51,16 +51,17 @@ class CourseController extends Controller
      /**
      * Finds and displays a Description.
      *
-     * @Route("/{callNumber}/detail", name="course_detail")
+     * @Route("/{callNumber}/{term}/detail", name="course_detail")
      * @Template()
      */    
-    public function courseDetailAction($callNumber)
+    public function courseDetailAction($callNumber,$term)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $dql1 = "SELECT d.id,d.userid,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $callNumber)->getResult();
         $callNumber = $callNumber;
-        return $this->render('EnglishCoursesBundle:Course:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber)); 
+        $term = $term;
+        return $this->render('EnglishCoursesBundle:Course:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber, 'term'=>$term)); 
             
     } 
     

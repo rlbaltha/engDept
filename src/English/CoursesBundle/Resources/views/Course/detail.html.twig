@@ -35,7 +35,7 @@
 <div class="row divider">
 <div class="cell">No description has been offered by the instructor at this time.
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-    <a href="{{ path('description_new', { 'callNumber': callNumber }) }}">Add Description</a> </div>
+    <a href="{{ path('description_new', { 'callNumber': callNumber,'term':term }) }}">Add Description</a> </div>
     {% endif %}     
 </div>
 

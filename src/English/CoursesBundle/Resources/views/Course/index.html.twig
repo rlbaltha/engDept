@@ -35,10 +35,10 @@
 </div>
 </div>
 
-{% set callNumber = "#{courses.callNumber}#{courses.callNumber2}#{courses.term}" %}
+{% set callNumber = "#{courses.callNumber}#{courses.callNumber2}" %}
 <script language="javascript"> 
     $('#detailLink{{ courses.id }}').click(function(){
-        $('#detail{{ courses.id }}').load('{{ path('course_detail', { 'callNumber': callNumber }) }}');
+        $('#detail{{ courses.id }}').load('{{ path('course_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
         $('#detailWrapper{{ courses.id }}').toggle();
     });
 </script>
