@@ -23,7 +23,7 @@
 </div>
 </div>
 
-{% set callNumber = "#{courses.callNumber}#{courses.callNumber2}" %}
+{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
 <script language="javascript"> 
     $('#detailLink{{ courses.id }}').click(function(){
         $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');

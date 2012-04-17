@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle(),
             new English\AdvisorsBundle\EnglishAdvisorsBundle(),
             new English\AreasBundle\EnglishAreasBundle(),
             new English\CalendarBundle\EnglishCalendarBundle(),
