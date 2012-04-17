@@ -41,7 +41,7 @@ class CourseController extends Controller
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT c FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.username = ?1 AND c.term=t.term AND t.type = 2";
+        $dql1 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.username = ?1 AND c.term=t.term AND t.type >= 1";
         $courses = $em->createQuery($dql1)->setParameter('1',$username)->getResult();
         return array('courses' => $courses);
         }

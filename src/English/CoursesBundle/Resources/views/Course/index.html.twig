@@ -22,6 +22,7 @@
     
 {% for courses in courses %}
 <div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell">{{ courses.termName }}</div>
 <div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
 <div class="cell bold">{{ courses.title }}</div>
 <div class="cell">{{ courses.instructorName|upper }}</div>
