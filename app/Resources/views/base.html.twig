@@ -67,9 +67,7 @@
         <div class="cell"><a title="Graduate Students" href="{{ path('people_grad') }}" >All Grad Students</a></div>       
         {% endif %} 
         {% if is_granted('ROLE_ADVISORADMIN') %} 
-        <div class="cell"><a title="Advisors" href="{{ path('advisor') }}" >Advisors</a></div>
-        <div class="cell"><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></div>
-        <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div>            
+        <div class="cell"><a title="Advising" href="{{ path('major') }}" >Majors</a></div>            
         {% endif %}
         </div> 
         {% endif %}        
