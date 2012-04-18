@@ -31,8 +31,8 @@
             <div class="cell width100">{{ entity.eName }}</div>
             <div class="cell width50">{{ entity.firstMajor }}</div>
             <div class="cell width50">{{ entity.secondMajor }}</div>
-            {% if entity.hours %}<div class="cell width50">{{ entity.hours }}</div>{% endif %}
-            {% if entity.gpa %}<div class="cell width50">{{ entity.gpa }}</div>{% endif %}
+            <div class="cell width50">{{ entity.hours }}</div>
+            <div class="cell width50">{{ entity.gpa }}</div>
         </div>
     {% endfor %}
     
