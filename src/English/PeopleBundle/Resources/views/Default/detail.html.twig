@@ -40,10 +40,11 @@
   <div id="detail{{ peopleCourses.id }}" class="row_odd">
   </div>
   </div>
-{% set callNumber = "#{peopleCourses.callNumber}#{peopleCourses.callNumber2}#{peopleCourses.term}" %}
+
+{% if 'P' in peopleCourses.callNumber %}{% set callNumber = peopleCourses.callNumber2 %}{% else %}{% set callNumber = peopleCourses.callNumber %}{% endif %}
  <script language="javascript"> 
      $('#peopleCoursesLink{{ peopleCourses.id }}').click(function(){
-        $('#detail{{ peopleCourses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber }) }}');
+        $('#detail{{ peopleCourses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': peopleCourses.term }) }}');
         $('#detailWrapper{{ peopleCourses.id }}').toggle();
     });
  </script>
