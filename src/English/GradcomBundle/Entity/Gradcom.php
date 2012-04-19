@@ -42,6 +42,12 @@ class Gradcom
      * @ORM\JoinColumn(name="gradcom_id", referencedColumnName="id")
      */
     protected $people;  
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="English\PeopleBundle\Entity\People", inversedBy="grad")
+     * @ORM\JoinColumn(name="grad_id", referencedColumnName="id")
+     */
+    protected $grad;      
 
     /**
      * @var integer $frole
@@ -248,5 +254,25 @@ class Gradcom
     public function getPeople()
     {
         return $this->people;
+    }
+
+    /**
+     * Set grad
+     *
+     * @param English\PeopleBundle\Entity\People $grad
+     */
+    public function setGrad(\English\PeopleBundle\Entity\People $grad)
+    {
+        $this->grad = $grad;
+    }
+
+    /**
+     * Get grad
+     *
+     * @return English\PeopleBundle\Entity\People 
+     */
+    public function getGrad()
+    {
+        return $this->grad;
     }
 }

@@ -97,6 +97,29 @@ class PeopleController extends Controller
         return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
     }
     
+    /**
+     * Find Grad People
+     *
+     * @Route("/gradfac", name="people_gradfac")
+     */        
+    public function gradfacAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p join p.position o WHERE o.position='Graduate Faculty' ORDER BY p.lastName,p.firstName";
+        $entities = $em->createQuery($dql1)->getResult();
+        
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        
+        
+        $gradform = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+               
+        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+    }    
+    
      /**
      * Find My Grad
      *
@@ -185,6 +208,32 @@ class PeopleController extends Controller
             'status'        => $status,
             'delete_form' => $deleteForm->createView(),        );
     }
+    
+    /**
+     * Finds and displays a People entity.
+     *
+     * @Route("/{id}/showgradcomm", name="people_showgradcomm")
+     * @Template()
+     */
+    public function showgradcommAction($id)
+    {
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $user = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneById($id);
+        
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+      
+        $gradcom = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+        
+        return array(
+            'entity'      => $entity,
+            'gradcom'     => $gradcom,
+                   );
+    }    
 
     /**
      * Displays a form to create a new People entity.

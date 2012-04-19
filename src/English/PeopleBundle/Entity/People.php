@@ -192,6 +192,10 @@ class People
      */
     protected $gradcom;    
     
+    /**
+     * @ORM\OneToMany(targetEntity="English\GradcomBundle\Entity\Gradcom", mappedBy="grad")
+     */
+    protected $grad;  
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -758,5 +762,15 @@ class People
     public function getGradcom()
     {
         return $this->gradcom;
+    }
+
+    /**
+     * Get grad
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getGrad()
+    {
+        return $this->grad;
     }
 }

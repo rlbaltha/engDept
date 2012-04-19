@@ -56,8 +56,10 @@ class GradcomController extends Controller
     {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();
+        
         $entity = new Gradcom();
         $entity->setGid($id);
+
         $entity->setFid($username);
         $entity->setStatus('t');
         $form   = $this->createForm(new GradcomType(), $entity);
@@ -77,14 +79,20 @@ class GradcomController extends Controller
      */
     public function createAction()
     {
+        $request = $this->getRequest();
+        $postData = $request->request->get('english_gradcombundle_gradcomtype');
+        $gid = $postData['gid'];
+        
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $grad = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneById($gid);
+        
         
         $entity  = new Gradcom();
-        
+        $entity->setGrad($grad);        
         $entity->setUserid($userid);
         
-        $request = $this->getRequest();
+
         $form    = $this->createForm(new GradcomType(), $entity);
         $form->bindRequest($request);
 
