@@ -4,6 +4,7 @@ namespace English\PeopleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * English\PeopleBundle\Entity\People
@@ -184,7 +185,13 @@ class People
     /**
     * @ORM\ManyToMany(targetEntity="English\PositionBundle\Entity\Position")
     */
-    protected $position;    
+    protected $position; 
+    
+    /**
+     * @ORM\OneToMany(targetEntity="English\GradcomBundle\Entity\Gradcom", mappedBy="people")
+     */
+    protected $gradcom;    
+    
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -709,7 +716,8 @@ class People
     }
     public function __construct()
     {
-        $this->position = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->position = new ArrayCollection();
+        $this->gradcom = new ArrayCollection();
     }
     
     /**
@@ -730,5 +738,25 @@ class People
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Add gradcom
+     *
+     * @param English\GradcomBundle\Entity\Gradcom $gradcom
+     */
+    public function addGradcom(\English\GradcomBundle\Entity\Gradcom $gradcom)
+    {
+        $this->gradcom[] = $gradcom;
+    }
+
+    /**
+     * Get gradcom
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getGradcom()
+    {
+        return $this->gradcom;
     }
 }

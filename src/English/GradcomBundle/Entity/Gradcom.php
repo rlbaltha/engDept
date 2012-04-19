@@ -4,6 +4,7 @@ namespace English\GradcomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * English\GradcomBundle\Entity\Gradcom
@@ -35,6 +36,12 @@ class Gradcom
      * @ORM\Column(name="fid", type="string", length=255)
      */
     private $fid;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="English\PeopleBundle\Entity\People", inversedBy="gradcom")
+     * @ORM\JoinColumn(name="gradcom_id", referencedColumnName="id")
+     */
+    protected $people;  
 
     /**
      * @var integer $frole
@@ -217,5 +224,29 @@ class Gradcom
     public function getUserid()
     {
         return $this->userid;
+    }
+
+
+
+
+
+    /**
+     * Set people
+     *
+     * @param English\PeopleBundle\Entity\People $people
+     */
+    public function setPeople(\English\PeopleBundle\Entity\People $people)
+    {
+        $this->people = $people;
+    }
+
+    /**
+     * Get people
+     *
+     * @return English\PeopleBundle\Entity\People 
+     */
+    public function getPeople()
+    {
+        return $this->people;
     }
 }

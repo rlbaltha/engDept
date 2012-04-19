@@ -167,7 +167,7 @@ class PeopleController extends Controller
         
         
         
-        $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.fid,g.id FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.fid=p.username AND g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
+        $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
         $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.fid = ?1 AND g.gid = ?2')->setParameter('1',$username)->setParameter('2',$id)->getSingleResult(); 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
