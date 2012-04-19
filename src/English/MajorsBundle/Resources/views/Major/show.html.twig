@@ -30,6 +30,10 @@
         <div class="row divider">
             <div class="cell">Can</div>
             <div class="cell bold">{{ entity.can }}</div>
+            <div class="cell">Hours</div>
+            <div class="cell bold">{{ entity.hours }}</div>
+            <div class="cell">GPA</div>
+            <div class="cell bold">{{ entity.gpa }}</div>
             <div class="cell">Status</div>
             <div class="cell bold">{{ entity.status }}</div>
         </div>
@@ -37,6 +41,7 @@
             <div class="cell">Notes</div>
             <div class="cell">{{ entity.notes | raw }}</div>
         </div>
+        
 
         {% if is_granted('ROLE_ADVISORADMIN') %}
         <div class="row divider">

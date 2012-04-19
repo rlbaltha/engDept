@@ -50,6 +50,7 @@ registration:
         message: |
             Hello -
 
+            You are not quite finished!
             To finish activating your account - please visit %confirmationUrl%
 
             Regards,
@@ -94,11 +95,11 @@ fos_user_profile_form_current: "Current Password:"
 fos_user_registration_form_username: "Username:"
 fos_user_registration_form_email: "Email:"
 fos_user_registration_form_plainPassword_first: "Password:"
-fos_user_registration_form_plainPassword_second: "Verification:"
+fos_user_registration_form_plainPassword_second: "Retype password:"
 
 fos_user_resetting_form_new_first: "New password:"
-fos_user_resetting_form_new_second: "Verification:"
+fos_user_resetting_form_new_second: "Retype password:"
 
 fos_user_change_password_form_new_first: "New password:"
-fos_user_change_password_form_new_second: "Verification:"
+fos_user_change_password_form_new_second: "Retype password:"
 fos_user_change_password_form_current: "Current password:"

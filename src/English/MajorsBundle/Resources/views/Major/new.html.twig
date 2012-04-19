@@ -22,10 +22,73 @@ toolbar : [
 
 <div class="row"><div class="cell">
 <form action="{{ path('major_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
+    <div class="row"><div class="cell">{{ form_errors(form) }}</div></div>
+    
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.name) }}</div>
+    <div class="cell">{{ form_errors(form.name) }}</div>
+    <div class="cell">{{ form_widget(form.name) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.email) }}</div>
+    <div class="cell">{{ form_errors(form.email) }}</div>
+    <div class="cell">{{ form_widget(form.email) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.advisor) }}</div>
+    <div class="cell">{{ form_errors(form.advisor) }}</div>
+    <div class="cell">{{ form_widget(form.advisor) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.mentor) }}</div>
+    <div class="cell">{{ form_errors(form.mentor) }}</div>
+    <div class="cell">{{ form_widget(form.mentor) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.firstMajor) }}</div>
+    <div class="cell">{{ form_errors(form.firstMajor) }}</div>
+    <div class="cell">{{ form_widget(form.firstMajor) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.secondMajor) }}</div>
+    <div class="cell">{{ form_errors(form.secondMajor) }}</div>
+    <div class="cell">{{ form_widget(form.secondMajor) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.aoe) }}</div>
+    <div class="cell">{{ form_errors(form.aoe) }}</div>
+    <div class="cell">{{ form_widget(form.aoe) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.can) }}</div>
+    <div class="cell">{{ form_errors(form.can) }}</div>
+    <div class="cell">{{ form_widget(form.can) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.minor) }}</div>
+    <div class="cell">{{ form_errors(form.minor) }}</div>
+    <div class="cell">{{ form_widget(form.minor) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.honors) }}</div>
+    <div class="cell">{{ form_errors(form.honors) }}</div>
+    <div class="cell">{{ form_widget(form.honors) }}</div></div>
+
+    <div class="row"><div class="cell width75">{{ form_label(form.notes) }}</div>
+    <div class="cell">{{ form_errors(form.notes) }}</div>
+    <div class="cell">{{ form_widget(form.notes) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.hours) }}</div>
+    <div class="cell">{{ form_errors(form.hours) }}</div>
+    <div class="cell">{{ form_widget(form.hours) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.gpa) }}</div>
+    <div class="cell">{{ form_errors(form.gpa) }}</div>
+    <div class="cell">{{ form_widget(form.gpa) }}</div></div>
+    
+    <div class="row"><div class="cell width75">{{ form_label(form.checkedin) }}</div>
+    <div class="cell">{{ form_errors(form.checkedin) }}</div>
+    <div class="cell">{{ form_widget(form.checkedin) }}</div></div>
+  
+        
+    <div class="row"><div class="cell">{{ form_rest(form) }}</div></div>
+        
+        
+    <button type="submit">Create</button>
+   
+
+
 </form>
 </div></div>
 
