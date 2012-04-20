@@ -2,29 +2,25 @@
 
 {% block body %}
 
-{% if is_granted('ROLE_GRADADMIN') %}
-<div class='row divider'>
-<div class='cell'><a href="{{ path('people') }}">Return to List</a></div>
+{% if is_granted('ROLE_GRADADMIN') or is_granted('ROLE_GRAD') %}
+
+<div id="listing{{ entity.id }}" class="row_even divider">
+<div class="row">
+<div class="cell bold">{{ entity.firstname }} {{ entity.lastname }}</div>
 </div>
+</div> 
 
-
-     <div id="listing{{ entity.id }}" class="row_even divider">
-     <div class="row">
-     <div class="cell bold">{{ entity.firstname }} {{ entity.lastname }}</div>
-     </div>
-      
-
-<div class="row_contrast"><div class="cell bold">Graduate Information</div></div> 
-<div class="row"><div class="cell bold">Committee</div></div> 
+<div class="row"><div class="cell bold">{{ gradcom|length }} Graduate Students</div></div> 
         {% for gradcom in gradcom %}
         <div class="row">
             <div class="cell">{{ gradcom.firstName}} {{ gradcom.lastName}} {{ gradcom.status}}{% if gradcom.frole == 2 %}, Chair {% endif %}
-            <a href="{{ path('gradcom_edit', { 'id': gradcom.id }) }}">Update</a></div>
+            {% if is_granted('ROLE_GRADADMIN') %}<a href="{{ path('gradcom_edit', { 'id': gradcom.id }) }}">Update</a>{% endif %}</div>
         </div>
         {% endfor %}
 
-
+{% if is_granted('ROLE_GRADADMIN') %}
 <div class="row divider"><div class="cell">
         <a href="{{ path('gradcom_new', { 'id': entity.id }) }}">Add to Committee</a></div></div>
+{% endif %}
 {% endif %}        
 {% endblock %}

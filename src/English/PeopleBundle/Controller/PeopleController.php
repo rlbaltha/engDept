@@ -41,13 +41,18 @@ class PeopleController extends Controller
         
         } else {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
+        $userid = $entity->getId(); 
+        $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$userid)->getResult();
+        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
+            ORDER BY g.created DESC')->setParameter('1',$userid)->setParameter('2',$userid)->getResult();   
+        $status = $entity->getGradinfo()->getStatus();
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
-        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid'     => $userid,));
+        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'        => $status,'notes' => $notes,));
         } 
     }
     
