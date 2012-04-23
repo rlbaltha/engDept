@@ -6,7 +6,8 @@
         <div class="cell"><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></div>
         <div class="cell"><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></div>
         <div class="cell"><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></div>
-    </div> 
+    </div>
+ {% if ('area' in app.request.pathinfo and 'type' not in app.request.pathinfo) or app.request.pathinfo == '/directory/' or app.request.pathinfo == '/directory/1/type' %}
     <div class="sub_nav divider">
         <div class="cell"><a href="{{ path('directory_area', {'area': '1'}) }} " tabindex="1" title="Select area" >American</a></div>
         <div class="cell"><a href="{{ path('directory_area', {'area': '2'}) }} " tabindex="1" title="Select area" >Anglo-Saxon and Medieval</a></div>
@@ -20,5 +21,6 @@
         <div class="cell"><a href="{{ path('directory_area', {'area': '10'}) }} " tabindex="1" title="Select area" >Multicultural</a></div>
         <div class="cell"><a href="{{ path('directory_area', {'area': '11'}) }} " tabindex="1" title="Select area" >Nineteenth-Century British</a></div>
         <div class="cell"><a href="{{ path('directory_area', {'area': '12'}) }} " tabindex="1" title="Select area" >Twentieth-Century British</a></div>
-    </div> 
+    </div>
+ {% endif %}
    
