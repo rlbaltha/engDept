@@ -10,11 +10,19 @@
 </div>
 </div> 
 
-<div class="row"><div class="cell bold">{{ gradcom|length }} Graduate Students</div></div> 
-        {% for gradcom in gradcom %}
+<div class="row"><div class="cell bold">{{ gradcomphd|length }} PhD Students</div></div> 
+        {% for gradcomphd in gradcomphd %}
         <div class="row">
-            <div class="cell">{{ gradcom.firstName}} {{ gradcom.lastName}} {{ gradcom.status}}{% if gradcom.frole == 2 %}, Chair {% endif %}
-            {% if is_granted('ROLE_GRADADMIN') %}<a href="{{ path('gradcom_edit', { 'id': gradcom.id }) }}">Update</a>{% endif %}</div>
+            <div class="cell">{{ gradcomphd.firstName}} {{ gradcomphd.lastName}}{% if gradcomphd.frole == 2 %}, <span class='bold'>Chair</span> {% endif %}
+            {% if is_granted('ROLE_GRADADMIN') %} <a href="{{ path('gradcom_edit', { 'id': gradcomphd.id }) }}">Update</a>{% endif %}</div>
+        </div>
+        {% endfor %}
+
+<div class="row"><div class="cell bold">{{ gradcomma|length }} MA Students</div></div> 
+        {% for gradcomma in gradcomma %}
+        <div class="row">
+            <div class="cell">{{ gradcomma.firstName}} {{ gradcomma.lastName}}{% if gradcomma.frole == 2 %}, <span class='bold'>Chair</span> {% endif %}
+            {% if is_granted('ROLE_GRADADMIN') %} <a href="{{ path('gradcom_edit', { 'id': gradcomma.id }) }}">Update</a>{% endif %}</div>
         </div>
         {% endfor %}
 

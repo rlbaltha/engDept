@@ -44,6 +44,7 @@
      <div class="cell bold">{{ entity.firstname }} {{ entity.lastname }}</div>
      {% if app.request.pathinfo != '/people/gradfac' %}<div class="cell"><a href="{{ path('people_show', { 'id': entity.id }) }}">Detail</a></div>{% endif %}
      {% if app.request.pathinfo == '/people/gradfac' %}<div class="cell"><a href="{{ path('people_showgradcomm', { 'id': entity.id }) }}">Committee Info</a></div>{% endif %}
+     {% if is_granted('ROLE_ADMIN')  %}<div class="cell"><a href="{{ path('people_admin', { 'username': entity.username }) }}">Permissions</a></div>{% endif %}
      </div>
      <div class="row">
      <div class="cell">{{ entity.title |raw }}</div>

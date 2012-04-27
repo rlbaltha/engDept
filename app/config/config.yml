@@ -74,6 +74,8 @@ fos_user:
     from_email:
         address:        %from_email%
         sender_name:    English Dept. 
+    service:
+        user_manager:   fos_user.user_manager.default
 
 stof_doctrine_extensions:
     default_locale: en_US

@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use FOS\UserBundle\Entity\UserManager;
 use English\PeopleBundle\Entity\People;
 use English\PeopleBundle\Form\PeopleType;
 use English\PeopleBundle\Form\AdminPeopleType;
@@ -229,14 +231,20 @@ class PeopleController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
       
-        $gradcom = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
+        $gradcomphd = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 AND r.gradinfo=2 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
+        $gradcomma = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 AND r.gradinfo=1 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        } 
+        
         
         return array(
             'entity'      => $entity,
-            'gradcom'     => $gradcom,
+            'gradcomphd'     => $gradcomphd,
+            'gradcomma'     => $gradcomma,
                    );
     }    
 
@@ -401,4 +409,53 @@ class PeopleController extends Controller
             ->getForm()
         ;
     }
+   
+    
+     /**
+     * Finds Users
+     *
+     * @Route("/{username}/admin", name="people_admin")
+     * @Template()
+     */   
+    public function adminAction($username)
+    {
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+        return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
+    }
+ 
+     /**
+     * Finds Users
+     *
+     * @Route("/{username}/{role}/promote", name="people_promote")
+     * @Template()
+     */   
+    public function promoteuserAction($username,$role)
+    {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+        $user->addRole($role);
+        $userManager->updateUser($user);
+        return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
+        };
+    }  
+    
+     /**
+     * Finds Users
+     *
+     * @Route("/{username}/{role}/demote", name="people_demote")
+     * @Template()
+     */   
+    public function demoteuserAction($username,$role)
+    {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+        $user->removeRole($role);
+        $userManager->updateUser($user);
+        return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
+        };
+    }      
+    
 }
