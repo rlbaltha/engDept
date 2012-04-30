@@ -57,8 +57,9 @@ class CourseController extends Controller
     public function courseDetailAction($callNumber,$term)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT d.id,d.userid,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber = ?1";
-        $courseDetail = $em->createQuery($dql1)->setParameter('1', $callNumber)->getResult();
+        $dql_call = '%'.$callNumber.'%';
+        $dql1 = "SELECT d.id,d.userid,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
+        $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
         $callNumber = $callNumber;
         $term = $term;
         return $this->render('EnglishCoursesBundle:Course:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber, 'term'=>$term)); 
