@@ -1,0 +1,170 @@
+/* 
+    Document   : uga
+    Created on : Apr 30, 2012, 1:29:51 PM
+    Author     : Ron Balthazor
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+#UGAquickLinks {
+	background:black;
+	font-size:11px;
+	color:#fff;
+	display: none;
+	font-family: Helvetica, Arial, Tahoma, sans-serif;
+	width:960px;
+	margin:0 auto;
+}
+#UGAquickLinks .frame {
+	width:900px;
+	padding:1em 0;
+	margin-left: auto;
+        margin-right: auto;
+	overflow:auto;
+}
+#UGAquickLinks .column {
+	width:220px;
+	height:15em;
+	float:left;
+	border-left:solid 1px #2a2a2a;
+}
+#UGAquickLinks .column4 {
+	border-right:solid 1px #2a2a2a;
+}
+#UGAquickLinks p {
+	padding:0 2em 1em 2em;
+}
+#UGAquickLinks ul {
+	padding:0 2em .5em 2em;
+}
+#UGAquickLinks li {
+	padding:0 0 1em 0;
+}
+#UGAquickLinks strong {
+	font-size:13px;
+	color:#990033;
+	font-weight:bold;
+}
+#UGAquickLinks a {
+	color:#ccc;
+	border-bottom:dotted 1px black;
+	text-decoration:none;
+}
+#UGAquickLinks a SPAN {
+	text-decoration:underline;
+}
+#UGAquickLinks a:hover {
+	color:white;
+	border-color:white;
+}
+
+
+
+#UGABrandingBar {
+	
+}
+
+/***[ header -> UGAsearch-bar ]***/
+
+#UGABrandingBar .UGAsearch-bar {
+	background: black;
+	border-bottom: 1px solid #888;
+	height: 30px;
+}
+
+#UGABrandingBar .UGAsearch-bar .frame {
+	width: 800px;
+	margin: 0 auto;
+	overflow: visible;
+	height: 30px;
+}
+
+#UGABrandingBar .UGAlogo {
+	float: left;
+}
+
+#UGABrandingBar .UGAlogo a {
+	display: block;
+	width: 330px;
+	height: 30px;
+	background: url(http://franklin.uga.edu/img/toolbar/uga_logo.jpg) 0 0 no-repeat;
+}
+
+#UGABrandingBar .UGAlogo strong {
+	display: none;
+}
+
+#search-uga {
+	height: 20px;
+	float: right;
+	padding: 3px;
+	margin-right: 0px;
+	margin-top: 1px;
+}
+
+#search-uga input.textinput {
+	background: url(http://franklin.uga.edu/img/toolbar/search_uga_input.gif) top left no-repeat;
+	width: 130px;
+	border: none;
+	height: 18px;
+	line-height: 1em;
+	display: block;
+	float: left;
+	color: #a3a3a3;
+	padding: 2px 0 0 10px;
+	font-size: 1.3em;
+}
+
+#search-uga input.buttonSubmit {
+	background: url(http://franklin.uga.edu/img/toolbar/search_uga_go.gif) no-repeat;
+	width: 40px;
+	height: 20px;
+	border: none;
+	line-height: 1em;
+	display: block;
+	float: left;
+}
+
+/***[ header -> quick-links ]***/
+
+#UGABrandingBar div.toggleQuickLinks {
+	background: url(http://franklin.uga.edu/img/toolbar/quick_links.gif) no-repeat center;
+	width: 93px;
+	height: 22px;
+	float: left;
+	padding: 3px;
+	margin-top: 1px;
+	margin-left: 140px;
+}
+
+#UGABrandingBar div.toggleQuickLinks:hover {
+	background: url(http://franklin.uga.edu/img/toolbar/quick_links_hover.gif) no-repeat center;
+}
+
+#UGABrandingBar div.toggleQuickLinks a {
+	display: block;
+	width: 93px;
+	height: 22px;
+	text-indent: -9999px;
+}
+
+#UGABrandingBar .menu {
+	background: #8d929a;
+	border-bottom: solid black 0px;
+}
+
+/***[ header -> uga search widget ]***/
+
+#UGABrandingBar .search-uga {
+	float: left;
+	margin-left: 290px;
+	width: 170px;
+	height: 30px;
+	color: #999;
+	font-size: 11px;
+	line-height: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+

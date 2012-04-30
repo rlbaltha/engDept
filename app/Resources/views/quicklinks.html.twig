@@ -1,0 +1,86 @@
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/jquery-ui-1.8.17.custom.min.js') }}"></script> 
+{% endblock %}
+
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#UGAquickLinks').hide();
+$('.toggleQuickLinks a').click(function() {
+		$('#UGAquickLinks').toggle();
+});
+});
+</script>
+
+<div class="accessibility">
+  <noscript><a href="http://tt.uga.edu/tt/http://www.uga.edu" accesskey="7">Text-Only Version</a></noscript>
+</div> 
+<!-- UGA BRANDING BAR-->
+          <div id="UGAquickLinks">
+			<div class="frame">
+				<div class="column column1">
+					<h2>Academics</h2>
+					<ul>
+						<li><a href="https://webct.uga.edu" accesskey="w">Web CT</a></li>
+
+						<li><a href="https://oasisweb.uga.edu/" accesskey="o">Oasis</a></li>
+						<li><a href="http://www.libs.uga.edu/" accesskey="l">Library</a></li>
+						<li><a href="http://www.uga.edu/academics/resources.html" accesskey="a">Academic Resources</a></li>
+					</ul>
+				</div><!-- end column1 -->
+				
+				<div class="column column2">
+				<h2>Student Life</h2>
+
+					<ul>
+						<li><a href="https://my.uga.edu" accesskey="6">MyUGA</a></li>
+						<li><a href="http://www.ugamail.uga.edu/" accesskey="m">UGA Mail</a></li>
+						<li><a href="http://www.uga.edu/campuslife/" accesskey="f">Campus Life</a></li>
+						<li><a href="http://www.uga.edu/student/resources.html" accesskey="s">Student Resources</a></li>
+					</ul>
+				</div><!-- end column2 -->
+
+				
+				<div class="column column3">
+					<h2>About UGA</h2>
+					<ul>
+						<li><a href="http://www.uga.edu/news/" accesskey="n">News</a></li>
+						<li><a href="http://www.uga.edu/mastercalendar/" accesskey="c">Master Calendar</a></li>
+						<li><a href="http://www.uga.edu/inside/site.html" accesskey="d">Department Directory</a></li>
+						<li><a href="http://www.georgiadogs.com/" accesskey="b">Athletics</a></li>
+
+					</ul>
+				</div><!-- end column3 -->
+				
+				<div class="column column4">
+					<h2>Helpful Links</h2>
+					<ul>
+						<li><a href="http://www.grad.uga.edu/" accesskey="g">Graduate School</a></li>
+						<li><a href="http://www.uga.edu/admissions/finaid.html" accesskey="f">Financial Aid</a></li>
+
+						<li><a href="http://www.uga.edu/oie/" accesskey="i">International Education</a></li>
+						<li><a href="http://www.uga.edu/inside/contact.html" accesskey="9">Contacts &amp; Directories</a></li>
+					</ul>				
+				</div><!-- // column4 -->
+			
+			</div><!-- // frame -->
+		</div><!-- // quickLinks -->
+		
+		<div id="UGABrandingBar">
+
+			<div class="UGAsearch-bar">
+				<div class="frame clearfix">
+					<div class="UGAlogo ie6fix"><a href="http://www.uga.edu/"><strong>University of Georgia</strong></a></div>
+					<div class="toggleQuickLinks"><a href="javascript:void(0)">Quick Links</a></div>
+					<div id="search-uga">
+						<form action="http://www.google.com/cse">
+							<input type="hidden" name="cx" value="012234864659315907956:s4nkdi5ii_u" />
+					                <input type="hidden" name="ie" value="UTF-8" />
+							<input id="q" class="textinput uga-default-value"  value="Search UGA" type="text" name="q" />
+							<input name="Submit" type="submit" class="buttonSubmit" value="" />
+						</form>
+					</div>
+				</div><!-- // frame -->
+			</div><!-- // UGAsearch-bar -->
+
+		</div><!-- // UGABrandingBar -->

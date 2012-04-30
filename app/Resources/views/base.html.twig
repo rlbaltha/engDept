@@ -4,14 +4,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}English Department{% endblock %}</title>
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/main.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/uga.css') }}">
         <script src="{{ asset('bundles/englishhome/js/jquery-1.7.1.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        
+
+        
     <div class="wrapper">    
         <div class="container">
+            
+            {%include '::quicklinks.html.twig' %}  
+            
+            
         <div id="banner" class='banner'>
         <img title="English Dept. banner" alt="English Dept. banner" src="{{ asset('bundles/englishhome/images/EnglishHeader.jpg') }}">
         </div>

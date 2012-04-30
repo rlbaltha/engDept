@@ -10,7 +10,7 @@ body {background: #DCDDDE;margin:0px;}
 label {padding: .5em}
 #people div {padding: .5em;}
 #people label {padding: .5em;}
-#quicklinks {float:left;width:960px;margin-left: auto;margin-right: auto;height:12em;;color: #000}
+#quicklinks {float:left;width:960px;margin-left: auto;margin-right: auto;height:12em;color: #000}
 .banner {float:left;width:960px;margin-left: auto;margin-right: auto;height:120px;}
 .banner img {width:960px;height:120px;}
 .wrapper {position:relative;width:960px;margin-left: auto;margin-right: auto;font-family: Verdana,Arial,sans-serif;font-size: small;background: white;}
