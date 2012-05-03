@@ -37,7 +37,6 @@
         <div class="cell">
         
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-        <a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Change Password</a>
         <a class='last' title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
         {% else %}
         <a class='last' title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
@@ -64,15 +63,14 @@
                 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}      
         <div class="row_contrast">        
-        {% if is_granted('ROLE_USER') %} 
+        <div class="cell"><a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Change Password</a></div>
         <div class="cell"><a title="Profile" href="{{ path('people') }}" >Profile</a></div>        
         <div class="cell"><a title="Courses" href="{{ path('course') }}" >Courses</a></div>
         {% if is_granted('ROLE_ADVISOR') %} 
         <div class="cell"><a title="Majors" href="{{ path('major') }}" >Majors</a></div>
         {% endif %}
         <div class="cell"><a title="Calendar" href="{{ path('calendar') }}" >Calendar</a></div>
-        <div class="cell"><a title="Links" href="{{ path('link') }}" >Dept. Links</a></div>
-        {% endif %}                
+        <div class="cell"><a title="Links" href="{{ path('link') }}" >Dept. Links</a></div>              
         {% if is_granted('ROLE_GRADFAC')  %}        
         <div class="cell"><a title="Graduate Students" href="{{ path('people_mygrad') }}" >My Grad Students</a></div> 
         {% endif %} 
