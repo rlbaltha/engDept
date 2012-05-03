@@ -15,7 +15,7 @@ class AdminPeopleType extends AbstractType
             ->add('firstName')
             ->add('title')
             ->add('rank', 'text', array('attr' => array('class' => 'width640')))
-            ->add('area', 'text', array('attr' => array('class' => 'width640')))
+            ->add('area','entity', array('class'=>'EnglishAreasBundle:Area', 'property'=>'area','expanded'=>true,'multiple'=>true, ))
             ->add('vitaUrl', 'text', array('attr' => array('class' => 'width640')))
             ->add('homepageUrl', 'text', array('attr' => array('class' => 'width640')))
             ->add('email', 'text', array('attr' => array('class' => 'width640')))

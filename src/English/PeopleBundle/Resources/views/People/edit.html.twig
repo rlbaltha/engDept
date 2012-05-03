@@ -32,14 +32,112 @@ toolbar : [
 </div>
 {% endif %}
 
-<div class="row">
-    <div class="cell">
-        <form action="{{ path('people_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
-        {{ form_widget(edit_form) }}
-        <button type="submit">Update</button>
-        </form>
-    </div>    
-</div>
+<div class="row"><div class="cell">
+    <form action="{{ path('people_create') }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
+    <div class="row"><div class="cell">{{ form_errors(edit_form) }}</div></div>
+     
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.firstName, 'First Name') }}</div>
+    <div class="cell">{{ form_errors(edit_form.firstName) }}</div>
+    <div class="cell">{{ form_widget(edit_form.firstName) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.lastName, 'Last Name') }}</div>
+    <div class="cell">{{ form_errors(edit_form.lastName) }}</div>
+    <div class="cell">{{ form_widget(edit_form.lastName) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.title, 'Title') }}</div>
+    <div class="cell">{{ form_errors(edit_form.title) }}</div>
+    <div class="cell">{{ form_widget(edit_form.title) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.email, 'Email') }}</div>
+    <div class="cell">{{ form_errors(edit_form.email) }}</div>
+    <div class="cell">{{ form_widget(edit_form.email) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.officeHours, 'Office Hours') }}</div>
+    <div class="cell">{{ form_errors(edit_form.officeHours) }}</div>
+    <div class="cell">{{ form_widget(edit_form.officeHours) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.officePhone, 'Office Phone') }}</div>
+    <div class="cell">{{ form_errors(edit_form.officePhone) }}</div>
+    <div class="cell">{{ form_widget(edit_form.officePhone) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.officeNumber, 'Office Number') }}</div>
+    <div class="cell">{{ form_errors(edit_form.officeNumber) }}</div>
+    <div class="cell">{{ form_widget(edit_form.officeNumber) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.photoUrl, 'URL for a Photo') }}</div>
+    <div class="cell">{{ form_errors(edit_form.photoUrl) }}</div>
+    <div class="cell">{{ form_widget(edit_form.photoUrl) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.bio, 'Brief Biography') }}</div>
+    <div class="cell">{{ form_errors(edit_form.bio) }}</div>
+    <div class="cell">{{ form_widget(edit_form.bio) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.vitaUrl, 'URL for your CV') }}</div>
+    <div class="cell">{{ form_errors(edit_form.vitaUrl) }}</div>
+    <div class="cell">{{ form_widget(edit_form.vitaUrl) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.homepageUrl, 'URL for Homepage') }}</div>
+    <div class="cell">{{ form_errors(edit_form.homepageUrl) }}</div>
+    <div class="cell">{{ form_widget(edit_form.homepageUrl) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.area, 'Areas') }}</div>
+    <div class="cell">{{ form_errors(edit_form.area) }}</div>
+    <div class="cell">{{ form_widget(edit_form.area) }}</div></div>
+    
+    <div class="row"></div>
+    <div class="row"><div class="cell bold">Internal Information:</div></div>
+    <div class="row"></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.rank, 'Rank') }}</div>
+    <div class="cell">{{ form_errors(edit_form.rank) }}</div>
+    <div class="cell">{{ form_widget(edit_form.rank) }}</div></div>
+    
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.address, 'Street Address') }}</div>
+    <div class="cell">{{ form_errors(edit_form.address) }}</div>
+    <div class="cell">{{ form_widget(edit_form.address) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.address2, 'City, State, Zip') }}</div>
+    <div class="cell">{{ form_errors(edit_form.address2) }}</div>
+    <div class="cell">{{ form_widget(edit_form.address2) }}</div></div>
+   
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.cellPhone, 'Cell Phone') }}</div>
+    <div class="cell">{{ form_errors(edit_form.cellPhone) }}</div>
+    <div class="cell">{{ form_widget(edit_form.cellPhone) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.spouse, 'Significant Other') }}</div>
+    <div class="cell">{{ form_errors(edit_form.spouse) }}</div>
+    <div class="cell">{{ form_widget(edit_form.spouse) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.homePhone, 'Home Phone') }}</div>
+    <div class="cell">{{ form_errors(edit_form.homePhone) }}</div>
+    <div class="cell">{{ form_widget(edit_form.homePhone) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.position, 'Position') }}</div>
+    <div class="cell">{{ form_errors(edit_form.position) }}</div>
+    <div class="cell">{{ form_widget(edit_form.position) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.active) }}</div>
+    <div class="cell">{{ form_errors(edit_form.active) }}</div>
+    <div class="cell">{{ form_widget(edit_form.active) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.status) }}</div>
+    <div class="cell">{{ form_errors(edit_form.status) }}</div>
+    <div class="cell">{{ form_widget(edit_form.status) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.gradinfo) }}</div>
+    <div class="cell">{{ form_errors(edit_form.gradinfo) }}</div>
+    <div class="cell">{{ form_widget(edit_form.gradinfo) }}</div></div>
+
+    <div class="row"><div class="cell">{{ form_rest(edit_form) }}</div></div>
+        
+    <button type="submit">Update</button
+    
+    </form>
+</div></div>
+
+
 {% if is_granted('ROLE_ADMIN') %}
 <div class="row">
     <div class="cell"> 

@@ -10,12 +10,12 @@ class PeopleType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('username','hidden')
-            ->add('lastName')
+            ->add('username')
+        ->add('lastName')
             ->add('firstName')
             ->add('title')
             ->add('rank', 'text', array('attr' => array('class' => 'width640')))
-            ->add('area', 'text', array('attr' => array('class' => 'width640')))
+            ->add('area')
             ->add('vitaUrl', 'text', array('attr' => array('class' => 'width640')))
             ->add('homepageUrl', 'text', array('attr' => array('class' => 'width640')))
             ->add('email', 'text', array('attr' => array('class' => 'width640')))

@@ -25,15 +25,114 @@ toolbar : [
 });
 
 </script> 
-<div class="row divider"><div class="cell"><a href="{{ path('people') }}">Return to List</a></div></div>
+<div class="row divider"><div class="cell"><a href="{{ path('people') }}">List People</a></div></div>
 
 
 <div class="row"><div class="cell">
     <form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
+    <div class="row"><div class="cell">{{ form_errors(form) }}</div></div>
+     
+    <div class="row"><div class="cell width150">{{ form_label(form.username, 'Username') }}</div>
+    <div class="cell">{{ form_errors(form.username) }}</div>
+    <div class="cell">{{ form_widget(form.username) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.firstName, 'First Name') }}</div>
+    <div class="cell">{{ form_errors(form.firstName) }}</div>
+    <div class="cell">{{ form_widget(form.firstName) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.lastName, 'Last Name') }}</div>
+    <div class="cell">{{ form_errors(form.lastName) }}</div>
+    <div class="cell">{{ form_widget(form.lastName) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.title, 'Title') }}</div>
+    <div class="cell">{{ form_errors(form.title) }}</div>
+    <div class="cell">{{ form_widget(form.title) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.email, 'Email') }}</div>
+    <div class="cell">{{ form_errors(form.email) }}</div>
+    <div class="cell">{{ form_widget(form.email) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.officeHours, 'Office Hours') }}</div>
+    <div class="cell">{{ form_errors(form.officeHours) }}</div>
+    <div class="cell">{{ form_widget(form.officeHours) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.officePhone, 'Office Phone') }}</div>
+    <div class="cell">{{ form_errors(form.officePhone) }}</div>
+    <div class="cell">{{ form_widget(form.officePhone) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.officeNumber, 'Office Number') }}</div>
+    <div class="cell">{{ form_errors(form.officeNumber) }}</div>
+    <div class="cell">{{ form_widget(form.officeNumber) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.photoUrl, 'URL for a Photo') }}</div>
+    <div class="cell">{{ form_errors(form.photoUrl) }}</div>
+    <div class="cell">{{ form_widget(form.photoUrl) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.bio, 'Brief Biography') }}</div>
+    <div class="cell">{{ form_errors(form.bio) }}</div>
+    <div class="cell">{{ form_widget(form.bio) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.vitaUrl, 'URL for your CV') }}</div>
+    <div class="cell">{{ form_errors(form.vitaUrl) }}</div>
+    <div class="cell">{{ form_widget(form.vitaUrl) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.homepageUrl, 'URL for Homepage') }}</div>
+    <div class="cell">{{ form_errors(form.homepageUrl) }}</div>
+    <div class="cell">{{ form_widget(form.homepageUrl) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.area, 'Areas') }}</div>
+    <div class="cell">{{ form_errors(form.area) }}</div>
+    <div class="cell">{{ form_widget(form.area) }}</div></div>
+    
+    <div class="row"></div>
+    <div class="row"><div class="cell bold">Internal Information:</div></div>
+    <div class="row"></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.rank, 'Rank') }}</div>
+    <div class="cell">{{ form_errors(form.rank) }}</div>
+    <div class="cell">{{ form_widget(form.rank) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.address, 'Street Address') }}</div>
+    <div class="cell">{{ form_errors(form.address) }}</div>
+    <div class="cell">{{ form_widget(form.address) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.address2, 'City, State, Zip') }}</div>
+    <div class="cell">{{ form_errors(form.address2) }}</div>
+    <div class="cell">{{ form_widget(form.address2) }}</div></div>
+   
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.cellPhone, 'Cell Phone') }}</div>
+    <div class="cell">{{ form_errors(form.cellPhone) }}</div>
+    <div class="cell">{{ form_widget(form.cellPhone) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.spouse, 'Significant Other') }}</div>
+    <div class="cell">{{ form_errors(form.spouse) }}</div>
+    <div class="cell">{{ form_widget(form.spouse) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.homePhone, 'Home Phone') }}</div>
+    <div class="cell">{{ form_errors(form.homePhone) }}</div>
+    <div class="cell">{{ form_widget(form.homePhone) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.position, 'Position') }}</div>
+    <div class="cell">{{ form_errors(form.position) }}</div>
+    <div class="cell">{{ form_widget(form.position) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.active) }}</div>
+    <div class="cell">{{ form_errors(form.active) }}</div>
+    <div class="cell">{{ form_widget(form.active) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.status) }}</div>
+    <div class="cell">{{ form_errors(form.status) }}</div>
+    <div class="cell">{{ form_widget(form.status) }}</div></div>
+    
+    <div class="row"><div class="cell width150">{{ form_label(form.gradinfo) }}</div>
+    <div class="cell">{{ form_errors(form.gradinfo) }}</div>
+    <div class="cell">{{ form_widget(form.gradinfo) }}</div></div>
+
+    <div class="row"><div class="cell">{{ form_rest(form) }}</div></div>
+        
+    <button type="submit">Create</button
+    
     </form>
 </div></div>
 
