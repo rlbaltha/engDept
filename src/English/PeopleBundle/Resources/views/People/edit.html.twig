@@ -11,7 +11,7 @@ $(document).ready(function()
 {
 $('#english_peoplebundle_peopletype_bio').ckeditor( function() {}, {height:100, skin: 'chris',forcePasteAsPlainText : true,
 toolbar : [
-['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
 'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
 ],} );
 $('#english_peoplebundle_peopletype_officeHours').ckeditor( function() {}, {height:50, skin: 'chris',forcePasteAsPlainText : true,
@@ -72,7 +72,7 @@ toolbar : [
     <div class="cell">{{ form_errors(edit_form.bio) }}</div>
     <div class="cell">{{ form_widget(edit_form.bio) }}</div></div>
     
-    <div class="row"><div class="cell width150">{{ form_label(edit_form.vitaUrl, 'URL for your CV') }}</div>
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.vitaUrl, 'URL for CV') }}</div>
     <div class="cell">{{ form_errors(edit_form.vitaUrl) }}</div>
     <div class="cell">{{ form_widget(edit_form.vitaUrl) }}</div></div>
     
@@ -80,7 +80,7 @@ toolbar : [
     <div class="cell">{{ form_errors(edit_form.homepageUrl) }}</div>
     <div class="cell">{{ form_widget(edit_form.homepageUrl) }}</div></div>
     
-    <div class="row"><div class="cell width150">{{ form_label(edit_form.area, 'Areas') }}</div>
+    <div class="row"><div class="cell width150">{{ form_label(edit_form.area, 'Area(s)') }}</div>
     <div class="cell">{{ form_errors(edit_form.area) }}</div>
     <div class="cell">{{ form_widget(edit_form.area) }}</div></div>
     
@@ -117,14 +117,6 @@ toolbar : [
     <div class="row"><div class="cell width150">{{ form_label(edit_form.position, 'Position') }}</div>
     <div class="cell">{{ form_errors(edit_form.position) }}</div>
     <div class="cell">{{ form_widget(edit_form.position) }}</div></div>
-    
-    <div class="row"><div class="cell width150">{{ form_label(edit_form.active) }}</div>
-    <div class="cell">{{ form_errors(edit_form.active) }}</div>
-    <div class="cell">{{ form_widget(edit_form.active) }}</div></div>
-    
-    <div class="row"><div class="cell width150">{{ form_label(edit_form.status) }}</div>
-    <div class="cell">{{ form_errors(edit_form.status) }}</div>
-    <div class="cell">{{ form_widget(edit_form.status) }}</div></div>
     
     <div class="row"><div class="cell width150">{{ form_label(edit_form.gradinfo) }}</div>
     <div class="cell">{{ form_errors(edit_form.gradinfo) }}</div>

@@ -319,7 +319,7 @@ class PeopleController extends Controller
 
         
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            $editForm = $this->createForm(new PeopleType(), $entity);
+            $editForm = $this->createForm(new AdminPeopleType(), $entity);
         }
         else  {
             $editForm = $this->createForm(new PeopleType(), $entity);

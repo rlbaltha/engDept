@@ -11,7 +11,7 @@ $(document).ready(function()
 {
 $('#english_peoplebundle_peopletype_bio').ckeditor( function() {}, {height:100, skin: 'chris',forcePasteAsPlainText : true,
 toolbar : [
-['Bold','Italic','Underline','Font','FontSize','TextColor','BGColor','Link','Unlink','NumberedList',
+['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
 'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
 ],} );
 $('#english_peoplebundle_peopletype_officeHours').ckeditor( function() {}, {height:50, skin: 'chris',forcePasteAsPlainText : true,
@@ -72,7 +72,7 @@ toolbar : [
     <div class="cell">{{ form_errors(form.bio) }}</div>
     <div class="cell">{{ form_widget(form.bio) }}</div></div>
     
-    <div class="row"><div class="cell width150">{{ form_label(form.vitaUrl, 'URL for your CV') }}</div>
+    <div class="row"><div class="cell width150">{{ form_label(form.vitaUrl, 'URL for CV') }}</div>
     <div class="cell">{{ form_errors(form.vitaUrl) }}</div>
     <div class="cell">{{ form_widget(form.vitaUrl) }}</div></div>
     
@@ -80,7 +80,7 @@ toolbar : [
     <div class="cell">{{ form_errors(form.homepageUrl) }}</div>
     <div class="cell">{{ form_widget(form.homepageUrl) }}</div></div>
     
-    <div class="row"><div class="cell width150">{{ form_label(form.area, 'Areas') }}</div>
+    <div class="row"><div class="cell width150">{{ form_label(form.area, 'Area(s)') }}</div>
     <div class="cell">{{ form_errors(form.area) }}</div>
     <div class="cell">{{ form_widget(form.area) }}</div></div>
     
@@ -116,14 +116,6 @@ toolbar : [
     <div class="row"><div class="cell width150">{{ form_label(form.position, 'Position') }}</div>
     <div class="cell">{{ form_errors(form.position) }}</div>
     <div class="cell">{{ form_widget(form.position) }}</div></div>
-    
-    <div class="row"><div class="cell width150">{{ form_label(form.active) }}</div>
-    <div class="cell">{{ form_errors(form.active) }}</div>
-    <div class="cell">{{ form_widget(form.active) }}</div></div>
-    
-    <div class="row"><div class="cell width150">{{ form_label(form.status) }}</div>
-    <div class="cell">{{ form_errors(form.status) }}</div>
-    <div class="cell">{{ form_widget(form.status) }}</div></div>
     
     <div class="row"><div class="cell width150">{{ form_label(form.gradinfo) }}</div>
     <div class="cell">{{ form_errors(form.gradinfo) }}</div>

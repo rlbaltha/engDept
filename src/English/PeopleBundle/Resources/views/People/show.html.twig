@@ -19,6 +19,7 @@
      <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ entity.email }}" tabindex="1" title="email address" >{{ entity.email }}</a></div>
      <div class="cell bold">Phone:</div> <div class="cell">{{ entity.officePhone }}</div>
      <div class="cell bold">Office:</div> <div class="cell">{{ entity.officeNumber }}</div>
+     <div class="row divider"><div class="cell bold">Area(s)</div>{% for area in areas %}<div class="cell">{{ area.area}}</div> {% endfor %}</div>
      </div>
      </div>  
 
@@ -53,8 +54,7 @@
             <div class="row"><div class="cell bold"></div><div class="cell">{{ entity.address2 }}</div></div>
             <div class="row"><div class="cell bold">Spouse</div><div class="cell">{{ entity.spouse }}</div></div>
             <div class="row"><div class="cell bold">Home phone</div><div class="cell">{{ entity.homePhone }}</div></div>
-            <div class="row"><div class="cell bold">Cell phone</div><div class="cell">{{ entity.cellPhone }}</div></div>
-            <div class="row divider"><div class="cell bold">Area(s)</div>{% for area in areas %}<div class="cell">{{ area.area}}</div> {% endfor %}</div>
+            <div class="row"><div class="cell bold">Cell phone</div><div class="cell">{{ entity.cellPhone }}</div></div>          
 {% endif %}
             
           {% if userid == entity.id or is_granted('ROLE_ADMIN') %}  

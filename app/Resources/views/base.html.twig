@@ -74,7 +74,7 @@
         <div class="cell"><a title="Links" href="{{ path('link') }}" >Dept. Links</a></div>
         {% endif %}                
         {% if is_granted('ROLE_GRADFAC')  %}        
-        <div class="cell"><a title="Graduate Students" href="{{ path('people_mygrad') }}" >Grad Students</a></div> 
+        <div class="cell"><a title="Graduate Students" href="{{ path('people_mygrad') }}" >My Grad Students</a></div> 
         {% endif %} 
         {% if is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN') %}
         <div class="cell"><a title="Gradcom" href="{{ path('people_gradfac') }}" >Grad Faculty</a></div>
