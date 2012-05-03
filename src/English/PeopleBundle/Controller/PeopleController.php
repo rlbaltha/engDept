@@ -50,11 +50,12 @@ class PeopleController extends Controller
         $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
             ORDER BY g.created DESC')->setParameter('1',$userid)->setParameter('2',$userid)->getResult();   
         $status = $entity->getGradinfo()->getStatus();
+        $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$userid)->getResult();
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
-        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'        => $status,'notes' => $notes,));
+        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'        => $status,'notes' => $notes, 'areas' => $areas));
         } 
     }
     

@@ -19,7 +19,7 @@
      <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ entity.email }}" tabindex="1" title="email address" >{{ entity.email }}</a></div>
      <div class="cell bold">Phone:</div> <div class="cell">{{ entity.officePhone }}</div>
      <div class="cell bold">Office:</div> <div class="cell">{{ entity.officeNumber }}</div>
-     <div class="row divider"><div class="cell bold">Area(s)</div>{% for area in areas %}<div class="cell">{{ area.area}}</div> {% endfor %}</div>
+     <div class="row divider"><div class="cell bold">Area(s)</div>{% if areas  %}{% for area in areas %}<div class="cell">{{ area.area}}</div> {% endfor %}{% endif %}</div>
      </div>
      </div>  
 
