@@ -194,7 +194,7 @@ class PeopleController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
         $status = $entity->getGradinfo()->getStatus();
-        
+        $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$id)->getResult();
         
         
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
@@ -208,6 +208,7 @@ class PeopleController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         return array(
             'userid'     => $userid,
+            'areas'       => $areas,
             'entity'      => $entity,
             'gradcom'     => $gradcom,
             'notes'       => $notes,

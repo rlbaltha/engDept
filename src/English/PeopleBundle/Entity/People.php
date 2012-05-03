@@ -150,11 +150,9 @@ class People
     private $bio;
 
     /**
-     * @var text $area
-     *
-     * @ORM\Column(name="area", type="text", nullable=true)
-     */
-    private $area;
+    * @ORM\ManyToMany(targetEntity="English\AreasBundle\Entity\Area")
+    */
+    protected $area; 
 
     /**
      * @var string $homepageUrl
@@ -579,25 +577,7 @@ class People
         return $this->bio;
     }
 
-    /**
-     * Set area
-     *
-     * @param text $area
-     */
-    public function setArea($area)
-    {
-        $this->area = $area;
-    }
 
-    /**
-     * Get area
-     *
-     * @return text 
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
 
     /**
      * Set homepageUrl
@@ -722,6 +702,7 @@ class People
     {
         $this->position = new ArrayCollection();
         $this->gradcom = new ArrayCollection();
+        $this->area = new ArrayCollection();
     }
     
     /**
@@ -772,5 +753,25 @@ class People
     public function getGrad()
     {
         return $this->grad;
+    }
+
+    /**
+     * Add area
+     *
+     * @param English\AreasBundle\Entity\Area $area
+     */
+    public function addArea(\English\AreasBundle\Entity\Area $area)
+    {
+        $this->area[] = $area;
+    }
+
+    /**
+     * Get area
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getArea()
+    {
+        return $this->area;
     }
 }
