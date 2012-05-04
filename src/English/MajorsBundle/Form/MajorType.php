@@ -22,8 +22,9 @@ class MajorType extends AbstractType
             ->add('minor')   
             ->add('honors')
             ->add('notes') 
-            ->add('hours') 
-            ->add('gpa')     
+            ->add('hours', 'hidden') 
+            ->add('gpa', 'hidden')     
+            ->add('status', 'hidden') 
             ->add('checkedin','choice', array('choices' => array('0'=>'No','1'=> 'Yes'),'expanded'=>true,));    
         ;
     }

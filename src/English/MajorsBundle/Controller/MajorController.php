@@ -226,6 +226,15 @@ class MajorController extends Controller
     public function newAction()
     {
         $entity = new Major();
+        $entity -> setStatus('0');
+        $entity -> setFirstMajor('ENGL');
+        $entity -> setSecondMajor('none');
+        $entity -> setMinor('none');
+        $entity -> setAoe('none');
+        $entity -> setHonors(false);
+        $entity -> setCan('810');
+        $entity -> setCheckedin(false);
+        $entity -> setEmail('needed');
         $form   = $this->createForm(new MajorType(), $entity);
 
         return array(

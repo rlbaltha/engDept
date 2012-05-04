@@ -197,7 +197,7 @@ class GradnotesController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('gradnotes'));
+        return $this->redirect($this->generateUrl('people_show', array('id'=>$entity->getGid())));
     }
 
     private function createDeleteForm($id)
