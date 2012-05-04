@@ -12,4 +12,56 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseRepository extends EntityRepository
 {
+    
+ /**
+ * queries for upper by area course listing
+ * 
+ */
+   public function upperbyarea1($term)
+    {
+       return $this->getEntityManager()
+               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
+               ->setParameter('1',$term)->setParameter('2','1')->getResult();
+
+    }
+
+   public function upperbyarea2($term)
+    {
+       return $this->getEntityManager()
+               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
+               ->setParameter('1',$term)->setParameter('2','2')->getResult();
+
+    }
+
+   public function upperbyarea3($term)
+    {
+       return $this->getEntityManager()
+               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
+               ->setParameter('1',$term)->setParameter('2','3')->getResult();
+
+    }
+
+   public function upperbyarea4($term)
+    {
+       return $this->getEntityManager()
+               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
+               ->setParameter('1',$term)->setParameter('2','4')->getResult();
+
+    }
+
+   public function upperbyarea5($term)
+    {
+       return $this->getEntityManager()
+               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
+               ->setParameter('1',$term)->setParameter('2','5')->getResult();
+
+    }
+
+   public function terms()
+    {
+       return $this->getEntityManager()
+               ->createQuery('SELECT t.termName,t.term FROM EnglishTermBundle:Term t WHERE t.type >= ?1 ORDER BY t.term')
+               ->setParameter('1','1')->getResult();
+
+    }
 }

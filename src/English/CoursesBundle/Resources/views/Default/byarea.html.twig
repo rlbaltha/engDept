@@ -1,0 +1,164 @@
+{% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
+ 
+{% block body %}
+{% if '/listings/' in app.request.pathinfo %}
+{% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
+{% endif %}
+
+<div id="area1" class="row_even divider">
+<div class="cell red bold">Group 1: English and American Literature before 1800 (Two required, each from different areas)</div>
+<div class="cell">(1) Early Literature of the British Isles   (2) Medieval Literature   (3) Renaissance Literature   (4) Restoration and Eighteenth-century British and American Literature
+</div>
+</div>
+{% for courses in area1 %}
+<div id="course{{ courses.id }}" class="row_even divider">
+    <div class="cell">
+        {% if '4060' in courses.courseName or '4210' in courses.courseName or '4220' in courses.courseName  or '4222' in courses.courseName  or '4295' in courses.courseName  or '4296' in courses.courseName %}(1)
+        {% elseif '4225' in courses.courseName or '4230' in courses.courseName or '4230' in courses.courseName or '4240' in courses.courseName or '4270' in courses.courseName or '4290' in courses.courseName or '4297' in courses.courseName %}(2)
+        {% elseif '4300' in courses.courseName or '4310' in courses.courseName or '4320' in courses.courseName or '4330' in courses.courseName or '4270' in courses.courseName or '4340' in courses.courseName or '4350' in courses.courseName or '4360' in courses.courseName or '4370' in courses.courseName or '4390' in courses.courseName  %}(3)
+        {% elseif '4400' in courses.courseName or '4410' in courses.courseName or '4420' in courses.courseName or '4430' in courses.courseName or '4440' in courses.courseName or '4450' in courses.courseName or '4460' in courses.courseName or '4470' in courses.courseName or '4480' in courses.courseName or '4490' in courses.courseName or '4700' in courses.courseName  %}(4)
+        {% endif %}   
+    </div>   
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+<div class="cell">{{ courses.building }}</div>
+<div class="cell">{{ courses.room }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
+        $('#detailWrapper{{ courses.id }}').toggle();
+    });
+</script>
+{% endfor %} 
+
+
+<div id="area2" class="row_even divider">
+<div class="cell red bold">Group 2: British and Postcolonial Literature after 1800 (One required)</div>
+</div>
+{% for courses in area2 %}
+<div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+<div class="cell">{{ courses.building }}</div>
+<div class="cell">{{ courses.room }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
+        $('#detailWrapper{{ courses.id }}').toggle();
+    });
+</script>
+{% endfor %} 
+
+<div id="area3" class="row_even divider">
+<div class="cell red bold">Group 3: American Literature after 1800 (One required)</div>
+</div>
+{% for courses in area3 %}
+<div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+<div class="cell">{{ courses.building }}</div>
+<div class="cell">{{ courses.room }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
+        $('#detailWrapper{{ courses.id }}').toggle();
+    });
+</script>
+{% endfor %} 
+
+<div id="area4" class="row_even divider">
+<div class="cell red bold">Group 4: Language, Criticism, and Culture</div>
+</div>
+{% for courses in area4 %}
+<div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+<div class="cell">{{ courses.building }}</div>
+<div class="cell">{{ courses.room }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
+        $('#detailWrapper{{ courses.id }}').toggle();
+    });
+</script>
+{% endfor %} 
+
+<div id="area5" class="row_even divider">
+<div class="cell red bold">Group 5 </div>
+</div>
+{% for courses in area5 %}
+<div id="course{{ courses.id }}" class="row_even divider">
+<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
+<div class="cell bold">{{ courses.title }}</div>
+<div class="cell">{{ courses.instructorName|upper }}</div>
+<div class="cell">{{ courses.callNumber }}</div>
+<div class="cell">{{ courses.callNumber2 }}</div>
+<div class="cell">{{ courses.days }}</div>
+<div class="cell">{{ courses.time }}</div>
+<div class="cell">{{ courses.building }}</div>
+<div class="cell">{{ courses.room }}</div>
+</div>
+<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
+<div id="detail{{ courses.id }}" class="row_odd">
+</div>
+</div>
+
+{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
+<script language="javascript"> 
+    $('#detailLink{{ courses.id }}').click(function(){
+        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
+        $('#detailWrapper{{ courses.id }}').toggle();
+    });
+</script>
+{% endfor %} 
+
+
+{% endblock %}
