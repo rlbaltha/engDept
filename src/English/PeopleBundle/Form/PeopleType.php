@@ -10,7 +10,7 @@ class PeopleType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('username', 'hidden')
+            ->add('username','hidden')
             ->add('lastName')
             ->add('firstName')
             ->add('title')
@@ -29,10 +29,10 @@ class PeopleType extends AbstractType
             ->add('cellPhone')
             ->add('spouse')
             ->add('homePhone')    
-            ->add('position','hidden')
+            ->add('position','entity', array('class'=>'EnglishPositionBundle:Position', 'property'=>'position','expanded'=>true,'multiple'=>true, )) 
             ->add('active', 'hidden')
             ->add('status', 'hidden')
-            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status','expanded'=>true,'multiple'=>false, ))    
+            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status','expanded'=>true,'multiple'=>false, ))     
         ;
     }
 

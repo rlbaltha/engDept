@@ -120,7 +120,7 @@ toolbar : [
     <div class="cell">{{ form_errors(edit_form.homePhone) }}</div>
     <div class="cell">{{ form_widget(edit_form.homePhone) }}</div></div>
     
-    <div class="row"><div class="cell width150">{{ form_label(edit_form.position, 'Position') }}</div>
+    <div class="row {% if not is_granted('ROLE_ADMIN') %}hidden{%endif%}"><div class="cell width150">{{ form_label(edit_form.position, 'Position') }}</div>
     <div class="cell">{{ form_errors(edit_form.position) }}</div>
     <div class="cell">{{ form_widget(edit_form.position) }}</div></div>
     
