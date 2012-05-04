@@ -26,8 +26,7 @@ class DefaultController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
         $courses = $em->createQuery($dql1)->getResult();
-        $dql2 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type >= ?1 ORDER BY t.term";
-        $terms = $em->createQuery($dql2)->setParameter('1','1')->getResult();
+        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
         $currentTerm = $em->createQuery($dql3)->getSingleresult();
         return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType)); 
@@ -60,8 +59,7 @@ class DefaultController extends Controller
             $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 ORDER BY c.courseName";
             }
         $courses = $em->createQuery($dql1)->setParameter('1', $term)->getResult();
-        $dql2 = "SELECT t.termName,t.term FROM EnglishTermBundle:Term t WHERE t.type >= ?1 ORDER BY t.term";
-        $terms = $em->createQuery($dql2)->setParameter('1','1')->getResult();
+        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType)); 
             
     } 
@@ -82,5 +80,27 @@ class DefaultController extends Controller
         return $this->render('EnglishCoursesBundle:Default:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber)); 
             
     }     
+ 
+    /**
+     * Finds and displays upper division courses by area
+     *
+     * @Route("/{term}/byarea", name="listings_byarea")
+     * @Template()
+     */    
+    public function byareaAction($term)
+    {
+        $currentTerm = array('term' => $term);
+        $currentType = 'Upper by Area';
+        $em = $this->get('doctrine.orm.entity_manager');
+        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+        $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea1($term);
+        $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea2($term);
+        $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea3($term);
+        $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea4($term);
+        $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea5($term);
+        
+        return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, )); 
+            
+    }      
     
 }
