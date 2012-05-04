@@ -29,7 +29,7 @@ class PeopleType extends AbstractType
             ->add('cellPhone')
             ->add('spouse')
             ->add('homePhone')    
-            ->add('position','entity', array('class'=>'EnglishPositionBundle:Position', 'property'=>'position','expanded'=>true,'multiple'=>true, ))    
+            ->add('position','hidden')
             ->add('active', 'hidden')
             ->add('status', 'hidden')
             ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status','expanded'=>true,'multiple'=>false, ))    
