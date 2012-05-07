@@ -29,7 +29,7 @@ toolbar : [
     <div class="row"><div class="cell">{{ form_errors(edit_form) }}</div></div>
     
     
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.name, 'Last, First Name') }}</div>
+    <div class="row"><div class="cell width100">{{ form_label(edit_form.name, 'Last, First') }}</div>
     <div class="cell">{{ form_errors(edit_form.name) }}</div>
     <div class="cell">{{ form_widget(edit_form.name) }}</div></div>
     
@@ -88,14 +88,5 @@ toolbar : [
 </form>
 </div></div>
 
-
-<div class="row">
-    <div class="cell"> 
-        <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
-        {{ form_widget(delete_form) }} 
-        <button type="submit">Delete</button> 
-        </form>
-    </div>
-</div>
 
 {% endblock %}

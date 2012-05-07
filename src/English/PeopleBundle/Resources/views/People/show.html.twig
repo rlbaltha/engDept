@@ -92,8 +92,23 @@
         <div class="cell">
          <a href="{{ path('gradnotes_edit', { 'id': notes.id }) }}">Edit</a>
          </div>
-         </div>
+         
+        <div id="delete{{notes.id}}" class="cell"> 
+        <button onclick="$('#confirm{{notes.id}}').toggle();$('#delete{{notes.id}}').toggle()" type="submit">Delete</button> 
+        </div>
+            
+        <div id="confirm{{notes.id}}" class="cell hidden"> 
+        <form action="{{ path('gradnotes_delete', { 'id': notes.id}) }}" method="post">
+        {{ form_widget(delete_form) }} 
+        <button type="submit">Confirm Delete</button> 
+        </form>
+        <button onclick="$('#confirm{{notes.id}}').toggle();$('#delete{{notes.id}}').toggle()" type="submit">Cancel</button>         
+        </div>    
+            
+            
+        </div>
         {% endfor %}
 {% endif %}
 {% endif %}            
 {% endblock %}
+

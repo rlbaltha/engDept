@@ -5,7 +5,6 @@
 {% if is_granted('ROLE_ADMIN') %}
 <div class='row divider'>
 <div class='cell pad10'>
-<a href="{{ path('course_new') }}">New Listing</a>
 </div>        
         <form action="{{ path('course_find') }}" method="post" {{ form_enctype(form) }}>
         <div class='cell right'>

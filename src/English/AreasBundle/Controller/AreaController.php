@@ -25,10 +25,12 @@ class AreaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-
+        $id = 0;
         $entities = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        $deleteForm = $this->createDeleteForm($id);
 
-        return array('entities' => $entities);
+        return array('entities' => $entities,
+        'delete_form' => $deleteForm->createView(),);
     }
 
     /**
@@ -96,7 +98,7 @@ class AreaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('area_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('area'));
             
         }
 
@@ -160,7 +162,7 @@ class AreaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('area_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('area'));
         }
 
         return array(
