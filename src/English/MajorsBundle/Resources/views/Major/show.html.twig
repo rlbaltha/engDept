@@ -38,7 +38,7 @@
             <div class="cell bold">{{ entity.status }}</div>
         </div>
         <div class="row divider">
-            <div class="cell">Notes</div>
+            <div class="cell">Admin Notes</div>
             <div class="cell">{{ entity.notes | raw }}</div>
         </div>
         
@@ -70,11 +70,16 @@
          <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit</a>
          </div>
 
-        <div class="cell"> 
+        <div id="delete{{notes.id}}" class="cell"> 
+        <button onclick="$('#confirm{{notes.id}}').toggle();$('#delete{{notes.id}}').toggle()" type="submit">Delete</button> 
+        </div>      
+            
+        <div id="confirm{{notes.id}}" class="cell hidden"> 
         <form action="{{ path('majornote_delete', { 'id': notes.id, 'mid': mid }) }}" method="post">
         {{ form_widget(delete_form) }} 
-        <button type="submit">Delete</button> 
+        <button type="submit">Confirm Delete</button> 
         </form>
+        <button onclick="$('#confirm{{notes.id}}').toggle();$('#delete{{notes.id}}').toggle()" type="submit">Cancel</button>         
         </div>  
          </div>
         {% endfor %}
