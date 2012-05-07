@@ -3,8 +3,12 @@
 namespace English\PeopleBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use English\PeopleBundle\Entity\People;
+use English\PeopleBundle\Form\PeopleType;
+
 
 /**
  * People Public controller.
@@ -24,10 +28,13 @@ class DefaultController extends Controller
     {
         $heading = 1;
     	$em = $this->get('doctrine.orm.entity_manager');
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
         $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM 
             EnglishPeopleBundle:People p JOIN p.position o WHERE o.position = ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1','Faculty')->getResult();
-        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,)); 
+        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,'form' => $form->createView(),)); 
     }
 
     /**
@@ -63,9 +70,12 @@ class DefaultController extends Controller
 		{$areaWc = '%Nineteenth%';}
 	else {$areaWc = '%Twentieth%';}
         $em = $this->get('doctrine.orm.entity_manager');
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
         $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o WHERE o.position = 'Faculty' AND p.area LIKE ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$areaWc )->getResult();
-        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,)); 
+        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,'form' => $form->createView(),)); 
     }
     
     /**
@@ -87,9 +97,12 @@ class DefaultController extends Controller
 		{$typeWc = 'Graduate Student';}
 	else {$typeWc = 'Retired';}
         $em = $this->get('doctrine.orm.entity_manager');
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
         $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o WHERE o.position = ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$typeWc )->getResult();
-        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading)); 
+        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'heading' => $heading,'form' => $form->createView(),)); 
     }  
     
     /**
@@ -108,5 +121,31 @@ class DefaultController extends Controller
         return $this->render('EnglishPeopleBundle:Default:detail.html.twig', array('peopleDetail' => $peopleDetail,'peopleCourses' => $peopleCourses)); 
             
     } 
+    
+    
+    /**
+     * Find People
+     *
+     * @Route("/find", name="directory_find")
+     * @Method("post")
+     */
+    public function findAction()
+    {   
+        $heading = 1;
+        $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $lastname = $postData['lastName'] . "%";
+        $lastname = strtolower($lastname);
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
+        $people = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
+        $form = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        if (!$people) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+        return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people, 'heading' => $heading, 'form' => $form->createView()));
+        }     
     
 }

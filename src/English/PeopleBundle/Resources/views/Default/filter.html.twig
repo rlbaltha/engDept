@@ -1,26 +1,37 @@
  {# src/English/PeopleBundle/Resources/views/Default/filter.html.twig #}
  <div class="welcome"><div class="head">{% if heading == '2' %}Instructors{% elseif heading == '3' %}Administration{% elseif heading == '4' %}Graduate Students{% elseif heading == '5' %}Retired/Emeritus{% else %}Faculty{% endif %}</div></div>
-     <div class="sub_nav divider">
-        <div class="cell"><a href="{{ path('directory_type', {'type': '1'}) }} " tabindex="1" title="Select directory type" >Faculty</a></div>
-        <div class="cell"><a href="{{ path('directory_type', {'type': '2'}) }} " tabindex="1" title="Select directory type" >Instructors</a></div>
-        <div class="cell"><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></div>
-        <div class="cell"><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></div>
-        <div class="cell"><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></div>
-    </div>
+ <div class="sub_nav divider">
+<div class="cell"><a href="{{ path('directory_type', {'type': '1'}) }} " tabindex="1" title="Select directory type" >Faculty</a></div>
+<div class="cell"><a href="{{ path('directory_type', {'type': '2'}) }} " tabindex="1" title="Select directory type" >Instructors</a></div>
+<div class="cell"><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></div>
+<div class="cell"><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></div>
+<div class="cell"><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></div>
+
+<form action="{{ path('directory_find') }}" method="post" {{ form_enctype(form) }}>
+<div class='cell right'>
+<div class="cell">
+{{ form_widget(form) }}
+</div> 
+<div class="cell">
+<button type="submit">Find</button>
+</div> 
+</div>
+</form> 
+</div>
  {% if ('area' in app.request.pathinfo and 'type' not in app.request.pathinfo) or app.request.pathinfo == '/directory/' or app.request.pathinfo == '/directory/1/type' %}
-    <div class="sub_nav divider">
-        <div class="cell"><a href="{{ path('directory_area', {'area': '1'}) }} " tabindex="1" title="Select area" >American</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '2'}) }} " tabindex="1" title="Select area" >Anglo-Saxon and Medieval</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '3'}) }} " tabindex="1" title="Select area" >Composition and Rhetoric</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '4'}) }} " tabindex="1" title="Select area" >Creative Writing</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '5'}) }} " tabindex="1" title="Select area" >Early Modern</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '6'}) }} " tabindex="1" title="Select area" >Eighteenth Century</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '7'}) }} " tabindex="1" title="Select area" >English Language</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '8'}) }} " tabindex="1" title="Select area" >Folklore</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '9'}) }} " tabindex="1" title="Select area" >Digital Humanities</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '10'}) }} " tabindex="1" title="Select area" >Multicultural</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '11'}) }} " tabindex="1" title="Select area" >Nineteenth-Century British</a></div>
-        <div class="cell"><a href="{{ path('directory_area', {'area': '12'}) }} " tabindex="1" title="Select area" >Twentieth-Century British</a></div>
-    </div>
+<div class="sub_nav divider">
+<div class="cell"><a href="{{ path('directory_area', {'area': '1'}) }} " tabindex="1" title="Select area" >American</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '2'}) }} " tabindex="1" title="Select area" >Anglo-Saxon and Medieval</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '3'}) }} " tabindex="1" title="Select area" >Composition and Rhetoric</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '4'}) }} " tabindex="1" title="Select area" >Creative Writing</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '5'}) }} " tabindex="1" title="Select area" >Early Modern</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '6'}) }} " tabindex="1" title="Select area" >Eighteenth Century</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '7'}) }} " tabindex="1" title="Select area" >English Language</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '8'}) }} " tabindex="1" title="Select area" >Folklore</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '9'}) }} " tabindex="1" title="Select area" >Digital Humanities</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '10'}) }} " tabindex="1" title="Select area" >Multicultural</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '11'}) }} " tabindex="1" title="Select area" >Nineteenth-Century British</a></div>
+<div class="cell"><a href="{{ path('directory_area', {'area': '12'}) }} " tabindex="1" title="Select area" >Twentieth-Century British</a></div>
+</div>
  {% endif %}
-   
+ 

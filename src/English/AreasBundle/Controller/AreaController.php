@@ -25,12 +25,9 @@ class AreaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $id = 0;
         $entities = $em->getRepository('EnglishAreasBundle:Area')->findAll();
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array('entities' => $entities,
-        'delete_form' => $deleteForm->createView(),);
+        return array('entities' => $entities,);
     }
 
     /**
@@ -200,10 +197,9 @@ class AreaController extends Controller
         return $this->redirect($this->generateUrl('area'));
     }
 
-    private function createDeleteForm($id)
+    private function createDeleteForm()
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+        return $this->createFormBuilder()
             ->getForm()
         ;
     }

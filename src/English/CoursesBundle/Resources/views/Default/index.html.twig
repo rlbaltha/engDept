@@ -13,10 +13,12 @@
 <div class="cell">{{ courses.instructorName|upper }}</div>
 <div class="cell">{{ courses.callNumber }}</div>
 <div class="cell">{{ courses.callNumber2 }}</div>
+{% if courses.may == 1 %}<div class="cell bold">Maymester</div>{% endif %}
 <div class="cell">{{ courses.days }}</div>
 <div class="cell">{{ courses.time }}</div>
 <div class="cell">{{ courses.building }}</div>
 <div class="cell">{{ courses.room }}</div>
+
 </div>
 <div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
 <div id="detail{{ courses.id }}" class="row_odd">
