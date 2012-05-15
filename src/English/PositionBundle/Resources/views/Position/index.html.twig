@@ -5,7 +5,7 @@
     {% for entity in entities %}
         <div class="row">
             <div class="cell">{{ entity.position }}</div>
-            <div class="cell"><a href="{{ path('position_edit', { 'id': entity.id }) }}">Edit</a></div> 
+            <div class="cell"><a href="{{ path('position_edit', { 'id': entity.id }) }}">Update/Delete</a></div> 
         </div>
     {% endfor %}
     

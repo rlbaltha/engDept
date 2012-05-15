@@ -10,13 +10,9 @@
     <div class="row"><div class="cell">{{ entity.time|date('h:i a') }}</div></div>
     <div class="row"><div class="cell">{{ entity.description|raw }}</div></div>
 
-<div class="row"><div class="cell"><a href="{{ path('calendar_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
-<div class="row"><div class="cell"> 
-    <form action="{{ path('calendar_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-    </form>
+<div class="row divider"><div class="cell">    
+<a href="{{ path('calendar_edit', { 'id': entity.id }) }}">Update/Delete</a>  
 </div>
-</div> 
+
 
 {% endblock %}

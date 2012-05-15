@@ -14,7 +14,7 @@
 <div class="photo"><img class="image" name="slideshow" alt="{{ entity.title }}" src="{{asset(entity.photoUrl) }}"/></div>
 </div>
 
-<div class="row"><div class="cell"><a href="{{ path('slideshow_edit', { 'id': entity.id }) }}">Edit</a></div></div>   
+<div class="row"><div class="cell"><a href="{{ path('slideshow_edit', { 'id': entity.id }) }}">Update</a></div></div>   
 <div class="row"><div class="cell"> 
     <form action="{{ path('slideshow_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}

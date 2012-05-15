@@ -13,7 +13,7 @@
     {% for entity in entities %}
         <div class="row">
             <div class="cell bold">{{ entity.name }}</div>
-            <div class="cell"><a href="{{ path('mentor_edit', { 'id': entity.id }) }}">Edit/Delete</a></div>
+            <div class="cell"><a href="{{ path('mentor_edit', { 'id': entity.id }) }}">Update/Delete</a></div>
             <div class="cell"><a href="{{ path('major_findbymentor', { 'id': entity.id }) }}">List Advisees</a></div>
         </div>
     {% endfor %}

@@ -54,19 +54,51 @@ toolbar : [
 <div class="row">
     <div class="cell">
         <form action="{{ path('description_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
-        {{ form_widget(edit_form) }}
+        {{ form_errors(edit_form) }}
+            
+            {{ form_row(edit_form.callNumber) }}
+            {{ form_row(edit_form.term) }}
+            {{ form_row(edit_form.course) }}
+            {{ form_row(edit_form.instructorName) }}
+            <div class="row"><div class="cell">Course Description</div></div>
+            {{ form_row(edit_form.description) }}   
+            <div class="row"><div class="cell">Principal course assignments (such as required reading papers, other activities, and the week of the course in which these assignments are expected to be completed and submitted)</div></div>
+            {{ form_row(edit_form.assignments) }}
+            <div class="row"><div class="cell">Specific course requirements for grading purposes (e.g., written and oral tests and reports, research papers, performances or other similar requirements, participation requirements, if any)</div></div>
+            {{ form_row(edit_form.requirements) }}
+            <div class="row"><div class="cell">Grading Policy (How the final grade will be determined with respect to weights or course points assigned to various course requirements.) </div></div>
+            {{ form_row(edit_form.grading) }}
+            <div class="row"><div class="cell">Information regarding attendance policy (If there are specific requirements for attendance, these should be stated; if attendance is to be weighed for the final grade, the syllabus should state what the weight or course points will be.) </div></div>
+            {{ form_row(edit_form.attendance) }}
+            <div class="row"><div class="cell">Required course material, including texts</div></div>
+            {{ form_row(edit_form.material) }}
+            <div class="row"><div class="cell">Policy for make-up of assignments</div></div>
+            {{ form_row(edit_form.makeup) }}
+            <div class="row"><div class="cell">Course website url - if you are using a webpage instead of the course description form below, please enter it here(e.g., http://www.english.uga.edu) </div></div>
+            {{ form_row(edit_form.url) }}  
+            <div class="row"><div class="cell">Is this a topics course/seminar?</div></div>
+            {{ form_row(edit_form.topics) }}
+            <div class="row"><div class="cell">Topics/seminar title:</div></div>
+            {{ form_row(edit_form.topicsTitle) }}
+                    
+        {{ form_rest(edit_form) }}    
         <button type="submit">Update</button>
         </form>
     </div>    
 </div>
 
 <div class="row">
-    <div class="cell"> 
-        <form action="{{ path('description_delete', { 'id': entity.id }) }}" method="post">
+        <div id="delete{{entity.id}}" class="cell"> 
+        <button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Delete</button> 
+        </div>
+            
+        <div id="confirm{{entity.id}}" class="cell hidden"> 
+        <form action="{{ path('description_delete', { 'id': entity.id}) }}" method="post">
         {{ form_widget(delete_form) }} 
-        <button type="submit">Delete</button> 
+        <button type="submit">Confirm Delete</button> 
         </form>
-    </div>
-</div>
+        <button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Cancel</button>         
+        </div>  
+</div> 
 
 {% endblock %}

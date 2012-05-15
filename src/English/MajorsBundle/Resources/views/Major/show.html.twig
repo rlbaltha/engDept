@@ -45,7 +45,7 @@
 
         {% if is_granted('ROLE_ADVISORADMIN') %}
         <div class="row divider">
-        <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit/Delete</a></div>
+        <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Update/Delete</a></div>
         </div>
         {% endif %}
 
@@ -61,7 +61,7 @@
         <div class="row divider">
             <div class="cell">{{ notes.updated |date('h:i A M d, Y')}}</div>
         <div class="cell">
-         <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit/Delete</a>
+         <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Update/Delete</a>
          </div>
  
          </div>
