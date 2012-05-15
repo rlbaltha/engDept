@@ -13,7 +13,6 @@ class GradcomType extends AbstractType
         $position = 'Graduate Faculty';
         $builder
             ->add('gid','hidden')
-            ->add('fid','hidden')
             ->add('people', 'entity', array('class' => 'EnglishPeopleBundle:People','query_builder' => function(EntityRepository $er) use ($position) {
                 return $er->createQueryBuilder('p')
                           ->join('p.position', 'o')

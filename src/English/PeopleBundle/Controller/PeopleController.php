@@ -135,10 +135,13 @@ class PeopleController extends Controller
      * 
      */   
     public function mygradAction()
-    {   $username = $this->get('security.context')->getToken()->getUsername();
+    {   
+        $username = $this->get('security.context')->getToken()->getUsername();
+        $em = $this->getDoctrine()->getEntityManager();
+        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         $em = $this->getDoctrine()->getEntityManager();  
         $entities = $em->createQuery('SELECT p FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.gid=p.id AND 
-            g.fid = ?1 ORDER BY p.lastName')->setParameter('1',$username)->getResult(); 
+            g.people = ?1 ORDER BY p.lastName')->setParameter('1',$people)->getResult(); 
         
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
@@ -190,16 +193,17 @@ class PeopleController extends Controller
     public function showAction($id)
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
-        
         $em = $this->getDoctrine()->getEntityManager();
+        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
+        $userid = $people->getId(); 
+        
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
         $status = $entity->getGradinfo()->getStatus();
         $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$id)->getResult();
         
         
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
-        $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.fid = ?1 AND g.gid = ?2')->setParameter('1',$username)->setParameter('2',$id)->getSingleResult(); 
+        $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.people = ?1 AND g.gid = ?2')->setParameter('1',$people)->setParameter('2',$id)->getSingleResult(); 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }

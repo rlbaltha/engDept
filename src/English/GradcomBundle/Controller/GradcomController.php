@@ -59,8 +59,6 @@ class GradcomController extends Controller
         
         $entity = new Gradcom();
         $entity->setGid($id);
-
-        $entity->setFid($username);
         $entity->setStatus('t');
         $form   = $this->createForm(new GradcomType(), $entity);
 

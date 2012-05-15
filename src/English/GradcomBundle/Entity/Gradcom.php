@@ -30,12 +30,6 @@ class Gradcom
      */
     private $gid;
 
-     /**
-     * @var string $fid
-     *
-     * @ORM\Column(name="fid", type="string", length=255)
-     */
-    private $fid;
     
     /**
      * @ORM\ManyToOne(targetEntity="English\PeopleBundle\Entity\People", inversedBy="gradcom")
