@@ -7,14 +7,16 @@
     {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
     {% endif %}
 </div>
-
+<div class="row divider">
+    <div class="cell"><a href="{{ path('advisor_new') }}">New Advisor</a></div>
+</div>
 
     {% for entity in entities %}
-        <div class="row">
-            <div class="cell bold">{{ entity.name }}</div>
-            <div class="cell"><a href="{{ path('advisor_edit', { 'id': entity.id }) }}">Edit</a></div>
-            <div class="cell"><a href="{{ path('major_findbyadvisor', { 'id': entity.id }) }}">List Advisees</a></div>
-        </div>
+<div class="row">
+    <div class="cell bold">{{ entity.name }}</div>
+    <div class="cell"><a href="{{ path('advisor_edit', { 'id': entity.id }) }}">Edit/Delete</a></div>
+    <div class="cell"><a href="{{ path('major_findbyadvisor', { 'id': entity.id }) }}">List Advisees</a></div>
+</div>
     {% endfor %}
     
 

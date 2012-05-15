@@ -215,20 +215,20 @@ class MajornoteController extends Controller
     /**
      * Deletes a Majornote entity.
      *
-     * @Route("/{id}/{mid}/delete", name="majornote_delete")
+     * @Route("/{id}/delete", name="majornote_delete")
      * @Method("post")
      */
-    public function deleteAction($id, $mid)
+    public function deleteAction($id)
     {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $form->bindRequest($request);
-
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
+         
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
-
+           
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Majornote entity.');
             }
@@ -237,7 +237,7 @@ class MajornoteController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('major_show', array('id' => $mid)));
+        return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getMentorId())));
     }
 
     private function createDeleteForm($id)

@@ -45,13 +45,7 @@
 
         {% if is_granted('ROLE_ADVISORADMIN') %}
         <div class="row divider">
-        <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit</a></div>
-        <div class="cell"> 
-        <form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
-        {{ form_widget(delete_form) }}
-        <button type="submit">Delete</button>
-        </form>
-        </div>
+        <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Edit/Delete</a></div>
         </div>
         {% endif %}
 
@@ -67,20 +61,9 @@
         <div class="row divider">
             <div class="cell">{{ notes.updated |date('h:i A M d, Y')}}</div>
         <div class="cell">
-         <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit</a>
+         <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Edit/Delete</a>
          </div>
-
-        <div id="delete{{notes.id}}" class="cell"> 
-        <button onclick="$('#confirm{{notes.id}}').toggle();$('#delete{{notes.id}}').toggle()" type="submit">Delete</button> 
-        </div>      
-            
-        <div id="confirm{{notes.id}}" class="cell hidden"> 
-        <form action="{{ path('majornote_delete', { 'id': notes.id, 'mid': mid }) }}" method="post">
-        {{ form_widget(delete_form) }} 
-        <button type="submit">Confirm Delete</button> 
-        </form>
-        <button onclick="$('#confirm{{notes.id}}').toggle();$('#delete{{notes.id}}').toggle()" type="submit">Cancel</button>         
-        </div>  
+ 
          </div>
         {% endfor %}
 
