@@ -95,7 +95,7 @@ class AdvisorController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('advisor_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('advisor'));
             
         }
 
@@ -159,7 +159,7 @@ class AdvisorController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('advisor_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('advisor'));
         }
 
         return array(

@@ -2,8 +2,8 @@
  
  {% block body %}
 
-<div class="row">
-    <div class="cell"><a href="{{ path('mentor') }}">List</a></div>   
+<div class="row divider">
+    <div class="cell"><a href="{{ path('mentor') }}">Return to List</a></div>   
 </div>
 
 <div class="row">
@@ -16,12 +16,21 @@
 </div>
 
 <div class="row">
-    <div class="cell"> 
-        <form action="{{ path('mentor_delete', { 'id': entity.id }) }}" method="post">
-        {{ form_widget(delete_form) }} 
-        <button type="submit">Delete</button> 
-        </form>
-    </div>
+<div id="delete{{entity.id}}" class="cell"> 
+<button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Delete</button> 
+</div>      
+    
+<div id="confirm{{entity.id}}" class="cell hidden">
+    <div class="cell">
+<form action="{{ path('mentor_delete', { 'id': entity.id }) }}" method="post">
+{{ form_widget(delete_form) }} 
+<button type="submit">Confirm Delete</button> 
+</form>
+</div>
+<div class="cell">
+<button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Cancel</button>    
+</div>
+</div> 
 </div>
 
 {% endblock %}

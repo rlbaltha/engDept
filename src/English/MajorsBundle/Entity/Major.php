@@ -101,11 +101,13 @@ class Major
 
     /**
     * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor", inversedBy="major")
+     * @ORM\joinColumn(onDelete="SET NULL")
     */
     protected $advisor;
     
     /**
     * @ORM\ManyToOne(targetEntity="English\MentorsBundle\Entity\Mentor", inversedBy="major")
+    * @ORM\joinColumn(onDelete="SET NULL")
     */
     protected $mentor;  
     

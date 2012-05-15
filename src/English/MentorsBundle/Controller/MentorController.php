@@ -96,7 +96,7 @@ class MentorController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('mentor_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('mentor'));
             
         }
 
@@ -160,7 +160,7 @@ class MentorController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('mentor_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('mentor'));
         }
 
         return array(
