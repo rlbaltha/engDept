@@ -27,7 +27,6 @@ class TermController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
 
         $entities = $em->getRepository('EnglishTermBundle:Term')->findAll();
-
         return array('entities' => $entities);
     }
 
