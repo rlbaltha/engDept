@@ -1,6 +1,6 @@
-_welcome:
+default:
     pattern:  /
-    defaults: { _controller: AcmeDemoBundle:Welcome:index }
+    defaults: { _controller: EnglishHomeBundle:Default:index }
 
 _assetic:
     resource: .

@@ -1,3 +1,8 @@
+default:
+    pattern:  /
+    defaults: { _controller: EnglishHomeBundle:Default:index }
+
+
 EnglishDonateBundle:
     resource: "@EnglishDonateBundle/Controller/"
     type:     annotation
