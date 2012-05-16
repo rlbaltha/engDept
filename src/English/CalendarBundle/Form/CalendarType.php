@@ -12,7 +12,7 @@ class CalendarType extends AbstractType
         $builder
             ->add('title', 'text', array('attr' => array('class' => 'width300')))
             ->add('date', 'date', array('widget' => 'single_text','format' => 'MM/dd/yyyy')) 
-            ->add('time', 'time', array('widget' => 'single_text')) 
+            ->add('time', 'time', array('widget' => 'single_text', 'attr' => array('name' => 'timepicker'))) 
             ->add('description')
             ->add('username', 'hidden')   
         ;
