@@ -50,13 +50,41 @@ toolbar : [
     <div class="cell"><a href="{{ path('course') }}">List Courses</a></div>   
 </div>
 
-<div class="row"><div class="cell">
+
+<div class="row">
+    <div class="cell">
         <form action="{{ path('description_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-</div></div>
+        {{ form_errors(form) }}
+            
+            {{ form_row(form.callNumber) }}
+            {{ form_row(form.term) }}
+            {{ form_row(form.course) }}
+            {{ form_row(form.instructorName) }}
+            <div class="row"><div class="cell">Course Description</div></div>
+            {{ form_row(form.description) }}   
+            <div class="row"><div class="cell">Principal course assignments (such as required reading papers, other activities, and the week of the course in which these assignments are expected to be completed and submitted)</div></div>
+            {{ form_row(form.assignments) }}
+            <div class="row"><div class="cell">Specific course requirements for grading purposes (e.g., written and oral tests and reports, research papers, performances or other similar requirements, participation requirements, if any)</div></div>
+            {{ form_row(form.requirements) }}
+            <div class="row"><div class="cell">Grading Policy (How the final grade will be determined with respect to weights or course points assigned to various course requirements.) </div></div>
+            {{ form_row(form.grading) }}
+            <div class="row"><div class="cell">Information regarding attendance policy (If there are specific requirements for attendance, these should be stated; if attendance is to be weighed for the final grade, the syllabus should state what the weight or course points will be.) </div></div>
+            {{ form_row(form.attendance) }}
+            <div class="row"><div class="cell">Required course material, including texts</div></div>
+            {{ form_row(form.material) }}
+            <div class="row"><div class="cell">Policy for make-up of assignments</div></div>
+            {{ form_row(form.makeup) }}
+            <div class="row"><div class="cell">Course website url - if you are using a webpage instead of the course description form above, please enter it here (e.g., http://www.english.uga.edu) </div></div>
+            {{ form_row(form.url) }}  
+            <div class="row"><div class="cell">Is this a topics course/seminar?</div></div>
+            {{ form_row(form.topics) }}
+            <div class="row"><div class="cell">Topics/seminar title:</div></div>
+            {{ form_row(form.topicsTitle) }}
+                    
+        {{ form_rest(form) }}    
+        <button type="submit">Update</button>
+        </form>
+    </div>    
+</div>
 
 {% endblock %}
