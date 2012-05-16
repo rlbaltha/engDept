@@ -25,6 +25,13 @@
 {% if entity.makeup != '' %}
 <div class="row divider"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ entity.makeup }}{% endautoescape %}</div></div>
 {% endif %} 
+{% if entity.url != '' %}
+<div class="row divider"><div class="cell bold">Course Website</div><div class="cell">{% autoescape false %}{{ entity.url }}{% endautoescape %}</div></div>
+{% endif %}
+{% if entity.topicsTitle != '' %}
+<div class="row divider"><div class="cell bold">Special Topics Title</div><div class="cell">{% autoescape false %}{{ entity.topicsTitle }}{% endautoescape %}</div></div>
+{% endif %}
+
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 <div class="row"><div class="cell">
 <a href="{{ path('description_edit', { 'id': entity.id }) }}">Update/Delete</a>
