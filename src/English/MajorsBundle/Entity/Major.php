@@ -46,21 +46,21 @@ class Major
     /**
      * @var string $firstMajor
      *
-     * @ORM\Column(name="firstMajor", type="string", length=255)
+     * @ORM\Column(name="firstMajor", type="string", length=255, nullable=true)
      */
     private $firstMajor;
 
     /**
      * @var string $secondMajor
      *
-     * @ORM\Column(name="secondMajor", type="string", length=255)
+     * @ORM\Column(name="secondMajor", type="string", length=255, nullable=true)
      */
     private $secondMajor;
 
     /**
      * @var string $aoe
      *
-     * @ORM\Column(name="aoe", type="string", length=255)
+     * @ORM\Column(name="aoe", type="string", length=255, nullable=true)
      */
     private $aoe;
 
@@ -74,14 +74,14 @@ class Major
     /**
      * @var string $minor
      *
-     * @ORM\Column(name="minor", type="string", length=255)
+     * @ORM\Column(name="minor", type="string", length=255, nullable=true)
      */
     private $minor;
 
     /**
      * @var integer $status
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="status", type="integer", nullable=true)
      */
     private $status;
 
