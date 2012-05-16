@@ -21,10 +21,10 @@ class DescriptionType extends AbstractType
             ->add('attendance', 'textarea', array('label'=>' '))
             ->add('material', 'textarea', array('label'=>' '))
             ->add('makeup', 'textarea', array('label'=>' '))
-            ->add('url', 'text', array('attr' => array('class' => 'width640')))
+            ->add('url', 'text', array('label'=>' '), array('attr' => array('class' => 'width640')))
             ->add('topics', 'choice', array('choices' => array ('t' => 'Yes','f' => 'No'), 
                 'expanded' => true, 'required' => true,))
-            ->add('topicsTitle', 'text', array('attr' => array('class' => 'width640')))    
+            ->add('topicsTitle', 'text', array('label'=>' '), array('attr' => array('class' => 'width640')))    
         ;
     }
 
