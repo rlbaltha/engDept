@@ -6,6 +6,13 @@ $('.toggleQuickLinks a').click(function() {
 		$('#UGAquickLinks').toggle();
 });
 });
+$(document).ready(function()
+{
+$('#q').click(function(){
+            $(this).focus().val('');
+});
+});
+
 </script>
 
 <div class="accessibility">
@@ -70,10 +77,12 @@ $('.toggleQuickLinks a').click(function() {
 					<div class="toggleQuickLinks"><a href="javascript:void(0)">Quick Links</a></div>
 					<div id="search-uga">
 						<form action="http://www.google.com/cse">
+                                                        
 							<input type="hidden" name="cx" value="012234864659315907956:s4nkdi5ii_u" />
 					                <input type="hidden" name="ie" value="UTF-8" />
 							<input id="q" class="textinput uga-default-value"  value="Search UGA" type="text" name="q" />
 							<input name="Submit" type="submit" class="buttonSubmit" value="" />
+                                                        
 						</form>
 					</div>
 				</div><!-- // frame -->
