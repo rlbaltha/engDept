@@ -11,7 +11,7 @@
             <div class="cell"><a href="{{ entity.url }}" title="{{ entity.title}}" target="_blank">{{ entity.title}}</a></div>
             {% if is_granted('ROLE_ADMIN') %}
             <div class="cell">
-                <a href="{{ path('link_edit', { 'id': entity.id }) }}">edit</a>
+                <a href="{{ path('link_edit', { 'id': entity.id }) }}">Update/Delete</a>
             </div>
             {% endif %}
         </div>

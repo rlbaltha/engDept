@@ -18,7 +18,7 @@
 </div>
 {% if is_granted('ROLE_ADMIN')  %}
 <div class="row divider">
-<div class="cell"><a href="{{ path('publications_edit', { 'id': entity.id }) }}">Edit</a></div>
+<div class="cell"><a href="{{ path('publications_edit', { 'id': entity.id }) }}">Update/Delete</a></div>
 </div>
 {% endif %}
 {% endfor %}

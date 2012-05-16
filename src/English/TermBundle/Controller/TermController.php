@@ -95,7 +95,7 @@ class TermController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('term', array('id' => $entity->getId())));
             
         }
 
@@ -159,7 +159,7 @@ class TermController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('term', array('id' => $id)));
         }
 
         return array(

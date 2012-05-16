@@ -22,7 +22,7 @@
                         <a href="{{ path('donate_show', { 'id': entity.id }) }}">Read more ...</a>
                     
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('donate_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('donate_edit', { 'id': entity.id }) }}">Update/Delete</a>
                     {% endif %}
                 
             </div>

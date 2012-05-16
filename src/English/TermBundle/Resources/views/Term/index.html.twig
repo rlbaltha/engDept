@@ -10,7 +10,7 @@
             <div class="cell">{{ entity.termName }}</div>
             <div class="cell">{% if entity.type == 1 %}Display in Menu{% elseif entity.type == 2 %}Default{% endif %}</div>
             <div class="cell">
-                <a href="{{ path('term_edit', { 'id': entity.id }) }}">edit</a>
+                <a href="{{ path('term_edit', { 'id': entity.id }) }}">Update/Delete</a>
             </div>
         </div>
     {% endfor %}

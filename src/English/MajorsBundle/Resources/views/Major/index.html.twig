@@ -2,8 +2,9 @@
  
  {% block body %}
 
-<div class="row_contrast divider">
+
     {% if is_granted('ROLE_ADVISORADMIN') %}
+<div class="row_contrast divider">
     {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
       <form action="{{ path('major_find') }}" method="post" {{ form_enctype(form) }}>
         <div class='cell right'>
@@ -15,11 +16,12 @@
         </div> 
         </div>        
      </form> 
-    {% endif %}
-</div>
-<div class="row divider">
+    <div class="row divider">
     <div class="cell"><a href="{{ path('major_new') }}">New Major</a></div>
+    </div>
 </div>
+    {% endif %}
+
 <div class="row">
     <div class="cell width200 bold">
     Number found:  {{ entities|length }} 
