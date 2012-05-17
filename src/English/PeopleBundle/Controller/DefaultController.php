@@ -51,7 +51,7 @@ class DefaultController extends Controller
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o JOIN p.area a WHERE o.position = 'Faculty' AND a.area = ?1 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o JOIN p.area a WHERE o.position = 'Faculty' AND a.id = ?1 ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$area )->getResult();
         $areas =  $em->getRepository('EnglishAreasBundle:Area')->findAll();
         return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people,'areas' => $areas, 'heading' => $heading,'form' => $form->createView(),)); 
