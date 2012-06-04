@@ -462,6 +462,38 @@ class PeopleController extends Controller
         $userManager->updateUser($user);
         return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
         };
-    }      
+    } 
+    
+     /**
+     * Create Users
+     *
+     * @Route("/createusers", name="people_createusers")
+     * * @Template("EnglishPeopleBundle:People:new.html.twig")
+     */   
+    public function createusersAction()
+    {
+
+          $em = $this->getDoctrine()->getEntityManager();
+          $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.email!='' AND p.username!='' AND p.username!='none' AND p.password!='' ORDER BY p.lastName,p.firstName";
+          $oldusers = $em->createQuery($dql1)->getResult();  
+          $userManager = $this->get('fos_user.user_manager');
+
+          foreach ($oldusers as $item) {
+          $newItem = $userManager->createUser();
+
+          //$newItem->setId($item->getObjId());
+          // FOSUserBundle required fields
+          $newItem->setUsername($item->getUsername());
+          $newItem->setEmail($item->getEmail());
+          $newItem->setPlainPassword($item->getPassword()); // get original password
+          $newItem->setEnabled(true);
+
+          $userManager->updateUser($newItem, true);
+
+        };
+        return $this->redirect($this->generateUrl('directory'));
+    }     
+    
+    
     
 }
