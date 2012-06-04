@@ -466,6 +466,7 @@ class PeopleController extends Controller
     
      /**
      * Create Users
+      * for importing for migration
      *
      * @Route("/createusers", name="people_createusers")
      * * @Template("EnglishPeopleBundle:People:new.html.twig")
