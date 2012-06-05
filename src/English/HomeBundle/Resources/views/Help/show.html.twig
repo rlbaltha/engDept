@@ -1,0 +1,12 @@
+{% extends 'EnglishHomeBundle:Help:layout.html.twig' %}
+{% block body %}
+
+    <div class="row">
+    <div class="cell"><a href="{{ path('help') }}">Back to the list</a></div>
+    </div>
+    <div class="row">
+    <div class="cell bold">{{ entity.title }}</div>
+    <div class="cell">{{ entity.body|raw }}</div>
+    </div>
+
+{% endblock %}

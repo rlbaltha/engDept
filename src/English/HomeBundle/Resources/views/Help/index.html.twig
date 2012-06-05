@@ -1,0 +1,24 @@
+{% extends 'EnglishHomeBundle:Help:layout.html.twig' %}
+{% block body %}
+<div class="row_contrast divider">
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row"> <div class="cell">   
+    <a href="{{ path('help_new') }}">Create a new entry</a>
+        </div></div>
+    {% endif %}
+</div>
+
+
+    {% for entity in entities %}
+    <div class="row">
+    <div class="cell bold">{{ entity.title }}</div>
+    <div class="cell"><a href="{{ path('help_show', { 'id': entity.id }) }}">show</a></div>
+    {% if is_granted('ROLE_ADMIN') %}<div class="cell"><a href="{{ path('help_edit', { 'id': entity.id }) }}">edit</a></div>{% endif %}
+    </div>
+    <div class="row">
+    <div class="cell">{{ entity.teaser|raw }}</div>
+
+    </div>
+    {% endfor %}
+
+{% endblock %}

@@ -39,15 +39,14 @@ class Gradinfo
     
 
     /**
-     * @ORM\OneToMany(targetEntity="English\PeopleBundle\Entity\People", mappedBy="gradinfo")
+     * @ORM\OneToMany(targetEntity="English\PeopleBundle\Entity\People", mappedBy="gradinfo" )
      */
     protected $people;
 
     public function __construct()
     {
-        $this->$people = new ArrayCollection();
+        $this->people = new ArrayCollection();
     }    
-    
     
     
     /**
