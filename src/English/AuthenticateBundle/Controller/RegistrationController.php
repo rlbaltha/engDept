@@ -28,13 +28,6 @@ class RegistrationController extends BaseController
         if ($process) {
             $user = $form->getData();
             
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $gradinfo = $em->getReference('Gradinfo', 'NA');
-            $people = new People();
-            $people->setUsername($user->getUsername());
-            $people->setGradinfo($gradinfo);
-            $em->persist($people);
-            $em->flush();
 
 
             if ($confirmationEnabled) {

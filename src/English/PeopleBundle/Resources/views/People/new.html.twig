@@ -26,16 +26,13 @@ toolbar : [
 
 </script> 
 
-<div class="row divider"><div class="cell"><a href="{{ path('people') }}">List People</a></div></div>
 
 
 <div class="row"><div class="cell">
     <form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
     <div class="row"><div class="cell">{{ form_errors(form) }}</div></div>
-     
-    <div class="row"><div class="cell width150">{{ form_label(form.username, 'Username') }}</div>
-    <div class="cell">{{ form_errors(form.username) }}</div>
-    <div class="cell">{{ form_widget(form.username) }}</div></div>
+ 
+    {{ form_row(form.username) }}
     
     <div class="row"><div class="cell width150">{{ form_label(form.firstName, 'First Name') }}</div>
     <div class="cell">{{ form_errors(form.firstName) }}</div>

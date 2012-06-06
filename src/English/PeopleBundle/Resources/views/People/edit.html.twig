@@ -36,11 +36,7 @@ toolbar : [
     <form action="{{ path('people_update', {'id':entity.id}) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
     <div class="row"><div class="cell">{{ form_errors(edit_form) }}</div></div>
      
-    {% if is_granted('ROLE_ADMIN') %}
-    <div class="row"><div class="cell width150">{{ form_label(edit_form.username, 'Username') }}</div>
-    <div class="cell">{{ form_errors(edit_form.username) }}</div>
-    <div class="cell">{{ form_widget(edit_form.username) }}</div></div>
-    {% endif %}
+    {{ form_row(edit_form.username) }}
     
     <div class="row"><div class="cell width150">{{ form_label(edit_form.firstName, 'First Name') }}</div>
     <div class="cell">{{ form_errors(edit_form.firstName) }}</div>

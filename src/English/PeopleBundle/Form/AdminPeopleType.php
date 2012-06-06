@@ -10,7 +10,7 @@ class AdminPeopleType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username','hidden')
             ->add('lastName')
             ->add('firstName')
             ->add('title')

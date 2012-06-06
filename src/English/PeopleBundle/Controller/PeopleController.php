@@ -45,6 +45,12 @@ class PeopleController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $em = $this->getDoctrine()->getEntityManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
+        
+        if (!$entity) {
+            return $this->redirect($this->generateUrl('people_new'));
+        }        
+
+        
         $userid = $entity->getId(); 
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$userid)->getResult();
         $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
@@ -52,9 +58,6 @@ class PeopleController extends Controller
         $status = $entity->getGradinfo()->getStatus();
         $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$userid)->getResult();
         
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find People entity.');
-        }
         return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'        => $status,'notes' => $notes, 'areas' => $areas));
         } 
     }
@@ -194,7 +197,7 @@ class PeopleController extends Controller
     {
         $username = $this->get('security.context')->getToken()->getUsername();
         $em = $this->getDoctrine()->getEntityManager();
-        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
+        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneById($id);
         $userid = $people->getId(); 
         
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
@@ -262,7 +265,9 @@ class PeopleController extends Controller
      */
     public function newAction()
     {
+        $username = $this->get('security.context')->getToken()->getUsername();
         $entity = new People();
+        $entity->setUsername($username);
         $form   = $this->createForm(new PeopleType(), $entity);
 
         return array(
@@ -281,11 +286,10 @@ class PeopleController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
         
         $entity  = new People();
         
-        $entity->setUserid($userid);
+        $entity->setUsername($username);
         
         $request = $this->getRequest();
         $form    = $this->createForm(new PeopleType(), $entity);
