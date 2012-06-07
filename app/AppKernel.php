@@ -42,6 +42,7 @@ class AppKernel extends Kernel
             new English\PublicationsBundle\EnglishPublicationsBundle(),
             new English\AuthenticateBundle\EnglishAuthenticateBundle(),
             new English\DonateBundle\EnglishDonateBundle(),
+            new English\DawgspeakBundle\EnglishDawgspeakBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

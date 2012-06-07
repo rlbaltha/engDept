@@ -1,0 +1,12 @@
+{% extends 'EnglishDawgspeakBundle:Def:base.html.twig' %}
+{% block title %}Dawgspeak{% endblock %}
+
+{% block stylesheets %}
+{% stylesheets 
+  'bundles/englishdawgspeak/css/*'
+  filter='cssrewrite'
+%}
+<link rel="stylesheet" href="{{ asset_url }}">
+{% endstylesheets %}
+{% endblock %}
+

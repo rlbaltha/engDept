@@ -1,3 +1,8 @@
+EnglishDawgspeakBundle:
+    resource: "@EnglishDawgspeakBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 default:
     pattern:  /
     defaults: { _controller: EnglishHomeBundle:Default:index }

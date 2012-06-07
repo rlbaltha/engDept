@@ -1,0 +1,23 @@
+{% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
+ 
+{% block body %}
+<div class="row"><a href="{{ path('def_new') }}">Create a new entry</a></div>
+
+
+{% for entity in entities %}
+<div class="row">
+<div style='float:left;font-weight: bold;margin-right: 10px;'>{{ entity.term }}</div>
+<div class="cell">({{ entity.pos1 }})
+            {{ entity.def1|raw }}
+            {{ entity.pos2 }}
+            {{ entity.def2|raw }}
+            {{ entity.pos3 }}
+            {{ entity.def3|raw }}
+            {{ entity.image }}
+            {{ entity.ref }}
+            {{ entity.etymology }}
+</div>
+<div class="cell"><a href="{{ path('def_edit', { 'id': entity.id }) }}">edit</a></div>
+</div>
+{% endfor %}
+{% endblock %}
