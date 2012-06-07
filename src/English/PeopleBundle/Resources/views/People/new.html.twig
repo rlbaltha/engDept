@@ -29,7 +29,7 @@ toolbar : [
 
 
 <div class="row"><div class="cell">
-    <form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+    <form action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }} >
     <div class="row"><div class="cell">{{ form_errors(form) }}</div></div>
  
     {{ form_row(form.username) }}
