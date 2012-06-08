@@ -1,15 +1,27 @@
 {% extends 'EnglishHomeBundle:Default:layout.html.twig' %}
- 
-{% block body %}
 
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/jquery-ui-1.8.17.custom.min.js') }}"></script> 
+<script src="{{ asset('bundles/englishhome/js/jquery.cycle.lite.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$("#slideshow").cycle();
+});
+</script>
 <div class="welcome">
 
 <div class="head">Welcome</div>
 
 <div id='slideshow_wrapper' class="slideshow_wrapper" >
-    {% for slideshow in slideshow %}
-    <div id='slideshow{{ slideshow.id }}' class="photo"><img class="image" name="slideshow" alt="{{ slideshow.title }}" src="{{asset(slideshow.photoUrl) }}"/></div>
-    {% endfor %}    
+<div id='slideshow' class="photo">
+{% for slideshow in slideshow %}
+    <img class="image" name="slideshow" alt="{{ slideshow.title }}" src="{{asset(slideshow.photoUrl) }}"/>
+{% endfor %} 
+</div>    
 </div>
 
 <div class="cell">

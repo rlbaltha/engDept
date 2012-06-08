@@ -29,7 +29,7 @@ class DefaultController extends Controller
         $dql2 = "SELECT s FROM EnglishSpotlightBundle:Spotlight s ORDER BY s.sortOrder";
         $spotlight = $em->createQuery($dql2)->getResult();
         $dql3 = "SELECT ss FROM EnglishSlideshowBundle:Slideshow ss";
-        $slideshow = $em->createQuery($dql3)->setMaxResults(1)->getResult();
+        $slideshow = $em->createQuery($dql3)->getResult();
         return $this->render('EnglishHomeBundle:Default:index.html.twig', array('calendar' => $calendar,'spotlight' => $spotlight,'slideshow' => $slideshow,)); 
     }
 }

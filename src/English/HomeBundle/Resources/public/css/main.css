@@ -82,9 +82,9 @@ a:hover {text-decoration: underline;}
 .welcome .head {float:left;width:960px;height:38px;background:#b8bad1;font-family: sans-serif;font-size: 32pt;font-weight: bold;color:#DCDCE2;text-align: right; }
 .welcome .cell {float:left;width:540px;height:300px;padding:5px;padding-top:30px;padding-left:20px;font-size: small; }
 .welcome .bold {float:left;font-weight:bold;padding-top:15px;font-size: x-large; color:#9F9164}
-.welcome .photo {float:left;width:340px;padding:10px; background:#fff; -webkit-box-shadow: 2px 2px 2px 2px gray;-moz-box-shadow: 2px 2px 2px 2px gray; }
-.slideshow_wrapper {float:left;width:340px;margin:20px;margin-top:30px; }
-.welcome img {width:340px; }
+.welcome .photo {float:left;width:353px;height:270px;margin-left:20px;margin-top:20px; background:#fff; -webkit-box-shadow: 2px 2px 2px 2px gray;-moz-box-shadow: 2px 2px 2px 2px gray; }
+.slideshow_wrapper {float:left;}
+#slideshow img {width:333px;height:250px;float:left; margin-left:10px;margin-top:10px;}
 
 .sub_wrapper {float:left; width:960px;background:#dedec6;}
 
