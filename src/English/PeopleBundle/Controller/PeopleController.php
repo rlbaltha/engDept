@@ -475,7 +475,7 @@ class PeopleController extends Controller
      * @Route("/createusers", name="people_createusers")
      * * @Template("EnglishPeopleBundle:People:new.html.twig")
      */   
-    public function createusersAction()
+/**    public function createusersAction()
     {
 
           $em = $this->getDoctrine()->getEntityManager();
@@ -497,8 +497,10 @@ class PeopleController extends Controller
 
         };
         return $this->redirect($this->generateUrl('directory'));
+
     }     
     
-    
+ * 
+ */    
     
 }
