@@ -14,8 +14,9 @@ class DefRepository extends EntityRepository
 {
        public function findDefAlpha($alpha)
     {
+       $alpha = strtolower($alpha);    
        $alpha = $alpha.'%';
         return $this->getEntityManager()
-            ->createQuery('SELECT d from EnglishDawgspeakBundle:Def d WHERE d.term LIKE ?1 ORDER BY d.term')->setParameter('1',$alpha)->getResult();
+            ->createQuery('SELECT d from EnglishDawgspeakBundle:Def d WHERE LOWER(d.term) LIKE ?1 ORDER BY d.term')->setParameter('1',$alpha)->getResult();
     }
 }
