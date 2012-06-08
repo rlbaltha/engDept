@@ -1,5 +1,34 @@
-<h1>Def creation</h1>
-
+{% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
+{% block javascripts %}
+<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
+{% endblock %} 
+{% block body %}
+<script language="javascript"> 
+$(document).ready(function()
+{
+$('#english_dawgspeakbundle_deftype_def1').ckeditor( function() {}, {height:50, width:600, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
+],} );
+$('#english_dawgspeakbundle_deftype_def2').ckeditor( function() {}, {height:50, width:600, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
+],} );
+$('#english_dawgspeakbundle_deftype_def3').ckeditor( function() {}, {height:50, width:600, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
+],} );
+$('#english_dawgspeakbundle_deftype_etymology').ckeditor( function() {}, {height:50, width:600, skin: 'chris',forcePasteAsPlainText : true,
+toolbar : [
+['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
+'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
+],} );
+});
+</script>
 <form action="{{ path('def_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
@@ -14,3 +43,4 @@
         </a>
     </li>
 </ul>
+{% endblock %}

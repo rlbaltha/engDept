@@ -10,15 +10,15 @@ class DefType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('term')
-            ->add('pos1')
+            ->add('term', 'text', array('attr' => array('class' => 'width300')))
+            ->add('pos1', 'text', array('attr' => array('class' => 'width300')))
             ->add('def1')
-            ->add('pos2')
+            ->add('pos2', 'text', array('attr' => array('class' => 'width300')))
             ->add('def2')
-            ->add('pos3')
+            ->add('pos3', 'text', array('attr' => array('class' => 'width300')))
             ->add('def3')
-            ->add('image')
-            ->add('ref')
+            ->add('image', 'text', array('attr' => array('class' => 'width300')))
+            ->add('ref', 'text', array('attr' => array('class' => 'width300')))
             ->add('etymology')
         ;
     }

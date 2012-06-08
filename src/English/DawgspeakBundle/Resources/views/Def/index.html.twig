@@ -1,23 +1,22 @@
 {% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
  
 {% block body %}
+{% if is_granted('ROLE_DAWGSPEAK') %}
 <div class="row"><a href="{{ path('def_new') }}">Create a new entry</a></div>
-
+{% endif %}
 
 {% for entity in entities %}
 <div class="row">
 <div style='float:left;font-weight: bold;margin-right: 10px;'>{{ entity.term }}</div>
 <div class="cell">({{ entity.pos1 }})
             {{ entity.def1|raw }}
-            {{ entity.pos2 }}
-            {{ entity.def2|raw }}
-            {{ entity.pos3 }}
-            {{ entity.def3|raw }}
-            {{ entity.image }}
-            {{ entity.ref }}
-            {{ entity.etymology }}
+            {% if entity.pos2 != '' %}({{ entity.pos2 }}){{ entity.def2|raw }}{% endif %}
+            {% if entity.pos3 != '' %}({{ entity.pos3 }}){{ entity.def3|raw }}{% endif %}
+            {% if entity.image != '' %}<img class="image" alt="Image for definition" src="{{ entity.image }}"/>{% endif %}
+            {% if entity.ref != '' %}See <a href="{{ path('def_list', { 'alpha': entity.ref }) }}">{{ entity.ref }}</a>{% endif %}
+            {% if entity.etymology != '' %}{{ entity.etymology|raw }}{% endif %}
 </div>
-<div class="cell"><a href="{{ path('def_edit', { 'id': entity.id }) }}">edit</a></div>
+{% if is_granted('ROLE_DAWGSPEAK') %}<div class="cell"><a href="{{ path('def_edit', { 'id': entity.id }) }}">edit</a></div>{% endif %}
 </div>
 {% endfor %}
 {% endblock %}

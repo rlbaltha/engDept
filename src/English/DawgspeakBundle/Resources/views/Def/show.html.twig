@@ -1,11 +1,9 @@
-<h1>Def</h1>
+{% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
+ 
+{% block body %}
 
 <table class="record_properties">
     <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
         <tr>
             <th>Term</th>
             <td>{{ entity.term }}</td>
@@ -16,7 +14,7 @@
         </tr>
         <tr>
             <th>Def1</th>
-            <td>{{ entity.def1 }}</td>
+            <td>{{ entity.def1|raw }}</td>
         </tr>
         <tr>
             <th>Pos2</th>
@@ -24,7 +22,7 @@
         </tr>
         <tr>
             <th>Def2</th>
-            <td>{{ entity.def2 }}</td>
+            <td>{{ entity.def2|raw }}</td>
         </tr>
         <tr>
             <th>Pos3</th>
@@ -32,7 +30,7 @@
         </tr>
         <tr>
             <th>Def3</th>
-            <td>{{ entity.def3 }}</td>
+            <td>{{ entity.def3|raw }}</td>
         </tr>
         <tr>
             <th>Image</th>
@@ -40,7 +38,7 @@
         </tr>
         <tr>
             <th>Ref</th>
-            <td>{{ entity.ref }}</td>
+            <td>{{ entity.ref|raw }}</td>
         </tr>
         <tr>
             <th>Etymology</th>
@@ -67,3 +65,4 @@
         </form>
     </li>
 </ul>
+{% endblock %}

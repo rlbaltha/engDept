@@ -2,9 +2,9 @@
 <html>
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="http://temp.english.uga.edu/dawgspeak/dawgspeak.css" rel="stylesheet" type="text/css" />
         <title>DawgSpeak - Slanguage, A-Z</title>
         <script src="{{ asset('bundles/englishhome/js/jquery-1.7.1.min.js') }}"></script>
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishdawgspeak/css/dawgspeak.css') }}">
         {% block javascripts %}{% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}{% endblock %}
@@ -22,36 +22,36 @@
 
 <div class='mid'>
 <div class='nav center'>
-<a href='def/a'>A</a>
-<a href='def/b'>B</a>
-<a href='def/c'>C</a>
+<a href='{{ path('def_list', { 'alpha': 'a' }) }}'>A</a>
+<a href='{{ path('def_list', { 'alpha': 'b' }) }}'>B</a>
+<a href='{{ path('def_list', { 'alpha': 'c' }) }}'>C</a>
 
-<a href='def/d'>D</a>
-<a href='def/e'>E</a>
-<a href='def/f'>F</a>
-<a href='def/g'>G</a>
-<a href='def/h'>H</a>
-<a href='def/i'>I</a>
+<a href='{{ path('def_list', { 'alpha': 'd' }) }}'>D</a>
+<a href='{{ path('def_list', { 'alpha': 'e' }) }}'>E</a>
+<a href='{{ path('def_list', { 'alpha': 'f' }) }}'>F</a>
+<a href='{{ path('def_list', { 'alpha': 'g' }) }}'>G</a>
+<a href='{{ path('def_list', { 'alpha': 'h' }) }}'>H</a>
+<a href='{{ path('def_list', { 'alpha': 'i' }) }}'>I</a>
 
-<a href='def/j'>J</a>
-<a href='def/k'>K</a>
-<a href='def/l'>L</a>
-<a href='def/m'>M</a>
-<a href='def/n'>N</a>
-<a href='def/o'>O</a>
+<a href='{{ path('def_list', { 'alpha': 'j' }) }}'>J</a>
+<a href='{{ path('def_list', { 'alpha': 'k' }) }}'>K</a>
+<a href='{{ path('def_list', { 'alpha': 'l' }) }}'>L</a>
+<a href='{{ path('def_list', { 'alpha': 'm' }) }}'>M</a>
+<a href='{{ path('def_list', { 'alpha': 'n' }) }}'>N</a>
+<a href='{{ path('def_list', { 'alpha': 'o' }) }}'>O</a>
 
-<a href='def/p'>P</a>
-<a href='def/q'>Q</a>
-<a href='def/r'>R</a>
-<a href='def/s'>S</a>
-<a href='def/t'>T</a>
-<a href='def/u'>U</a>
+<a href='{{ path('def_list', { 'alpha': 'p' }) }}'>P</a>
+<a href='{{ path('def_list', { 'alpha': 'q' }) }}'>Q</a>
+<a href='{{ path('def_list', { 'alpha': 'r' }) }}'>R</a>
+<a href='{{ path('def_list', { 'alpha': 's' }) }}'>S</a>
+<a href='{{ path('def_list', { 'alpha': 't' }) }}'>T</a>
+<a href='{{ path('def_list', { 'alpha': 'u' }) }}'>U</a>
 
-<a href='def/v'>V</a>
-<a href='def/w'>W</a>
-<a href='def/x'>X</a>
-<a href='def/y'>Y</a>
-<a href='def/z'>Z</a>
+<a href='{{ path('def_list', { 'alpha': 'v' }) }}'>V</a>
+<a href='{{ path('def_list', { 'alpha': 'w' }) }}'>W</a>
+<a href='{{ path('def_list', { 'alpha': 'x' }) }}'>X</a>
+<a href='{{ path('def_list', { 'alpha': 'y' }) }}'>Y</a>
+<a href='{{ path('def_list', { 'alpha': 'z' }) }}'>Z</a>
 </div>
 <div class='alpha'>
 {% block body %}{% endblock %}   

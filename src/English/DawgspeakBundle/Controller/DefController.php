@@ -25,11 +25,27 @@ class DefController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
+        
 
         $entities = $em->getRepository('EnglishDawgspeakBundle:Def')->findAll();
 
         return array('entities' => $entities);
     }
+    
+    /**
+     * Lists all Def entities by alpha.
+     *
+     * @Route("/{alpha}/list", name="def_list")
+     * @Template("EnglishDawgspeakBundle:Def:index.html.twig")
+     */
+    public function alphaAction($alpha)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $entities = $em->getRepository('EnglishDawgspeakBundle:Def')->findDefAlpha($alpha);
+
+        return array('entities' => $entities);
+    }    
 
     /**
      * Finds and displays a Def entity.
@@ -154,7 +170,7 @@ class DefController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('def_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('def_show', array('id' => $id)));
         }
 
         return array(

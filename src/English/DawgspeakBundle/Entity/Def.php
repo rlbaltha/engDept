@@ -31,63 +31,63 @@ class Def
     /**
      * @var string $pos1
      *
-     * @ORM\Column(name="pos1", type="string", length=255)
+     * @ORM\Column(name="pos1", type="string", length=255, nullable=true)
      */
     private $pos1;
 
     /**
      * @var text $def1
      *
-     * @ORM\Column(name="def1", type="text")
+     * @ORM\Column(name="def1", type="text", nullable=true)
      */
     private $def1;
 
     /**
      * @var string $pos2
      *
-     * @ORM\Column(name="pos2", type="string", length=255)
+     * @ORM\Column(name="pos2", type="string", length=255, nullable=true)
      */
     private $pos2;
 
     /**
      * @var text $def2
      *
-     * @ORM\Column(name="def2", type="text")
+     * @ORM\Column(name="def2", type="text", nullable=true)
      */
     private $def2;
 
     /**
      * @var string $pos3
      *
-     * @ORM\Column(name="pos3", type="string", length=255)
+     * @ORM\Column(name="pos3", type="string", length=255, nullable=true)
      */
     private $pos3;
 
     /**
      * @var text $def3
      *
-     * @ORM\Column(name="def3", type="text")
+     * @ORM\Column(name="def3", type="text", nullable=true)
      */
     private $def3;
 
     /**
      * @var string $image
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
 
     /**
      * @var string $ref
      *
-     * @ORM\Column(name="ref", type="string", length=255)
+     * @ORM\Column(name="ref", type="string", length=255, nullable=true)
      */
     private $ref;
 
     /**
      * @var text $etymology
      *
-     * @ORM\Column(name="etymology", type="text")
+     * @ORM\Column(name="etymology", type="text", nullable=true)
      */
     private $etymology;
 

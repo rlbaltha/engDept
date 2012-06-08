@@ -67,7 +67,7 @@ class Major
     /**
      * @var string $can
      *
-     * @ORM\Column(name="can", type="string", length=255, unique=TRUE)
+     * @ORM\Column(name="can", type="string", length=255, unique=true)
      */
     private $can;
 
