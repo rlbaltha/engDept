@@ -93,7 +93,7 @@ class PeopleController extends Controller
     public function gradAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.gradinfo != 4 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
         
         $form = $this->createFormBuilder(new People())
@@ -171,7 +171,7 @@ class PeopleController extends Controller
         $lastname = $postData['lastName'] . "%";
         $lastname = strtolower($lastname);
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.gradinfo != 4 AND LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         
         $form = $this->createFormBuilder(new People())

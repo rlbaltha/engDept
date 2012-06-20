@@ -1,1 +1,8 @@
-Read me. Again.
+moving changes to production
+
+
+git pull
+php app/console cache:clear --env=prod --no-debug
+app/console assets:install web --symlink
+sudo chmod -R 777 app/cache app/logs
+sudo rm -rf app/cache/prod_old
