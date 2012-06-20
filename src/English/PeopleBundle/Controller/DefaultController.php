@@ -117,7 +117,7 @@ class DefaultController extends Controller
         $lastname = $postData['lastName'] . "%";
         $lastname = strtolower($lastname);
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p join p.gradinfo g WHERE LOWER(p.lastName) LIKE ?1 AND g.status!='Inactive' ORDER BY p.lastName,p.firstName";
         $people = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         $areas =  $em->getRepository('EnglishAreasBundle:Area')->findAll();
         $form = $this->createFormBuilder(new People())
