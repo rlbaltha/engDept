@@ -53,7 +53,14 @@ class Donate
     /**
     * @ORM\ManyToOne(targetEntity="English\DonateBundle\Entity\Type", inversedBy="funds")
     */
-    protected $type;     
+    protected $type;
+    
+    /**
+     * @var integer $sortorder
+     *
+     * @ORM\Column(name="sortorder", type="integer")
+     */
+    private $sortorder = 1;    
 
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -215,5 +222,25 @@ class Donate
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set sortorder
+     *
+     * @param integer $sortorder
+     */
+    public function setSortorder($sortorder)
+    {
+        $this->sortorder = $sortorder;
+    }
+
+    /**
+     * Get sortorder
+     *
+     * @return integer 
+     */
+    public function getSortorder()
+    {
+        return $this->sortorder;
     }
 }

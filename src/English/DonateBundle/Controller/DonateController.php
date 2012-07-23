@@ -23,12 +23,11 @@ class DonateController extends Controller
      * @Template()
      */
     public function indexAction()
-    {
+    {     
         $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('EnglishDonateBundle:Donate')->findAll();
-
-        return array('entities' => $entities);
+        $dql1 = "SELECT d FROM EnglishDonateBundle:Donate d ORDER BY d.sortorder";
+        $entities = $em->createQuery($dql1)->getResult();
+        return array('entities' => $entities);        
     }
 
     /**
