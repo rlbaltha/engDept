@@ -8,9 +8,11 @@
   </div>
  {% endif %}
   <div class="cell bio_text">{% autoescape false %}{{ peopleDetail.bio }}{% endautoescape %}</div>
+  {% if peopleDetail.officeHours != '' %}
   <div class="cell bio_text">
 <span class="bold">Office hours: </span>{% autoescape false %}{{ peopleDetail.officeHours }}{% endautoescape %}
   </div>
+  {% endif %}
   {% if peopleDetail.vitaUrl != '' %}
   <div class="cell bio_text">
 <span class="bold">Vita: </span><a href="{{ peopleDetail.vitaUrl }}" tabindex="1" title="Vita" target="_blank" >{{ peopleDetail.vitaUrl }}</a>
