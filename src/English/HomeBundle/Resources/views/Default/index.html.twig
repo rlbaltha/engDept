@@ -41,6 +41,15 @@ A sympathetic participation in the verbal worlds of other times and places, draw
 <div class="cell bold"> {{ calendar.time|date("g:i A") }} {{ calendar.date|date("l, F d") }}</div>
 <div class="cell divider">{% autoescape false %}{{ calendar.description }}{% endautoescape %}</div>
 {% endfor %}
+{% if special_spotlight %}
+<div class="special_spotlight">
+{% for spotlight in special_spotlight %}
+<div class="photo_cell"><div class="photo"><img class="image" name="spotlight" alt="{{ spotlight.title }}" src="{{ spotlight.photoUrl }}"/></div></div>
+<div class="cell red">{{ spotlight.title }}</div>
+<div class="cell">{% autoescape false %}{{ spotlight.description }}{% endautoescape %}</div>
+{% endfor %}
+</div>
+{% endif %}
 </div>
     
 <div class="spotlight">

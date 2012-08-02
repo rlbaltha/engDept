@@ -27,9 +27,12 @@ class DefaultController extends Controller
         $dql1 = "SELECT c.title,c.date,c.time,c.description FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?1 and c.date < ?2 ORDER BY c.date ASC";
         $calendar = $em->createQuery($dql1)->setParameter('1',$startDate)->setParameter('2',$endDate)->getResult();
         $dql2 = "SELECT s FROM EnglishSpotlightBundle:Spotlight s ORDER BY s.sortOrder";
-        $spotlight = $em->createQuery($dql2)->getResult();
+        $spotlight = $em->createQuery($dql2)->setMaxResults(2)->getResult();
+        $dql4 = "SELECT s FROM EnglishSpotlightBundle:Spotlight s WHERE s.sortOrder>1";
+        $special_spotlight = $em->createQuery($dql4)->getResult();        
         $dql3 = "SELECT ss FROM EnglishSlideshowBundle:Slideshow ss";
         $slideshow = $em->createQuery($dql3)->getResult();
-        return $this->render('EnglishHomeBundle:Default:index.html.twig', array('calendar' => $calendar,'spotlight' => $spotlight,'slideshow' => $slideshow,)); 
+        return $this->render('EnglishHomeBundle:Default:index.html.twig', array('calendar' => $calendar,'spotlight' => $spotlight,
+            'special_spotlight' => $special_spotlight,'slideshow' => $slideshow,)); 
     }
 }
