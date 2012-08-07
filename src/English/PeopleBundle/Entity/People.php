@@ -79,6 +79,13 @@ class People
      */
     private $username;
     
+    /**
+     * @var string $oasisname
+     *
+     * @ORM\Column(name="oasisname", type="string", length=255, nullable=true)
+     */
+    private $oasisname;    
+    
     
     /**
      * @var string $password
@@ -806,5 +813,25 @@ class People
     public function getArea()
     {
         return $this->area;
+    }
+
+    /**
+     * Set oasisname
+     *
+     * @param string $oasisname
+     */
+    public function setOasisname($oasisname)
+    {
+        $this->oasisname = $oasisname;
+    }
+
+    /**
+     * Get oasisname
+     *
+     * @return string 
+     */
+    public function getOasisname()
+    {
+        return $this->oasisname;
     }
 }
