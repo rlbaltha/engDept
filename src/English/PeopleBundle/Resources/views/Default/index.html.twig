@@ -13,7 +13,7 @@
      {% for people in people %}
      <div id="listing{{ people.id }}" class="row_even divider">
      <div class="row">
-     <div class="cell bold"><a id="detailLink{{ people.id }}" href="javascript:void(0)" tabindex="1" title="Detail" >{{ people.firstName }} {{ people.lastName }}</a></div>
+     <div class="cell bold"><a id="detailLink{{ people.id }}" href="{{ path('directory_detail', { 'id': people.id }) }}" tabindex="1" title="Detail" >{{ people.firstName }} {{ people.lastName }}</a></div>
      </div>
      <div class="row">
      <div class="cell title">{{ people.title | raw }}</div>
@@ -24,15 +24,5 @@
      <div class="cell bold">Office:</div> <div class="cell">{{ people.officeNumber }}</div>
      </div>
      </div>    
-     <div id="detailWrapper{{ people.id }}" class="row_contrast divider hidden">
-         <div id="detail{{ people.id }}" class="row_contrast">
-         </div>
-     </div>
-    <script language="javascript"> 
-    $('#detailLink{{ people.id }}').click(function(){
-        $('#detail{{ people.id }}').load('{{ path('directory_detail', { 'id': people.id }) }}');
-        $('#detailWrapper{{ people.id }}').toggle();
-    });
-    </script>
      {% endfor %}
 {% endblock %}

@@ -1,4 +1,31 @@
+{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
+ 
+ 
+{% block body %}
+    
+    <script language="javascript"> 
+    $(document).ready(function()
+    {
+    $("#loading").fadeOut("slow");
+    });
+    </script>
+    {% include 'EnglishPeopleBundle:Default:filter.html.twig' %}
+
 {% for peopleDetail in peopleDetail %}
+     <div class="row_even divider">
+     <div class="row">
+     <div class="cell bold">{{ peopleDetail.firstName }} {{ peopleDetail.lastName }}</div>
+     </div>
+     <div class="row">
+     <div class="cell title">{{ peopleDetail.title | raw }}</div>
+     </div>
+     <div class="row">
+     <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ peopleDetail.email }}" tabindex="1" title="email address" >{{ peopleDetail.email }}</a></div>
+     <div class="cell bold">Phone:</div> <div class="cell">{{ peopleDetail.officePhone }}</div>
+     <div class="cell bold">Office:</div> <div class="cell">{{ peopleDetail.officeNumber }}</div>
+     </div>
+     </div>      
+    
  <div class="row_contrast divider">
  {% if peopleDetail.photoUrl != '' %}
   <div class="cell bio_photo">
@@ -50,4 +77,13 @@
         $('#detailWrapper{{ peopleCourses.id }}').toggle();
     });
  </script>
-{% endfor %}
+{% endfor %}    
+    
+    
+{% endblock %}
+
+
+
+
+
+
