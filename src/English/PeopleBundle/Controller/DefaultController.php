@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use English\PeopleBundle\Entity\People;
 use English\PeopleBundle\Form\PeopleType;
+use English\MajorsBundle\Entity\Major;
+use English\MajorsBundle\Form\MajorType;
 
 
 /**
@@ -131,6 +133,35 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('Unable to find People entity.');
         }
         return $this->render('EnglishPeopleBundle:Default:index.html.twig', array('people' => $people, 'areas' => $areas,'heading' => $heading, 'form' => $form->createView()));
-        }     
+        }   
+        
+        
+    /**
+     * @Route("/whoismymentor", name="whoismymentor")
+     * @Template()
+     */
+    public function findMentorAction()
+    {
+        $mentor = "None found";
+        if ($this->get('request')){
+        $request = $this->get('request');
+        $postData = $request->request->get('form');
+        $email = $postData['email'];
+        
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql1 = "SELECT n.name FROM EnglishMajorsBundle:Major m JOIN m.mentor n WHERE m.email = ?1";
+        $mentor = $em->createQuery($dql1)->setParameter('1',$email)->getResult();
+        if ($email =='') {
+        $notification = 'Please enter your email address.';    
+        }elseif (!$mentor) {
+        $notification = 'We did not find your email address.  Please try again.';
+        }
+        else {$notification = 'Check the People listing above for contact information for your mentor.';}
+        };
+        $form = $this->createFormBuilder(new Major())
+            ->add('email')
+            ->getForm();
+        return $this->render('EnglishPeopleBundle:Default:findMentor.html.twig', array('mentor' => $mentor, 'notification' => $notification, 'form' => $form->createView(),)); 
+    }        
     
 }

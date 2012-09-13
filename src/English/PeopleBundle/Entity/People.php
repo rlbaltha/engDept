@@ -84,7 +84,7 @@ class People
      *
      * @ORM\Column(name="oasisname", type="string", length=255, nullable=true)
      */
-    private $oasisname;    
+    private $oasisname = 'Needed';   
     
     
     /**

@@ -1,0 +1,23 @@
+{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
+ 
+ 
+{% block body %}
+<div class="row">
+<div class='cell'>{% for mentor in mentor %}Your mentor is Professor {{mentor.name}}.{% endfor %}</div>
+</div>
+<div class="row">
+<div class='cell'>{{notification}}</div>
+</div>
+<div class="row">
+<form action="{{ path('whoismymentor') }}" method="post" {{ form_enctype(form) }}>
+
+<div class="cell">
+{{ form_widget(form) }}
+</div> 
+<div class="cell">
+<button type="submit">Find my mentor</button>
+</div> 
+
+</form> 
+</div>
+{% endblock %}
