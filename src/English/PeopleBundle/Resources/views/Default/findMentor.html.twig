@@ -3,7 +3,10 @@
  
 {% block body %}
 <div class="row">
-<div class='cell'>{% for mentor in mentor %}Your mentor is Professor {{mentor.name}}.{% endfor %}</div>
+<div class='cell'>{% for mentor in mentor %}Your advisor is {{mentor.aname}}.{% endfor %}</div>
+</div>
+<div class="row">
+<div class='cell'>{% for mentor in mentor %}Your mentor is {{mentor.mname}}.{% endfor %}</div>
 </div>
 <div class="row">
 <div class='cell'>{{notification}}</div>
@@ -15,7 +18,7 @@
 {{ form_widget(form) }}
 </div> 
 <div class="cell">
-<button type="submit">Find my mentor</button>
+<button type="submit">Find my advisor and mentor</button>
 </div> 
 
 </form> 

@@ -147,16 +147,17 @@ class DefaultController extends Controller
         $request = $this->get('request');
         $postData = $request->request->get('form');
         $email = $postData['email'];
+        $email = strtolower($email);
         
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT n.name FROM EnglishMajorsBundle:Major m JOIN m.mentor n WHERE m.email = ?1";
+        $dql1 = "SELECT n.name as mname,a.name as aname FROM EnglishMajorsBundle:Major m JOIN m.mentor n JOIN m.advisor a WHERE LOWER(m.email) = ?1";
         $mentor = $em->createQuery($dql1)->setParameter('1',$email)->getResult();
         if ($email =='') {
         $notification = 'Please enter your email address.';    
         }elseif (!$mentor) {
         $notification = 'We did not find your email address.  Please try again.';
         }
-        else {$notification = 'Check the People listing above for contact information for your mentor.';}
+        else {$notification = 'Check the People listing above for contact information.';}
         };
         $form = $this->createFormBuilder(new Major())
             ->add('email')
