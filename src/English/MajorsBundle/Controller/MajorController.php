@@ -27,7 +27,7 @@ class MajorController extends Controller
         if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
          $em = $this->getDoctrine()->getEntityManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
-             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e ORDER BY m.name ASC');
+             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 ORDER BY m.name ASC');
         $entities = $em->getResult();
         
         $form = $this->createFormBuilder(new Major())
@@ -59,7 +59,7 @@ class MajorController extends Controller
     {
          $em = $this->getDoctrine()->getEntityManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
-             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE a.id = ?1 ORDER BY m.name ASC');
+             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND a.id = ?1 ORDER BY m.name ASC');
         $entities = $em->setParameter('1',$id)->getResult();
         
         $form = $this->createFormBuilder(new Major())
@@ -80,7 +80,7 @@ class MajorController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager()
         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
-            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE e.id = ?1 ORDER BY m.name ASC');
+            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND e.id = ?1 ORDER BY m.name ASC');
        $entities = $em->setParameter('1',$id)->getResult();
        
        $form = $this->createFormBuilder(new Major())
@@ -102,7 +102,7 @@ class MajorController extends Controller
         $name = strtolower($postData['name'] . "%");
         $em = $this->getDoctrine()->getEntityManager();
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
-            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE LOWER(m.name) LIKE ?1 ORDER BY m.name";
+            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND LOWER(m.name) LIKE ?1 ORDER BY m.name";
         $entities = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
         $form = $this->createFormBuilder(new Major())
             ->add('name')
@@ -129,6 +129,7 @@ class MajorController extends Controller
         $entity->setHonors('2');
         $entity->setHours('0');
         $entity->setGpa('0');
+        $entity->setStatus('0');
 
         $form = $this->createFormBuilder($entity)
             ->add('name', 'text', array('attr' => array('class' => 'width300')))
@@ -142,6 +143,7 @@ class MajorController extends Controller
             ->add('hours', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'Hours >=',)) 
             ->add('gpa', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'GPA >=',))     
             ->add('checkedin','choice', array('choices' => array('0'=>'No','1'=> 'Yes'),'expanded'=>true,)) 
+            ->add('status','choice', array('choices' => array('0'=>'Active','1'=> 'Graduated','2'=> 'Inactive'),'expanded'=>true,))     
             ->getForm();
         
         return array(
@@ -167,6 +169,7 @@ class MajorController extends Controller
         $minor = strtolower($postData['minor'] . "%");
         $can = $postData['can'] . "%";
         $checkedin = $postData['checkedin'];
+        $status = $postData['status'];
         $honors = $postData['honors'];
         $hours = $postData['hours'];
         $gpa = $postData['gpa'];
@@ -176,8 +179,8 @@ class MajorController extends Controller
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
             WHERE LOWER(m.name) LIKE ?1 AND LOWER(m.email) LIKE ?2 AND LOWER(m.firstMajor) LIKE ?3 AND LOWER(m.secondMajor) LIKE ?4 AND LOWER(m.aoe) 
-            LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.can >= ?9 ". $queryCheckedin . $queryHonors ." ORDER BY m.name";
-        $entities = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->setParameter('8',$hours)->setParameter('9',$gpa)->getResult();
+            LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.can >= ?9 AND m.status= ?10 ". $queryCheckedin . $queryHonors ." ORDER BY m.name";
+        $entities = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->setParameter('8',$hours)->setParameter('9',$gpa)->setParameter('10',$status)->getResult();
         $form = $this->createFormBuilder(new Major())
             ->add('name')
             ->getForm();
