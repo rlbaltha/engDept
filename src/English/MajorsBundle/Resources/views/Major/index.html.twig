@@ -32,7 +32,7 @@
     <div class="cell width200 bold">Email</div>
     <div class="cell width75 bold">Advisor</div>
     <div class="cell width75 bold">Mentor</div>
-    <div class="cell width100 bold">First Major</div>
+    <div class="cell width100 bold">Major(s)</div>
     <div class="cell width50 bold">810</div>
     <div class="cell width50 bold">AoE</div>
 </div>
@@ -43,7 +43,7 @@
             <div class="cell width200">{{ entity.email }}</div>
             <div class="cell width75">{{ entity.aName }}</div>
             <div class="cell width75">{{ entity.eName }}</div>
-            <div class="cell width100">{{ entity.firstMajor }}</div>
+            <div class="cell width100">{{ entity.firstMajor }}{% if entity.secondMajor != 'none' %}/{{ entity.secondMajor }}{% endif %}</div>
             <div class="cell width75">{{ entity.can }}</div>
             <div class="cell width100">{{ entity.aoe }}</div>
         </div>
