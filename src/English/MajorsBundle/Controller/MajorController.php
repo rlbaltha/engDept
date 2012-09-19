@@ -26,7 +26,7 @@ class MajorController extends Controller
     {
         if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
          $em = $this->getDoctrine()->getEntityManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.gpa,m.checkedin
+         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e ORDER BY m.name ASC');
         $entities = $em->getResult();
         
@@ -39,7 +39,7 @@ class MajorController extends Controller
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
          $em = $this->getDoctrine()->getEntityManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.gpa,m.checkedin
+         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
              WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
         $entities = $em->setParameter('1',$username)->getResult();
@@ -58,7 +58,7 @@ class MajorController extends Controller
     public function findbyadvisorAction($id)
     {
          $em = $this->getDoctrine()->getEntityManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.gpa,m.checkedin
+         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE a.id = ?1 ORDER BY m.name ASC');
         $entities = $em->setParameter('1',$id)->getResult();
         
@@ -79,7 +79,7 @@ class MajorController extends Controller
     public function findbymentorAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager()
-        ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.gpa,m.checkedin
+        ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE e.id = ?1 ORDER BY m.name ASC');
        $entities = $em->setParameter('1',$id)->getResult();
        
@@ -101,7 +101,7 @@ class MajorController extends Controller
         $postData = $request->request->get('form');
         $name = strtolower($postData['name'] . "%");
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.gpa,m.checkedin
+        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE LOWER(m.name) LIKE ?1 ORDER BY m.name";
         $entities = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
         $form = $this->createFormBuilder(new Major())
@@ -173,10 +173,10 @@ class MajorController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         if ($checkedin == 0) {$queryCheckedin = " AND m.checkedin ='0' ";} else {$queryCheckedin = " AND m.checkedin ='1' ";};
         if ($honors == 0) {$queryHonors = " AND m.honors ='0' ";} elseif ($honors == 1) {$queryHonors = " AND m.honors ='1' ";} else {$queryHonors = '';};
-        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.gpa,m.checkedin
+        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
             WHERE LOWER(m.name) LIKE ?1 AND LOWER(m.email) LIKE ?2 AND LOWER(m.firstMajor) LIKE ?3 AND LOWER(m.secondMajor) LIKE ?4 AND LOWER(m.aoe) 
-            LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.gpa >= ?9 ". $queryCheckedin . $queryHonors ." ORDER BY m.name";
+            LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.can >= ?9 ". $queryCheckedin . $queryHonors ." ORDER BY m.name";
         $entities = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->setParameter('8',$hours)->setParameter('9',$gpa)->getResult();
         $form = $this->createFormBuilder(new Major())
             ->add('name')

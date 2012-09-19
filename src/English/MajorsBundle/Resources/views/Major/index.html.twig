@@ -33,9 +33,8 @@
     <div class="cell width75 bold">Advisor</div>
     <div class="cell width75 bold">Mentor</div>
     <div class="cell width100 bold">First Major</div>
-    <div class="cell width100 bold">Second Major</div>
-    <div class="cell width50 bold">Hours</div>
-    <div class="cell width50 bold">GPA</div>
+    <div class="cell width50 bold">810</div>
+    <div class="cell width50 bold">AoE</div>
 </div>
 
     {% for entity in entities %}
@@ -45,9 +44,8 @@
             <div class="cell width75">{{ entity.aName }}</div>
             <div class="cell width75">{{ entity.eName }}</div>
             <div class="cell width100">{{ entity.firstMajor }}</div>
-            <div class="cell width100">{{ entity.secondMajor }}</div>
-            <div class="cell width50">{{ entity.hours }}</div>
-            <div class="cell width50">{{ entity.gpa }}</div>
+            <div class="cell width50">{{ entity.can }}</div>
+            <div class="cell width100">{{ entity.aoe }}</div>
         </div>
     {% endfor %}
     
