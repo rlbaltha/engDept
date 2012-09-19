@@ -197,7 +197,7 @@ class PeopleController extends Controller
     {
         $username = $this->get('security.context')->getToken()->getUsername();
         $em = $this->getDoctrine()->getEntityManager();
-        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneById($id);
+        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         $userid = $people->getId(); 
         
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
