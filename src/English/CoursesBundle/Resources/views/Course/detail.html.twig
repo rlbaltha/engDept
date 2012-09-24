@@ -1,7 +1,9 @@
 {% if courseDetail %}
 
 {% for courseDetail in courseDetail %}
-
+{% if courseDetail.url != '' %}
+<div class="row"><div class="cell"><a href="{{ courseDetail.url }}" title="Course Web Site" target="_blank">Course Web Site</a></div></div>
+{% endif %}
 {% if courseDetail.description != '' %}
 <div class="row"><div class="cell bold">Description</div><div class="cell">{% autoescape false %}{{ courseDetail.description }}{% endautoescape %}</div></div>
 {% endif %}

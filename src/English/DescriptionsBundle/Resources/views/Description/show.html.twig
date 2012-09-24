@@ -4,6 +4,7 @@
 <div class="row divider">
     <div class="cell"><a href="{{ path('course') }}">List Courses</a></div>   
 </div>
+<div class="row"><div class="cell"><a href="{{ entity.url }}" title="Course Web Site" target="_blank">Course Web Site</a></div></div>
 {% if entity.description != '' %}
 <div class="row"><div class="cell bold">Description</div><div class="cell">{% autoescape false %}{{ entity.description }}{% endautoescape %}</div></div>
 {% endif %}
@@ -25,9 +26,6 @@
 {% if entity.makeup != '' %}
 <div class="row divider"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ entity.makeup }}{% endautoescape %}</div></div>
 {% endif %} 
-{% if entity.url != '' %}
-<div class="row divider"><div class="cell bold">Course Website</div><div class="cell">{% autoescape false %}{{ entity.url }}{% endautoescape %}</div></div>
-{% endif %}
 {% if entity.topicsTitle != '' %}
 <div class="row divider"><div class="cell bold">Special Topics Title</div><div class="cell">{% autoescape false %}{{ entity.topicsTitle }}{% endautoescape %}</div></div>
 {% endif %}
