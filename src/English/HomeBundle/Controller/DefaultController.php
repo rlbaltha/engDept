@@ -35,4 +35,20 @@ class DefaultController extends Controller
         return $this->render('EnglishHomeBundle:Default:index.html.twig', array('calendar' => $calendar,'spotlight' => $spotlight,
             'special_spotlight' => $special_spotlight,'slideshow' => $slideshow,)); 
     }
+    
+    /**
+     * Lists all Home entities.
+     *
+     * @Route("/calendar_index", name="calendar_index")
+     * @Template()
+     */
+    public function cal_indexAction()
+    {
+        $startDate = date("Y-m-d") ;
+        $endDate = date("Y-m-d", mktime(0,0,0,date("m"),date("d"),date("Y")+1));
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql1 = "SELECT c.title,c.date,c.time,c.description FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?1 and c.date < ?2 ORDER BY c.date ASC";
+        $calendar = $em->createQuery($dql1)->setParameter('1',$startDate)->setParameter('2',$endDate)->getResult();
+        return $this->render('EnglishHomeBundle:Default:cal_index.html.twig', array('calendar' => $calendar,)); 
+    }    
 }

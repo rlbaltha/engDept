@@ -36,6 +36,7 @@ A sympathetic participation in the verbal worlds of other times and places, draw
     
 <div class="calendar">
 <div class="head">Calendar</div>
+<div class='right cell'><a title="Calendar" href="{{ path('calendar_index') }}" >All Upcoming Events</a></div>
 {% for calendar in calendar %}
 <div class="cell bold red">{{ calendar.title }}</div>
 <div class="cell bold"> {{ calendar.time|date("g:i A") }} {{ calendar.date|date("l, F d") }}</div>
