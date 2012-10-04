@@ -27,7 +27,7 @@ class DefController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         
 
-        $entities = $em->getRepository('EnglishDawgspeakBundle:Def')->findAll();
+        $entities = $em->getRepository('EnglishDawgspeakBundle:Def')->findDef();
 
         return array('entities' => $entities);
     }

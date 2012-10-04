@@ -12,6 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class DefRepository extends EntityRepository
 {
+       public function findDef()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT d from EnglishDawgspeakBundle:Def d ORDER BY d.term')->getResult();
+    }    
        public function findDefAlpha($alpha)
     {
        $alpha = strtolower($alpha);    

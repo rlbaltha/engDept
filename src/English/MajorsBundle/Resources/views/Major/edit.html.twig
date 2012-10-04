@@ -77,7 +77,14 @@ toolbar : [
     <div class="cell">{{ form_errors(edit_form.checkedin) }}</div>
     <div class="cell">{{ form_widget(edit_form.checkedin) }}</div></div>
   
-        
+    <div class="row"><div class="cell width100">{{ form_label(edit_form.hours) }}</div>
+    <div class="cell">{{ form_errors(edit_form.hours) }}</div>
+    <div class="cell">{{ form_widget(edit_form.hours) }}</div></div>
+    
+    <div class="row"><div class="cell width100">{{ form_label(edit_form.gpa) }}</div>
+    <div class="cell">{{ form_errors(edit_form.gpa) }}</div>
+    <div class="cell">{{ form_widget(edit_form.gpa) }}</div></div>
+    
     <div class="row"><div class="cell">{{ form_rest(edit_form) }}</div></div>
         
         
