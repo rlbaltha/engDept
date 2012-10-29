@@ -58,7 +58,10 @@
         <div class="cell"><a title="Make a Gift" href="{{ path('donate') }}" >Make a Gift</a></div>
         </div>
         {% endif %}
-                
+ 
+            
+        
+        
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}      
         <div class="row_contrast">        
         <div class="cell"><a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Change Password</a></div>
@@ -81,9 +84,12 @@
         {% endif %}      
         {% if is_granted('ROLE_ADVISORADMIN') %} 
         <div class="cell"><a title="Advising" href="{{ path('major') }}" >Majors</a></div>            
-        {% endif %}
+        {% endif %}     
+        {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}             
+        <div class="cell"><a title="Search Files" href="{{ path('file') }}" >Search</a></div>
+        {% endif %} 
         </div> 
-        {% endif %}        
+        {% endif %}     
         {% block body %}{% endblock %}      
                 
         

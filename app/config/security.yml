@@ -29,7 +29,7 @@ security:
         - { path: ^/calendar/, role: ROLE_USER } 
         - { path: ^/course/, role: ROLE_USER } 
         - { path: ^/description/, role: ROLE_USER } 
-        - { path: ^/file/, role: ROLE_USER } 
+        - { path: ^/file/, role: ROLE_SEARCH } 
         - { path: ^/gradcom/, role: ROLE_USER } 
         - { path: ^/gradinfo/, role: ROLE_USER } 
         - { path: ^/gradnotes/, role: ROLE_USER } 

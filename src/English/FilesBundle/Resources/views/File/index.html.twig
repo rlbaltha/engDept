@@ -2,13 +2,17 @@
  
 {% block body %}
 
+{% if is_granted('ROLE_SEARCHADMIN') %}
 <div class="row divider"><div class="cell"><a href="{{ path('file_upload') }}">Upload</a></div></div>
+{% endif %}
     
 {% for entity in entities %}
     <div class='row divider'>
-        <div class="cell"><a title="{{ entity.name }}" href="../../uploads/files/{{ entity.path }}">{{ entity.name }}</a></div>
-        <div class="cell"><a href="{{ path('file_show', { 'id': entity.id }) }}">Detail</a></div>
-        <div class="cell"><a href="{{ path('file_edit', { 'id': entity.id }) }}">Edit</a></div>
+        <div class="cell"><a title="{{ entity.name }}" href="{{ path('file_view', { 'id': entity.id }) }}">{{ entity.name }}</a></div>
+        <div class="cell">{{ entity.description }}</div>
+        {% if is_granted('ROLE_SEARCHADMIN') %}<div class="cell"><a href="{{ path('file_edit', { 'id': entity.id }) }}">Edit</a></div>
+        {% endif %}
+        
     </div>
 
     {% endfor %}

@@ -29,6 +29,13 @@ class File
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @var string $description
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;    
 
     /**
      * @var string $path
@@ -51,13 +58,13 @@ class File
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return 'uploads/files';
+        return 'upload/files';
     }
     
      /**
@@ -266,4 +273,36 @@ class File
     {
         return $this->userid;
     }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * Return the extention of the file.
+     * 
+     * @return string
+     */
+    public function getExt()
+    {
+        $filename = $this->getPath(); 
+        return pathinfo($filename, PATHINFO_EXTENSION);
+    } 
+    
 }

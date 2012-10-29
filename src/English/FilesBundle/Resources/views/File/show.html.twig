@@ -3,12 +3,12 @@
 {% block body %}
 <div class="row"><div class="cell"><a href="{{ path('file') }}">List</a></div></div>   
         <div class="row">
-            <div class="cell">Name</div>
+            <div class="cell bold">Name</div>
             <div class="cell">{{ entity.name }}</div>
         </div>
         <div class="row">
-            <div class="cell">Path</div>
-            <div class="cell">{{ entity.path }}</div>
+            <div class="cell bold">Description</div>
+            <div class="cell">{{ entity.description }}</div>
         </div>
     
 <div class="row"><div class="cell"><a href="{{ path('file_edit', { 'id': entity.id }) }}">Edit</a></div></div>   

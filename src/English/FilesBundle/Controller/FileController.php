@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use English\FilesBundle\Entity\File;
 use English\FilesBundle\Form\FileType;
 
@@ -31,6 +32,7 @@ class FileController extends Controller
          $file->setUserid($userid);
          $form = $this->createFormBuilder($file)
              ->add('name')
+             ->add('description', 'text', array('attr' => array('class' => 'width300')))    
              ->add('userid', 'hidden')    
              ->add('file')
              ->getForm()
@@ -60,18 +62,10 @@ class FileController extends Controller
      */
     public function indexAction()
     {
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('EnglishFilesBundle:File')->findAll();
-        return array('entities' => $entities);   
-        } else {
-        $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
-        $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT f FROM EnglishFilesBundle:File f  WHERE f.userid = ?1";
-        $entities = $em->createQuery($dql1)->setParameter('1',$userid)->getResult();
-        return array('entities' => $entities);
-        }        
+        $dql1 = "SELECT f FROM EnglishFilesBundle:File f ORDER BY f.name ASC";
+        $entities = $em->createQuery($dql1)->getResult();
+        return array('entities' => $entities);       
     }
 
     /**
@@ -248,4 +242,68 @@ class FileController extends Controller
             ->getForm()
         ;
     }
+    
+    
+    /**
+     * Finds and displays a File.
+     *
+     * @Route("/{id}/view", name="file_view")
+     * 
+     */     
+    public function viewAction($id)
+	{       
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $file = $em->getRepository('EnglishFilesBundle:File')->find($id);
+
+        if (!$file) {
+            throw $this->createNotFoundException('Unable to find File entity.');
+        }
+             $ext = $file->getExt();
+		
+		$response = new Response();
+		
+		$response->setStatusCode(200);
+                switch ($ext) {
+                      case "png":
+                      $response->headers->set('Content-Type', 'image/png');
+                      break;
+                      case "gif":
+                      $response->headers->set('Content-Type', 'image/gif');
+                      break;
+                      case "jpg":
+                      $response->headers->set('Content-Type', 'image/jpeg');
+                      break;
+                      case "odt":
+                      $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
+                      break;
+                      case "ods":
+                      $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.spreadsheet');
+                      break;
+                      case "odp":
+                      $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.presentation');
+                      break;
+                      case "doc":
+                      $response->headers->set('Content-Type', 'application/msword');
+                      break;
+                      case "ppt":
+                      $response->headers->set('Content-Type', 'application/mspowerpoint');
+                      break;
+                      case "xls":
+                      $response->headers->set('Content-Type', 'application/x-msexcel');
+                      break;                  
+                      case "pdf":
+                      $response->headers->set('Content-Type', 'application/pdf');
+                      break;
+                      default:
+                      $response->headers->set('Content-Type', 'application/octet-stream');    
+                      }
+		$response->setContent( file_get_contents( $file->getAbsolutePath() ));
+		
+		$response->send();
+		
+		return $response;
+	} 
+        
+        
 }

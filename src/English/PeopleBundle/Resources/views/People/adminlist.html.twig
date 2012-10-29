@@ -24,10 +24,16 @@
          <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Promote Advisor Admin</a></li>
          <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Promote Grad. Faculty</a></li>
          <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Promote Grad. Admin</a></li>
+         <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Promote Search</a></li>
+         <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Promote Search Admin</a></li>
+         
+         
          <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Demote Advisor</a></li>
          <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Demote Advisor Admin</a></li>
          <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Demote Grad. Faculty</a></li>
          <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Demote Grad. Admin</a></li>
+         <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Demote Search</a></li>
+         <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Demote Search Admin</a></li>
          </ul>
      </div>
      </div>

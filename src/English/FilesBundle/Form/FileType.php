@@ -11,7 +11,8 @@ class FileType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('path')
+            ->add('description', 'text', array('attr' => array('class' => 'width300')))    
+            ->add('path', 'hidden')
         ;
     }
 
