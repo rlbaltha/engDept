@@ -126,6 +126,7 @@ class MajornoteController extends Controller
         ->setSubject('Mentored Notification')
         ->setFrom('rlbaltha@uga.edu')
         ->setTo('lgn1013@uga.edu')
+        ->setCc('awasley@uga.edu')      
         ->setBody($body)
         ;
         $this->get('mailer')->send($message);
