@@ -82,16 +82,16 @@ class CourseController extends Controller
         $coursename = $postData['courseName'];
         
         $em = $this->getDoctrine()->getEntityManager();
-        $entities = $em->getRepository('EnglishCoursesBundle:Course')->findByCourseName($coursename);
+        $courses = $em->getRepository('EnglishCoursesBundle:Course')->findbyname($coursename);
         
         $form = $this->createFormBuilder(new Course())
             ->add('courseName')
             ->getForm();
         
-        if (!$entities) {
+        if (!$courses) {
             throw $this->createNotFoundException('Unable to find Course entity.');
         }
-        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('courses' => $courses, 'form' => $form->createView()));
         }  
 
         
