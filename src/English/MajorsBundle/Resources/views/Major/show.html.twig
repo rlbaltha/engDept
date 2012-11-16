@@ -52,7 +52,10 @@
         <div class="row_contrast">
             <div class="cell bold">Mentor Notes</div>
             <div class="cell"><a href="{{ path('majornote_new', { 'id': entity.id }) }}">New Note</a></div>
-            <div class="cell"><a href="{{ path('majornote_email', { 'id': entity.id }) }}">Email Mentored Notification</a></div>
+            <div  class="cell">
+                <a id='mentor_email' href="{{ path('majornote_email', { 'id': entity.id }) }}">Email Mentored Notification</a>
+                <span id ='processing' class='' style='display:none;'>Processing</span>
+            </div>
         </div>
         {% for notes in notes %}
         <div class="row">
@@ -69,5 +72,13 @@
 
 <div class="row"></div>   
 <div class="row">
-</div> 
+</div>
+
+<script language="javascript"> 
+    $('#mentor_email').click(function(){
+        $('#mentor_email').toggle();
+        $('#processing').toggle();
+    });
+</script>
+
 {% endblock %}
