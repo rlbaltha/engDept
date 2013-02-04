@@ -241,7 +241,7 @@ class FileController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('file'));
+        return $this->redirect($this->generateUrl('file', array('labelid' => '0')));
     }
 
     private function createDeleteForm($id)
