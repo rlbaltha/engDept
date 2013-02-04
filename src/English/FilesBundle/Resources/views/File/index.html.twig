@@ -2,8 +2,9 @@
  
 {% block body %}
 
+<div class="row divider">
 {% if is_granted('ROLE_SEARCHADMIN') %}
-<div class="row divider"><div class="cell"><a href="{{ path('file_upload') }}">Upload</a></div>
+<div class="cell"><a href="{{ path('file_upload') }}">Upload</a></div>
 {% endif %}
 
 
