@@ -20,5 +20,8 @@
 /app/logs
 /vendor
 /app/config/parameters.ini
+/app/config/parameters.yml
 /nbproject
 /web/Blake_Concordance
+/composer.phar
+/composer.lock

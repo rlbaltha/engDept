@@ -6,15 +6,16 @@ framework:
     #esi:             ~
     translator:      ~
     secret:          %secret%
-    charset:         UTF-8
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    router:
+      resource: "%kernel.root_dir%/config/routing.yml"
+      strict_requirements: %kernel.debug%
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    session:
-        default_locale: %locale%
-        auto_start:     true
+    default_locale: "%locale%"    
+    session: ~
+    trust_proxy_headers: false
 
 # Twig Configuration
 twig:
@@ -23,6 +24,7 @@ twig:
 
 # Assetic Configuration
 assetic:
+    bundles: []
     debug:          %kernel.debug%
     use_controller: false
     # java: /usr/bin/java
@@ -61,7 +63,6 @@ swiftmailer:
     sender_address: %mailer_sender_address%
 
 jms_security_extra:
-    secure_controllers:  true
     secure_all_services: false
     
 fos_user:

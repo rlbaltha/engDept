@@ -100,14 +100,14 @@ class Major
     private $honors;
 
     /**
-    * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor", inversedBy="major")
-     * @ORM\joinColumn(onDelete="SET NULL")
+    * @ORM\ManyToOne(targetEntity="English\AdvisorsBundle\Entity\Advisor")
+     * @ORM\JoinColumn(onDelete="SET NULL")
     */
     protected $advisor;
     
     /**
-    * @ORM\ManyToOne(targetEntity="English\MentorsBundle\Entity\Mentor", inversedBy="major")
-    * @ORM\joinColumn(onDelete="SET NULL")
+    * @ORM\ManyToOne(targetEntity="English\MentorsBundle\Entity\Mentor")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     */
     protected $mentor;  
     

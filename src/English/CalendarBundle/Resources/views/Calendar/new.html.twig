@@ -4,7 +4,6 @@
 <script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
 <script src="{{ asset('bundles/englishhome/js/jquery-ui-1.8.17.custom.min.js') }}"></script> 
-<script src="{{ asset('bundles/englishhome/js/jquery-ui-timepicker-addon.js') }}"></script>
 {% endblock %}
 {% block stylesheets %}
 <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/smoothness/jquery-ui-1.8.17.custom.css') }}">
@@ -21,10 +20,6 @@ toolbar : [
 ],} );
 $( '#english_calendarbundle_calendartype_date' ).datepicker({
 showButtonPanel: true,
-});
-$( '#english_calendarbundle_calendartype_time' ).timepicker({
-showButtonPanel: true,
-ampm: true,
 });
 });
 </script>
