@@ -43,6 +43,11 @@ class File
      * @ORM\Column(name="path", type="string", length=255, nullable=true)
      */
     private $path;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="English\FilesBundle\Entity\Label")
+    */
+    protected $label;    
      
     
     public function getAbsolutePath()
@@ -305,4 +310,27 @@ class File
         return pathinfo($filename, PATHINFO_EXTENSION);
     } 
     
+
+    /**
+     * Set label
+     *
+     * @param \English\FilesBundle\Entity\Label $label
+     * @return File
+     */
+    public function setLabel(\English\FilesBundle\Entity\Label $label = null)
+    {
+        $this->label = $label;
+    
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return \English\FilesBundle\Entity\Label 
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
 }

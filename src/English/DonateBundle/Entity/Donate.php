@@ -58,7 +58,7 @@ class Donate
     /**
      * @var integer $sortorder
      *
-     * @ORM\Column(name="sortorder", type="integer")
+     * @ORM\Column(name="sortorder", type="integer", nullable=true)
      */
     private $sortorder = 1;    
 

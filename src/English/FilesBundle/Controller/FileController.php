@@ -32,6 +32,13 @@ class FileController extends Controller
          $file->setUserid($userid);
          $form = $this->createFormBuilder($file)
              ->add('name')
+             ->add('label', 'entity', array('class' => 'EnglishFilesBundle:Label','property'=>'name', 'query_builder' => 
+                 function(\English\FilesBundle\Entity\LabelRepository $er) {
+                 return $er->createQueryBuilder('l')
+                 ->where('l.display = :display')
+                 ->setParameter('display', TRUE)          
+                 ->orderBy('l.name', 'ASC');
+                 }))     
              ->add('description', 'text', array('attr' => array('class' => 'width300')))    
              ->add('userid', 'hidden')    
              ->add('file')
@@ -57,15 +64,17 @@ class FileController extends Controller
     /**
      * Lists all File entities.
      *
-     * @Route("/", name="file")
+     * @Route("/{labelid}/", name="file")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($labelid)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $dql1 = "SELECT f FROM EnglishFilesBundle:File f ORDER BY f.name ASC";
-        $entities = $em->createQuery($dql1)->getResult();
-        return array('entities' => $entities);       
+        $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.name ASC";
+        $entities = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
+        $dql2 = "SELECT l FROM EnglishFilesBundle:Label l WHERE l.display = TRUE";
+        $labels = $em->createQuery($dql2)->getResult();
+        return array('entities' => $entities, 'labels' => $labels);       
     }
 
     /**

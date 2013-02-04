@@ -56,6 +56,7 @@
         <div class="cell"><a title="Term" href="{{ path('term') }}" >Term</a></div>
         <div class="cell"><a title="Publications" href="{{ path('publications') }}" >Publications</a></div>
         <div class="cell"><a title="Make a Gift" href="{{ path('donate') }}" >Make a Gift</a></div>
+        <div class="cell"><a title="Labels" href="{{ path('label') }}" >File Labels</a></div>
         </div>
         {% endif %}
  
@@ -86,7 +87,7 @@
         <div class="cell"><a title="Advising" href="{{ path('major') }}" >Majors</a></div>            
         {% endif %}     
         {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}             
-        <div class="cell"><a title="Search Files" href="{{ path('file') }}" >Search</a></div>
+        <div class="cell"><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}" >Search</a></div>
         {% endif %} 
         </div> 
         {% endif %}     

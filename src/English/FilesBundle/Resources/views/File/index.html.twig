@@ -3,9 +3,15 @@
 {% block body %}
 
 {% if is_granted('ROLE_SEARCHADMIN') %}
-<div class="row divider"><div class="cell"><a href="{{ path('file_upload') }}">Upload</a></div></div>
+<div class="row divider"><div class="cell"><a href="{{ path('file_upload') }}">Upload</a></div>
 {% endif %}
-    
+
+
+{% for label in labels %}
+<div class="cell"><a {% if app.request.get('labelid') == label.id %} style='font-weight:bold' {% endif %} title="{{ label.name }}" href="{{ path('file', {'labelid':label.id}) }}">{{ label.name }}</a></div>
+{% endfor %}
+</div>
+
 {% for entity in entities %}
     <div class='row divider'>
         <div class="cell"><a title="{{ entity.name }}" href="{{ path('file_view', { 'id': entity.id }) }}">{{ entity.name }}</a></div>
