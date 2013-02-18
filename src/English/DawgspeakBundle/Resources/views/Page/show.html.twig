@@ -1,0 +1,15 @@
+{% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
+ 
+{% block body %}
+{% if is_granted('ROLE_DAWGSPEAK') %}
+<div class="row"><a href="{{ path('page_new') }}">Create a new page</a></div>
+{% endif %}
+
+
+<div class="row">
+<div class="cell">{{ entity.body|raw }}</div>
+{% if is_granted('ROLE_DAWGSPEAK') %}<div class="cell"><a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a></div>{% endif %}
+</div>
+
+{% endblock %}
+

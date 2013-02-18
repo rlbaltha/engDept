@@ -1,0 +1,37 @@
+{% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
+ 
+{% block body %}
+<div class='row'>
+<div class='cell'>  
+     
+{% if is_granted('ROLE_DAWGSPEAK') %}
+<div class="row"><div class='cell'><a href="{{ path('page_new') }}">Create a new page</a></div></div>
+{% endif %}
+
+<h1>Newbie Help Pages</h1>
+
+<p><strong>newbie</strong> (noun) When you say someone is a 
+<strong>newbie</strong>, you mean they are new to a group 
+or an activity. <em>Dawgspeak's mission statement is to show 
+<strong>newbies</strong> how to speak with slang. </em></p>
+<p>We have specialized pages to assist us in this mission, 
+each one tailor-made to guide the uninitiated through a specific 
+topic. Click any of the following to begin your education 
+on all the subjects anyone needs to know to survive in Athens:</p>
+</div>
+</div>
+
+{% for entity in entities %}
+<div class="row">
+<div class='cell'> 
+<div style='float:left;font-weight: bold;margin-right: 10px;'>
+<a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
+{% if is_granted('ROLE_DAWGSPEAK') %}<a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a>{% endif %}
+</div>
+</div>
+</div>
+
+</div>
+{% endfor %}
+{% endblock %}
+

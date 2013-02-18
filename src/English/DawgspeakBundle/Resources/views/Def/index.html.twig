@@ -1,6 +1,10 @@
 {% extends 'EnglishDawgspeakBundle:Def:layout.html.twig' %}
  
 {% block body %}
+<div class='alpha'>
+{% include 'EnglishDawgspeakBundle:Def:alpha.html.twig' %}
+
+
 {% if is_granted('ROLE_DAWGSPEAK') %}
 <div class="row"><a href="{{ path('def_new') }}">Create a new entry</a></div>
 {% endif %}
@@ -19,4 +23,5 @@
 {% if is_granted('ROLE_DAWGSPEAK') %}<div class="cell"><a href="{{ path('def_edit', { 'id': entity.id }) }}">edit</a></div>{% endif %}
 </div>
 {% endfor %}
+</div>
 {% endblock %}

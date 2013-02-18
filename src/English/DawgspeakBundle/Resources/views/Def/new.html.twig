@@ -29,6 +29,10 @@ toolbar : [
 ],} );
 });
 </script>
+<div class='alpha'>
+    
+{% include 'EnglishDawgspeakBundle:Def:alpha.html.twig' %}
+
 <form action="{{ path('def_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
@@ -43,4 +47,6 @@ toolbar : [
         </a>
     </li>
 </ul>
+        
+</div>     
 {% endblock %}
