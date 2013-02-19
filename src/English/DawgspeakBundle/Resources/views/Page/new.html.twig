@@ -7,13 +7,15 @@
 <script language="javascript"> 
 $(document).ready(function()
 {
-$('#english_dawgspeakbundle_pagetype_body').ckeditor( function() {}, {height:600, width:600, skin: 'chris',forcePasteAsPlainText : true,
+$('#english_dawgspeakbundle_pagetype_body').ckeditor( function() {}, {height:600, width:600, skin: 'chris',forcePasteAsPlainText : false,
 toolbar : [
 ['Format', 'Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock',
 'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
 ],} );
 });
 </script>
+<div class='row'>
+<div class='cell'>
 <form action="{{ path('page_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
@@ -28,5 +30,7 @@ toolbar : [
         </a>
     </li>
 </ul>
+    </div>
+    </div>
 {% endblock %}
 
