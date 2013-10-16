@@ -25,3 +25,5 @@
 /web/Blake_Concordance
 /composer.phar
 /composer.lock
+.idea
+/components
