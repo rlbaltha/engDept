@@ -1,3 +1,10 @@
+CWPRedirect:
+    pattern: /cwp/{page}
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: http://www.uga.edu
+        permanent: true
+
 EnglishDawgspeakBundle:
     resource: "@EnglishDawgspeakBundle/Controller/"
     type:     annotation
@@ -136,6 +143,8 @@ EnglishAdvisorsBundle:
     resource: "@EnglishAdvisorsBundle/Controller/"
     type:     annotation
     prefix:   /
+
+
 
 # Internal routing configuration to handle ESI
 #_internal:
