@@ -1,67 +1,66 @@
-{% extends 'EnglishHomeBundle:Default:layout.html.twig' %}
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
 
 {% block javascripts %}
-<script src="{{ asset('bundles/englishhome/js/jquery-ui-1.8.17.custom.min.js') }}"></script> 
-<script src="{{ asset('bundles/englishhome/js/jquery.cycle.lite.js') }}"></script>
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#slideshow").cycle();
+        });
+    </script>
 {% endblock %}
 
-{% block body %}
-<script language="javascript"> 
-$(document).ready(function()
-{
-$("#slideshow").cycle();
-});
-</script>
-<div class="welcome">
+{% block content %}
+    <div class="col-sm-offset-1 col-sm-10 " style="padding-top:20px;">
 
-<div class="head">Welcome</div>
+        <div class="col-sm-6 well">
+                <a class="pull-right" title="Calendar" href="{{ path('calendar_index') }}">All
+                Upcoming Events</a>
+                <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Calendar</h2>
 
-<div id='slideshow_wrapper' class="slideshow_wrapper" >
-<div id='slideshow' class="photo">
-{% for slideshow in slideshow %}
-    <img class="image" name="slideshow" alt="{{ slideshow.title }}" src="{{asset(slideshow.photoUrl) }}"/>
-{% endfor %} 
-</div>    
-</div>
 
-<div class="cell">
-The English Department at the University of Georgia is a diverse scholarly community of over 40 faculty, 100 graduate students, and more than 600 undergraduate majors and minors held together by a common commitment to preserving, transmitting, and extending the rich cultural legacy of the English language. At the core of our discipline lie the complex skills of reading and writing, and though these can be productively applied to a wide range of professional goals our own work as scholars and teachers strives to deepen our understanding of the critical and creative imagination.
-<br/><br/>
-A sympathetic participation in the verbal worlds of other times and places, drawing on the full range of linguistic tools, historical knowledge, and interpretive experience at our disposal, allows our students to enhance their appreciation for expressive possibility. The diversity of the faculty's interests and research methods helps ensure that an English major at the University of Georgia develops a sophisticated, practical grasp of the central role that language plays in the preservation of human institutions.
-</div>
+            {% for calendar in calendar %}
+                <div class="">{{ calendar.title }}</div>
+                <div class=""> {{ calendar.time|date("g:i A") }} {{ calendar.date|date("l, F d") }}</div>
+                <div class="">{% autoescape false %}{{ calendar.description }}{% endautoescape %}</div>
+                {% else %}
+                    <div class="">There are no events on our calendar this month.  Please check back.</div>
 
-</div>
+            {% endfor %}
 
-<div class="sub_wrapper">
-    
-<div class="calendar">
-<div class="head">Calendar</div>
-<div class='divider cell'><a title="Calendar" href="{{ path('calendar_index') }}" >All Upcoming Events</a></div>
-{% for calendar in calendar %}
-<div class="cell bold red">{{ calendar.title }}</div>
-<div class="cell bold"> {{ calendar.time|date("g:i A") }} {{ calendar.date|date("l, F d") }}</div>
-<div class="cell divider">{% autoescape false %}{{ calendar.description }}{% endautoescape %}</div>
-{% endfor %}
-{% if special_spotlight %}
-<div class="special_spotlight">
-{% for spotlight in special_spotlight %}
-<div class="photo_cell"><div class="photo"><img class="image" name="spotlight" alt="{{ spotlight.title }}" src="{{ spotlight.photoUrl }}"/></div></div>
-<div class="cell red">{{ spotlight.title }}</div>
-<div class="cell">{% autoescape false %}{{ spotlight.description }}{% endautoescape %}</div>
-{% endfor %}
-</div>
-{% endif %}
-</div>
-    
-<div class="spotlight">
-<div class="head">Spotlight</div>
-{% for spotlight in spotlight %}
-<div class="photo_cell"><div class="photo"><img class="image" name="spotlight" alt="{{ spotlight.title }}" src="{{ spotlight.photoUrl }}"/></div></div>
-<div class="cell red">{{ spotlight.title }}</div>
-<div class="cell">{% autoescape false %}{{ spotlight.description }}{% endautoescape %}</div>
-{% endfor %}
-</div>
-    
-</div>
+            {% if special_spotlight %}
+                <div class="" style="padding-top: 20px">
+                    {% for spotlight in special_spotlight %}
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>{{ spotlight.title }}</h3>
+                            </div>
+                            <img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}">
+                        </div>
+                        <p>{{ spotlight.description|raw }}</p>
+                    {% endfor %}
+                </div>
 
+            {% endif %}
+        </div>
+
+
+        <div class="col-sm-offset-1 col-sm-5 well">
+            <h2 class="page-header"  style="font-family: 'Lora', 'Times New Roman', 'serif';">Spotlight</h2>
+            {% for spotlight in spotlight %}
+                <div class="thumbnail">
+                    <img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}">
+                    <div class="caption">
+                        <strong>
+                            {{ spotlight.title }}
+                        </strong>
+                    </div>
+
+                </div>
+                <p>{{ spotlight.description|raw }}</p>
+            {% endfor %}
+        </div>
+
+
+
+    </div>
 {% endblock %}

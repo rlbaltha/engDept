@@ -24,7 +24,7 @@ class MajornoteController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('EnglishMajornotesBundle:Majornote')->findAll();
 
@@ -39,7 +39,7 @@ class MajornoteController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
 
@@ -83,16 +83,16 @@ class MajornoteController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new Majornote();
         $entity->setUserid($userid);     
         $request = $this->getRequest();
         $form    = $this->createForm(new MajornoteType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -116,7 +116,7 @@ class MajornoteController extends Controller
      */
     public function emailAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
         $name = $entity->getName();
         if( ($x_pos = strpos($name, ',')) !== FALSE )
@@ -157,7 +157,7 @@ class MajornoteController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
 
@@ -184,7 +184,7 @@ class MajornoteController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
 
@@ -224,8 +224,8 @@ class MajornoteController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
-        $em = $this->getDoctrine()->getEntityManager();
+        $form->submit($request);
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
          
         if ($form->isValid()) {

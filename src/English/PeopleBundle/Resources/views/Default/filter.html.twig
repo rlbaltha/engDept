@@ -1,28 +1,42 @@
- {# src/English/PeopleBundle/Resources/views/Default/filter.html.twig #}
- <div class="welcome"><div class="head">{% if heading == '2' %}Instructors{% elseif heading == '3' %}Administration{% elseif heading == '4' %}Graduate Students{% elseif heading == '5' %}Retired/Emeritus{% else %}Faculty{% endif %}</div></div>
- <div class="sub_nav divider">
-<div class="cell"><a href="{{ path('directory_type', {'type': '1'}) }} " tabindex="1" title="Select directory type" >Faculty</a></div>
-<div class="cell"><a href="{{ path('directory_type', {'type': '2'}) }} " tabindex="1" title="Select directory type" >Instructors</a></div>
-<div class="cell"><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></div>
-<div class="cell"><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></div>
-<div class="cell"><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></div>
+{# src/English/PeopleBundle/Resources/views/Default/filter.html.twig #}
 
-<form action="{{ path('directory_find') }}" method="post" {{ form_enctype(form) }}>
-<div class='cell right'>
-<div class="cell">
-{{ form_widget(form) }}
-</div> 
-<div class="cell">
-<button type="submit">Find</button>
-</div> 
+<!-- Static navbar -->
+<div class="navbar navbar-default" role="navigation" style="margin-top: 30px">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{% if heading == '2' %}Instructors{% elseif heading == '3' %}Administration{% elseif heading == '4' %}Graduate Students{% elseif heading == '5' %}Retired/Emeritus{% else %}Faculty{% endif %}</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('directory_type', {'type': '1'}) }} " tabindex="1" title="Select directory type" >Faculty</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        {% for area in areas %}
+                            <li><a href="{{ path('directory_area', {'area': area.id}) }} " tabindex="1" title="Select area" >{{area.area}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="{{ path('directory_type', {'type': '2'}) }} " tabindex="1" title="Select directory type" >Instructors</a></li>
+                <li><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></li>
+                <li><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></li>
+                <li><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></li>
+
+            </ul>
+                    <form class="navbar-form navbar-right" role="search" action="{{ path('directory') }}" method="post" {{ form_enctype(form) }}>
+                        <div class="form-group">
+                            {{ form_row(form.lastName) }}
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
 </div>
-</form> 
-</div>
- {% if ('area' in app.request.pathinfo and 'type' not in app.request.pathinfo) or app.request.pathinfo == '/directory/' or app.request.pathinfo == '/directory/1/type' %}
-<div class="sub_nav divider">
-{% for area in areas %}    
-<div class="cell"><a href="{{ path('directory_area', {'area': area.id}) }} " tabindex="1" title="Select area" >{{area.area}}</a></div>
-{% endfor %}
-</div>
- {% endif %}
- 
+

@@ -27,7 +27,7 @@ class FileController extends Controller
      public function uploadAction()
      {
          $username = $this->get('security.context')->getToken()->getUsername();
-         $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
+         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
          $file = new File();
          $file->setUserid($userid);
          $form = $this->createFormBuilder($file)
@@ -48,7 +48,7 @@ class FileController extends Controller
          if ($this->getRequest()->getMethod() === 'POST') {
              $form->bindRequest($this->getRequest());
              if ($form->isValid()) {
-                 $em = $this->getDoctrine()->getEntityManager();
+                 $em = $this->getDoctrine()->getManager();
                  $file->upload();
                  $em->persist($file);
                  $em->flush(); 
@@ -69,7 +69,7 @@ class FileController extends Controller
      */
     public function indexAction($labelid)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.name ASC";
         $entities = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
         $dql2 = "SELECT l FROM EnglishFilesBundle:Label l WHERE l.display = TRUE";
@@ -85,7 +85,7 @@ class FileController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
@@ -127,7 +127,7 @@ class FileController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new File();
         
@@ -135,10 +135,10 @@ class FileController extends Controller
         
         $request = $this->getRequest();
         $form    = $this->createForm(new FileType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -160,7 +160,7 @@ class FileController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
@@ -187,7 +187,7 @@ class FileController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
@@ -227,10 +227,10 @@ class FileController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
             if (!$entity) {
@@ -261,7 +261,7 @@ class FileController extends Controller
      */     
     public function viewAction($id)
 	{       
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $file = $em->getRepository('EnglishFilesBundle:File')->find($id);
 

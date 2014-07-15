@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Label
  *
- * @ORM\Table()
+ * @ORM\Table(name="label")
  * @ORM\Entity(repositoryClass="English\FilesBundle\Entity\LabelRepository")
  */
 class Label

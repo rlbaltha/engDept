@@ -24,7 +24,7 @@ class GradcomController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT pg.lastName as glastname, pf.lastName as flastname,g.frole,g.gid FROM EnglishPeopleBundle:People pg, EnglishPeopleBundle:People pf, 
             EnglishGradcomBundle:Gradcom g WHERE pg.id=g.gid and pf.username=g.fid AND g.frole=2 ORDER BY pg.lastName,pg.firstName";
         $entities = $em->createQuery($dql1)->getResult();
@@ -39,7 +39,7 @@ class GradcomController extends Controller
      */
     public function showAction($gid)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT pg.lastName as glastname,pg.firstName as gfirstname, pf.lastName as flastname,g.frole,g.gid FROM EnglishPeopleBundle:People pg, EnglishPeopleBundle:People pf, 
             EnglishGradcomBundle:Gradcom g WHERE pg.id=g.gid and pf.username=g.fid AND g.gid = ?1 ORDER BY g.frole DESC";
         $entities = $em->createQuery($dql1)->setParameter('1',$gid)->getResult();
@@ -82,8 +82,8 @@ class GradcomController extends Controller
         $gid = $postData['gid'];
         
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
-        $grad = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneById($gid);
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
+        $grad = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneById($gid);
         
         
         $entity  = new Gradcom();
@@ -92,10 +92,10 @@ class GradcomController extends Controller
         
 
         $form    = $this->createForm(new GradcomType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -117,7 +117,7 @@ class GradcomController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishGradcomBundle:Gradcom')->find($id);
 
@@ -144,7 +144,7 @@ class GradcomController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishGradcomBundle:Gradcom')->find($id);
 
@@ -184,10 +184,10 @@ class GradcomController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishGradcomBundle:Gradcom')->find($id);
 
             if (!$entity) {

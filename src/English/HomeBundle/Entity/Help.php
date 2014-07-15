@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * English\HomeBundle\Entity\Help
  *
- * @ORM\Table()
+ * @ORM\Table(name="help")
  * @ORM\Entity(repositoryClass="English\HomeBundle\Entity\HelpRepository")
  */
 class Help

@@ -24,7 +24,7 @@ class AdvisorController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT a FROM EnglishAdvisorsBundle:Advisor a ORDER BY a.name";
         $entities = $em->createQuery($dql1)->getResult();
         return array('entities' => $entities);
@@ -38,7 +38,7 @@ class AdvisorController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
@@ -80,7 +80,7 @@ class AdvisorController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new Advisor();
         
@@ -88,10 +88,10 @@ class AdvisorController extends Controller
         
         $request = $this->getRequest();
         $form    = $this->createForm(new AdvisorType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -113,7 +113,7 @@ class AdvisorController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
@@ -140,7 +140,7 @@ class AdvisorController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
@@ -180,10 +180,10 @@ class AdvisorController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
             if (!$entity) {

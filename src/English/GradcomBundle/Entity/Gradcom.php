@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * English\GradcomBundle\Entity\Gradcom
  *
- * @ORM\Table()
+ * @ORM\Table(name="gradcom")
  * @ORM\Entity(repositoryClass="English\GradcomBundle\Entity\GradcomRepository")
  */
 class Gradcom

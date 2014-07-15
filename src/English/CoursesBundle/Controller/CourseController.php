@@ -26,7 +26,7 @@ class CourseController extends Controller
     {
         
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
         $courses = $em->createQuery($dql1)->getResult();
       
@@ -41,7 +41,7 @@ class CourseController extends Controller
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername(); 
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $oasisname = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getOasisname();  
         $oasisname = '%'.strtolower($oasisname).'%';
         $dql2 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE (LOWER(c.instructorName) LIKE ?1) AND c.term=t.term AND t.type >= 1";
@@ -81,7 +81,7 @@ class CourseController extends Controller
         $postData = $request->request->get('form');
         $coursename = $postData['courseName'];
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $courses = $em->getRepository('EnglishCoursesBundle:Course')->findbyname($coursename);
         
         $form = $this->createFormBuilder(new Course())
@@ -103,7 +103,7 @@ class CourseController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
 
@@ -145,7 +145,7 @@ class CourseController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new Course();
         
@@ -153,10 +153,10 @@ class CourseController extends Controller
         
         $request = $this->getRequest();
         $form    = $this->createForm(new CourseType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -178,7 +178,7 @@ class CourseController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
 
@@ -205,7 +205,7 @@ class CourseController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
 
@@ -245,10 +245,10 @@ class CourseController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
 
             if (!$entity) {

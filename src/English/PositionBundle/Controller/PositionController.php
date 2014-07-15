@@ -24,7 +24,7 @@ class PositionController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('EnglishPositionBundle:Position')->findAll();
 
@@ -39,7 +39,7 @@ class PositionController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
@@ -83,10 +83,10 @@ class PositionController extends Controller
         $entity  = new Position();
         $request = $this->getRequest();
         $form    = $this->createForm(new PositionType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -108,7 +108,7 @@ class PositionController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
@@ -135,7 +135,7 @@ class PositionController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
@@ -175,10 +175,10 @@ class PositionController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
             if (!$entity) {

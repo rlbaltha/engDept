@@ -1,4 +1,4 @@
-{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
  
  
 {% block body %}
@@ -37,23 +37,28 @@
 </div>
 {% endif %}
 
-    {% for entity in entities %}
+    <table class="table-striped">
+        {% for entity in entities %}
 
-     <div id="listing{{ entity.id }}" class="row_even divider">
-     <div class="row">
-     <div class="cell bold">{{ entity.firstname }} {{ entity.lastname }}</div>
-     {% if app.request.pathinfo != '/people/gradfac' %}<div class="cell"><a href="{{ path('people_show', { 'id': entity.id }) }}">Detail</a></div>{% endif %}
-     {% if app.request.pathinfo == '/people/gradfac' %}<div class="cell"><a href="{{ path('people_showgradcomm', { 'id': entity.id }) }}">Committee Info</a></div>{% endif %}
-     {% if is_granted('ROLE_ADMIN')  %}<div class="cell"><a href="{{ path('people_admin', { 'username': entity.username }) }}">Permissions</a></div>{% endif %}
-     </div>
-     <div class="row">
-     <div class="cell">{{ entity.title |raw }}</div>
-     </div>
-     <div class="row">
-     <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ entity.email }}" tabindex="1" title="email address" >{{ entity.email }}</a></div>
-     <div class="cell bold">Phone:</div> <div class="cell">{{ entity.officePhone }}</div>
-     <div class="cell bold">Office:</div> <div class="cell">{{ entity.officeNumber }}</div>
-     </div>
-     </div>  
-    {% endfor %}
+            <tr id="listing{{ entity.id }}">
+                <td>
+                    <strong>{{ entity.firstname }} {{ entity.lastname }}</strong>
+                    {% if app.request.pathinfo != '/people/gradfac' %}<a href="{{ path('people_show', { 'id': entity.id }) }}">Detail</a>{% endif %}
+                    {% if app.request.pathinfo == '/people/gradfac' %}<a href="{{ path('people_showgradcomm', { 'id': entity.id }) }}">Committee Info</a>{% endif %}
+                    {% if is_granted('ROLE_ADMIN')  %}<a href="{{ path('people_admin', { 'id': entity.id }) }}">Permissions</a>{% endif %}
+                </td>
+                <td>
+                    {{ entity.title |raw }}
+                </td>
+                <td>
+                    Email:<a href="mailto:{{ entity.email }}" tabindex="1" title="email address" >{{ entity.email }}</a>
+                    Phone:{{ entity.officePhone }}
+                    Office:{{ entity.officeNumber }}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
 {% endblock %}

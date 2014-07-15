@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * English\DonateBundle\Entity\Type
  *
- * @ORM\Table()
+ * @ORM\Table(name="type")
  * @ORM\Entity
  */
 class Type

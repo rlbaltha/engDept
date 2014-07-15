@@ -24,7 +24,7 @@ class DefController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
 
         $entities = $em->getRepository('EnglishDawgspeakBundle:Def')->findDef();
@@ -40,7 +40,7 @@ class DefController extends Controller
      */
     public function alphaAction($alpha)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         $entities = $em->getRepository('EnglishDawgspeakBundle:Def')->findDefAlpha($alpha);
 
@@ -55,7 +55,7 @@ class DefController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishDawgspeakBundle:Def')->find($id);
 
@@ -99,10 +99,10 @@ class DefController extends Controller
         $entity  = new Def();
         $request = $this->getRequest();
         $form    = $this->createForm(new DefType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -124,7 +124,7 @@ class DefController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishDawgspeakBundle:Def')->find($id);
 
@@ -151,7 +151,7 @@ class DefController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishDawgspeakBundle:Def')->find($id);
 
@@ -191,10 +191,10 @@ class DefController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishDawgspeakBundle:Def')->find($id);
 
             if (!$entity) {

@@ -24,7 +24,7 @@ class PublicationsController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('EnglishPublicationsBundle:Publications')->findAll();
 
@@ -39,7 +39,7 @@ class PublicationsController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
@@ -82,16 +82,16 @@ class PublicationsController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new Publications();
         $entity->setUserid($userid);
         $request = $this->getRequest();
         $form    = $this->createForm(new PublicationsType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -113,7 +113,7 @@ class PublicationsController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
@@ -140,7 +140,7 @@ class PublicationsController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
@@ -180,10 +180,10 @@ class PublicationsController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
             if (!$entity) {

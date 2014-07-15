@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * English\MajornotesBundle\Entity\Majornote
  *
- * @ORM\Table()
+ * @ORM\Table(name="majornote")
  * @ORM\Entity(repositoryClass="English\MajornotesBundle\Entity\MajornoteRepository")
  */
 class Majornote

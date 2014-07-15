@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * English\DawgspeakBundle\Entity\Def
  *
- * @ORM\Table()
+ * @ORM\Table(name="def")
  * @ORM\Entity(repositoryClass="English\DawgspeakBundle\Entity\DefRepository")
  */
 class Def

@@ -1,36 +1,31 @@
-{% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
- 
-{% block body %}
-{% if '/listings/' in app.request.pathinfo %}
-{% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
-{% endif %}
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
 
 
-{% for courses in courses %}
-<div id="course{{ courses.id }}" class="row_even divider">
-<div class="cell"><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ courses.courseName }}</a></div>
-<div class="cell bold">{{ courses.title }}</div>
-<div class="cell">{{ courses.instructorName|upper }}</div>
-<div class="cell">{{ courses.callNumber }}</div>
-<div class="cell">{{ courses.callNumber2 }}</div>
-{% if courses.may == 1 %}<div class="cell bold">Maymester</div>{% endif %}
-<div class="cell">{{ courses.days }}</div>
-<div class="cell">{{ courses.time }}</div>
-<div class="cell">{{ courses.building }}</div>
-<div class="cell">{{ courses.room }}</div>
+{% block content %}
 
-</div>
-<div id="detailWrapper{{ courses.id }}" class="row_odd divider hidden">
-<div id="detail{{ courses.id }}" class="row_odd">
-</div>
-</div>
+    <div class="col-sm-offset-1 col-sm-10" style="background-color: #f5f5f5; height: 100vh">
+        {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
 
-{% if 'P' in courses.callNumber %}{% set callNumber = courses.callNumber2 %}{% else %}{% set callNumber = courses.callNumber %}{% endif %}
-<script language="javascript"> 
-    $('#detailLink{{ courses.id }}').click(function(){
-        $('#detail{{ courses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': courses.term }) }}');
-        $('#detailWrapper{{ courses.id }}').toggle();
-    });
-</script>
-{% endfor %}    
+        <table class="table table-striped">
+            {% for courses in courses %}
+                <tr id="course{{ courses.id }}">
+                    <td><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1"
+                                        title="Course Detail">{{ courses.courseName }}</a></td>
+                    <td><strong>{{ courses.title }}</strong></td>
+                    <td>{{ courses.instructorName|upper }}</td>
+                    <td>{{ courses.callNumber }}</td>
+                    <td>{{ courses.callNumber2 }}</td>
+                    {% if courses.may == 1 %}
+                        <td class="cell bold">Maymester</td>{% endif %}
+                    <td>{{ courses.days }}</td>
+                    <td>{{ courses.time }}</td>
+                    <td>{{ courses.building }}</td>
+                    <td>{{ courses.room }}</td>
+
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
 {% endblock %}

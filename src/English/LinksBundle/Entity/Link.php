@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * English\LinksBundle\Entity\Link
  *
- * @ORM\Table()
+ * @ORM\Table(name="link")
  * @ORM\Entity(repositoryClass="English\LinksBundle\Entity\LinkRepository")
  */
 class Link

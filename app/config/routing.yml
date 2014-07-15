@@ -1,9 +1,76 @@
+# redirects for old urls
+
+BISPIndexRedirect:
+    pattern: /bisp
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: http://bis.uga.edu/
+        permanent: true
+
+BISPIndexSlashRedirect:
+    pattern: /bisp/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: http://bis.uga.edu/
+        permanent: true
+
+BISPRedirect:
+    pattern: /bisp/{page}
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: http://bis.uga.edu/
+        permanent: true
+
 CWPRedirect:
     pattern: /cwp/{page}
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: http://www.uga.edu
         permanent: true
+
+BlakeIndexRedirect:
+    pattern: /Blake_Concordance
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  http://www.english.uga.edu/~nhilton/ee/home.html
+        permanent: true
+
+BlakeIndexSlashRedirect:
+    pattern: /Blake_Concordance/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  http://www.english.uga.edu/~nhilton/ee/home.html
+        permanent: true
+
+BlakeRedirect:
+    pattern: /Blake_Concordance/{page}
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  http://www.english.uga.edu/~nhilton/ee/home.html
+        permanent: true
+
+WBlakeIndexRedirect:
+    pattern: /wblake
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  http://www.english.uga.edu/~nhilton/wblake/home1.html
+        permanent: true
+
+WBlakeIndexSlashRedirect:
+    pattern: /wblake/
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  http://www.english.uga.edu/~nhilton/wblake/home.html
+        permanent: true
+
+WBlakeRedirect:
+    pattern: /wblake/{page}
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path:  http://www.english.uga.edu/~nhilton/wblake
+        permanent: true
+
+# end of redirects
 
 EnglishDawgspeakBundle:
     resource: "@EnglishDawgspeakBundle/Controller/"

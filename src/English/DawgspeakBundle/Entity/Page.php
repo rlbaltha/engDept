@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Page
  *
- * @ORM\Table()
+ * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="English\DawgspeakBundle\Entity\PageRepository")
  */
 class Page

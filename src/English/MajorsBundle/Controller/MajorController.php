@@ -25,7 +25,7 @@ class MajorController extends Controller
     public function indexAction()
     {
         if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
-         $em = $this->getDoctrine()->getEntityManager()
+         $em = $this->getDoctrine()->getManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 ORDER BY m.name ASC');
         $entities = $em->getResult();
@@ -38,7 +38,7 @@ class MajorController extends Controller
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
-         $em = $this->getDoctrine()->getEntityManager()
+         $em = $this->getDoctrine()->getManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
              WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
@@ -57,7 +57,7 @@ class MajorController extends Controller
      */
     public function findbyadvisorAction($id)
     {
-         $em = $this->getDoctrine()->getEntityManager()
+         $em = $this->getDoctrine()->getManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND a.id = ?1 ORDER BY m.name ASC');
         $entities = $em->setParameter('1',$id)->getResult();
@@ -78,7 +78,7 @@ class MajorController extends Controller
      */
     public function findbymentorAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager()
+        $em = $this->getDoctrine()->getManager()
         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND e.id = ?1 ORDER BY m.name ASC');
        $entities = $em->setParameter('1',$id)->getResult();
@@ -100,7 +100,7 @@ class MajorController extends Controller
     {   $request = $this->get('request');
         $postData = $request->request->get('form');
         $name = strtolower($postData['name'] . "%");
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND LOWER(m.name) LIKE ?1 ORDER BY m.name";
         $entities = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
@@ -173,7 +173,7 @@ class MajorController extends Controller
         $honors = $postData['honors'];
         $hours = $postData['hours'];
         $gpa = $postData['gpa'];
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         if ($checkedin == 0) {$queryCheckedin = " AND m.checkedin ='0' ";} else {$queryCheckedin = " AND m.checkedin ='1' ";};
         if ($honors == 0) {$queryHonors = " AND m.honors ='0' ";} elseif ($honors == 1) {$queryHonors = " AND m.honors ='1' ";} else {$queryHonors = '';};
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
@@ -199,7 +199,7 @@ class MajorController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
         $advisor = $entity->getAdvisor()->getName();
@@ -256,7 +256,7 @@ class MajorController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new Major();
         
@@ -264,10 +264,10 @@ class MajorController extends Controller
         
         $request = $this->getRequest();
         $form    = $this->createForm(new MajorType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -289,7 +289,7 @@ class MajorController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
@@ -316,7 +316,7 @@ class MajorController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
@@ -356,10 +356,10 @@ class MajorController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
             if (!$entity) {

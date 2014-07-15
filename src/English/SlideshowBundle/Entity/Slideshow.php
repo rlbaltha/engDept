@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * English\SlideshowBundle\Entity\Slideshow
  *
- * @ORM\Table()
+ * @ORM\Table(name="slideshow")
  * @ORM\Entity(repositoryClass="English\SlideshowBundle\Entity\SlideshowRepository")
  */
 class Slideshow

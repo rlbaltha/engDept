@@ -1,0 +1,24 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: null
+    database_name: eng_db
+    database_user: username
+    database_password: password
+    mailer_transport: yourmailer
+    mailer_host: null
+    mailer_port: null
+    mailer_sender_address: email@yourmailer
+    mailer_user: email@yourmailer
+    mailer_password: mailpw
+    mailer_encryption: null
+    from_email: email@yourmailer
+    locale: en
+    secret: agr8hqoiugq34iqn34g8q0348gq7435
+    app_name: English
+    ldap: no
+    upload_path: '%kernel.root_dir%/../uploads/files'
+    wkhtmltopdf_path: '%kernel.root_dir%/../vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64'
+    ldap_host: ldap.your.server
+    ldap_port: 363

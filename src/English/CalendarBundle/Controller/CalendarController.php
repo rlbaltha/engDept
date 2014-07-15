@@ -26,7 +26,7 @@ class CalendarController extends Controller
     public function indexAction()
     {
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $startDate = date("Y-m-d") ;
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
         $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
@@ -34,7 +34,7 @@ class CalendarController extends Controller
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $startDate = date("Y-m-d") ;
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2  and c.username = ?3 ORDER BY c.date ASC";
         $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
@@ -52,7 +52,7 @@ class CalendarController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
@@ -98,16 +98,16 @@ class CalendarController extends Controller
     public function createAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $userid = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();  
+        $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
         $entity  = new Calendar();
         $request = $this->getRequest();
         $entity->setUserid($userid);
         $form    = $this->createForm(new CalendarType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -129,7 +129,7 @@ class CalendarController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
@@ -156,7 +156,7 @@ class CalendarController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
@@ -196,10 +196,10 @@ class CalendarController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
             if (!$entity) {

@@ -27,7 +27,7 @@ class PeopleController extends Controller
     public function indexAction()
     {
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
         
@@ -43,7 +43,7 @@ class PeopleController extends Controller
         
         } else {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         
         if (!$entity) {
@@ -73,7 +73,7 @@ class PeopleController extends Controller
         $postData = $request->request->get('form');
         $lastname = $postData['lastName'] . "%";
         $lastname = strtolower($lastname);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         $form = $this->createFormBuilder(new People())
@@ -92,7 +92,7 @@ class PeopleController extends Controller
      */        
     public function gradAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.gradinfo != 4 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
         
@@ -115,7 +115,7 @@ class PeopleController extends Controller
      */        
     public function gradfacAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p join p.position o WHERE o.position='Graduate Faculty' ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->getResult();
         
@@ -140,9 +140,9 @@ class PeopleController extends Controller
     public function mygradAction()
     {   
         $username = $this->get('security.context')->getToken()->getUsername();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
-        $em = $this->getDoctrine()->getEntityManager();  
+        $em = $this->getDoctrine()->getManager();
         $entities = $em->createQuery('SELECT p FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.gid=p.id AND 
             g.people = ?1 ORDER BY p.lastName')->setParameter('1',$people)->getResult(); 
         
@@ -170,7 +170,7 @@ class PeopleController extends Controller
         $postData = $request->request->get('form');
         $lastname = $postData['lastName'] . "%";
         $lastname = strtolower($lastname);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.gradinfo != 4 AND LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
         $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
         
@@ -196,7 +196,7 @@ class PeopleController extends Controller
     public function showAction($id)
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         $userid = $people->getId(); 
         
@@ -234,10 +234,10 @@ class PeopleController extends Controller
     public function showgradcommAction($id)
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $user = $this->getDoctrine()->getEntityManager()->getRepository('EnglishPeopleBundle:People')->findOneById($id);
+        $user = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneById($id);
         
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
       
         $gradcomphd = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 AND r.gradinfo=2 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
@@ -293,10 +293,10 @@ class PeopleController extends Controller
         
         $request = $this->getRequest();
         $form    = $this->createForm(new PeopleType(), $entity);
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -318,7 +318,7 @@ class PeopleController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
 
@@ -352,7 +352,7 @@ class PeopleController extends Controller
      */
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
 
@@ -395,10 +395,10 @@ class PeopleController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bindRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
 
             if (!$entity) {
@@ -424,11 +424,16 @@ class PeopleController extends Controller
      /**
      * Finds Users
      *
-     * @Route("/{username}/admin", name="people_admin")
+     * @Route("/{id}/admin", name="people_admin")
      * @Template()
      */   
-    public function adminAction($username)
+    public function adminAction($id)
     {
+
+        $em = $this->getDoctrine()->getManager();
+        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+        $username = $people->getUsername();
+
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($username);
         return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
@@ -478,7 +483,7 @@ class PeopleController extends Controller
 /**    public function createusersAction()
     {
 
-          $em = $this->getDoctrine()->getEntityManager();
+          $em = $this->getDoctrine()->getManager();
           $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.email!='' AND p.username!='' AND p.username!='none' AND p.password!='' ORDER BY p.lastName,p.firstName";
           $oldusers = $em->createQuery($dql1)->getResult();  
           $userManager = $this->get('fos_user.user_manager');

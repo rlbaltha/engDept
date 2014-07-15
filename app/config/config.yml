@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      ~
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
       resource: "%kernel.root_dir%/config/routing.yml"
@@ -13,27 +13,57 @@ framework:
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    default_locale: "%locale%"    
     session: ~
-    trust_proxy_headers: false
+    default_locale: %locale%
+    trusted_proxies: ~
 
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+      application_name:       %app_name%
+      ldap_auth:              %ldap%
 
 # Assetic Configuration
 assetic:
-    bundles: []
-    debug:          %kernel.debug%
-    use_controller: false
-    # java: /usr/bin/java
-    filters:
-        cssrewrite: ~
-        # closure:
-        #     jar: %kernel.root_dir%/java/compiler.jar
-        # yui_css:
-        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+  java: /usr/bin/java
+  filters:
+    yui_js:
+      jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
+    less:
+       node: /usr/bin/node
+       node_paths: [%kernel.root_dir%/../node_modules]
+       apply_to: "\.less$"
+    cssrewrite: ~
+  assets:
+    jquery_js:
+        inputs:
+            - '%kernel.root_dir%/../vendor/components/jquery/jquery.js'
+        filters: [yui_js]
+    jqueryui_js:
+        inputs:
+            - '%kernel.root_dir%/../vendor/components/jqueryui/ui/jquery-ui.js'
+        filters: [yui_js]
+    bootstrap_js:
+        inputs:
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/modal.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/dropdown.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/scrollspy.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/tab.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/tooltip.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/popover.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/button.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/collapse.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/carousel.js'
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js'
+        filters: [yui_js]
+    bootstrap_less:
+        inputs:
+            - '%kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less'
+        filters: [less]
 
 # Doctrine Configuration
 doctrine:
@@ -49,8 +79,6 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
-        mappings:
-          StofDoctrineExtensionsBundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -61,10 +89,8 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     sender_address: %mailer_sender_address%
+    spool: { type: memory }
 
-jms_security_extra:
-    secure_all_services: false
-    
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -74,14 +100,104 @@ fos_user:
             enabled:    true
     from_email:
         address:        %from_email%
-        sender_name:    English Dept. 
+        sender_name:    English Dept.
     service:
         user_manager:   fos_user.user_manager.default
 
+
+fr3d_ldap:
+    driver:
+        host:                %ldap_host%
+        port:                %ldap_port%
+#       username:             foo    # Optional
+#       password:             bar    # Optional
+        bindRequiresDn:       true   # Optional
+        baseDn:               ou=users,o=uga
+        accountFilterFormat: (&(cn=%s)) # Optional. sprintf format %s will be the username
+#       optReferrals:        false  # Optional
+        useSsl:              true   # Enable SSL negotiation. Optional
+#       useStartTls:         true   # Enable TLS negotiation. Optional
+    user:
+        baseDn: ou=users,o=uga
+        filter: (&(ObjectClass=Person))
+        attributes:          # Specify ldap attributes mapping [ldap attribute, user object method]
+           - { ldap_attr: cn,  user_method: setUsername }
+           - { ldap_attr: mail,   user_method: setEmail }
+    service:
+        user_manager: fos_user.user_manager          # Overrides default user manager
+
+# Doctrine extensions
 stof_doctrine_extensions:
     default_locale: en_US
     orm:
         default:
             timestampable: true
+            sluggable: true
 
-            
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+vich_uploader:
+    db_driver: orm # or mongodb
+    twig: true
+    gaufrette: false # set to true to enable gaufrette support
+    storage: vich_uploader.storage.file_system
+    mappings:
+        property_file:
+            uri_prefix: %upload_path%   # uri prefix to resource
+            upload_destination: %upload_path%   # gaufrette storage fs id, required
+            namer: vich_uploader.namer_origname # namer.upload_file  specify a file namer service id for this entity, null default
+            directory_namer: directory_namer.upload_file  # specify a directory namer service id for this entity, null default
+            delete_on_remove: true # determines whether to delete file upon removal of entity
+            inject_on_load: true # determines whether to inject a File instance upon load
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     %wkhtmltopdf_path%
+        options:    []
+
+ivory_ck_editor:
+    plugins:
+        wordcount:
+            path:     "bundles/englishhome/ckeditor/plugins/wordcount/"
+            filename: "plugin.js"
+        mediaembed:
+            path:     "bundles/englishhome/ckeditor/plugins/mediaembed/"
+            filename: "plugin.js"
+        maxheight:
+            path:     "bundles/englishhome/ckeditor/plugins/maxheight/"
+            filename: "plugin.js"
+    configs:
+        editor_simple:
+            skin: "bootstrapck, ../../../../bundles/englishhome/ckeditor/skins/bootstrapck/"
+            startupFocus: true
+            toolbar: "toolbar_simple"
+            removePlugins: "elementspath,contextmenu,liststyle,tabletools"
+            allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[!href,target]{*}(*); table th tr td strong em; ol ul li span(*); img[*]{*}; iframe{*}[*];'
+            disableNativeSpellChecker: false
+            height: 150
+            contentsCss: "bundles/englishhome/ckeditor/ckeditor.css"
+        editor_page:
+            skin: "bootstrapck, ../../../../bundles/englishhome/ckeditor/skins/bootstrapck/"
+            startupFocus: true
+            toolbar: "toolbar_page"
+            extraPlugins: 'wordcount,mediaembed,maxheight'
+            removePlugins: "elementspath,contextmenu,liststyle,tabletools"
+            allowedContent: true
+            disableNativeSpellChecker: false
+            height: 500
+            contentsCss: "bundles/englishhome/ckeditor/ckeditor.css"
+            stylesSet: 'marca_styles:../../bundles/englishhome/ckeditor/ckeditor_styles.js'
+    toolbars:
+        configs:
+            toolbar_simple: [ ['Bold','Italic','Underline','Strike'],['Link','Unlink'],['NumberedList','BulletedList']]
+            toolbar_page: [ ['Source','Styles','Bold','Italic','Underline','Strike','Font','FontSize'],['JustifyLeft','JustifyCenter','JustifyRight'],['TextColor','BGColor'],['Link','Unlink'],['NumberedList','BulletedList'],['Outdent','Indent'],['Image','MediaEmbed'],[ 'PasteText', 'PasteFromWord', 'Undo', 'Redo','RemoveFormat'],['About'] ]
