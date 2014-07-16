@@ -23,13 +23,18 @@ class PeopleController extends Controller
      * Lists all People
      *
      * @Route("/", name="people")
+     * @Template("EnglishPeopleBundle:Default:index.html.twig")
      */
     public function indexAction()
     {
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
         $em = $this->getDoctrine()->getManager();
+
+        $heading = 1;
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+
         $dql1 = "SELECT p FROM EnglishPeopleBundle:People p ORDER BY p.lastName,p.firstName";
-        $entities = $em->createQuery($dql1)->getResult();
+        $people = $em->createQuery($dql1)->getResult();
         
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
@@ -38,27 +43,27 @@ class PeopleController extends Controller
             ->add('lastName')
             ->getForm();
         
-        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+        return array('people' => $people, 'form' => $form->createView(), 'gradform' => $gradform->createView(), 'heading' => $heading,'areas' => $areas,);
         
         
         } else {
         $username = $this->get('security.context')->getToken()->getUsername();
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
+        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         
-        if (!$entity) {
+        if (!$people) {
             return $this->redirect($this->generateUrl('people_new'));
         }        
 
         
-        $userid = $entity->getId(); 
+        $userid = $people->getId();
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$userid)->getResult();
         $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
             ORDER BY g.created DESC')->setParameter('1',$userid)->setParameter('2',$userid)->getResult();   
-        $status = $entity->getGradinfo()->getStatus();
+        $status = $people->getGradinfo()->getStatus();
         $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$userid)->getResult();
         
-        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('entity' => $entity, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'        => $status,'notes' => $notes, 'areas' => $areas));
+        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('people' => $people, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'=> $status,'notes' => $notes, 'areas' => $areas, 'heading' => $heading,'areas' => $areas,));
         } 
     }
     
@@ -365,7 +370,7 @@ class PeopleController extends Controller
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);

@@ -26,9 +26,9 @@ class PublicationsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishPublicationsBundle:Publications')->findAll();
+        $publications = $em->getRepository('EnglishPublicationsBundle:Publications')->findAll();
 
-        return array('entities' => $entities);
+        return array('publications' => $publications);
     }
 
     /**
@@ -153,7 +153,7 @@ class PublicationsController extends Controller
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);

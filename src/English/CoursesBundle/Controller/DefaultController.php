@@ -18,7 +18,7 @@ class DefaultController extends Controller
      * Lists all Courses.
      *
      * @Route("/", name="listings")
-     * @Template()
+     * @Template("EnglishCoursesBundle:Default:index.html.twig")
      */
     public function indexAction()
     {
@@ -29,7 +29,7 @@ class DefaultController extends Controller
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
         $currentTerm = $em->createQuery($dql3)->getSingleresult();
-        return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType)); 
+        return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType);
     }
  
     /**

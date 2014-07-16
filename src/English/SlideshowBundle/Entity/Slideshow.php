@@ -36,6 +36,14 @@ class Slideshow
      */
     private $title;
 
+
+    /**
+     * @var text $description
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
     /**
      * @var integer $type
      *
@@ -190,5 +198,28 @@ class Slideshow
     public function getUserid()
     {
         return $this->userid;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Slideshow
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

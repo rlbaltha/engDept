@@ -1,7 +1,7 @@
 {# src/English/PeopleBundle/Resources/views/Default/filter.html.twig #}
 
 <!-- Static navbar -->
-<div class="navbar navbar-default" role="navigation" style="margin-top: 30px">
+<div class="navbar navbar-default" role="navigation" style="margin-top: 30px;margin-bottom: 0px">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -27,6 +27,9 @@
                 <li><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></li>
                 <li><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></li>
                 <li><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('people_new') }}">New Listing</a></li>
+                {% endif %}
 
             </ul>
                     <form class="navbar-form navbar-right" role="search" action="{{ path('directory') }}" method="post" {{ form_enctype(form) }}>

@@ -26,9 +26,9 @@ class LinkController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishLinksBundle:Link')->findAll();
+        $links = $em->getRepository('EnglishLinksBundle:Link')->findAll();
 
-        return array('entities' => $entities);
+        return array('links' => $links);
     }
 
     /**
@@ -41,16 +41,16 @@ class LinkController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishLinksBundle:Link')->find($id);
+        $link = $em->getRepository('EnglishLinksBundle:Link')->find($id);
 
-        if (!$entity) {
+        if (!$link) {
             throw $this->createNotFoundException('Unable to find Link entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'link'      => $link,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -62,11 +62,11 @@ class LinkController extends Controller
      */
     public function newAction()
     {
-        $entity = new Link();
-        $form   = $this->createForm(new LinkType(), $entity);
+        $link = new Link();
+        $form   = $this->createForm(new LinkType(), $link);
 
         return array(
-            'entity' => $entity,
+            'link' => $link,
             'form'   => $form->createView()
         );
     }
@@ -83,17 +83,17 @@ class LinkController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Link();
+        $link  = new Link();
         
-        $entity->setUserid($userid);
+        $link->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new LinkType(), $entity);
+        $form    = $this->createForm(new LinkType(), $link);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($link);
             $em->flush();
 
             return $this->redirect($this->generateUrl('link'));
@@ -101,7 +101,7 @@ class LinkController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'link' => $link,
             'form'   => $form->createView()
         );
     }
@@ -116,17 +116,17 @@ class LinkController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishLinksBundle:Link')->find($id);
+        $link = $em->getRepository('EnglishLinksBundle:Link')->find($id);
 
-        if (!$entity) {
+        if (!$link) {
             throw $this->createNotFoundException('Unable to find Link entity.');
         }
 
-        $editForm = $this->createForm(new LinkType(), $entity);
+        $editForm = $this->createForm(new LinkType(), $link);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'link'      => $link,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -143,28 +143,28 @@ class LinkController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishLinksBundle:Link')->find($id);
+        $link = $em->getRepository('EnglishLinksBundle:Link')->find($id);
 
-        if (!$entity) {
+        if (!$link) {
             throw $this->createNotFoundException('Unable to find Link entity.');
         }
 
-        $editForm   = $this->createForm(new LinkType(), $entity);
+        $editForm   = $this->createForm(new LinkType(), $link);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($link);
             $em->flush();
 
             return $this->redirect($this->generateUrl('link'));
         }
 
         return array(
-            'entity'      => $entity,
+            'link'      => $link,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -185,13 +185,13 @@ class LinkController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishLinksBundle:Link')->find($id);
+            $link = $em->getRepository('EnglishLinksBundle:Link')->find($id);
 
-            if (!$entity) {
+            if (!$link) {
                 throw $this->createNotFoundException('Unable to find Link entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($link);
             $em->flush();
         }
 

@@ -1,21 +1,7 @@
-{% extends 'EnglishPublicationsBundle:Publications:layout.html.twig' %}
+{% extends 'EnglishPublicationsBundle::subnav.html.twig' %}
 
-{% block javascripts %}
-<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
-{% endblock %}
+{% block content %}
 
-{% block body %}
-<script language="javascript"> 
-$(document).ready(function()
-{
-$('#english_publicationsbundle_publicationstype_description').ckeditor( function() {}, {height:150, skin: 'chris',forcePasteAsPlainText : true,
-toolbar : [
-['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
-'BulletedList','Outdent','Indent','Image','Table','Smiley','SpecialChar','RemoveFormat'],
-],} );
-});
-</script>
 <div class="row divider">
 <div class="cell">
 <form action="{{ path('publications_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>

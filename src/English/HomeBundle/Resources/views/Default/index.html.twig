@@ -1,14 +1,5 @@
 {% extends 'EnglishHomeBundle::layout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script language="javascript">
-        $(document).ready(function () {
-            $("#slideshow").cycle();
-        });
-    </script>
-{% endblock %}
-
 {% block content %}
     <div class="col-sm-offset-1 col-sm-10 " style="padding-top:20px;">
 
@@ -59,8 +50,6 @@
                 <p>{{ spotlight.description|raw }}</p>
             {% endfor %}
         </div>
-
-
 
     </div>
 {% endblock %}

@@ -153,7 +153,7 @@ class AdvisorController extends Controller
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if (1 == 1) {
             $em->persist($entity);

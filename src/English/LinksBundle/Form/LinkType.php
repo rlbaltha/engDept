@@ -10,9 +10,9 @@ class LinkType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url')
-            ->add('title')
-            ->add('type')
+            ->add('url','text', array('attr' => array('class' => 'text form-control'),))
+            ->add('title','text', array('attr' => array('class' => 'text form-control'),))
+            ->add('type','text', array('attr' => array('class' => 'text form-control'),))
         ;
     }
 

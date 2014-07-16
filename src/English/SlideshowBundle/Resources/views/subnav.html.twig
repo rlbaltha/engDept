@@ -4,14 +4,14 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
-
+            $('#confirm').toggle();
         });
     </script>
 {% endblock %}
 
 {% block subnav %}
     <!-- Static navbar -->
-    <div class="navbar navbar-default" role="navigation" style="margin-top: 30px">
+    <div class="navbar navbar-default" role="navigation" style="margin-top: 30px;margin-bottom: 0px;">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,13 +20,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Department Links</a>
+                <a class="navbar-brand" href="#">Slideshow</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('link_new') }}">New Link</a>
+                            <a href="{{ path('slideshow_new') }}">Add to Slideshow</a>
                         {% endif %}
                     </li>
                 </ul>
@@ -37,23 +37,3 @@
     </div>
 
 {% endblock %}
-
-{% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
-
-        <table class="table table-striped">
-            {% for link in links %}
-                <tr>
-                    <td><a href="{{ link.url }}" title="{{ link.title}}" target="_blank">{{ link.title}}</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a class="pull-right" href="{{ path('link_edit', { 'id': link.id }) }}">Update/Delete</a>
-                    {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
-
-{% endblock %}
-

@@ -29,43 +29,20 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getManager();
         $startDate = date("Y-m-d") ;
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
-        $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
-        return array('entities' => $entities);     
+        $events = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
+        return array('events' => $events);
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getManager();
         $startDate = date("Y-m-d") ;
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2  and c.username = ?3 ORDER BY c.date ASC";
-        $entities = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
-        return array('entities' => $entities);
+        $events = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
+        return array('events' => $events);
         }
 
     }    
 
-    
-    /**
-     * Finds and displays a Calendar entity.
-     *
-     * @Route("/{id}/show", name="calendar_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Calendar entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new Calendar entity.
@@ -77,13 +54,13 @@ class CalendarController extends Controller
     {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
-        $entity = new Calendar();
-        $entity->setUsername($username);
-        $entity->setDescription('<p>  </p>');
-        $form   = $this->createForm(new CalendarType(), $entity);
+        $event = new Calendar();
+        $event->setUsername($username);
+        $event->setDescription('<p>  </p>');
+        $form   = $this->createForm(new CalendarType(), $event);
 
         return array(
-            'entity' => $entity,
+            'event' => $event,
             'form'   => $form->createView()
         );
     }
@@ -100,23 +77,23 @@ class CalendarController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Calendar();
+        $event  = new Calendar();
         $request = $this->getRequest();
-        $entity->setUserid($userid);
-        $form    = $this->createForm(new CalendarType(), $entity);
+        $event->setUserid($userid);
+        $form    = $this->createForm(new CalendarType(), $event);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($event);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('calendar_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('calendar'));
             
         }
 
         return array(
-            'entity' => $entity,
+            'event' => $event,
             'form'   => $form->createView()
         );
     }
@@ -131,17 +108,17 @@ class CalendarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
+        $event = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
-        if (!$entity) {
+        if (!$event) {
             throw $this->createNotFoundException('Unable to find Calendar entity.');
         }
 
-        $editForm = $this->createForm(new CalendarType(), $entity);
+        $editForm = $this->createForm(new CalendarType(), $event);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'event'      => $event,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -158,28 +135,28 @@ class CalendarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
+        $event = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
-        if (!$entity) {
+        if (!$event) {
             throw $this->createNotFoundException('Unable to find Calendar entity.');
         }
 
-        $editForm   = $this->createForm(new CalendarType(), $entity);
+        $editForm   = $this->createForm(new CalendarType(), $event);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($event);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('calendar_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('calendar'));
         }
 
         return array(
-            'entity'      => $entity,
+            'event'      => $event,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -200,13 +177,13 @@ class CalendarController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
+            $event = $em->getRepository('EnglishCalendarBundle:Calendar')->find($id);
 
-            if (!$entity) {
+            if (!$event) {
                 throw $this->createNotFoundException('Unable to find Calendar entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($event);
             $em->flush();
         }
 

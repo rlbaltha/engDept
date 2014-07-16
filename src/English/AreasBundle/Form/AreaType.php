@@ -10,7 +10,7 @@ class AreaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('area')
+            ->add('area','text', array('attr' => array('class' => 'text form-control'),))
         ;
     }
 

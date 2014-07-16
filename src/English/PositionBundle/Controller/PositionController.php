@@ -26,9 +26,9 @@ class PositionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishPositionBundle:Position')->findAll();
+        $positions = $em->getRepository('EnglishPositionBundle:Position')->findAll();
 
-        return array('entities' => $entities);
+        return array('positions' => $positions);
     }
 
     /**
@@ -41,16 +41,16 @@ class PositionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
+        $position = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
-        if (!$entity) {
+        if (!$position) {
             throw $this->createNotFoundException('Unable to find Position entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'position'      => $position,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -62,11 +62,11 @@ class PositionController extends Controller
      */
     public function newAction()
     {
-        $entity = new Position();
-        $form   = $this->createForm(new PositionType(), $entity);
+        $position = new Position();
+        $form   = $this->createForm(new PositionType(), $position);
 
         return array(
-            'entity' => $entity,
+            'position' => $position,
             'form'   => $form->createView()
         );
     }
@@ -80,14 +80,14 @@ class PositionController extends Controller
      */
     public function createAction()
     {
-        $entity  = new Position();
+        $position  = new Position();
         $request = $this->getRequest();
-        $form    = $this->createForm(new PositionType(), $entity);
+        $form    = $this->createForm(new PositionType(), $position);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($position);
             $em->flush();
 
             return $this->redirect($this->generateUrl('position'));
@@ -95,7 +95,7 @@ class PositionController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'position' => $position,
             'form'   => $form->createView()
         );
     }
@@ -110,17 +110,17 @@ class PositionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
+        $position = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
-        if (!$entity) {
+        if (!$position) {
             throw $this->createNotFoundException('Unable to find Position entity.');
         }
 
-        $editForm = $this->createForm(new PositionType(), $entity);
+        $editForm = $this->createForm(new PositionType(), $position);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'position'      => $position,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -137,28 +137,28 @@ class PositionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
+        $position = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
-        if (!$entity) {
+        if (!$position) {
             throw $this->createNotFoundException('Unable to find Position entity.');
         }
 
-        $editForm   = $this->createForm(new PositionType(), $entity);
+        $editForm   = $this->createForm(new PositionType(), $position);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($position);
             $em->flush();
 
             return $this->redirect($this->generateUrl('position'));
         }
 
         return array(
-            'entity'      => $entity,
+            'position'      => $position,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -179,13 +179,13 @@ class PositionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishPositionBundle:Position')->find($id);
+            $position = $em->getRepository('EnglishPositionBundle:Position')->find($id);
 
-            if (!$entity) {
+            if (!$position) {
                 throw $this->createNotFoundException('Unable to find Position entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($position);
             $em->flush();
         }
 

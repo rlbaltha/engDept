@@ -23,217 +23,125 @@
 
 </head>
 <body>
-<div class="col-sm-12" style="margin-top: 40px; padding:0px;">
-<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #f3f0dd">
-    <div class="navbar-header col-sm-3">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a name="top"></a>
-        <a class="navbar-brand" style="font-family: 'Lora', 'Times New Roman', 'serif';" href="{{ path('home') }}"
-           title="English Department Homepage"><strong>English at University of Georgia</strong></a>
-    </div>
+<div class="col-sm-12" style="margin-top: 20px; padding:0px; ">
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #f3f0dd;padding-right: 20px;">
+        <div class="navbar-header col-sm-3">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a name="top"></a>
+            <a class="navbar-brand" style="font-family: 'Lora', 'Times New Roman', 'serif';" href="{{ path('home') }}"
+               title="English Department Homepage"><strong>English at University of Georgia</strong></a>
+        </div>
 
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li id="skip" class="hidden">
-                <a href="#main_content">Skip Navigation</a>
-            </li>
-            <li><a title="People" href="{{ path('directory') }}">People</a></li>
-            <li><a title="Courses" href="{{ path('listings') }}">Courses</a></li>
-            <li><a title="Publications" href="{{ path('publications') }}">Publications</a></li>
-            <li><a title="First Year Composition" href="/fyc/home.html">First Year Comp.</a></li>
-            <li><a title="Undergraduate Studies in English" href="/undergrad/home.html">Undergraduate</a>
-            </li>
-            <li><a title="Graduate Studies in English" href="/grad/home.html">Graduate</a></li>
-            <li><a title="Creative Writing" href="/cwp/home.html" target='_blank'>Creative Writing</a></li>
-            <li><a title="Make a Gift" href="{{ path('donate') }}">Make a Gift</a></li>
-
-            {% if is_granted('ROLE_ADMIN') %}
-                <div class="row_contrast">
-                    <li>Admin
-                </div>
-                <li><a title="Areas" href="{{ path('area') }}">Areas</a></li>
-                <li><a title="Positions" href="{{ path('position') }}">Positions</a></li>
-                <li><a title="Calendar" href="{{ path('calendar') }}">Calendar</a></li>
-                <li><a title="Courses" href="{{ path('course') }}">Courses</a></li>
-                <li><a title="People" href="{{ path('people') }}">People</a></li>
-                <li><a title="Slideshow" href="{{ path('slideshow') }}">Slideshow</a></li>
-                <li><a title="Spotlight" href="{{ path('spotlight') }}">Spotlight</a></li>
-                <li><a title="Term" href="{{ path('term') }}">Term</a></li>
-                <li><a title="Publications" href="{{ path('publications') }}">Publications</a></li>
-                <li><a title="Make a Gift" href="{{ path('donate') }}">Make a Gift</a></li>
-                <li><a title="Labels" href="{{ path('label') }}">File Labels</a></li>
-
-            {% endif %}
-
-
-
-
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <li><a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Change
-                        Password</a></li>
-                <li><a title="Profile" href="{{ path('people') }}">Profile</a></li>
-                <li><a title="Courses" href="{{ path('course') }}">Courses</a></li>
-                {% if is_granted('ROLE_ADVISOR') %}
-                    <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
-                {% endif %}
-                <li><a title="Calendar" href="{{ path('calendar') }}">Calendar</a></li>
-                <li><a title="Links" href="{{ path('link') }}">Dept. Links</a></li>
-                <li><a title="Help" href="{{ path('help') }}">Help</a></li>
-                {% if is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN') %}
-                    <li><a title="Graduate Students" href="{{ path('people_grad') }}">All Grad Students</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_GRADFAC') %}
-                    <li><a title="Graduate Students" href="{{ path('people_mygrad') }}">My Grad Students</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_GRADADMIN') %}
-                    <li><a title="Gradcom" href="{{ path('people_gradfac') }}">Grad Faculty</a></li>
-                {% endif %}
-                {% if is_granted('ROLE_ADVISORADMIN') %}
-                    <li><a title="Advising" href="{{ path('major') }}">Majors</a></li>
-                {% endif %}
-                {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}
-                    <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
-                {% endif %}
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li id="skip" class="hidden">
+                    <a href="#main_content">Skip Navigation</a>
                 </li>
+                <li><a title="People" href="{{ path('directory') }}">People</a></li>
+                <li><a title="Courses" href="{{ path('listings') }}">Courses</a></li>
+                <li><a title="Publications" href="{{ path('publications') }}">Publications</a></li>
+                <li><a title="First Year Composition" href="/fyc/home.html">First Year Comp.</a></li>
+                <li><a title="Undergraduate Studies in English" href="/undergrad/home.html">Undergraduate</a>
+                </li>
+                <li><a title="Graduate Studies in English" href="/grad/home.html">Graduate</a></li>
+                <li><a title="Creative Writing" href="/cwp/home.html" target='_blank'>Creative Writing</a></li>
+                <li><a title="Make a Gift" href="{{ path('donate') }}">Make a Gift</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="account-dropdown">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li>
+                        <a title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div id="mainContainer">
+        {{ block('subnav') }}
+
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and block('sidebar') %}
+            {% if 'fos_user' not in app.request.attributes.get('_route') %}
+                <div class="col-sm-2 sidebar hidden-xs">
+                    <ul class="nav nav-list">
+                        {{ block('sidebar') }}
+                    </ul>
+                </div>
+                <div class="col-xs-12 visible-xs sidebar-mobile">
+                    <a id="main_content" name="main_content"></a>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <ul class="nav nav-list">
+                                {{ block('sidebar') }}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
-        </ul>
-        <ul class="nav navbar-nav navbar-right" id="account-dropdown">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-hover="dropdown" id="dLabel"><span
-                            class="hidden-sm">{{ app.session.get('username') }}<b class="caret"></b></span><span
-                            class="visible-sm glyphicon glyphicon-user"><b class="caret"></b></span></a>
-                <ul class="dropdown-menu" aria-labelledby="dLabel">
-                    <li><a href="#">Profile</a></li>
-                    <li><a title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
+            <div {% if 'fos_user' not in app.request.attributes.get('_route') %}
+                class="col-sm-10"
+            {% else %}
+                class="col-sm-12"
+            {% endif %} role="main" style="margin-bottom: 0px;padding-left: 0px; padding-right: 0px; background-color: #f3f0dd; height: 100%;">
+                {% block content %}
+                {% endblock %}
+            </div>
+        {% else %}
+            <a id="main_content" name="main_content"></a>
+            {% if 'home' in app.request.attributes.get('_route') %}
+                <div class="col-sm-offset-1 col-sm-10 " style="padding:20px;margin-top: 50px;">
+
+                    <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            {% for slide in slideshow %}
+                                <li data-target="#carousel-example-generic" data-slide-to="{{ loop.index }}"
+                                    class="{% if loop.first %}active{% endif %}"></li>
+                            {% endfor %}
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            {% for slide in slideshow %}
+                                <div class="item {% if loop.first %}active{% endif %}">
+                                    <div class="col-sm-6">
+                                        <img src="{{ slide.photoUrl }}"
+                                             alt="{{ slide.title }}">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h1 style="font-size: 32pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
+                                            {{ slide.title }}
+                                        </h1>
+
+                                        <p>{{ slide.description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            {% endif %}
+            <div class="col-sm-12 "
+                 style="margin-bottom: 0px;padding-left: 0px; padding-right: 0px; background-color: #f3f0dd; height: 100%;">
+                {{ block('content') }}
+            </div>
+
+        {% endif %}
+
     </div>
-</nav>
-
-<div id="mainContainer" style="margin-top: 10px;">
-
-    {% if block('sidebar') %}
-        {% if 'fos_user' not in app.request.attributes.get('_route') %}
-            <div class="col-sm-2 sidebar hidden-xs">
-                <ul class="nav nav-list">
-                    {{ block('sidebar') }}
-                </ul>
-            </div>
-            <div class="col-xs-12 visible-xs sidebar-mobile">
-                <a id="main_content" name="main_content"></a>
-
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <ul class="nav nav-list">
-                            {{ block('sidebar') }}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        <div class="{% if 'fos_user' not in app.request.attributes.get('_route') %}col-sm-push-2 col-sm-10 col-sm-push-2{% else %}col-sm-12 col-sm-12{% endif %} col-xs-12"
-             role="main">
-            {% block content %}
-            {% endblock %}
-        </div>
-    {% else %}
-        <a id="main_content" name="main_content"></a>
-        {% if 'home' in app.request.attributes.get('_route') %}
-            <div class="col-sm-offset-1 col-sm-10 " style="padding:20px;">
-
-                <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <div class="col-sm-6">
-                                <img src="http://franklin.uga.edu/news/newsletters/english/082013/images/park_hall_exterior.jpg"
-                                     alt="Park Hall">
-                            </div>
-                            <div class="col-sm-6">
-                                <h1 style="font-size: 32pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
-                                    English
-                                    <small>at University of Georgia</small>
-                                </h1>
-                                <p>The English Department at the University of Georgia is a diverse scholarly community
-                                    of over 40 faculty, 100 graduate students, and more than 600 undergraduate majors
-                                    and minors
-                                    held together by a common commitment to preserving, transmitting, and extending the
-                                    rich cultural
-                                    legacy of the English language. At the core of our discipline lie the complex skills
-                                    of reading and
-                                    writing, and though these can be productively applied to a wide range of
-                                    professional goals our own work
-                                    as scholars and teachers strives to deepen our understanding of the critical and
-                                    creative imagination.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="col-sm-6">
-                                <img src="http://www.franklin.uga.edu/news/newsletters/english/022013/images/park_hall_exterior.jpg"
-                                     alt="Park Hall">
-                            </div>
-                            <div class="col-sm-6">
-                                <h1 style="font-size: 32pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
-                                    English
-                                    <small>at University of Georgia</small>
-                                </h1>
-                                <p>A sympathetic participation in the verbal worlds of other times and places, drawing
-                                    on the full range
-                                    of linguistic tools, historical knowledge, and interpretive experience at our
-                                    disposal, allows our
-                                    students to enhance their appreciation for expressive possibility.
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="item">
-                            <div class="col-sm-6">
-                                <img src="http://franklin.uga.edu/news/newsletters/english/2012/images/park_hall_exterior.jpg"
-                                     alt="Park Hall">
-                            </div>
-                            <div class="col-sm-6">
-                                <h1 style="font-size: 32pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
-                                    English
-                                    <small>at University of Georgia</small>
-                                </h1>
-                                <p>The diversity of the faculty's interests and research methods helps ensure that an
-                                    English major at the
-                                    University of Georgia develops a sophisticated, practical grasp of the central role
-                                    that language
-                                    plays in the preservation of human institutions.
-                                </p>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </div>
-        {% endif %}
-        <div class="col-sm-12 "
-             style="margin-bottom: 0px;padding-left: 0px; padding-right: 0px; background-color: #f3f0dd; height: 100%;">
-            {{ block('content') }}
-        </div>
-
-    {% endif %}
-
-</div>
 </div>
 
 {# Modal #}

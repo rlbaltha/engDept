@@ -25,9 +25,9 @@ class AreaController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
 
-        return array('entities' => $entities,);
+        return array('areas' => $areas,);
     }
 
     /**
@@ -40,16 +40,16 @@ class AreaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishAreasBundle:Area')->find($id);
+        $area = $em->getRepository('EnglishAreasBundle:Area')->find($id);
 
-        if (!$entity) {
+        if (!$area) {
             throw $this->createNotFoundException('Unable to find Area entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'area'      => $area,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -61,11 +61,11 @@ class AreaController extends Controller
      */
     public function newAction()
     {
-        $entity = new Area();
-        $form   = $this->createForm(new AreaType(), $entity);
+        $area = new Area();
+        $form   = $this->createForm(new AreaType(), $area);
 
         return array(
-            'entity' => $entity,
+            'area' => $area,
             'form'   => $form->createView()
         );
     }
@@ -82,17 +82,17 @@ class AreaController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Area();
+        $area  = new Area();
         
-        $entity->setUserid($userid);
+        $area->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new AreaType(), $entity);
+        $form    = $this->createForm(new AreaType(), $area);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($area);
             $em->flush();
 
             return $this->redirect($this->generateUrl('area'));
@@ -100,7 +100,7 @@ class AreaController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'area' => $area,
             'form'   => $form->createView()
         );
     }
@@ -115,17 +115,17 @@ class AreaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishAreasBundle:Area')->find($id);
+        $area = $em->getRepository('EnglishAreasBundle:Area')->find($id);
 
-        if (!$entity) {
+        if (!$area) {
             throw $this->createNotFoundException('Unable to find Area entity.');
         }
 
-        $editForm = $this->createForm(new AreaType(), $entity);
+        $editForm = $this->createForm(new AreaType(), $area);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'area'      => $area,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -142,28 +142,28 @@ class AreaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishAreasBundle:Area')->find($id);
+        $area = $em->getRepository('EnglishAreasBundle:Area')->find($id);
 
-        if (!$entity) {
+        if (!$area) {
             throw $this->createNotFoundException('Unable to find Area entity.');
         }
 
-        $editForm   = $this->createForm(new AreaType(), $entity);
+        $editForm   = $this->createForm(new AreaType(), $area);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($area);
             $em->flush();
 
             return $this->redirect($this->generateUrl('area'));
         }
 
         return array(
-            'entity'      => $entity,
+            'area'      => $area,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -184,13 +184,13 @@ class AreaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishAreasBundle:Area')->find($id);
+            $area = $em->getRepository('EnglishAreasBundle:Area')->find($id);
 
-            if (!$entity) {
+            if (!$area) {
                 throw $this->createNotFoundException('Unable to find Area entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($area);
             $em->flush();
         }
 

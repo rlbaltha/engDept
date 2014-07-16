@@ -1,28 +1,44 @@
- {% extends '::base.html.twig' %}
- {% block body %}
-        <div class="row">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-                <div class="cell">
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-                </div>
-            {% else %}
-                <div class="cell"><a href="{{ path('fos_user_resetting_request') }}">Forgot Password?</a> </div>
-            {% endif %}
-        </div>
+{% extends '::base.html.twig' %}
 
-     {% for type, messages in app.session.flashBag.all %}
-         {% for message in messages %}
-             <div class="{{ type }}">
-                 {{ message|trans({}, 'FOSUserBundle') }}
+ {% block javascripts %}
+     {{ parent() }}
+     <script language="javascript">
+         $(document).ready(function () {
+             $("input:submit").addClass("btn btn-primary btn-lg btn-block");
+             $("input:text").addClass("form-control");
+             $("input:password").addClass("form-control");
+         });
+     </script>
+ {% endblock %}
+
+ {% block content %}
+     <div class="col-sm-offset-3 col-sm-6 well" style="background-color: #f5f5f5; height: 100vh">
+
+     <div class="col-sm-offset-2 col-sm-8 well" style="margin-top: 40px;">
+         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+             {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+
+             <a href="{{ path('fos_user_security_logout') }}">
+                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+             </a>
+
+         {% else %}
+             <div class="" style="margin-bottom: 40px;">
+                 <a href="{{ path('fos_user_resetting_request') }}">Forgot Password?</a>
              </div>
-         {% endfor %}
-     {% endfor %}
+         {% endif %}
 
-        <div class="row"><div class="cell">
-            {% block fos_user_content %}
-            {% endblock fos_user_content %}
-        </div></div>
-{% endblock %}
+         {% for type, messages in app.session.flashBag.all %}
+             {% for message in messages %}
+                 <div class="{{ type }}">
+                     {{ message|trans({}, 'FOSUserBundle') }}
+                 </div>
+             {% endfor %}
+         {% endfor %}
+
+
+         {% block fos_user_content %}
+         {% endblock fos_user_content %}
+     </div>
+
+ {% endblock %}

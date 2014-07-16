@@ -1,17 +1,20 @@
 {% extends 'EnglishHomeBundle::layout.html.twig' %}
 
+{% block subnav %}
+    {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
+{% endblock %}
+
 
 {% block content %}
 
-    <div class="col-sm-offset-1 col-sm-10" style="background-color: #f5f5f5; height: 100vh">
-        {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
+    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #f5f5f5; height: 100vh">
 
         <table class="table table-striped">
             {% for courses in courses %}
                 <tr id="course{{ courses.id }}">
-                    <td><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1"
-                                        title="Course Detail">{{ courses.courseName }}</a></td>
-                    <td><strong>{{ courses.title }}</strong></td>
+                    <td><strong><a id="detailLink{{ courses.id }}" href="javascript:void(0)" tabindex="1"
+                                   title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                    <td>{{ courses.title }}</td>
                     <td>{{ courses.instructorName|upper }}</td>
                     <td>{{ courses.callNumber }}</td>
                     <td>{{ courses.callNumber2 }}</td>
@@ -27,5 +30,4 @@
 
         </table>
     </div>
-
 {% endblock %}

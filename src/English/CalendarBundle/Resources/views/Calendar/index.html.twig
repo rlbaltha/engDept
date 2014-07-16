@@ -1,16 +1,23 @@
-{% extends 'EnglishCalendarBundle:Calendar:layout.html.twig' %}
-{% block body %}
-<div class="row divider"><div class="cell"><a href="{{ path('calendar_new') }}">New Entry for the Dept. Calendar</a></div></div>
+{% extends 'EnglishCalendarBundle::subnav.html.twig' %}
 
-    {% for entity in entities %}
-    <div class="row"><div class="cell">{{ entity.title }}</div></div>
-    <div class="row"><div class="cell">{{ entity.date|date('M d, Y') }}</div></div>
-    <div class="row"><div class="cell">{{ entity.time|date('h:i a') }}</div></div>
-    <div class="row"><div class="cell">{{ entity.description|raw }}</div></div>
-    <div class="row divider"><div class="cell">
-                <a href="{{ path('calendar_edit', { 'id': entity.id }) }}">Update/Delete</a>
-            </div>
-     </div>
-    {% endfor %}
-    
+{% block content %}
+
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+
+        <table class="table table-striped">
+            {% for event in events %}
+                <tr>
+                    <td>
+                        {{ event.title }}
+                        {{ event.time|date('h:i a') }}
+                        <a class="pull-right" href="{{ path('calendar_edit', { 'id': event.id }) }}">Update/Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ event.description|raw }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}

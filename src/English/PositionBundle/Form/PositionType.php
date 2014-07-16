@@ -10,7 +10,7 @@ class PositionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('position')
+            ->add('position','text', array('attr' => array('class' => 'text form-control'),))
         ;
     }
 

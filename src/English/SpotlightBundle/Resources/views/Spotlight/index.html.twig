@@ -1,24 +1,30 @@
-{% extends 'EnglishSpotlightBundle:Spotlight:layout.html.twig' %}
- 
-{% block body %}
+{% extends 'EnglishSpotlightBundle::subnav.html.twig' %}
 
-<!--
-<div class="row"><div class="cell"><a href="{{ path('spotlight_new') }}">New</a></div></div>
--->
+{% block content %}
 
-{% for entity in entities %}   
-<div class="spotlight">
-<div class="head">Spotlight</div>
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
 
-<div class="photo_cell"><div class="photo"><img class="image" name="spotlight" alt="{{ entity.title }}" src="{{ entity.photoUrl }}"/></div></div>
-<div class="cell red">{{ entity.title }}</div>
-<div class="cell">{% autoescape false %}{{ entity.description }}{% endautoescape %}</div>
+        <table class="table table-striped">
+            {% for slide in spotlight %}
+                <tr>
+                    <td>
 
-</div>
-<div class="row divider">
-    <div class="cell">
-<a href="{{ path('spotlight_edit', { 'id': entity.id }) }}">Update/Delete</a>
+                        <p><img src="{{ slide.photoUrl }}"
+                                alt="{{ slide.title }}"></p>
+
+                        <strong>
+                            {{ slide.title }}
+                        </strong>
+
+                        <p>{{ slide.description|raw }}</p>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="pull-right" href="{{ path('spotlight_edit', { 'id': slide.id }) }}">Update/Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
-</div>
-{% endfor %}
+
 {% endblock %}

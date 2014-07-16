@@ -26,8 +26,8 @@ class DonateController extends Controller
     {     
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT d FROM EnglishDonateBundle:Donate d ORDER BY d.sortorder";
-        $entities = $em->createQuery($dql1)->getResult();
-        return array('entities' => $entities);        
+        $funds = $em->createQuery($dql1)->getResult();
+        return array('funds' => $funds);        
     }
 
     /**
@@ -40,16 +40,16 @@ class DonateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
+        $fund = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
 
-        if (!$entity) {
+        if (!$fund) {
             throw $this->createNotFoundException('Unable to find Donate entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'fund'      => $fund,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -61,11 +61,11 @@ class DonateController extends Controller
      */
     public function newAction()
     {
-        $entity = new Donate();
-        $form   = $this->createForm(new DonateType(), $entity);
+        $fund = new Donate();
+        $form   = $this->createForm(new DonateType(), $fund);
 
         return array(
-            'entity' => $entity,
+            'fund' => $fund,
             'form'   => $form->createView()
         );
     }
@@ -79,22 +79,22 @@ class DonateController extends Controller
      */
     public function createAction()
     {
-        $entity  = new Donate();
+        $fund  = new Donate();
         $request = $this->getRequest();
-        $form    = $this->createForm(new DonateType(), $entity);
+        $form    = $this->createForm(new DonateType(), $fund);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($fund);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('donate', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('donate', array('id' => $fund->getId())));
             
         }
 
         return array(
-            'entity' => $entity,
+            'fund' => $fund,
             'form'   => $form->createView()
         );
     }
@@ -109,17 +109,17 @@ class DonateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
+        $fund = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
 
-        if (!$entity) {
+        if (!$fund) {
             throw $this->createNotFoundException('Unable to find Donate entity.');
         }
 
-        $editForm = $this->createForm(new DonateType(), $entity);
+        $editForm = $this->createForm(new DonateType(), $fund);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'fund'      => $fund,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -136,28 +136,28 @@ class DonateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
+        $fund = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
 
-        if (!$entity) {
+        if (!$fund) {
             throw $this->createNotFoundException('Unable to find Donate entity.');
         }
 
-        $editForm   = $this->createForm(new DonateType(), $entity);
+        $editForm   = $this->createForm(new DonateType(), $fund);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($fund);
             $em->flush();
 
             return $this->redirect($this->generateUrl('donate', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
+            'fund'      => $fund,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -178,13 +178,13 @@ class DonateController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
+            $fund = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
 
-            if (!$entity) {
+            if (!$fund) {
                 throw $this->createNotFoundException('Unable to find Donate entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($fund);
             $em->flush();
         }
 

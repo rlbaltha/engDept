@@ -26,8 +26,8 @@ class SpotlightController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT s FROM EnglishSpotlightBundle:Spotlight s ORDER BY s.sortOrder";
-        $entities = $em->createQuery($dql1)->getResult();
-        return array('entities' => $entities);
+        $spotlight = $em->createQuery($dql1)->getResult();
+        return array('spotlight' => $spotlight);
     }
 
     /**
@@ -40,16 +40,16 @@ class SpotlightController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
+        $slide = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
 
-        if (!$entity) {
+        if (!$slide) {
             throw $this->createNotFoundException('Unable to find Spotlight entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'slide'      => $slide,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -61,11 +61,11 @@ class SpotlightController extends Controller
      */
     public function newAction()
     {
-        $entity = new Spotlight();
-        $form   = $this->createForm(new SpotlightType(), $entity);
+        $slide = new Spotlight();
+        $form   = $this->createForm(new SpotlightType(), $slide);
 
         return array(
-            'entity' => $entity,
+            'slide' => $slide,
             'form'   => $form->createView()
         );
     }
@@ -82,25 +82,25 @@ class SpotlightController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Spotlight();
+        $slide  = new Spotlight();
         
-        $entity->setUserid($userid);
+        $slide->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new SpotlightType(), $entity);
+        $form    = $this->createForm(new SpotlightType(), $slide);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($slide);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('spotlight_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('spotlight'));
             
         }
 
         return array(
-            'entity' => $entity,
+            'slide' => $slide,
             'form'   => $form->createView()
         );
     }
@@ -115,17 +115,17 @@ class SpotlightController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
+        $slide = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
 
-        if (!$entity) {
+        if (!$slide) {
             throw $this->createNotFoundException('Unable to find Spotlight entity.');
         }
 
-        $editForm = $this->createForm(new SpotlightType(), $entity);
+        $editForm = $this->createForm(new SpotlightType(), $slide);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'slide'      => $slide,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -142,28 +142,28 @@ class SpotlightController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
+        $slide = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
 
-        if (!$entity) {
+        if (!$slide) {
             throw $this->createNotFoundException('Unable to find Spotlight entity.');
         }
 
-        $editForm   = $this->createForm(new SpotlightType(), $entity);
+        $editForm   = $this->createForm(new SpotlightType(), $slide);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($slide);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('spotlight_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('spotlight'));
         }
 
         return array(
-            'entity'      => $entity,
+            'slide'      => $slide,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -184,13 +184,13 @@ class SpotlightController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
+            $slide = $em->getRepository('EnglishSpotlightBundle:Spotlight')->find($id);
 
-            if (!$entity) {
+            if (!$slide) {
                 throw $this->createNotFoundException('Unable to find Spotlight entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($slide);
             $em->flush();
         }
 

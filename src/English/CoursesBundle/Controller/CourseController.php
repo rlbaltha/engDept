@@ -20,7 +20,7 @@ class CourseController extends Controller
      * Internal Course listings.  The Default Controller handles public displays.
      *
      * @Route("/", name="course")
-     * @Template("EnglishCoursesBundle:Course:index.html.twig")
+     * @Template("EnglishCoursesBundle:Default:index.html.twig")
      */
     public function indexAction()
     {
@@ -34,7 +34,7 @@ class CourseController extends Controller
         $form = $this->createFormBuilder(new Course())
             ->add('courseName')
             ->getForm();
-        return $this->render('EnglishCoursesBundle:Course:index.html.twig', array('courses' => $courses, 'form' => $form->createView()));
+        return array('courses' => $courses, 'form' => $form->createView());
         
         }  
         else {
@@ -218,7 +218,7 @@ class CourseController extends Controller
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);

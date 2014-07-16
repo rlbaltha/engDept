@@ -2,4 +2,47 @@
 
 {% block title %}English Home{% endblock %}
 
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+    {% block sidebar %}
+        <li><a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Change
+                Password</a></li>
+        {% if is_granted('ROLE_ADVISOR') %}
+            <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
+        {% endif %}
+        <li><a title="Calendar" href="{{ path('calendar') }}">Calendar</a></li>
+        <li><a title="Links" href="{{ path('link') }}">Dept. Links</a></li>
+        {% if is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN') %}
+            <li><a title="Graduate Students" href="{{ path('people_grad') }}">All Grad Students</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_GRADFAC') %}
+            <li><a title="Graduate Students" href="{{ path('people_mygrad') }}">My Grad Students</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_GRADADMIN') %}
+            <li><a title="Gradcom" href="{{ path('people_gradfac') }}">Grad Faculty</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_ADVISORADMIN') %}
+            <li><a title="Advising" href="{{ path('major') }}">Majors</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}
+            <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
+        {% endif %}
+        </li>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>Admin</li>
+            <li><a title="Areas" href="{{ path('area') }}">Areas</a></li>
+            <li><a title="Positions" href="{{ path('position') }}">Positions</a></li>
+            <li><a title="Slideshow" href="{{ path('slideshow') }}">Slideshow</a></li>
+            <li><a title="Spotlight" href="{{ path('spotlight') }}">Spotlight</a></li>
+            <li><a title="Term" href="{{ path('term') }}">Term</a></li>
+            <li><a title="Publications" href="{{ path('publications') }}">Publications</a></li>
+            <li><a title="Make a Gift" href="{{ path('donate') }}">Make a Gift</a></li>
+            <li><a title="Labels" href="{{ path('label') }}">File Labels</a></li>
+
+        {% endif %}
+    {% endblock %}
+{% endif %}
+
 

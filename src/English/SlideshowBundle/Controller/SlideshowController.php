@@ -26,9 +26,9 @@ class SlideshowController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishSlideshowBundle:Slideshow')->findAll();
+        $slideshow = $em->getRepository('EnglishSlideshowBundle:Slideshow')->findAll();
 
-        return array('entities' => $entities);
+        return array('slideshow' => $slideshow);
     }
 
     /**
@@ -41,16 +41,16 @@ class SlideshowController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
+        $slide = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
 
-        if (!$entity) {
+        if (!$slide) {
             throw $this->createNotFoundException('Unable to find Slideshow entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'slide'      => $slide,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -62,11 +62,11 @@ class SlideshowController extends Controller
      */
     public function newAction()
     {
-        $entity = new Slideshow();
-        $form   = $this->createForm(new SlideshowType(), $entity);
+        $slide = new Slideshow();
+        $form   = $this->createForm(new SlideshowType(), $slide);
 
         return array(
-            'entity' => $entity,
+            'slide' => $slide,
             'form'   => $form->createView()
         );
     }
@@ -83,25 +83,25 @@ class SlideshowController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Slideshow();
+        $slide  = new Slideshow();
         
-        $entity->setUserid($userid);
+        $slide->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new SlideshowType(), $entity);
+        $form    = $this->createForm(new SlideshowType(), $slide);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($slide);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('slideshow_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('slideshow'));
             
         }
 
         return array(
-            'entity' => $entity,
+            'slide' => $slide,
             'form'   => $form->createView()
         );
     }
@@ -116,17 +116,17 @@ class SlideshowController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
+        $slide = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
 
-        if (!$entity) {
+        if (!$slide) {
             throw $this->createNotFoundException('Unable to find Slideshow entity.');
         }
 
-        $editForm = $this->createForm(new SlideshowType(), $entity);
+        $editForm = $this->createForm(new SlideshowType(), $slide);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'slide'      => $slide,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -143,28 +143,28 @@ class SlideshowController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
+        $slide = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
 
-        if (!$entity) {
+        if (!$slide) {
             throw $this->createNotFoundException('Unable to find Slideshow entity.');
         }
 
-        $editForm   = $this->createForm(new SlideshowType(), $entity);
+        $editForm   = $this->createForm(new SlideshowType(), $slide);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
-        $editForm->bindRequest($request);
+        $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($slide);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('slideshow_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('slideshow'));
         }
 
         return array(
-            'entity'      => $entity,
+            'slide'      => $slide,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -185,13 +185,13 @@ class SlideshowController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
+            $slide = $em->getRepository('EnglishSlideshowBundle:Slideshow')->find($id);
 
-            if (!$entity) {
+            if (!$slide) {
                 throw $this->createNotFoundException('Unable to find Slideshow entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($slide);
             $em->flush();
         }
 

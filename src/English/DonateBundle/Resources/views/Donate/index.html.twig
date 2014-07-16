@@ -1,48 +1,37 @@
-{% extends 'EnglishDonateBundle:Donate:layout.html.twig' %}
- 
-{% block body %}
-{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-<div class="welcome"><div class="head">Make a Gift</div></div>
-{% endif %}
-{% if is_granted('ROLE_ADMIN') %}
-<div class="row"><div class="cell">    
-        <a href="{{ path('donate_new') }}">
-            Create a Fund Description
-        </a>
-</div></div>
-{% endif %}
+{% extends 'EnglishDonateBundle::subnav.html.twig' %}
 
-<div class="row "><div class="cell">
-<div class="cell bio_photo"><div class="photo_cell"><img class="image" alt="Photo" src="/bundles/englishhome/images/parkhall/3.jpg"/></div></div> 
+{% block content %}
 
-<h2>Giving to the Department of English</h2>
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
 
-<p>Alumni giving to the English Department makes it possible for us to recruit and support new faculty as they develop into experienced teachers and productive scholars.</p>
+        <p>Alumni giving to the English Department makes it possible for us to recruit and support new faculty as they develop into experienced teachers and productive scholars.</p>
 
-<p>UGA Foundation accounts, along with the McMullan, Appleby, and Brown/Everett Funds, support research trips, attendance at important conferences, book purchases, or visits to Park Hall by distinguished critics and artists, all of which contributes directly to the educational and intellectual energy of the Department. Each year we recognize graduate and undergraduate student achievement through prizes and scholarships supported by a range of funds often named in honor of former students whose families wished to commemorate the important role that the study of literature played in their lives.</p>
+        <p>UGA Foundation accounts, along with the McMullan, Appleby, and Brown/Everett Funds, support research trips, attendance at important conferences, book purchases, or visits to Park Hall by distinguished critics and artists, all of which contributes directly to the educational and intellectual energy of the Department. Each year we recognize graduate and undergraduate student achievement through prizes and scholarships supported by a range of funds often named in honor of former students whose families wished to commemorate the important role that the study of literature played in their lives.</p>
 
-<p>If you wish to direct a gift to one or more specialized funds, please feel free to do so by browsing the list of funds and reading about their varied emphases.</p>
-    </div></div>
-<div class="row "><div class="cell bold">Department Head Mike Moran</div></div>
-<div class="row divider"><div class="cell">Tel: 706.542.1261  Fax: 706.542.2181</div></div>
+        <p>If you wish to direct a gift to one or more specialized funds, please feel free to do so by browsing the list of funds and reading about their varied emphases.</p>
 
+        <p>Department Head Jed Rasula</p>
+        <p>Tel: 706.542.1261  Fax: 706.542.2181</p>
 
-    {% for entity in entities %}
-        <div class="row ">
-            <div class="cell bold">{{ entity.fund }}</div>
-            <div class="cell"><a href="{{ entity.link }}" title="Make an Online Gift Now" target="_blank">Make an Online Gift Now</a></div>
-        </div>
-          <div class="row divider">  
-            <div class="cell"><a href="{{ path('donate_show', { 'id': entity.id }) }}">Read more...</a></div>
-            <div class="cell">
+        <table class="table table-striped">
+            {% for fund in funds %}
+                <tr>
+                    <td>
+                        <strong>
+                            {{ fund.fund }}
+                        </strong>
+                        <p><a href="{{ fund.link }}" title="Make an Online Gift Now" target="_blank">Make an Online Gift Now</a></p>
 
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('donate_edit', { 'id': entity.id }) }}">Update/Delete</a>
-                    {% endif %}
-                
-            </div>
-        </div>
-    {% endfor %}
-   
-      
+                        <p>{{ fund.description }}</p>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="pull-right" href="{{ path('donate_edit', { 'id': fund.id }) }}">Update/Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}
+

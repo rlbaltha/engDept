@@ -1,21 +1,22 @@
- {% extends 'EnglishAreasBundle:Area:layout.html.twig' %}
- 
- {% block body %}
-<div class="row divider"><div class="cell"><a href="{{ path('area_new') }}">Add Area for Faculty Listings</a></div></div>
+{% extends 'EnglishAreasBundle::subnav.html.twig' %}
 
+{% block content %}
 
-    
-    {% for entity in entities %}
-        <div class="row">
-            <div class="cell">{{ entity.area }}</div>
-            <div class="cell">
-            <a href="{{ path('area_edit', { 'id': entity.id }) }}">Update/Delete</a>
-            </div>        
-        </div>
-     
-            
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
 
-    {% endfor %}
-      
+        <table class="table table-striped">
+            {% for area in areas %}
+                <tr>
+                    <td>{{ area.area }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="pull-right" href="{{ path('area_edit', { 'id': area.id }) }}">Update/Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}
+
 
