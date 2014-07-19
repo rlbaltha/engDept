@@ -1,17 +1,13 @@
-{% extends 'EnglishFilesBundle:File:layout.html.twig' %}
- 
+{% extends 'EnglishFilesBundle::subnav.html.twig' %}
 
-{% block body %}
+{% block content %}
 
-<div class="row"><div class="cell"><a href="{{ path('label') }}">List</a></div></div>
-
-<div class="row"><div class="cell">
-<form action="{{ path('label_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-</div></div>
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+        <form action="{{ path('label_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+            <button class="btn btn-default" type="submit">Create</button>
+        </form>
+    </div>
 
 {% endblock %}
+

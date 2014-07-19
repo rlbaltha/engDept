@@ -2,20 +2,18 @@
 
 {% block content %}
 
-    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+<div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
 
-        <table class="table table-striped">
-            {% for publication in publications %}
-            <tr>
-                <td>
-                    {{ publication.description | raw }}{% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('publications_edit', { 'id': publication.id }) }}">Update/Delete</a>
+    <dl>
+        {% for publication in publications %}
+            <dd>
+                {{ publication.description | raw }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('publications_edit', { 'id': publication.id }) }}">Update/Delete</a>
+                {% endif %}
+            </dd>
+        {% endfor %}
+    </dl>
 
-                    {% endif %}</td>
-                {% endfor %}
-
-        </table>
-    </div>
-
-{% endblock %}
+    {% endblock %}
 

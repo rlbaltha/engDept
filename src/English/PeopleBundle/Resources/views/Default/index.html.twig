@@ -16,29 +16,26 @@
 
 {% block content %}
 <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #f5f5f5; height: 100vh">
-    <table class="table table-striped">
         {% for people in people %}
-            <tr id="listing{{ people.id }}">
-                <td>
+            <dl id="listing{{ people.id }}">
+                <dt>
                     <a id="detailLink{{ people.id }}"  href="{{ path('directory_detail', { 'id': people.id }) }}" title="Detail"><strong>{{ people.firstName }} {{ people.lastName }}</strong></a>
-                    <span class="pull-right">
+                        <span class="pull-right">
                         {% if app.request.pathinfo != '/people/gradfac' %}<a href="{{ path('people_show', { 'id': people.id }) }}">Detail</a>{% endif %}
                         {% if app.request.pathinfo == '/people/gradfac' %}<a href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee Info</a>{% endif %}
                         {% if is_granted('ROLE_ADMIN')  %}<a href="{{ path('people_admin', { 'id': people.id }) }}">Permissions</a>{% endif %}
                     </span>
-
-
+                </dt>
+                <dd>
                     {{ people.title | raw }}
                     Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
                     Phone:
                     {{ people.officePhone }}
                     Office:
                     {{ people.officeNumber }}
-                </td>
-            </tr>
+                </dd>
+            </dl>
         {% endfor %}
-
-    </table>
 </div>
 
 {% endblock %}

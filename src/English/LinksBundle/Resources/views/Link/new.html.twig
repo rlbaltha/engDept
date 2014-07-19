@@ -1,42 +1,4 @@
-{% extends 'EnglishHomeBundle::layout.html.twig' %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script language="javascript">
-        $(document).ready(function () {
-
-        });
-    </script>
-{% endblock %}
-
-{% block subnav %}
-    <!-- Static navbar -->
-    <div class="navbar navbar-default" role="navigation" style="margin-top: 30px">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Department Links</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('link_new') }}">New Link</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-        <!--/.container-fluid -->
-    </div>
-
-{% endblock %}
+{% extends 'EnglishLinksBundle::subnav.html.twig' %}
 
 {% block content %}
 

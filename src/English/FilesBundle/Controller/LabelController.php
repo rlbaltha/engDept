@@ -27,10 +27,10 @@ class LabelController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishFilesBundle:Label')->findAll();
+        $labels = $em->getRepository('EnglishFilesBundle:Label')->findAll();
 
         return array(
-            'entities' => $entities,
+            'labels' => $labels,
         );
     }
 
@@ -44,16 +44,16 @@ class LabelController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishFilesBundle:Label')->find($id);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->find($id);
 
-        if (!$entity) {
+        if (!$label) {
             throw $this->createNotFoundException('Unable to find Label entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'label'      => $label,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -66,11 +66,11 @@ class LabelController extends Controller
      */
     public function newAction()
     {
-        $entity = new Label();
-        $form   = $this->createForm(new LabelType(), $entity);
+        $label = new Label();
+        $form   = $this->createForm(new LabelType(), $label);
 
         return array(
-            'entity' => $entity,
+            'label' => $label,
             'form'   => $form->createView(),
         );
     }
@@ -84,20 +84,20 @@ class LabelController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new Label();
-        $form = $this->createForm(new LabelType(), $entity);
+        $label  = new Label();
+        $form = $this->createForm(new LabelType(), $label);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($label);
             $em->flush();
 
             return $this->redirect($this->generateUrl('label'));
         }
 
         return array(
-            'entity' => $entity,
+            'label' => $label,
             'form'   => $form->createView(),
         );
     }
@@ -112,17 +112,17 @@ class LabelController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishFilesBundle:Label')->find($id);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->find($id);
 
-        if (!$entity) {
+        if (!$label) {
             throw $this->createNotFoundException('Unable to find Label entity.');
         }
 
-        $editForm = $this->createForm(new LabelType(), $entity);
+        $editForm = $this->createForm(new LabelType(), $label);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'label'      => $label,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -139,25 +139,25 @@ class LabelController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishFilesBundle:Label')->find($id);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->find($id);
 
-        if (!$entity) {
+        if (!$label) {
             throw $this->createNotFoundException('Unable to find Label entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new LabelType(), $entity);
+        $editForm = $this->createForm(new LabelType(), $label);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($label);
             $em->flush();
 
             return $this->redirect($this->generateUrl('label'));
         }
 
         return array(
-            'entity'      => $entity,
+            'label'      => $label,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -176,13 +176,13 @@ class LabelController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishFilesBundle:Label')->find($id);
+            $label = $em->getRepository('EnglishFilesBundle:Label')->find($id);
 
-            if (!$entity) {
+            if (!$label) {
                 throw $this->createNotFoundException('Unable to find Label entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($label);
             $em->flush();
         }
 
