@@ -5,6 +5,14 @@
     <script language="javascript">
         $(document).ready(function () {
             $('#confirm').toggle();
+            $(document).ready(function () {
+                $("input:submit").addClass("btn btn-primary btn-lg btn-block");
+                $("input:text").addClass("form-control");
+                $("input:password").addClass("form-control");
+                $( "#toggle-menu" ).click(function() {
+                    alert( "Handler for .click() called." );
+                });
+            });
         });
     </script>
 {% endblock %}
@@ -20,24 +28,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Files of Searches</a>
+                <a class="navbar-brand" href="#">Majors</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('label_new') }}">Create a Label</a></li>
-                    {% endif %}
-                    {% if is_granted('ROLE_SEARCHADMIN') %}
-                        <li><a href="{{ path('file_upload') }}">Upload</a></li>
-                    {% endif %}
-                    {% if app.request.get('_route')=='file' %}
-
-                        {% for label in labels %}
-                            <li>
-                                <a title="{{ label.name }}"
-                                   href="{{ path('file', {'labelid':label.id}) }}">{{ label.name }}</a>
-                            </li>
-                        {% endfor %}
+                    {% if is_granted('ROLE_ADVISORADMIN') %}
+                        <li><a href="{{ path('major_new') }}">Add a New Major</a></li>
+                        <li><a title="Majors" href="{{ path('major') }}" >List All Majors</a></li>
+                        <li><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></li>
+                        <li><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></li>
+                        <li><a title="Advanced Find" href="{{ path('major_advancedform') }}" >Advanced Find</a></li>
                     {% endif %}
                 </ul>
             </div>

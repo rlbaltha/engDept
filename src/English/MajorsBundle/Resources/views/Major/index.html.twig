@@ -1,58 +1,51 @@
- {% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
+{% block content %}
 
-    {% if is_granted('ROLE_ADVISORADMIN') %}
-<div class="row_contrast divider">
-    {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
-      <form action="{{ path('major_find') }}" method="post" {{ form_enctype(form) }}>
-        <div class='cell right'>
-        <div class="cell">
-        {{ form_widget(form) }}
-        </div>         
-        <div class="cell">
-        <button type="submit">Major Find</button>
-        </div> 
-        </div>        
-     </form> 
-    <div class="row divider">
-    <div class="cell"><a href="{{ path('major_new') }}">New Major</a></div>
-    </div>
-</div>
-    {% endif %}
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+        <div class="">
+            Number found:  {{ majors|length }}
 
-<div class="row">
-    <div class="cell width200 bold">
-    Number found:  {{ entities|length }} 
-    </div>
-</div>
-<div class="row">
-    <div class="cell width150 bold">Name</div>
-    <div class="cell width200 bold">Email</div>
-    <div class="cell width75 bold">Advisor</div>
-    <div class="cell width75 bold">Mentor</div>
-    <div class="cell width75 bold">Major(s)</div>
-    <div class="cell width75 bold">810</div>
-    <div class="cell width100 bold">AoE</div>
-    <div class="cell width50 bold">Hours</div>
-    <div class="cell width50 bold">GPA</div>    
-</div>
+        <form style="margin-top:-30px;" class='pull-right' action="{{ path('major_find') }}" method="post" {{ form_enctype(form) }}>
+            <div class="form-group">
+                {{ form_row(form.name) }}
+                <button  class="btn btn-default" type="submit">Major Find</button>
+            </div>
 
-    {% for entity in entities %}
-        <div class="row">
-            <div class="cell bold width150">{% if entity.checkedin ==0 %}**{% endif %}<a href="{{ path('major_show', { 'id': entity.id }) }}">{{ entity.name }}</a></div>
-            <div class="cell width200">{{ entity.email }}</div>
-            <div class="cell width75">{{ entity.aName }}</div>
-            <div class="cell width75">{{ entity.eName }}</div>
-            <div class="cell width75">{{ entity.firstMajor }}{% if entity.secondMajor != 'none' %}/{{ entity.secondMajor }}{% endif %}</div>
-            <div class="cell width75">{{ entity.can }}</div>
-            <div class="cell width100">{{ entity.aoe }}</div>
-            <div class="cell width50">{{ entity.hours }}</div>
-            <div class="cell width50">{{ entity.gpa }}</div>
+        </form>
         </div>
-    {% endfor %}
-    
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Advisor</td>
+                <td>Mentor</td>
+                <td>Major</td>
+                <td>CAN</td>
+                <td>AOE</td>
+                <td>Hours</td>
+                <td>GPA</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for major in majors %}
+                <tr>
+                    <td>{% if major.checkedin ==0 %}**{% endif %}<a
+                                href="{{ path('major_show', { 'id': major.id }) }}">{{ major.name }}</a></td>
+                    <td>{{ major.email }}</td>
+                    <td>{{ major.aName }}</td>
+                    <td>{{ major.eName }}</td>
+                    <td>{{ major.firstMajor }}{% if major.secondMajor != 'none' %}/{{ major.secondMajor }}{% endif %}</td>
+                    <td>{{ major.can }}</td>
+                    <td>{{ major.aoe }}</td>
+                    <td>{{ major.hours }}</td>
+                    <td>{{ major.gpa }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+{% endblock %} 
 
-{% endblock %}

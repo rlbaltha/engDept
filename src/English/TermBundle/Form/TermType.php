@@ -10,9 +10,9 @@ class TermType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('term')
-            ->add('termName')
-            ->add('type', 'choice', array('choices' => array('2' => 'Default', '1' => 'Display', '0' => 'Archive'), 'required'  => false, 'expanded' => true, 'multiple' => false,))
+            ->add('term', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('termName', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('type', 'choice', array('attr' => array('class' => ''),'choices' => array('2' => 'Default', '1' => 'Display', '0' => 'Archive'), 'required'  => false, 'expanded' => true, 'multiple' => false,))
         ;
     }
 

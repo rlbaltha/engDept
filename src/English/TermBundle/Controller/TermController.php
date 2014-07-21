@@ -26,7 +26,7 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $terms = $em->getRepository('EnglishTermBundle:Term')->findAll();
+        $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
         return array('terms' => $terms);
     }
 

@@ -73,7 +73,7 @@
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and block('sidebar') %}
             {% if 'fos_user' not in app.request.attributes.get('_route') %}
-                <div class="col-sm-2 sidebar hidden-xs">
+                <div id="sidebar" class="col-sm-1 sidebar hidden-xs">
                     <ul class="nav nav-list">
                         {{ block('sidebar') }}
                     </ul>
@@ -90,8 +90,8 @@
                     </div>
                 </div>
             {% endif %}
-            <div {% if 'fos_user' not in app.request.attributes.get('_route') %}
-                class="col-sm-10"
+            <div id="content" {% if 'fos_user' not in app.request.attributes.get('_route') %}
+                class="col-sm-11"
             {% else %}
                 class="col-sm-12"
             {% endif %} role="main" style="margin-bottom: 0px;padding-left: 0px; padding-right: 0px; background-color: #f3f0dd; height: 100%;">

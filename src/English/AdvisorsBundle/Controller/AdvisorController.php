@@ -26,8 +26,8 @@ class AdvisorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT a FROM EnglishAdvisorsBundle:Advisor a ORDER BY a.name";
-        $entities = $em->createQuery($dql1)->getResult();
-        return array('entities' => $entities);
+        $advisors = $em->createQuery($dql1)->getResult();
+        return array('advisors' => $advisors);
     }
 
     /**
@@ -40,16 +40,16 @@ class AdvisorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
+        $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
-        if (!$entity) {
+        if (!$advisor) {
             throw $this->createNotFoundException('Unable to find Advisor entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'advisor'      => $advisor,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -61,11 +61,11 @@ class AdvisorController extends Controller
      */
     public function newAction()
     {
-        $entity = new Advisor();
-        $form   = $this->createForm(new AdvisorType(), $entity);
+        $advisor = new Advisor();
+        $form   = $this->createForm(new AdvisorType(), $advisor);
 
         return array(
-            'entity' => $entity,
+            'advisor' => $advisor,
             'form'   => $form->createView()
         );
     }
@@ -82,17 +82,17 @@ class AdvisorController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Advisor();
+        $advisor  = new Advisor();
         
-        $entity->setUserid($userid);
+        $advisor->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new AdvisorType(), $entity);
+        $form    = $this->createForm(new AdvisorType(), $advisor);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($advisor);
             $em->flush();
 
             return $this->redirect($this->generateUrl('advisor'));
@@ -100,7 +100,7 @@ class AdvisorController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'advisor' => $advisor,
             'form'   => $form->createView()
         );
     }
@@ -115,17 +115,17 @@ class AdvisorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
+        $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
-        if (!$entity) {
+        if (!$advisor) {
             throw $this->createNotFoundException('Unable to find Advisor entity.');
         }
 
-        $editForm = $this->createForm(new AdvisorType(), $entity);
+        $editForm = $this->createForm(new AdvisorType(), $advisor);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'advisor'      => $advisor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -142,13 +142,13 @@ class AdvisorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
+        $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
-        if (!$entity) {
+        if (!$advisor) {
             throw $this->createNotFoundException('Unable to find Advisor entity.');
         }
 
-        $editForm   = $this->createForm(new AdvisorType(), $entity);
+        $editForm   = $this->createForm(new AdvisorType(), $advisor);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -156,14 +156,14 @@ class AdvisorController extends Controller
         $editForm->submit($request);
 
         if (1 == 1) {
-            $em->persist($entity);
+            $em->persist($advisor);
             $em->flush();
 
             return $this->redirect($this->generateUrl('advisor'));
         }
 
         return array(
-            'entity'      => $entity,
+            'advisor'      => $advisor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -184,13 +184,13 @@ class AdvisorController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
+            $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
-            if (!$entity) {
+            if (!$advisor) {
                 throw $this->createNotFoundException('Unable to find Advisor entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($advisor);
             $em->flush();
         }
 

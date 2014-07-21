@@ -178,26 +178,20 @@ ivory_ck_editor:
             filename: "plugin.js"
     configs:
         editor_simple:
-            skin: "bootstrapck, ../../../../bundles/englishhome/ckeditor/skins/bootstrapck/"
             startupFocus: true
             toolbar: "toolbar_simple"
             removePlugins: "elementspath,contextmenu,liststyle,tabletools"
             allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[!href,target]{*}(*); table th tr td strong em; ol ul li span(*); img[*]{*}; iframe{*}[*];'
             disableNativeSpellChecker: false
             height: 150
-            contentsCss: "bundles/englishhome/ckeditor/ckeditor.css"
         editor_page:
-            skin: "bootstrapck, ../../../../bundles/englishhome/ckeditor/skins/bootstrapck/"
             startupFocus: true
             toolbar: "toolbar_page"
-            extraPlugins: 'wordcount,mediaembed,maxheight'
             removePlugins: "elementspath,contextmenu,liststyle,tabletools"
             allowedContent: true
             disableNativeSpellChecker: false
             height: 500
-            contentsCss: "bundles/englishhome/ckeditor/ckeditor.css"
-            stylesSet: 'marca_styles:../../bundles/englishhome/ckeditor/ckeditor_styles.js'
     toolbars:
         configs:
             toolbar_simple: [ ['Bold','Italic','Underline','Strike'],['Link','Unlink'],['NumberedList','BulletedList']]
-            toolbar_page: [ ['Source','Styles','Bold','Italic','Underline','Strike','Font','FontSize'],['JustifyLeft','JustifyCenter','JustifyRight'],['TextColor','BGColor'],['Link','Unlink'],['NumberedList','BulletedList'],['Outdent','Indent'],['Image','MediaEmbed'],[ 'PasteText', 'PasteFromWord', 'Undo', 'Redo','RemoveFormat'],['About'] ]
+            toolbar_page: [ ['Source','Styles','Bold','Italic','Underline','Strike','Font','FontSize'],['JustifyLeft','JustifyCenter','JustifyRight'],['TextColor','BGColor'],['Link','Unlink'],['NumberedList','BulletedList'],['Outdent','Indent'],['Image'],[ 'PasteText', 'PasteFromWord', 'Undo', 'Redo','RemoveFormat'],['About'] ]

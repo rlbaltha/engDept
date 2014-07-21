@@ -28,13 +28,13 @@ class MajorController extends Controller
          $em = $this->getDoctrine()->getManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 ORDER BY m.name ASC');
-        $entities = $em->getResult();
+        $majors = $em->getResult();
         
         $form = $this->createFormBuilder(new Major())
-            ->add('name')
+            ->add('name', 'text', array('label' => ' ', 'attr' => array('placeholder'=> 'Name', 'class' => 'text form-control')))
             ->getForm();
         
-        return array('entities' => $entities, 'form' => $form->createView());  
+        return array('majors' => $majors, 'form' => $form->createView());  
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
@@ -42,8 +42,8 @@ class MajorController extends Controller
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
              WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
-        $entities = $em->setParameter('1',$username)->getResult();
-        return array('entities' => $entities);
+            $majors = $em->setParameter('1',$username)->getResult();
+        return array('majors' => $majors);
         }
 
     }     
@@ -60,13 +60,13 @@ class MajorController extends Controller
          $em = $this->getDoctrine()->getManager()
          ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND a.id = ?1 ORDER BY m.name ASC');
-        $entities = $em->setParameter('1',$id)->getResult();
+        $majors = $em->setParameter('1',$id)->getResult();
         
         $form = $this->createFormBuilder(new Major())
-            ->add('name')
+            ->add('name', array('attr' => array('class' => 'text form-control')))
             ->getForm();
         
-        return array('entities' => $entities, 'form' => $form->createView());
+        return array('majors' => $majors, 'form' => $form->createView());
     } 
     
         
@@ -81,13 +81,13 @@ class MajorController extends Controller
         $em = $this->getDoctrine()->getManager()
         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND e.id = ?1 ORDER BY m.name ASC');
-       $entities = $em->setParameter('1',$id)->getResult();
+       $majors = $em->setParameter('1',$id)->getResult();
        
        $form = $this->createFormBuilder(new Major())
-            ->add('name')
+            ->add('name', array('attr' => array('class' => 'text form-control')))
             ->getForm();
        
-        return array('entities' => $entities, 'form' => $form->createView());
+        return array('entities' => $majors, 'form' => $form->createView());
     }
     
     /**
@@ -103,15 +103,15 @@ class MajorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND LOWER(m.name) LIKE ?1 ORDER BY m.name";
-        $entities = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
+        $majors = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
         $form = $this->createFormBuilder(new Major())
-            ->add('name')
+            ->add('name', array('attr' => array('class' => 'text form-control')))
             ->getForm();
-        if (!$entities) {
+        if (!$majors) {
 
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
-        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $majors, 'form' => $form->createView()));
         }  
         
       
@@ -124,14 +124,14 @@ class MajorController extends Controller
      */
     public function advancedformAction()
     {
-        $entity = new Major();
-        $entity->setCheckedin('1');
-        $entity->setHonors('2');
-        $entity->setHours('0');
-        $entity->setGpa('0');
-        $entity->setStatus('0');
+        $major = new Major();
+        $major->setCheckedin('1');
+        $major->setHonors('2');
+        $major->setHours('0');
+        $major->setGpa('0');
+        $major->setStatus('0');
 
-        $form = $this->createFormBuilder($entity)
+        $form = $this->createFormBuilder($major)
             ->add('name', 'text', array('attr' => array('class' => 'width300')))
             ->add('email', 'text', array('attr' => array('class' => 'width300')))
             ->add('firstMajor', 'text', array('label'  => '1st major',))
@@ -180,15 +180,15 @@ class MajorController extends Controller
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
             WHERE LOWER(m.name) LIKE ?1 AND LOWER(m.email) LIKE ?2 AND LOWER(m.firstMajor) LIKE ?3 AND LOWER(m.secondMajor) LIKE ?4 AND LOWER(m.aoe) 
             LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.can >= ?9 AND m.status= ?10 ". $queryCheckedin . $queryHonors ." ORDER BY m.name";
-        $entities = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->setParameter('8',$hours)->setParameter('9',$gpa)->setParameter('10',$status)->getResult();
+        $majors = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->setParameter('8',$hours)->setParameter('9',$gpa)->setParameter('10',$status)->getResult();
         $form = $this->createFormBuilder(new Major())
             ->add('name')
             ->getForm();
-        if (!$entities) {
+        if (!$majors) {
 
             return $this->redirect($this->generateUrl('major_advancedform'));
         }
-        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $majors, 'form' => $form->createView()));
         }          
         
     /**
@@ -201,11 +201,9 @@ class MajorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
-        $advisor = $entity->getAdvisor()->getName();
-        $mentor = $entity->getMentor()->getName();
+        $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
-        if (!$entity) {
+        if (!$major) {
             throw $this->createNotFoundException('Unable to find Majors.');
         }
         $notes = $em->createQuery('SELECT n
@@ -213,9 +211,7 @@ class MajorController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'advisor'      => $advisor,
-            'mentor'      => $mentor,
+            'major'      => $major,
             'notes'       => $notes,
             'delete_form' => $deleteForm->createView(),        );
     }
@@ -228,20 +224,20 @@ class MajorController extends Controller
      */
     public function newAction()
     {
-        $entity = new Major();
-        $entity -> setStatus('0');
-        $entity -> setFirstMajor('ENGL');
-        $entity -> setSecondMajor('none');
-        $entity -> setMinor('none');
-        $entity -> setAoe('none');
-        $entity -> setHonors(false);
-        $entity -> setCan('810');
-        $entity -> setCheckedin(false);
-        $entity -> setEmail('needed');
-        $form   = $this->createForm(new MajorType(), $entity);
+        $major = new Major();
+        $major -> setStatus('0');
+        $major -> setFirstMajor('ENGL');
+        $major -> setSecondMajor('none');
+        $major -> setMinor('none');
+        $major -> setAoe('none');
+        $major -> setHonors(false);
+        $major -> setCan('810');
+        $major -> setCheckedin(false);
+        $major -> setEmail('needed');
+        $form   = $this->createForm(new MajorType(), $major);
 
         return array(
-            'entity' => $entity,
+            'major' => $major,
             'form'   => $form->createView()
         );
     }
@@ -258,25 +254,25 @@ class MajorController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Major();
+        $major  = new Major();
         
-        $entity->setUserid($userid);
+        $major->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new MajorType(), $entity);
+        $form    = $this->createForm(new MajorType(), $major);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($major);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('major_show', array('id' => $major->getId())));
             
         }
 
         return array(
-            'entity' => $entity,
+            'major' => $major,
             'form'   => $form->createView()
         );
     }
@@ -291,17 +287,17 @@ class MajorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+        $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
-        if (!$entity) {
+        if (!$major) {
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
 
-        $editForm = $this->createForm(new MajorType(), $entity);
+        $editForm = $this->createForm(new MajorType(), $major);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'major'      => $major,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -318,13 +314,13 @@ class MajorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+        $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
-        if (!$entity) {
+        if (!$major) {
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
 
-        $editForm   = $this->createForm(new MajorType(), $entity);
+        $editForm   = $this->createForm(new MajorType(), $major);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -332,14 +328,14 @@ class MajorController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($major);
             $em->flush();
 
             return $this->redirect($this->generateUrl('major_show', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
+            'major'      => $major,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -360,13 +356,13 @@ class MajorController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+            $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
-            if (!$entity) {
+            if (!$major) {
                 throw $this->createNotFoundException('Unable to find Major entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($major);
             $em->flush();
         }
 

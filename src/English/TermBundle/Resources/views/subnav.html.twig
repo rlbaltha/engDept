@@ -20,13 +20,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Slideshow</a>
+                <a class="navbar-brand" href="#">Terms</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('slideshow_new') }}">Add to Slideshow</a>
+                            <a href="{{ path('term_new') }}">Add to New Term</a>
                         {% endif %}
                     </li>
                 </ul>

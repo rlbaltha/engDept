@@ -12,4 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class TermRepository extends EntityRepository
 {
+    public function findTermsSorted()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT t from EnglishTermBundle:Term t ORDER BY t.term DESC')
+            ->getResult();
+    }
 }

@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use English\FilesBundle\Entity\File;
 use English\FilesBundle\Form\FileType;
+use English\FilesBundle\Form\UploadType;
+use Zend\Stdlib\Request;
 
 /**
  * File controller.
@@ -21,7 +23,7 @@ class FileController extends Controller
     /**
      * Uploads a file with a Document entity.
      *
-     * @Route("/upload", name="file_upload")
+     * @Route("/upload", name="file_upload"))
      * @Template()
      */    
      public function uploadAction()
@@ -30,29 +32,19 @@ class FileController extends Controller
          $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
          $file = new File();
          $file->setUserid($userid);
-         $form = $this->createFormBuilder($file)
-             ->add('name')
-             ->add('label', 'entity', array('class' => 'EnglishFilesBundle:Label','property'=>'name', 'query_builder' => 
-                 function(\English\FilesBundle\Entity\LabelRepository $er) {
-                 return $er->createQueryBuilder('l')
-                 ->where('l.display = :display')
-                 ->setParameter('display', TRUE)          
-                 ->orderBy('l.name', 'ASC');
-                 }))     
-             ->add('description', 'text', array('attr' => array('class' => 'width300')))    
-             ->add('userid', 'hidden')    
-             ->add('file')
-             ->getForm()
-         ;
+
+         $form   = $this->createForm(new UploadType(), $file);
 
          if ($this->getRequest()->getMethod() === 'POST') {
-             $form->bindRequest($this->getRequest());
+             $request = $this->getRequest();
+             $form->handleRequest($request);
              if ($form->isValid()) {
                  $em = $this->getDoctrine()->getManager();
+                 $labelid = $file->getLabel()->getId();
                  $file->upload();
                  $em->persist($file);
                  $em->flush(); 
-                 return $this->redirect($this->generateUrl('file_show', array('id' => $file->getId())));
+                 return $this->redirect($this->generateUrl('file', array('labelid' => $labelid)));
              }
              
          }
@@ -71,34 +63,12 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.name ASC";
-        $entities = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
+        $files = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
         $dql2 = "SELECT l FROM EnglishFilesBundle:Label l WHERE l.display = TRUE";
         $labels = $em->createQuery($dql2)->getResult();
-        return array('entities' => $entities, 'labels' => $labels);       
+        return array('files' => $files, 'labels' => $labels);       
     }
 
-    /**
-     * Finds and displays a File entity.
-     *
-     * @Route("/{id}/show", name="file_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find File entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new File entity.
@@ -108,11 +78,11 @@ class FileController extends Controller
      */
     public function newAction()
     {
-        $entity = new File();
-        $form   = $this->createForm(new FileType(), $entity);
+        $file = new File();
+        $form   = $this->createForm(new FileType(), $file);
 
         return array(
-            'entity' => $entity,
+            'file' => $file,
             'form'   => $form->createView()
         );
     }
@@ -129,25 +99,26 @@ class FileController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new File();
+        $file  = new File();
         
-        $entity->setUserid($userid);
+        $file->setUserid($userid);
+        $labelid = $file->getLabel()->getId();
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new FileType(), $entity);
+        $form    = $this->createForm(new FileType(), $file);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($file);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('file_show', array('id' => $entity->getId())));
-            
+            return $this->redirect($this->generateUrl('file', array('labelid' => $labelid)));
+
         }
 
         return array(
-            'entity' => $entity,
+            'file' => $file,
             'form'   => $form->createView()
         );
     }
@@ -162,17 +133,17 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
+        $file = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
-        if (!$entity) {
+        if (!$file) {
             throw $this->createNotFoundException('Unable to find File entity.');
         }
 
-        $editForm = $this->createForm(new FileType(), $entity);
+        $editForm = $this->createForm(new FileType(), $file);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'file'      => $file,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -189,28 +160,30 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
+        $file = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
-        if (!$entity) {
+        if (!$file) {
             throw $this->createNotFoundException('Unable to find File entity.');
         }
 
-        $editForm   = $this->createForm(new FileType(), $entity);
+        $editForm   = $this->createForm(new FileType(), $file);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
 
+        $labelid = $file->getLabel()->getId();
+
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($file);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('file_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('file', array('labelid' => $labelid)));
         }
 
         return array(
-            'entity'      => $entity,
+            'file'      => $file,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -231,13 +204,13 @@ class FileController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishFilesBundle:File')->find($id);
+            $file = $em->getRepository('EnglishFilesBundle:File')->find($id);
 
-            if (!$entity) {
+            if (!$file) {
                 throw $this->createNotFoundException('Unable to find File entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($file);
             $em->flush();
         }
 

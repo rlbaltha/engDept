@@ -1,84 +1,89 @@
-{% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
- 
-{% block body %}
-{% if is_granted('ROLE_ADVISORADMIN') %}
-{% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
-{% endif %}
-{% set mid = entity.id %}
-        <div class="row">
-            <div class="cell bold">{{ entity.name }}</div><div class="cell">{{ entity.email }}</div>
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
-        </div>
-        <div class="row">
-            <div class="cell">Advisor</div>
-            <div class="cell bold">{{ advisor }}</div>
-            <div class="cell">Mentor</div>
-            <div class="cell bold">{{ mentor }}</div>
-        </div>
-        <div class="row">
-            <div class="cell">Firstmajor</div>
-            <div class="cell bold">{{ entity.firstMajor }}</div>
-            <div class="cell">Secondmajor</div>
-            <div class="cell bold">{{ entity.secondMajor }}</div>
-            <div class="cell">Aoe</div>
-            <div class="cell bold">{{ entity.aoe }}</div>
-            <div class="cell">Minor</div>
-            <div class="cell bold">{{ entity.minor }}</div>
-            <div class="cell">Honors</div>
-            <div class="cell bold">{{ entity.honors }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell">Can</div>
-            <div class="cell bold">{{ entity.can }}</div>
-            <div class="cell">Hours</div>
-            <div class="cell bold">{{ entity.hours }}</div>
-            <div class="cell">GPA</div>
-            <div class="cell bold">{{ entity.gpa }}</div>
-            <div class="cell">Status</div>
-            <div class="cell bold">{{ entity.status }}</div>
-        </div>
-        <div class="row divider">
-            <div class="cell">Admin Notes</div>
-            <div class="cell">{{ entity.notes | raw }}</div>
-        </div>
-        
+{% block content %}
 
-        {% if is_granted('ROLE_ADVISORADMIN') %}
-        <div class="row divider">
-        <div class="cell"><a href="{{ path('major_edit', { 'id': entity.id }) }}">Update/Delete</a></div>
-        </div>
-        {% endif %}
+    {% set mid = major.id %}
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Advisor</td>
+                <td>Mentor</td>
+                <td>Major</td>
+                <td>CAN</td>
+                <td>AOE</td>
+                <td>Hours</td>
+                <td>GPA</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{% if major.checkedin ==0 %}**{% endif %}<strong>{{ major.name }}</strong></td>
+                <td>{{ major.email }}</td>
+                <td>{{ major.advisor.name }}</td>
+                <td>{{ major.mentor.name }}</td>
+                <td>{{ major.firstMajor }}{% if major.secondMajor != 'none' %}/{{ major.secondMajor }}{% endif %}</td>
+                <td>{{ major.can }}</td>
+                <td>{{ major.aoe }}</td>
+                <td>{{ major.hours }}</td>
+                <td>{{ major.gpa }}</td>
+            </tr>
+            </tbody>
+        </table>
 
-        <div class="row_contrast">
-            <div class="cell bold">Mentor Notes</div>
-            <div class="cell"><a href="{{ path('majornote_new', { 'id': entity.id }) }}">New Note</a></div>
-            <div  class="cell">
-                <a id='mentor_email' href="{{ path('majornote_email', { 'id': entity.id }) }}">Email Mentored Notification</a>
-                <span id ='processing' class='' style='display:none;'>Processing</span>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Admin Notes</h3>
+            </div>
+            <div class="panel-body">
+                {{ major.notes | raw }}
+                {% if is_granted('ROLE_ADVISORADMIN') %}
+                    <a href="{{ path('major_edit', { 'id': major.id }) }}">Update/Delete</a>
+                {% endif %}
             </div>
         </div>
-        {% for notes in notes %}
-        <div class="row">
-            <div class="cell">{{ notes.notes | raw}}</div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="btn-group btn-group-sm pull-right" style="">
+                    <a class="btn btn-default" href="{{ path('majornote_new', { 'id': major.id }) }}">Add
+                        Note</a>
+                    <a class="btn btn-default" id='mentor_email' href="{{ path('majornote_email', { 'id': major.id }) }}">Email Mentored
+                        Notification</a>
+                </div>
+                <h3 class="panel-title">Mentor Notes </h3>
+
+                <span id='processing' class='' style='display:none;'>Processing</span>
+            </div>
+            <div class="panel-body">
+
+                <dl>
+                    {% for notes in notes %}
+                        <dt>
+                            {{ notes.updated |date('h:i A M d, Y') }}
+                        </dt>
+                        <dd>
+                            {{ notes.notes | raw }}
+                            <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Update/Delete</a>
+                        </dd>
+                    {% endfor %}
+
+                </dl>
+            </div>
         </div>
-        <div class="row divider">
-            <div class="cell">{{ notes.updated |date('h:i A M d, Y')}}</div>
-        <div class="cell">
-         <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Update/Delete</a>
-         </div>
- 
-         </div>
-        {% endfor %}
 
-<div class="row"></div>   
-<div class="row">
-</div>
+        <script language="javascript">
+            $('#mentor_email').click(function () {
+                $('#mentor_email').toggle();
+                $('#processing').toggle();
+            });
+        </script>
 
-<script language="javascript"> 
-    $('#mentor_email').click(function(){
-        $('#mentor_email').toggle();
-        $('#processing').toggle();
-    });
-</script>
+    </div>
 
 {% endblock %}
+

@@ -19,7 +19,7 @@
                         <p>{{ slide.description }}</p>
 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="pull-right" href="{{ path('spotlight_edit', { 'id': slide.id }) }}">Update/Delete</a>
+                            <a class="pull-right" href="{{ path('slideshow_edit', { 'id': slide.id }) }}">Update/Delete</a>
                         {% endif %}
                     </td>
                 </tr>
