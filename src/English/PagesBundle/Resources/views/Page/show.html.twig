@@ -1,0 +1,23 @@
+{% extends 'EnglishPagesBundle::subnav.html.twig' %}
+
+{% block content %}
+    <div class="col-sm-offset-1 col-sm-10" style="background-color: #f5f5f5; min-height: 100vh; padding-right: 0px;padding-left: 0px;">
+        <div id="sidebar" class="col-sm-2" style="background-color: #f5f5f5; min-height: 100vh; ">
+            <ul class="nav nav-list">
+                {% for page in page.section.pages %}
+                    <li>
+                        {% if page.link is null or page.link == '' %}
+                            <a href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
+                        {% else %}
+                            <a target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-10" style="background-color: #ffffff; min-height: 100vh; padding: 40px; ">
+            {{ page.pageBody|raw }}
+        </div>
+    </div>
+
+{% endblock %}

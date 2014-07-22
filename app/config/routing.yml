@@ -1,3 +1,8 @@
+english_pages:
+    resource: "@EnglishPagesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 # redirects for old urls
 
 BISPIndexRedirect:

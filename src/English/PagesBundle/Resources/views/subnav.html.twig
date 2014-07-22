@@ -1,0 +1,47 @@
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $('#confirm').toggle();
+        });
+    </script>
+{% endblock %}
+
+{% block subnav %}
+    <!-- Static navbar -->
+    <div class="navbar navbar-default subnav" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">{% if 'pages_show' in app.request.get('_route' ) %}{{ page.section.name|upper }}{% else %}Sections{% endif %}</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('section') }}">List Sections</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('section_new') }}">Add Section</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pages_new') }}">Add Page</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </div>
+
+{% endblock %}
+

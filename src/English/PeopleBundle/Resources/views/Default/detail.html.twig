@@ -1,86 +1,101 @@
-{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
- 
- 
-{% block body %}
-    
-    <script language="javascript"> 
-    $(document).ready(function()
-    {
-    $("#loading").fadeOut("slow");
-    });
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+
+        });
     </script>
-    {% include 'EnglishPeopleBundle:Default:filter.html.twig' %}
-
-{% for peopleDetail in peopleDetail %}
-     <div class="row_even divider">
-     <div class="row">
-     <div class="cell bold">{{ peopleDetail.firstName }} {{ peopleDetail.lastName }}</div>
-     </div>
-     <div class="row">
-     <div class="cell title">{{ peopleDetail.title | raw }}</div>
-     </div>
-     <div class="row">
-     <div class="cell bold">Email:</div> <div class="cell"><a href="mailto:{{ peopleDetail.email }}" tabindex="1" title="email address" >{{ peopleDetail.email }}</a></div>
-     <div class="cell bold">Phone:</div> <div class="cell">{{ peopleDetail.officePhone }}</div>
-     <div class="cell bold">Office:</div> <div class="cell">{{ peopleDetail.officeNumber }}</div>
-     </div>
-     </div>      
-    
- <div class="row_contrast divider">
- {% if peopleDetail.photoUrl != '' %}
-  <div class="cell bio_photo">
-  <div class="photo_cell">
-  <img class="image" alt="Photo" src="{{ peopleDetail.photoUrl }}"/>
-  </div>
-  </div>
- {% endif %}
-  <div class="cell bio_text">{% autoescape false %}{{ peopleDetail.bio }}{% endautoescape %}</div>
-  {% if peopleDetail.officeHours != '' %}
-  <div class="cell bio_text">
-<span class="bold">Office hours: </span>{% autoescape false %}{{ peopleDetail.officeHours }}{% endautoescape %}
-  </div>
-  {% endif %}
-  {% if peopleDetail.vitaUrl != '' %}
-  <div class="cell bio_text">
-<span class="bold">Vita: </span><a href="{{ peopleDetail.vitaUrl }}" tabindex="1" title="Vita" target="_blank" >{{ peopleDetail.vitaUrl }}</a>
-  </div>
-  {% endif %}
-  {% if peopleDetail.homepageUrl != '' %}
-  <div class="cell bio_text">
-<span class="bold">Website: </span><a href="{{ peopleDetail.homepageUrl }}" tabindex="1" title="Website" target="_blank" >{{ peopleDetail.homepageUrl }}</a>
-  </div>
-  {% endif %}
- </div>
-{% endfor %}
-{% for peopleCourses in peopleCourses %}
-  <div class="row_odd divider">
-  <div class="cell">{{ peopleCourses.termName }}</div>
-  <div class="cell"><a id="peopleCoursesLink{{ peopleCourses.id }}" href="javascript:void(0)" tabindex="1" title="Course Detail" >{{ peopleCourses.courseName }}</a></div>
-  <div class="cell bold">{{ peopleCourses.title }}</div>
-  <div class="cell">{{ peopleCourses.instructorName|upper }}</div>
-  <div class="cell">{{ peopleCourses.callNumber }}</div>
-  <div class="cell">{{ peopleCourses.callNumber2 }}</div>
-  <div class="cell">{{ peopleCourses.days }}</div>
-  <div class="cell">{{ peopleCourses.time }}</div>
-  <div id="close{{ peopleCourses.id }}" class="cell right close hidden">
-  </div>
-  </div>
-  <div id="detailWrapper{{ peopleCourses.id }}" class="row_odd divider hidden">
-  <div id="detail{{ peopleCourses.id }}" class="row_odd">
-  </div>
-  </div>
-
-{% if 'P' in peopleCourses.callNumber %}{% set callNumber = peopleCourses.callNumber2 %}{% else %}{% set callNumber = peopleCourses.callNumber %}{% endif %}
- <script language="javascript"> 
-     $('#peopleCoursesLink{{ peopleCourses.id }}').click(function(){
-        $('#detail{{ peopleCourses.id }}').load('{{ path('listings_detail', { 'callNumber': callNumber, 'term': peopleCourses.term }) }}');
-        $('#detailWrapper{{ peopleCourses.id }}').toggle();
-    });
- </script>
-{% endfor %}    
-    
-    
 {% endblock %}
+
+
+ {% block subnav %}
+     {% include 'EnglishPeopleBundle:Default:filter.html.twig' %}
+ {% endblock %}
+
+{% block content %}
+    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #f5f5f5; min-height: 100vh">
+    <div class="{% if people[0].photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
+    {% for people in people %}
+        <dl id="listing{{ people.id }}">
+            <dt>
+                <strong>{{ people.firstName }} {{ people.lastName }}</strong>
+                        <span class="pull-right">
+                            {% if app.request.pathinfo == '/people/gradfac' %}<a
+                                href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee
+                                Info</a>{% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('people_admin', { 'id': people.id }) }}">
+                                    Permissions</a>{% endif %}
+                    </span>
+            </dt>
+            <dd>
+                {{ people.title | raw }}
+                Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
+                Phone:
+                {{ people.officePhone }}
+                Office:
+                {{ people.officeNumber }}
+            </dd>
+        </dl>
+        <p>
+            {{ people.bio|raw }}
+        </p>
+        {% if people.officeHours != '' %}
+            <p>
+                <strong>Office hours: </strong>{{ people.officeHours|raw }}
+            </p>
+        {% endif %}
+        {% if people.vitaUrl != '' %}
+            <p>
+                <strong>Vita: </strong><a href="{{ people.vitaUrl }}" tabindex="1" title="Vita"
+                                          target="_blank">{{ people.vitaUrl }}</a>
+            </p>
+        {% endif %}
+        {% if people.homepageUrl != '' %}
+            <p>
+                <strong>Website: </strong><a href="{{ people.homepageUrl }}" tabindex="1" title="Website"
+                                             target="_blank">{{ people.homepageUrl }}</a>
+            </p>
+        {% endif %}
+
+        </div>
+
+        {% if people.photoUrl != '' %}
+        <div class="col-sm-offset-2 col-sm-4">
+            <div class="thumbnail">
+                    <img src="{{ people.photoUrl }}" alt="Image of {{ people.firstName }} {{ people.lastName }}">
+            </div>
+        </div>
+        {% endif %}
+
+    {% endfor %}
+
+        <table class="table table-striped">
+            {% for courses in peopleCourses %}
+                <tr id="course{{ courses.id }}">
+                    <td>{{ courses.termName }}</td>
+                    <td><strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
+                                   title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                    <td>{{ courses.title }}</td>
+                    <td>{{ courses.instructorName|upper }}</td>
+                    <td>{{ courses.callNumber }}</td>
+                    <td>{{ courses.callNumber2 }}</td>
+                    {% if courses.may == 1 %}
+                        <td class="cell bold">Maymester</td>{% endif %}
+                    <td>{{ courses.days }}</td>
+                    <td>{{ courses.time }}</td>
+                    <td>{{ courses.building }}</td>
+                    <td>{{ courses.room }}</td>
+
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+{% endblock %}
+
 
 
 

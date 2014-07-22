@@ -68,16 +68,22 @@ class DefaultController extends Controller
      * Finds and displays a Description.
      *
      * @Route("/{callNumber}/{term}/detail", name="listings_detail")
-     * @Template()
+     * @Template("EnglishCoursesBundle:Default:detail.html.twig")
      */    
     public function courseDetailAction($callNumber,$term)
     {
+
         $em = $this->get('doctrine.orm.entity_manager');
+        $currentType = 'Upper';
+        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+        $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
+        $currentTerm = $em->createQuery($dql3)->getSingleresult();
         $dql_call = '%'.$callNumber.'%';
-        $dql1 = "SELECT d.id,d.userid,d.description,d.assignments,d.requirements,d.grading,d.attendance,d.material,d.makeup,d.url FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
+        $dql1 = "SELECT d FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
+        $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($callNumber,$term );
         $callNumber = $callNumber;
-        return $this->render('EnglishCoursesBundle:Default:detail.html.twig', array('courseDetail' => $courseDetail, 'callNumber'=> $callNumber)); 
+        return array('course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType);
             
     }     
  

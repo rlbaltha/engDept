@@ -71,5 +71,13 @@ class CourseRepository extends EntityRepository
                ->createQuery('SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.courseName = ?1 AND c.term=t.term AND t.type > 0')
                ->setParameter('1',$coursename)->getResult();
 
-    }    
+    }
+
+    public function findByCallTerm($callNumber, $term)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT c FROM EnglishCoursesBundle:Course c WHERE c.callNumber = ?1 AND c.term= ?2')
+            ->setParameter('1',$callNumber)->setParameter('2',$term)->setMaxResults(1)->getSingleResult();
+
+    }
 }

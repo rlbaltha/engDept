@@ -119,19 +119,21 @@ class DefaultController extends Controller
      * Finds and displays detail of People.
      *
      * @Route("/{id}/detail", name="directory_detail")
-     * @Template()
+     * @Template("EnglishPeopleBundle:Default:detail.html.twig")
      */
     public function detailAction($id)
     {
         $heading = 1;
-        $people = new People();
-        $form = $this->createFindForm($people);
         $em = $this->get('doctrine.orm.entity_manager');
-        $dql1 = "SELECT p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.bio,p.photoUrl,p.homepageUrl,p.vitaUrl,p.officeHours FROM EnglishPeopleBundle:People p WHERE p.id = ?1";
-        $peopleDetail = $em->createQuery($dql1)->setParameter('1', $id)->getResult();
-        $dql2 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,t.termName,t.term FROM EnglishCoursesBundle:Course c, EnglishPeopleBundle:People p, EnglishTermBundle:Term t WHERE LOWER(c.instructorName) = LOWER(p.oasisname) AND c.term = t.term AND t.type = '2' AND p.id = ?1 ORDER BY t.termName,c.courseName";
+        $people = new People();
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        $form = $this->createFindForm($people);
+
+        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.id = ?1";
+        $people = $em->createQuery($dql1)->setParameter('1', $id)->getResult();
+        $dql2 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.may,c.building,c.room,t.termName,t.term FROM EnglishCoursesBundle:Course c, EnglishPeopleBundle:People p, EnglishTermBundle:Term t WHERE LOWER(c.instructorName) = LOWER(p.oasisname) AND c.term = t.term AND t.type = '2' AND p.id = ?1 ORDER BY t.termName,c.courseName";
         $peopleCourses = $em->createQuery($dql2)->setParameter('1', $id)->getResult();
-        return $this->render('EnglishPeopleBundle:Default:detail.html.twig', array('peopleDetail' => $peopleDetail, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),));
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,);
 
     }
 

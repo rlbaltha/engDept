@@ -1,5 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block title %}English Home{% endblock %}
 
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
@@ -37,7 +41,8 @@
             <li><a title="Slideshow" href="{{ path('slideshow') }}">Slideshow</a></li>
             <li><a title="Spotlight" href="{{ path('spotlight') }}">Spotlight</a></li>
             <li><a title="Term" href="{{ path('term') }}">Term</a></li>
-            <li><a title="Labels" href="{{ path('label') }}">File Labels</a></li>
+            <li><a title="Labels" href="{{ path('label') }}">Labels</a></li>
+            <li><a title="Labels" href="{{ path('section') }}">Sections</a></li>
 
         {% endif %}
     {% endblock %}

@@ -1,37 +1,122 @@
-{% if courseDetail %}
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
 
-{% for courseDetail in courseDetail %}
-{% if courseDetail.url != '' %}
-<div class="row"><div class="cell"><a href="{{ courseDetail.url }}" title="Course Web Site" target="_blank">Course Web Site</a></div></div>
-{% endif %}
-{% if courseDetail.description != '' %}
-<div class="row"><div class="cell bold">Description</div><div class="cell">{% autoescape false %}{{ courseDetail.description }}{% endautoescape %}</div></div>
-{% endif %}
-{% if courseDetail.assignments != '' %}
-<div class="row"><div class="cell bold">Assignments</div><div class="cell">{% autoescape false %}{{ courseDetail.assignments }}{% endautoescape %}</div></div>
-{% endif %} 
-{% if courseDetail.requirements != '' %}
-<div class="row"><div class="cell bold">Requirements</div><div class="cell">{% autoescape false %}{{ courseDetail.requirements }}{% endautoescape %}</div></div>
-{% endif %}  
-{% if courseDetail.grading != '' %}
-<div class="row"><div class="cell bold">Grading</div><div class="cell">{% autoescape false %}{{ courseDetail.grading }}{% endautoescape %}</div></div>
-{% endif %}  
-{% if courseDetail.attendance != '' %}
-<div class="row"><div class="cell bold">Attendance</div><div class="cell">{% autoescape false %}{{ courseDetail.attendance }}{% endautoescape %}</div></div>
-{% endif %}  
-{% if courseDetail.material != '' %}
-<div class="row"><div class="cell bold">Material</div><div class="cell">{% autoescape false %}{{ courseDetail.material }}{% endautoescape %}</div></div>
-{% endif %}  
-{% if courseDetail.makeup != '' %}
-<div class="row divider"><div class="cell bold">Makeup Policy</div><div class="cell">{% autoescape false %}{{ courseDetail.makeup }}{% endautoescape %}</div></div>
-{% endif %} 
-{% endfor %}
+{% block subnav %}
+    {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
+{% endblock %}
 
-{% else %} 
-<div class="row divider">
-<div class="cell">No description has been offered by the instructor at this time. </div>
-</div>
 
-{% endif %} 
+{% block content %}
+
+    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #f5f5f5; min-height: 100vh;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Instructor</th>
+                <th>Days</th>
+                <th>Times</th>
+                <th>Building</th>
+                <th>Room</th>
+                <th>Call</th>
+                <th></th>
+                <th>{% if '05' in course.term %}Maymester{% endif %}</th>
+            </tr>
+            </thead>
+            <tbody>
+        <tr id="course{{ course.id }}">
+            <td><strong>{{ course.courseName }}</strong></td>
+            <td>{{ course.title }}</td>
+            <td>{{ course.instructorName|upper }}</td>
+            <td>{{ course.days }}</td>
+            <td>{{ course.time }}</td>
+            <td>{{ course.building }}</td>
+            <td>{{ course.room }}</td>
+            <td>{{ course.callNumber }}</td>
+            <td>{{ course.callNumber2 }}</td>
+            <td>{% if course.may == 1 %}Maymester{% endif %}</td>
+
+        </tr>
+        </tbody>
+            </table>
+
+            <dl>
+                {% for courseDetail in courseDetail %}
+                    {% if courseDetail.url != '' %}
+                        <dd>
+                            <a href="{{ courseDetail.url }}" title="Course Web Site" target="_blank">Course Web Site</a>
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.description != '' %}
+                        <dl>
+                            Description
+                        </dl>
+                        <dd>
+                            {{ courseDetail.description|raw }}
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.assignments != '' %}
+                        <dl>
+                            Assignments
+                        </dl>
+                        <dd>
+                            {{ courseDetail.assignments|raw }}
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.requirements != '' %}
+                        <dl>
+                            Requirements
+                        </dl>
+                        <dd>
+                            {{ courseDetail.requirements|raw }}
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.grading != '' %}
+                        <dl>
+                            Grading
+                        </dl>
+                        <dd>
+                            {{ courseDetail.grading|raw }}
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.attendance != '' %}
+                        <dl>
+                            Attendance
+                        </dl>
+                        <dd>
+                            {{ courseDetail.attendance|raw }}
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.material != '' %}
+                        <dl>
+                            Material
+                        </dl>
+                        <dd>
+                            {{ courseDetail.material|raw }}
+                        </dd>
+                    {% endif %}
+                    {% if courseDetail.makeup != '' %}
+                        <dl>
+                            Makeup Policy
+                        </dl>
+                        <dd>
+                            {{ courseDetail.makeup|raw }}
+                        </dd>
+                    {% endif %}
+
+            </dl>
+
+        {% else %}
+            <p>
+                <div class="cell">No description has been offered by the instructor at this time. </div>
+            </p>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+
+
+
 
 

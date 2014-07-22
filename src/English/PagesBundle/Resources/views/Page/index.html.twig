@@ -1,0 +1,18 @@
+{% block content %}
+
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+
+        <table class="table table-striped">
+            {% for page in pages %}
+                <tr>
+                    <td>{{ page.name }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="pull-right" href="{{ path('pages_edit', { 'id': page.id }) }}">Update/Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
