@@ -23,7 +23,7 @@ class DefaultController extends Controller
     {
         $startDate = date("Y-m-d") ;
         $endDate = date("Y-m-d", mktime(0,0,0,date("m")+1,date("d"),date("Y")));
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT c.title,c.date,c.time,c.description FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?1 and c.date < ?2 ORDER BY c.date ASC";
         $calendar = $em->createQuery($dql1)->setParameter('1',$startDate)->setParameter('2',$endDate)->getResult();
         $dql2 = "SELECT s FROM EnglishSpotlightBundle:Spotlight s ORDER BY s.sortOrder";
@@ -46,7 +46,7 @@ class DefaultController extends Controller
     {
         $startDate = date("Y-m-d") ;
         $endDate = date("Y-m-d", mktime(0,0,0,date("m"),date("d"),date("Y")+1));
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT c.title,c.date,c.time,c.description FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?1 and c.date < ?2 ORDER BY c.date ASC";
         $calendar = $em->createQuery($dql1)->setParameter('1',$startDate)->setParameter('2',$endDate)->getResult();
         return $this->render('EnglishHomeBundle:Default:cal_index.html.twig', array('calendar' => $calendar,)); 

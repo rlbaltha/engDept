@@ -1,18 +1,4 @@
-{% extends 'EnglishHomeBundle::layout.html.twig' %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script language="javascript">
-        $(document).ready(function () {
-
-        });
-    </script>
-{% endblock %}
-
- 
- {% block subnav %}
-     {% include 'EnglishPeopleBundle:Default:filter.html.twig' %}
- {% endblock %}
+{% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
 {% block content %}
 <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
@@ -21,9 +7,7 @@
                 <dt>
                     <a id="detailLink{{ people.id }}"  href="{{ path('directory_detail', { 'id': people.id }) }}" title="Detail"><strong>{{ people.firstName }} {{ people.lastName }}</strong></a>
                         <span class="pull-right">
-                        {% if app.request.pathinfo != '/people/gradfac' %}<a href="{{ path('people_show', { 'id': people.id }) }}">Detail</a>{% endif %}
                         {% if app.request.pathinfo == '/people/gradfac' %}<a href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee Info</a>{% endif %}
-                        {% if is_granted('ROLE_ADMIN')  %}<a href="{{ path('people_admin', { 'id': people.id }) }}">Permissions</a>{% endif %}
                     </span>
                 </dt>
                 <dd>

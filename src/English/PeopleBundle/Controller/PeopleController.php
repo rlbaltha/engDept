@@ -19,121 +19,66 @@ use English\PeopleBundle\Form\AdminPeopleType;
  */
 class PeopleController extends Controller
 {
-    /**
-     * Lists all People
-     *
-     * @Route("/", name="people")
-     * @Template("EnglishPeopleBundle:Default:index.html.twig")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $heading = 1;
-        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p ORDER BY p.lastName,p.firstName";
-        $people = $em->createQuery($dql1)->getResult();
-        
-        $form = $this->createFormBuilder(new People())
-            ->add('lastName')
-            ->getForm();
-        $gradform = $this->createFormBuilder(new People())
-            ->add('lastName')
-            ->getForm();
-        
-        return array('people' => $people, 'form' => $form->createView(), 'gradform' => $gradform->createView(), 'heading' => $heading,'areas' => $areas,);
-        
-        
-        } else {
-        $username = $this->get('security.context')->getToken()->getUsername();
-        $em = $this->getDoctrine()->getManager();
-        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
-        
-        if (!$people) {
-            return $this->redirect($this->generateUrl('people_new'));
-        }        
-
-        
-        $userid = $people->getId();
-        $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$userid)->getResult();
-        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
-            ORDER BY g.created DESC')->setParameter('1',$userid)->setParameter('2',$userid)->getResult();   
-        $status = $people->getGradinfo()->getStatus();
-        $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$userid)->getResult();
-        
-        return $this->render('EnglishPeopleBundle:People:show.html.twig', array('people' => $people, 'userid' => $userid,'gradcom' => $gradcom,'userid' => $userid,'status'=> $status,'notes' => $notes, 'areas' => $areas, 'heading' => $heading,'areas' => $areas,));
-        } 
-    }
     
     /**
      * Find People
      *
      * @Route("/find", name="people_find")
      * @Method("post")
+     * @Template("EnglishPeopleBundle:People:index.html.twig")
      */
     public function findAction()
-    {   $request = $this->get('request');
+    {   $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
         $postData = $request->request->get('form');
         $lastname = $postData['lastName'] . "%";
         $lastname = strtolower($lastname);
-        $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE LOWER(p.lastName) LIKE ?1 ORDER BY p.lastName,p.firstName";
-        $entities = $em->createQuery($dql1)->setParameter('1',$lastname)->getResult();
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByLastname($lastname);
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-        if (!$entities) {
+        if (!$people) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
-        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView()));
+        return array('people' => $people, 'form' => $form->createView());
         }     
 
     /**
      * Find Grad People
      *
      * @Route("/grad", name="people_grad")
+     * @Template("EnglishPeopleBundle:People:index.html.twig")
      */        
     public function gradAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.gradinfo != 3 AND p.gradinfo != 4 ORDER BY p.lastName,p.firstName";
-        $entities = $em->createQuery($dql1)->getResult();
-        
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findGrads();
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-        
-        
         $gradform = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-               
-        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+        return array('people' => $people, 'form' => $form->createView(), 'gradform' => $gradform->createView());
     }
     
     /**
      * Find Grad People
      *
      * @Route("/gradfac", name="people_gradfac")
+     * @Template("EnglishPeopleBundle:People:index.html.twig")
      */        
     public function gradfacAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p join p.position o WHERE o.position='Graduate Faculty' ORDER BY p.lastName,p.firstName";
-        $entities = $em->createQuery($dql1)->getResult();
-        
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findGradFaculty();
         $form = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-        
-        
         $gradform = $this->createFormBuilder(new People())
             ->add('lastName')
             ->getForm();
-               
-        return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
+        return array('people' => $people, 'form' => $form->createView(), 'gradform' => $gradform->createView());
     }    
     
      /**
@@ -205,14 +150,14 @@ class PeopleController extends Controller
         $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
         $userid = $people->getId(); 
         
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
-        $status = $entity->getGradinfo()->getStatus();
+        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+        $status = $people->getGradinfo()->getStatus();
         $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1',$id)->getResult();
         
         
         $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1',$id)->getResult(); 
         $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.people = ?1 AND g.gid = ?2')->setParameter('1',$people)->setParameter('2',$id)->getSingleResult(); 
-        if (!$entity) {
+        if (!$people) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
         $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
@@ -222,7 +167,7 @@ class PeopleController extends Controller
         return array(
             'userid'     => $userid,
             'areas'       => $areas,
-            'entity'      => $entity,
+            'people'      => $people,
             'gradcom'     => $gradcom,
             'notes'       => $notes,
             'join'        => $join,
@@ -243,20 +188,20 @@ class PeopleController extends Controller
         
         
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
       
         $gradcomphd = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 AND r.gradinfo=2 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
-        if (!$entity) {
+        if (!$people) {
             throw $this->createNotFoundException('Unable to find People entity.');
         }
         $gradcomma = $em->createQuery('SELECT r.lastName,r.firstName,g.frole,g.id,i.status FROM EnglishGradcomBundle:Gradcom g JOIN g.people p JOIN g.grad r JOIN r.gradinfo i WHERE g.people = ?1 AND r.gradinfo=1 ORDER BY p.lastName')->setParameter('1',$user)->getResult(); 
-        if (!$entity) {
+        if (!$people) {
             throw $this->createNotFoundException('Unable to find People entity.');
         } 
         
         
         return array(
-            'entity'      => $entity,
+            'people'      => $people,
             'gradcomphd'     => $gradcomphd,
             'gradcomma'     => $gradcomma,
                    );
@@ -271,12 +216,12 @@ class PeopleController extends Controller
     public function newAction()
     {
         $username = $this->get('security.context')->getToken()->getUsername();
-        $entity = new People();
-        $entity->setUsername($username);
-        $form   = $this->createForm(new PeopleType(), $entity);
+        $people = new People();
+        $people->setUsername($username);
+        $form   = $this->createForm(new PeopleType(), $people);
 
         return array(
-            'entity' => $entity,
+            'people' => $people,
             'form'   => $form->createView()
         );
     }
@@ -292,160 +237,34 @@ class PeopleController extends Controller
     {
         $username = $this->get('security.context')->getToken()->getUsername();
         
-        $entity  = new People();
+        $people  = new People();
         
-        $entity->setUsername($username);
+        $people->setUsername($username);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new PeopleType(), $entity);
+        $form    = $this->createForm(new PeopleType(), $people);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($people);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('people_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('people_show', array('id' => $people->getId())));
             
         }
 
         return array(
-            'entity' => $entity,
+            'people' => $people,
             'form'   => $form->createView()
         );
     }
 
-    /**
-     * Displays a form to edit an existing People entity.
-     *
-     * @Route("/{id}/edit", name="people_edit")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find People entity.');
-        }
 
-        
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            $editForm = $this->createForm(new AdminPeopleType(), $entity);
-        }
-        else  {
-            $editForm = $this->createForm(new PeopleType(), $entity);
-        }    
-        
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Edits an existing People entity.
-     *
-     * @Route("/{id}/update", name="people_update")
-     * @Method("post")
-     * @Template("EnglishPeopleBundle:People:edit.html.twig")
-     */
-    public function updateAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find People entity.');
-        }
-
-        $editForm   = $this->createForm(new PeopleType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        $request = $this->getRequest();
-
-        $editForm->submit($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-            if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            return $this->redirect($this->generateUrl('people_show', array('id' => $id)));
-            } else {
-            return $this->redirect($this->generateUrl('people'));    
-            }
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Deletes a People entity.
-     *
-     * @Route("/{id}/delete", name="people_delete")
-     * @Method("post")
-     */
-    public function deleteAction($id)
-    {
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->submit($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishPeopleBundle:People')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find People entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('people'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }
-   
-    
      /**
-     * Finds Users
-     *
-     * @Route("/{id}/admin", name="people_admin")
-     * @Template()
-     */   
-    public function adminAction($id)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
-        $username = $people->getUsername();
-
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username);
-        return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
-    }
- 
-     /**
-     * Finds Users
+     * promote Users
      *
      * @Route("/{username}/{role}/promote", name="people_promote")
      * @Template()
@@ -462,7 +281,7 @@ class PeopleController extends Controller
     }  
     
      /**
-     * Finds Users
+     * demote Users
      *
      * @Route("/{username}/{role}/demote", name="people_demote")
      * @Template()
@@ -477,40 +296,6 @@ class PeopleController extends Controller
         return $this->render('EnglishPeopleBundle:People:adminlist.html.twig', array('user' => $user));
         };
     } 
-    
-     /**
-     * Create Users
-      * for importing for migration
-     *
-     * @Route("/createusers", name="people_createusers")
-     * * @Template("EnglishPeopleBundle:People:new.html.twig")
-     */   
-/**    public function createusersAction()
-    {
 
-          $em = $this->getDoctrine()->getManager();
-          $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.email!='' AND p.username!='' AND p.username!='none' AND p.password!='' ORDER BY p.lastName,p.firstName";
-          $oldusers = $em->createQuery($dql1)->getResult();  
-          $userManager = $this->get('fos_user.user_manager');
-
-          foreach ($oldusers as $item) {
-          $newItem = $userManager->createUser();
-
-          //$newItem->setId($item->getObjId());
-          // FOSUserBundle required fields
-          $newItem->setUsername($item->getUsername());
-          $newItem->setEmail($item->getEmail());
-          $newItem->setPlainPassword($item->getPassword()); // get original password
-          $newItem->setEnabled(true);
-
-          $userManager->updateUser($newItem, true);
-
-        };
-        return $this->redirect($this->generateUrl('directory'));
-
-    }     
-    
- * 
- */    
     
 }

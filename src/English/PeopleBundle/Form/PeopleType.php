@@ -11,29 +11,29 @@ class PeopleType extends AbstractType
     {
         $builder
             ->add('username','hidden')
-            ->add('lastName')
-            ->add('firstName')
-            ->add('title')
-            ->add('rank', 'text', array('attr' => array('class' => 'width640'),'required' => false,))
+            ->add('lastName', 'text', array('label'=> 'Last Name','attr' => array('class' => 'form-control')))
+            ->add('firstName', 'text', array('label'=> 'First Name','attr' => array('class' => 'form-control')))
+            ->add('rank', 'text',  array('required' => false,'attr' => array('class' => 'form-control')))
+            ->add('position','entity', array('class'=>'EnglishPositionBundle:Position', 'property'=>'position','expanded'=>true,'multiple'=>true,'required' => true, ))
             ->add('area','entity', array('class'=>'EnglishAreasBundle:Area', 'property'=>'area','expanded'=>true,'multiple'=>true, 'required' => false,))
-            ->add('vitaUrl', 'text', array('attr' => array('class' => 'width640'),'required' => false,))
-            ->add('homepageUrl', 'text', array('attr' => array('class' => 'width640'),'required' => false,))
-            ->add('email', 'text', array('attr' => array('class' => 'width640')))
-            ->add('officeHours')
-            ->add('bio')
-            ->add('photoUrl', 'text', array('attr' => array('class' => 'width640',),'required' => false,))    
-            ->add('officeNumber')
-            ->add('officePhone')
-            ->add('address', 'text', array('attr' => array('class' => 'width640'),'required' => false,))
-            ->add('address2', 'text', array('attr' => array('class' => 'width640'),'required' => false,))    
-            ->add('cellPhone')
-            ->add('spouse')
-            ->add('homePhone')    
-            ->add('position','entity', array('class'=>'EnglishPositionBundle:Position', 'property'=>'position','expanded'=>true,'multiple'=>true,'required' => true, )) 
+            ->add('officeHours', 'ckeditor', array('required' => false,'label'=> 'Office Hours','config_name' => 'editor_simple',))
+            ->add('bio', 'ckeditor', array('required' => false,'label'=> 'Bio','config_name' => 'editor_default',))
+            ->add('photoUrl', 'text', array('required' => false,'label'=> 'Photo URL','attr' => array('class' => 'form-control')))
+            ->add('officeNumber', 'text', array('required' => false,'label'=> 'Office','attr' => array('class' => 'form-control')))
+            ->add('officePhone', 'text', array('required' => false,'label'=> 'Office Phone','attr' => array('class' => 'form-control')))
+            ->add('vitaUrl', 'text', array('required' => false,'label'=> 'Vita URL','attr' => array('class' => 'form-control')))
+            ->add('homepageUrl', 'text', array('required' => false,'label'=> 'Homepage URL','attr' => array('class' => 'form-control')))
+
+
             ->add('active', 'hidden')
             ->add('status', 'hidden')
-            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status','expanded'=>true,'multiple'=>false,'required' => true, ))     
-        ;
+            ->add('gradinfo','entity', array('class'=>'EnglishGradinfoBundle:Gradinfo', 'property'=>'status','expanded'=>true,'multiple'=>false,'required' => true, ))
+            ->add('address', 'text', array('required' => false,'label'=> 'Address (dept. use only)', 'attr' => array('class' => 'form-control')))
+            ->add('cellPhone', 'text', array('required' => false,'label'=> 'Cell Phone (dept. use only)','attr' => array('class' => 'form-control')))
+            ->add('spouse', 'text', array('required' => false,'label'=> 'Spouse (dept. use only)','attr' => array('class' => 'form-control')))
+            ->add('homePhone', 'text', array('required' => false,'label'=> 'Home Phone (dept. use only)','attr' => array('class' => 'form-control')))
+
+       ;
     }
 
     public function getName()

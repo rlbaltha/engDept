@@ -23,7 +23,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $currentType = 'Upper';
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
         $courses = $em->createQuery($dql1)->getResult();
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
@@ -42,7 +42,7 @@ class DefaultController extends Controller
     {
         $currentTerm = array('term' => $term);
         $currentType = $type;
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         if ($type == 'Upper') {
             $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area IN ('1','2','3','4','5') ORDER BY c.courseName";
             }
@@ -73,7 +73,7 @@ class DefaultController extends Controller
     public function courseDetailAction($callNumber,$term)
     {
 
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $currentType = 'Upper';
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
@@ -97,7 +97,7 @@ class DefaultController extends Controller
     {
         $currentTerm = array('term' => $term);
         $currentType = 'Upper by Area';
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea1($term);
         $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea2($term);

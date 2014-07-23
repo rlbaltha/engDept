@@ -1,7 +1,7 @@
-{% extends 'EnglishPeopleBundle:People:layout.html.twig' %}
- 
- 
-{% block body %}
+{% extends 'EnglishPeopleBundle::subnav.html.twig' %}
+
+
+{% block content %}
 <div class="row">
 <div class='cell'>{% for mentor in mentor %}Your advisor is {{mentor.aname}}.{% endfor %}</div>
 </div>

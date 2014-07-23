@@ -166,19 +166,14 @@ knp_snappy:
         options:    []
 
 ivory_ck_editor:
-    plugins:
-        wordcount:
-            path:     "bundles/englishhome/ckeditor/plugins/wordcount/"
-            filename: "plugin.js"
-        mediaembed:
-            path:     "bundles/englishhome/ckeditor/plugins/mediaembed/"
-            filename: "plugin.js"
-        maxheight:
-            path:     "bundles/englishhome/ckeditor/plugins/maxheight/"
-            filename: "plugin.js"
     configs:
+        editor_default:
+            toolbar: "toolbar_default"
+            removePlugins: "elementspath,contextmenu,liststyle,tabletools"
+            allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[!href,target]{*}(*); table th tr td strong em; ol ul li span(*){font-size,font-family,color,background-color}; img[*]{*}; iframe{*}[*];'
+            disableNativeSpellChecker: false
+            height: 300
         editor_simple:
-            startupFocus: true
             toolbar: "toolbar_simple"
             removePlugins: "elementspath,contextmenu,liststyle,tabletools"
             allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[!href,target]{*}(*); table th tr td strong em; ol ul li span(*); img[*]{*}; iframe{*}[*];'
@@ -193,5 +188,6 @@ ivory_ck_editor:
             height: 500
     toolbars:
         configs:
+            toolbar_default: [ ['Styles','Bold','Italic','Underline','Strike','JustifyLeft','JustifyCenter','JustifyRight','TextColor','BGColor','FontSize'],['Link','Unlink','NumberedList','BulletedList','Outdent','Indent','Image','MediaEmbed'],[ 'PasteText', 'PasteFromWord', 'Undo', 'Redo','RemoveFormat'] ]
             toolbar_simple: [ ['Bold','Italic','Underline','Strike'],['Link','Unlink'],['NumberedList','BulletedList']]
             toolbar_page: [ ['Source','Styles','Bold','Italic','Underline','Strike','Font','FontSize'],['JustifyLeft','JustifyCenter','JustifyRight'],['TextColor','BGColor'],['Link','Unlink'],['NumberedList','BulletedList'],['Outdent','Indent'],['Image'],[ 'PasteText', 'PasteFromWord', 'Undo', 'Redo','RemoveFormat'],['About'] ]

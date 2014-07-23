@@ -1,23 +1,14 @@
-{% extends 'EnglishHomeBundle::layout.html.twig' %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script language="javascript">
-        $(document).ready(function () {
-
-        });
-    </script>
-{% endblock %}
-
-
- {% block subnav %}
-     {% include 'EnglishPeopleBundle:Default:filter.html.twig' %}
- {% endblock %}
+{% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
 {% block content %}
-    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #f5f5f5; min-height: 100vh">
-    <div class="{% if people[0].photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
-    {% for people in people %}
+    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
+
+        {% if app.user == people.username or is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-default" href="{{ path('people_edit', { 'id': people.id }) }}">Edit</a>
+        {% endif %}
+
+
+    <div class="{% if people.photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
         <dl id="listing{{ people.id }}">
             <dt>
                 <strong>{{ people.firstName }} {{ people.lastName }}</strong>
@@ -25,8 +16,6 @@
                             {% if app.request.pathinfo == '/people/gradfac' %}<a
                                 href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee
                                 Info</a>{% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('people_admin', { 'id': people.id }) }}">
-                                    Permissions</a>{% endif %}
                     </span>
             </dt>
             <dd>
@@ -69,8 +58,6 @@
         </div>
         {% endif %}
 
-    {% endfor %}
-
         <table class="table table-striped">
             {% for courses in peopleCourses %}
                 <tr id="course{{ courses.id }}">
@@ -92,6 +79,27 @@
             {% endfor %}
 
         </table>
+        {% if is_granted('ROLE_ADMIN')  %}
+        <h4>Admin</h4>
+            <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }} {% endfor %}</p>
+        <ul>
+            <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Promote Advisor</a></li>
+            <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Promote Advisor Admin</a></li>
+            <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Promote Grad. Faculty</a></li>
+            <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Promote Grad. Admin</a></li>
+            <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Promote Search</a></li>
+            <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Promote Search Admin</a></li>
+
+
+            <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Demote Advisor</a></li>
+            <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Demote Advisor Admin</a></li>
+            <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Demote Grad. Faculty</a></li>
+            <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Demote Grad. Admin</a></li>
+            <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Demote Search</a></li>
+            <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Demote Search Admin</a></li>
+        </ul>
+        {% endif %}
+
     </div>
 
 {% endblock %}

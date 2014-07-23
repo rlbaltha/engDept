@@ -1,4 +1,15 @@
-{# src/English/PeopleBundle/Resources/views/Default/filter.html.twig #}
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock %}
+
+{% block subnav %}
 
 <!-- Static navbar -->
 <div class="navbar navbar-default subnav" role="navigation">
@@ -14,19 +25,19 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ path('directory_type', {'type': '1'}) }} " tabindex="1" title="Select directory type" >Faculty</a></li>
+                <li><a href="{{ path('directory_type', {'type': '1'}) }} "  title="Select directory type" >Faculty</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         {% for area in areas %}
-                            <li><a href="{{ path('directory_area', {'area': area.id}) }} " tabindex="1" title="Select area" >{{area.area}}</a></li>
+                            <li><a href="{{ path('directory_area', {'area': area.id}) }} "  title="Select area" >{{area.area}}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a href="{{ path('directory_type', {'type': '2'}) }} " tabindex="1" title="Select directory type" >Instructors</a></li>
-                <li><a href="{{ path('directory_type', {'type': '3'}) }} " tabindex="1" title="Select directory type" >Administration</a></li>
-                <li><a href="{{ path('directory_type', {'type': '4'}) }} " tabindex="1" title="Select directory type" >Graduate Students</a></li>
-                <li><a href="{{ path('directory_type', {'type': '5'}) }} " tabindex="1" title="Select directory type" >Retired/Emeritus Faculty</a></li>
+                <li><a href="{{ path('directory_type', {'type': '2'}) }} "  title="Select directory type" >Instructors</a></li>
+                <li><a href="{{ path('directory_type', {'type': '3'}) }} "  title="Select directory type" >Administration</a></li>
+                <li><a href="{{ path('directory_type', {'type': '4'}) }} "  title="Select directory type" >Graduate Students</a></li>
+                <li><a href="{{ path('directory_type', {'type': '5'}) }} "  title="Select directory type" >Retired/Emeritus Faculty</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('people_new') }}">New Listing</a></li>
                 {% endif %}
@@ -42,4 +53,6 @@
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
 </div>
+
+{% endblock %}
 

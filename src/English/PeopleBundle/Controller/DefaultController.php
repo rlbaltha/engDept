@@ -30,30 +30,26 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $heading = 1;
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $people = new People();
         $form = $this->createFindForm($people);
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             $lastname = $form->get('lastName')->getData() . "%";
             $lastname = strtolower($lastname);
-            $em = $this->getDoctrine()->getManager();
-            $dql1 = "SELECT p FROM EnglishPeopleBundle:People p join p.gradinfo g WHERE LOWER(p.lastName) LIKE ?1 AND g.status!='Inactive' ORDER BY p.lastName,p.firstName";
-            $people = $em->createQuery($dql1)->setParameter('1', $lastname)->getResult();
+            $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByLastname($lastname);
+
         } else {
-            $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM
-            EnglishPeopleBundle:People p JOIN p.position o WHERE o.position = ?1 ORDER BY p.lastName,p.firstName";
-            $people = $em->createQuery($dql1)->setParameter('1', 'Faculty')->getResult();
+            $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleIndex();
         }
-        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+
         return array('people' => $people, 'areas' => $areas, 'heading' => $heading, 'form' => $form->createView(),);
     }
 
     /**
      * Creates a find form
-     *
-     * @param People $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -77,11 +73,10 @@ class DefaultController extends Controller
     public function areaAction($area)
     {
         $heading = 1;
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $people = new People();
         $form = $this->createFindForm($people);
-        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o JOIN p.area a WHERE o.position = 'Faculty' AND a.id = ?1 ORDER BY p.lastName,p.firstName";
-        $people = $em->createQuery($dql1)->setParameter('1', $area)->getResult();
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByArea($area);
         $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         return array('people' => $people, 'areas' => $areas, 'heading' => $heading, 'form' => $form->createView(),);
     }
@@ -106,11 +101,10 @@ class DefaultController extends Controller
         } else {
             $typeWc = 'Retired';
         }
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $people = new People();
         $form = $this->createFindForm($people);
-        $dql1 = "SELECT p.id,p.lastName,p.firstName,p.email,p.title,p.officeNumber,p.officePhone,p.username FROM English\PeopleBundle\Entity\People p JOIN p.position o WHERE o.position = ?1 ORDER BY p.lastName,p.firstName";
-        $people = $em->createQuery($dql1)->setParameter('1', $typeWc)->getResult();
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByType($typeWc);
         $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         return array('people' => $people, 'areas' => $areas, 'heading' => $heading, 'form' => $form->createView(),);
     }
@@ -124,19 +118,161 @@ class DefaultController extends Controller
     public function detailAction($id)
     {
         $heading = 1;
-        $em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->getDoctrine()->getManager();
         $people = new People();
         $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         $form = $this->createFindForm($people);
-
-        $dql1 = "SELECT p FROM EnglishPeopleBundle:People p WHERE p.id = ?1";
-        $people = $em->createQuery($dql1)->setParameter('1', $id)->getResult();
-        $dql2 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.may,c.building,c.room,t.termName,t.term FROM EnglishCoursesBundle:Course c, EnglishPeopleBundle:People p, EnglishTermBundle:Term t WHERE LOWER(c.instructorName) = LOWER(p.oasisname) AND c.term = t.term AND t.type = '2' AND p.id = ?1 ORDER BY t.termName,c.courseName";
-        $peopleCourses = $em->createQuery($dql2)->setParameter('1', $id)->getResult();
-        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,);
+        $people= $em->getRepository('EnglishPeopleBundle:People')->find($id);
+        $username = $people->getUsername();
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+        $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($id);
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
 
     }
 
+
+    /**
+     * Finds and displays user profile
+     *
+     * @Route("/profile", name="people_profile")
+     * @Template("EnglishPeopleBundle:Default:detail.html.twig")
+     */
+    public function profileAction()
+    {
+        $heading = 1;
+        $em = $this->getDoctrine()->getManager();
+        $people = new People();
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        $form = $this->createFindForm($people);
+        $username=$this->getUser()->getUsername();
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByUsername($username);
+        $id = $people->getId();
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+        $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($id);
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
+
+    }
+
+
+    /**
+     * Displays a form to edit an existing People entity.
+     *
+     * @Route("/{id}/edit", name="people_edit")
+     * @Template("EnglishPeopleBundle:People:edit.html.twig")
+     */
+    public function editAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $heading = 1;
+        $people = new People();
+        $form = $this->createFindForm($people);
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+
+        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+
+        if (!$people) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+
+
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $editForm = $this->createForm(new AdminPeopleType(), $people);
+        }
+        else  {
+            $editForm = $this->createForm(new PeopleType(), $people);
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'people'      => $people,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'areas' => $areas,
+            'heading' => $heading,
+            'form' => $form->createView(),
+        );
+    }
+
+
+    /**
+     * Edits an existing People entity.
+     *
+     * @Route("/{id}/update", name="people_update")
+     * @Method("post")
+     * @Template("EnglishPeopleBundle:People:edit.html.twig")
+     */
+    public function updateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+
+        if (!$people) {
+            throw $this->createNotFoundException('Unable to find People entity.');
+        }
+
+        $editForm   = $this->createForm(new PeopleType(), $people);
+        $deleteForm = $this->createDeleteForm($id);
+
+        $request = $this->getRequest();
+
+        $editForm->submit($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($people);
+            $em->flush();
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+                return $this->redirect($this->generateUrl('people_show', array('id' => $id)));
+            } else {
+                return $this->redirect($this->generateUrl('people_profile'));
+            }
+        }
+
+        return array(
+            'people'      => $people,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+     * Deletes a People entity.
+     *
+     * @Route("/{id}/delete", name="people_delete")
+     * @Method("post")
+     */
+    public function deleteAction($id)
+    {
+        $form = $this->createDeleteForm($id);
+        $request = $this->getRequest();
+
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
+
+            if (!$people) {
+                throw $this->createNotFoundException('Unable to find People entity.');
+            }
+
+            $em->remove($people);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('people'));
+    }
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+            ;
+    }
 
     /**
      * @Route("/whoismymentor", name="whoismymentor")
@@ -151,7 +287,7 @@ class DefaultController extends Controller
             $email = $postData['email'];
             $email = strtolower($email);
 
-            $em = $this->get('doctrine.orm.entity_manager');
+            $em = $this->getDoctrine()->getManager();
             $dql1 = "SELECT n.name as mname,a.name as aname FROM EnglishMajorsBundle:Major m JOIN m.mentor n JOIN m.advisor a WHERE LOWER(m.email) = ?1";
             $mentor = $em->createQuery($dql1)->setParameter('1', $email)->getResult();
             if ($email == '') {
