@@ -38,6 +38,9 @@
                 <li><a href="{{ path('directory_type', {'type': '3'}) }} "  title="Select directory type" >Administration</a></li>
                 <li><a href="{{ path('directory_type', {'type': '4'}) }} "  title="Select directory type" >Graduate Students</a></li>
                 <li><a href="{{ path('directory_type', {'type': '5'}) }} "  title="Select directory type" >Retired/Emeritus Faculty</a></li>
+                {% if is_granted('ROLE_GRADADMIN') %}
+                    <li><a title="Gradcom" href="{{ path('people_gradfac') }}">Graduate Faculty</a></li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('people_new') }}">New Listing</a></li>
                 {% endif %}

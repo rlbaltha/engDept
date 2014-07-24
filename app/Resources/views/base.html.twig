@@ -13,6 +13,27 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/local.css') }}">
         <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
         {% endstylesheets %}
+        <style type="text/css">
+            th.header {
+                background-image: url({{ asset('bundles/englishhome/img/black-unsorted.gif') }});
+                cursor: pointer;
+                font-weight: bold;
+                background-repeat: no-repeat;
+                background-position: center right;
+                padding-left: 20px;
+                margin-left: -1px;
+            }
+
+            th.headerSortUp {
+                background-image: url({{ asset('bundles/englishhome/img/black-asc.gif') }});
+                background-color: #f3f0dd;
+            }
+
+            th.headerSortDown {
+                background-image: url({{ asset('bundles/englishhome/img/black-desc.gif') }});
+                background-color: #f3f0dd;
+            }
+        </style>
     {% endblock %}
 
     {% block javascripts %}

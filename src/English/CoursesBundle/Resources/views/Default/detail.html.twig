@@ -1,13 +1,8 @@
-{% extends 'EnglishHomeBundle::layout.html.twig' %}
-
-{% block subnav %}
-    {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
-{% endblock %}
-
+{% extends 'EnglishCoursesBundle::subnav.html.twig' %}
 
 {% block content %}
 
-    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #f5f5f5; min-height: 100vh;">
+    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh;">
         <table class="table">
             <thead>
             <tr>
@@ -24,91 +19,95 @@
             </tr>
             </thead>
             <tbody>
-        <tr id="course{{ course.id }}">
-            <td><strong>{{ course.courseName }}</strong></td>
-            <td>{{ course.title }}</td>
-            <td>{{ course.instructorName|upper }}</td>
-            <td>{{ course.days }}</td>
-            <td>{{ course.time }}</td>
-            <td>{{ course.building }}</td>
-            <td>{{ course.room }}</td>
-            <td>{{ course.callNumber }}</td>
-            <td>{{ course.callNumber2 }}</td>
-            <td>{% if course.may == 1 %}Maymester{% endif %}</td>
+            <tr id="course{{ course.id }}">
+                <td><strong>{{ course.courseName }}</strong></td>
+                <td>{{ course.title }}</td>
+                <td>{{ course.instructorName|upper }}</td>
+                <td>{{ course.days }}</td>
+                <td>{{ course.time }}</td>
+                <td>{{ course.building }}</td>
+                <td>{{ course.room }}</td>
+                <td>{{ course.callNumber }}</td>
+                <td>{{ course.callNumber2 }}</td>
+                <td>{% if course.may == 1 %}Maymester{% endif %}</td>
 
-        </tr>
-        </tbody>
-            </table>
+            </tr>
+            </tbody>
+        </table>
 
-            <dl>
-                {% for courseDetail in courseDetail %}
-                    {% if courseDetail.url != '' %}
-                        <dd>
-                            <a href="{{ courseDetail.url }}" title="Course Web Site" target="_blank">Course Web Site</a>
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.description != '' %}
-                        <dl>
-                            Description
-                        </dl>
-                        <dd>
-                            {{ courseDetail.description|raw }}
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.assignments != '' %}
-                        <dl>
-                            Assignments
-                        </dl>
-                        <dd>
-                            {{ courseDetail.assignments|raw }}
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.requirements != '' %}
-                        <dl>
-                            Requirements
-                        </dl>
-                        <dd>
-                            {{ courseDetail.requirements|raw }}
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.grading != '' %}
-                        <dl>
-                            Grading
-                        </dl>
-                        <dd>
-                            {{ courseDetail.grading|raw }}
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.attendance != '' %}
-                        <dl>
-                            Attendance
-                        </dl>
-                        <dd>
-                            {{ courseDetail.attendance|raw }}
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.material != '' %}
-                        <dl>
-                            Material
-                        </dl>
-                        <dd>
-                            {{ courseDetail.material|raw }}
-                        </dd>
-                    {% endif %}
-                    {% if courseDetail.makeup != '' %}
-                        <dl>
-                            Makeup Policy
-                        </dl>
-                        <dd>
-                            {{ courseDetail.makeup|raw }}
-                        </dd>
-                    {% endif %}
+        {% if courseDetail and (courseDetail[0].userid == userid or  is_granted('ROLE_ADMIN')) %}
+                    <a class="btn btn-default pull-right" href="{{ path('description_edit', { 'id': courseDetail[0].id }) }}">Update/Delete</a>
+        {% endif %}
 
-            </dl>
+        <dl>
+            {% for courseDetail in courseDetail %}
+            {% if courseDetail.url != '' %}
+                <dd>
+                    <a href="{{ courseDetail.url }}" title="Course Web Site" target="_blank">Course Web Site</a>
+                </dd>
+            {% endif %}
+            {% if courseDetail.description != '' %}
+                <dl>
+                    Description
+                </dl>
+                <dd>
+                    {{ courseDetail.description|raw }}
+                </dd>
+            {% endif %}
+            {% if courseDetail.assignments != '' %}
+                <dl>
+                    Assignments
+                </dl>
+                <dd>
+                    {{ courseDetail.assignments|raw }}
+                </dd>
+            {% endif %}
+            {% if courseDetail.requirements != '' %}
+                <dl>
+                    Requirements
+                </dl>
+                <dd>
+                    {{ courseDetail.requirements|raw }}
+                </dd>
+            {% endif %}
+            {% if courseDetail.grading != '' %}
+                <dl>
+                    Grading
+                </dl>
+                <dd>
+                    {{ courseDetail.grading|raw }}
+                </dd>
+            {% endif %}
+            {% if courseDetail.attendance != '' %}
+                <dl>
+                    Attendance
+                </dl>
+                <dd>
+                    {{ courseDetail.attendance|raw }}
+                </dd>
+            {% endif %}
+            {% if courseDetail.material != '' %}
+                <dl>
+                    Material
+                </dl>
+                <dd>
+                    {{ courseDetail.material|raw }}
+                </dd>
+            {% endif %}
+            {% if courseDetail.makeup != '' %}
+                <dl>
+                    Makeup Policy
+                </dl>
+                <dd>
+                    {{ courseDetail.makeup|raw }}
+                </dd>
+            {% endif %}
+
+        </dl>
 
         {% else %}
             <p>
-                <div class="cell">No description has been offered by the instructor at this time. </div>
+            <div class="cell">No description has been offered by the instructor at this time.</div>
             </p>
         {% endfor %}
 

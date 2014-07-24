@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use English\PeopleBundle\Entity\People;
 use English\PeopleBundle\Form\PeopleType;
+use English\PeopleBundle\Form\AdminPeopleType;
 use English\PeopleBundle\Form\FindType;
 use English\MajorsBundle\Entity\Major;
 use English\MajorsBundle\Form\MajorType;
@@ -63,6 +64,28 @@ class DefaultController extends Controller
 
         return $form;
     }
+
+
+    /**
+     * Find Grad People
+     *
+     * @Route("/gradfac", name="people_gradfac")
+     * @Template("EnglishPeopleBundle:Default:index.html.twig")
+     */
+    public function gradfacAction()
+    {
+        $heading = 1;
+        $em = $this->getDoctrine()->getManager();
+        $people = new People();
+        $form = $this->createFindForm($people);
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        $people= $em->getRepository('EnglishPeopleBundle:People')->findGradFaculty();
+        $gradform = $this->createFormBuilder(new People())
+            ->add('lastName')
+            ->getForm();
+        return array('heading' => $heading,'areas' => $areas, 'people' => $people, 'form' => $form->createView(), 'gradform' => $gradform->createView());
+    }
+
 
     /**
      * Finds and displays a People by area.
@@ -127,7 +150,8 @@ class DefaultController extends Controller
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($username);
         $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($id);
-        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
+        $grads =$em->getRepository('EnglishPeopleBundle:People')->findGradsByAdvisor($people);
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'grads'=>$grads, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
 
     }
 
@@ -151,7 +175,8 @@ class DefaultController extends Controller
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($username);
         $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($id);
-        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
+        $grads =$em->getRepository('EnglishPeopleBundle:People')->findGradsByAdvisor($people);
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'grads'=>$grads, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
 
     }
 
@@ -225,7 +250,7 @@ class DefaultController extends Controller
             $em->persist($people);
             $em->flush();
             if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                return $this->redirect($this->generateUrl('people_show', array('id' => $id)));
+                return $this->redirect($this->generateUrl('directory_detail', array('id' => $id)));
             } else {
                 return $this->redirect($this->generateUrl('people_profile'));
             }

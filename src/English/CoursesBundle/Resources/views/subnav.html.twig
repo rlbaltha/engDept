@@ -1,0 +1,48 @@
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $('#confirm').toggle();
+        });
+    </script>
+{% endblock %}
+
+{% block subnav %}
+    <!-- Static navbar -->
+    <div class="navbar navbar-default subnav" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">{% if '08' in currentTerm.term %}Fall{% elseif '02' in currentTerm.term %}Spring{% else %}Summer{% endif %} {{ currentType }}</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Term <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+
+                            {% for terms in terms %}
+                                <li><a id="termLink{{ terms.term }}" href="{{ path('listings_list', { 'term': terms.term, 'type': currentType  }) }}" title="Select term" >{{ terms.termName }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+
+                    <li><a id="compLink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'FYC'  }) }}" title="Select term" >Composition</a></li>
+                    <li><a id="sophLink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Surveys'  }) }}" title="Select term" >2nd Year Surveys</a></li>
+                    <li><a id="upperink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Upper'  }) }}" title="Select term" >Upper Division</a></li>
+                    <li><a id="upperink" href="{{ path('listings_byarea', { 'term': currentTerm.term }) }}" title="Upper by Area" >Upper by Area</a></li>
+                    <li><a id="gradink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Graduate'  }) }}" title="Select term" >Graduate</a></li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </div>
+{% endblock %}

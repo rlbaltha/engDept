@@ -12,4 +12,55 @@ use Doctrine\ORM\EntityRepository;
  */
 class MajorRepository extends EntityRepository
 {
+    public function findMajors()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 ORDER BY m.name ASC")
+            ->getResult();
+    }
+
+    public function findMajorsByUsername($username)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.gpa
+             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e
+             WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC")
+            ->setParameter('1',$username)->getResult();
+    }
+
+    public function findMajorsByAdvisor($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND a.id = ?1 ORDER BY m.name ASC")
+            ->setParameter('1',$id)->getResult();
+    }
+
+    public function findMajorsByMentor($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND e.id = ?1 ORDER BY m.name ASC")
+            ->setParameter('1',$id)->getResult();
+    }
+
+
+    public function findMajorsByName($name)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND LOWER(m.name) LIKE ?1 ORDER BY m.name")
+            ->setParameter('1',$name)->getResult();
+    }
+
+
+    public function findMajorNotesByAdvisor($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT n
+                FROM EnglishMajornotesBundle:Majornote n, EnglishMajorsBundle:Major m WHERE n.mentorId = ?1 ORDER BY n.created DESC")
+            ->setParameter('1',$id)->getResult();
+    }
+
 }

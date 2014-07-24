@@ -1,21 +1,25 @@
- {% extends 'EnglishMentorsBundle:Mentor:layout.html.twig' %}
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
  
- {% block body %}
+{% block content %}
 
-<div class="row_contrast divider">
-    {% if is_granted('ROLE_ADVISORADMIN') %}
-    {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
-    {% endif %}
-</div>
-<div class="row divider">
-    <div class="cell"><a href="{{ path('mentor_new') }}">New Mentor</a></div>
-</div>    
-    {% for entity in entities %}
-        <div class="row">
-            <div class="cell bold">{{ entity.name }}</div>
-            <div class="cell"><a href="{{ path('mentor_edit', { 'id': entity.id }) }}">Update/Delete</a></div>
-            <div class="cell"><a href="{{ path('major_findbymentor', { 'id': entity.id }) }}">List Advisees</a></div>
-        </div>
-    {% endfor %}
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; min-height: 100vh">
+
+        <table class="table table-striped">
+            {% for mentor in mentors %}
+                <tr>
+                    <td>{{ mentor.name }}
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-default" href="{{ path('major_findbymentor', { 'id': mentor.id }) }}">List Mentees</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-default" href="{{ path('mentor_edit', { 'id': mentor.id }) }}">Update/Delete</a>
+                            {% endif %}
+                        </div>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}
+

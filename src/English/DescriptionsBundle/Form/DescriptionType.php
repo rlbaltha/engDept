@@ -14,17 +14,17 @@ class DescriptionType extends AbstractType
             ->add('term','hidden')
             ->add('course','hidden')
             ->add('instructorName','hidden')
-            ->add('description', 'textarea', array('label'=>' '))
-            ->add('assignments', 'textarea', array('label'=>' '))
-            ->add('requirements', 'textarea', array('label'=>' '))
-            ->add('grading', 'textarea', array('label'=>' '))
-            ->add('attendance', 'textarea', array('label'=>' '))
-            ->add('material', 'textarea', array('label'=>' '))
-            ->add('makeup', 'textarea', array('label'=>' '))
-            ->add('url', 'text', array('label'=>' '), array('attr' => array('class' => 'width640')))
+            ->add('description', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Description '))
+            ->add('assignments', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Principal course assignments (such as required reading papers, other activities, and the week of the course in which these assignments are expected to be completed and submitted) '))
+            ->add('requirements', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Specific course requirements for grading purposes (e.g., written and oral tests and reports, research papers, performances or other similar requirements, participation requirements, if any) '))
+            ->add('grading', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Grading Policy (How the final grade will be determined with respect to weights or course points assigned to various course requirements.) '))
+            ->add('attendance', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Information regarding attendance policy (If there are specific requirements for attendance, these should be stated; if attendance is to be weighed for the final grade, the syllabus should state what the weight or course points will be.) '))
+            ->add('material', 'ckeditor', array('config_name' => 'editor_simple','label'=>'>Required course material, including texts '))
+            ->add('makeup', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Policy for make-up of assignments '))
+            ->add('url', 'text', array('label'=>'Course website URL ','attr' => array('class' => 'form-control')))
             ->add('topics', 'choice', array('choices' => array ('t' => 'Yes','f' => 'No'), 
-                'expanded' => true, 'required' => true,))
-            ->add('topicsTitle', 'text', array('label'=>' '), array('attr' => array('class' => 'width640')))    
+                'expanded' => true, 'required' => true, 'label'=>'Is this a topics course/seminar?'))
+            ->add('topicsTitle', 'text', array('label'=>'Topics/seminar title ','attr' => array('class' => 'form-control')))
         ;
     }
 

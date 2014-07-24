@@ -1,47 +1,26 @@
-{% extends 'EnglishMajornotesBundle:Majornote:layout.html.twig' %}
- 
-{% block javascripts %}
-<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
-{% endblock %}
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
-{% block body %}
-<script language="javascript"> 
-$(document).ready(function()
-{
-$('#english_majornotesbundle_majornotetype_notes').ckeditor( function() {}, {height:150,width:800, skin: 'chris',forcePasteAsPlainText : true,
-toolbar : [
-['Bold','Italic','Underline','Link','Unlink','NumberedList',
-'BulletedList','Outdent','Indent','Image','Smiley','SpecialChar','RemoveFormat'],
-],} );
-});
-</script>
 
-<div class="row">
-<div class="cell">
-<form action="{{ path('majornote_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-{{ form_widget(edit_form) }}
-<button type="submit">Update</button>
-</form>
-</div>  
-</div>
+{% block content %}
 
-<div class="row">
-<div id="delete{{entity.id}}" class="cell"> 
-<button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Delete</button> 
-</div>      
-    
-<div id="confirm{{entity.id}}" class="cell hidden">
-    <div class="cell">
-<form action="{{ path('majornote_delete', { 'id': entity.id}) }}" method="post">
-{{ form_widget(delete_form) }} 
-<button type="submit">Confirm Delete</button> 
-</form>
-</div>
-<div class="cell">
-<button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Cancel</button>    
-</div>
-</div> 
-</div>
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #ffffff; min-height: 100vh">
+        <form class="" action="{{ path('majornote_update', { 'id': note.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
+            {{ form_widget(edit_form) }}
+            <button class="btn btn-default" type="submit">Update</button>
+        </form>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div id="delete" class="pull-right">
+                <button class="btn btn-warning" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Delete</button>
+            </div>
+
+            <div id="confirm" class="pull-right">
+                <form action="{{ path('majornote_delete', { 'id': note.id}) }}" method="post">
+                    {{ form_widget(delete_form) }}
+                    <button class="btn btn-warning"type="submit">Confirm Delete</button>
+                </form>
+                <button class="btn btn-default" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Cancel</button>
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}

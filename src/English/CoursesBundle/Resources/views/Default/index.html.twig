@@ -1,9 +1,4 @@
-{% extends 'EnglishHomeBundle::layout.html.twig' %}
-
-{% block subnav %}
-    {% include 'EnglishCoursesBundle:Default:filter.html.twig' %}
-{% endblock %}
-
+{% extends 'EnglishCoursesBundle::subnav.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -27,33 +22,6 @@
         });
     </script>
 {% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/theme.bootstrap.css') }}">
-    <style type="text/css">
-        th.header {
-            background-image: url({{ asset('bundles/englishhome/img/black-unsorted.gif') }});
-            cursor: pointer;
-            font-weight: bold;
-            background-repeat: no-repeat;
-            background-position: center right;
-            padding-left: 20px;
-            margin-left: -1px;
-        }
-
-        th.headerSortUp {
-            background-image: url({{ asset('bundles/englishhome/img/black-asc.gif') }});
-            background-color: #f3f0dd;
-        }
-
-        th.headerSortDown {
-            background-image: url({{ asset('bundles/englishhome/img/black-desc.gif') }});
-            background-color: #f3f0dd;
-        }
-    </style>
-{% endblock %}
-
 
 {% block content %}
 

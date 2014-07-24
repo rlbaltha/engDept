@@ -1,68 +1,13 @@
-{% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
- 
-{% block body %}
-{% if is_granted('ROLE_ADVISORADMIN') %}
-    {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
-{% endif %}
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
-<div class="row"><div class="cell">
-                
-<form action="{{ path('major_advancedfind') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
-    <div class="row"><div class="cell">{{ form_errors(form) }}</div></div>
+{% block content %}
 
-            
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.name) }}</div>
-    <div class="cell">{{ form_errors(form.name) }}</div>
-    <div class="cell">{{ form_widget(form.name) }}</div></div>
-            
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.email) }}</div>
-    <div class="cell">{{ form_errors(form.email) }}</div>
-    <div class="cell">{{ form_widget(form.email) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.firstMajor) }}</div>
-    <div class="cell">{{ form_errors(form.firstMajor) }}</div>
-    <div class="cell">{{ form_widget(form.firstMajor) }}</div></div>    
-
-    <div class="row"><div class="cell width75">{{ form_label(form.secondMajor) }}</div>
-    <div class="cell">{{ form_errors(form.secondMajor) }}</div>
-    <div class="cell">{{ form_widget(form.secondMajor) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.aoe) }}</div>
-    <div class="cell">{{ form_errors(form.aoe) }}</div>
-    <div class="cell">{{ form_widget(form.aoe) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.can) }}</div>
-    <div class="cell">{{ form_errors(form.can) }}</div>
-    <div class="cell">{{ form_widget(form.can) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.minor) }}</div>
-    <div class="cell">{{ form_errors(form.minor) }}</div>
-    <div class="cell">{{ form_widget(form.minor) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.honors) }}</div>
-    <div class="cell">{{ form_errors(form.honors) }}</div>
-    <div class="cell">{{ form_widget(form.honors) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.hours) }}</div>
-    <div class="cell">{{ form_errors(form.hours) }}</div>
-    <div class="cell">{{ form_widget(form.hours) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.gpa) }}</div>
-    <div class="cell">{{ form_errors(form.gpa) }}</div>
-    <div class="cell">{{ form_widget(form.gpa) }}</div></div>
-    
-    <div class="row"><div class="cell width75">{{ form_label(form.checkedin) }}</div>
-    <div class="cell">{{ form_errors(form.checkedin) }}</div>
-    <div class="cell">{{ form_widget(form.checkedin) }}</div></div>
-    
-    <div class="row"><div class="cell">{{ form_rest(form) }}</div></div>
-
-    
-    
-    <button type="submit">Find Majors</button>
-</form>
-</div></div>
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+        <form action="{{ path('major_advancedfind') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+            {{ form_widget(form) }}
+            <button class="btn btn-default" type="submit">Find</button>
+        </form>
+    </div>
 
 {% endblock %}
+

@@ -24,29 +24,16 @@ class MajorController extends Controller
      */
     public function indexAction()
     {
-        if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
-         $em = $this->getDoctrine()->getManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
-             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 ORDER BY m.name ASC');
-        $majors = $em->getResult();
-        
-        $form = $this->createFormBuilder(new Major())
-            ->add('name', 'text', array('label' => ' ', 'attr' => array('placeholder'=> 'Name', 'class' => 'text form-control')))
-            ->getForm();
-        
-        return array('majors' => $majors, 'form' => $form->createView());  
-        } else {
-        $securityContext = $this->get('security.context');
-        $username = $securityContext->getToken()->getUsername();  
-         $em = $this->getDoctrine()->getManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.gpa
-             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
-             WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC');
-            $majors = $em->setParameter('1',$username)->getResult();
-        return array('majors' => $majors);
-        }
+        $em = $this->getDoctrine()->getManager();
 
-    }     
+        if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
+            $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajors();
+        } else {
+        $username = $this->getUser()->getUsername();
+            $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByUsername($username);
+        }
+        return array('majors' => $majors);
+    }
 
 
      /**
@@ -57,16 +44,9 @@ class MajorController extends Controller
      */
     public function findbyadvisorAction($id)
     {
-         $em = $this->getDoctrine()->getManager()
-         ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
-             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND a.id = ?1 ORDER BY m.name ASC');
-        $majors = $em->setParameter('1',$id)->getResult();
-        
-        $form = $this->createFormBuilder(new Major())
-            ->add('name', array('attr' => array('class' => 'text form-control')))
-            ->getForm();
-        
-        return array('majors' => $majors, 'form' => $form->createView());
+         $em = $this->getDoctrine()->getManager();
+         $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByAdvisor($id);
+        return array('majors' => $majors);
     } 
     
         
@@ -78,16 +58,9 @@ class MajorController extends Controller
      */
     public function findbymentorAction($id)
     {
-        $em = $this->getDoctrine()->getManager()
-        ->createQuery('SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
-            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND e.id = ?1 ORDER BY m.name ASC');
-       $majors = $em->setParameter('1',$id)->getResult();
-       
-       $form = $this->createFormBuilder(new Major())
-            ->add('name', array('attr' => array('class' => 'text form-control')))
-            ->getForm();
-       
-        return array('entities' => $majors, 'form' => $form->createView());
+       $em = $this->getDoctrine()->getManager();
+       $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByMentor($id);
+       return array('majors' => $majors);
     }
     
     /**
@@ -101,14 +74,11 @@ class MajorController extends Controller
         $postData = $request->request->get('form');
         $name = strtolower($postData['name'] . "%");
         $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
-            FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND LOWER(m.name) LIKE ?1 ORDER BY m.name";
-        $majors = $em->createQuery($dql1)->setParameter('1',$name)->getResult();
+        $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByName($name);
         $form = $this->createFormBuilder(new Major())
             ->add('name', array('attr' => array('class' => 'text form-control')))
             ->getForm();
         if (!$majors) {
-
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
         return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $majors, 'form' => $form->createView()));
@@ -125,7 +95,6 @@ class MajorController extends Controller
     public function advancedformAction()
     {
         $major = new Major();
-        $major->setCheckedin('1');
         $major->setHonors('2');
         $major->setHours('0');
         $major->setGpa('0');
@@ -141,8 +110,7 @@ class MajorController extends Controller
             ->add('minor')   
             ->add('honors','choice', array('choices' => array('0'=>'No','1'=> 'Yes','2'=> 'Both'),'expanded'=>true,))
             ->add('hours', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'Hours >=',)) 
-            ->add('gpa', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'GPA >=',))     
-            ->add('checkedin','choice', array('choices' => array('0'=>'No','1'=> 'Yes'),'expanded'=>true,)) 
+            ->add('gpa', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'GPA >=',))
             ->add('status','choice', array('choices' => array('0'=>'Active','1'=> 'Graduated','2'=> 'Inactive'),'expanded'=>true,))     
             ->getForm();
         
@@ -156,6 +124,7 @@ class MajorController extends Controller
      * Find Majors through advanced search
      *
      * @Route("/advancedfind", name="major_advancedfind")
+     * @Template("EnglishMajorsBundle:Major:index.html.twig")
      * @Method("post")
      */
     public function advancedfindAction()
@@ -168,27 +137,22 @@ class MajorController extends Controller
         $aoe = strtolower($postData['aoe'] . "%");
         $minor = strtolower($postData['minor'] . "%");
         $can = $postData['can'] . "%";
-        $checkedin = $postData['checkedin'];
         $status = $postData['status'];
         $honors = $postData['honors'];
         $hours = $postData['hours'];
         $gpa = $postData['gpa'];
         $em = $this->getDoctrine()->getManager();
-        if ($checkedin == 0) {$queryCheckedin = " AND m.checkedin ='0' ";} else {$queryCheckedin = " AND m.checkedin ='1' ";};
         if ($honors == 0) {$queryHonors = " AND m.honors ='0' ";} elseif ($honors == 1) {$queryHonors = " AND m.honors ='1' ";} else {$queryHonors = '';};
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
             WHERE LOWER(m.name) LIKE ?1 AND LOWER(m.email) LIKE ?2 AND LOWER(m.firstMajor) LIKE ?3 AND LOWER(m.secondMajor) LIKE ?4 AND LOWER(m.aoe) 
-            LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.can >= ?9 AND m.status= ?10 ". $queryCheckedin . $queryHonors ." ORDER BY m.name";
+            LIKE ?5 AND LOWER(m.minor) LIKE ?6 AND m.can LIKE ?7 AND m.hours >= ?8 AND m.can >= ?9 AND m.status= ?10 ". $queryHonors ." ORDER BY m.name";
         $majors = $em->createQuery($dql1)->setParameter('1',$name)->setParameter('2',$email)->setParameter('3',$firstMajor)->setParameter('4',$secondMajor)->setParameter('5',$aoe)->setParameter('6',$minor)->setParameter('7',$can)->setParameter('8',$hours)->setParameter('9',$gpa)->setParameter('10',$status)->getResult();
-        $form = $this->createFormBuilder(new Major())
-            ->add('name')
-            ->getForm();
         if (!$majors) {
 
             return $this->redirect($this->generateUrl('major_advancedform'));
         }
-        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $majors, 'form' => $form->createView()));
+        return array('majors' => $majors);
         }          
         
     /**
@@ -206,8 +170,7 @@ class MajorController extends Controller
         if (!$major) {
             throw $this->createNotFoundException('Unable to find Majors.');
         }
-        $notes = $em->createQuery('SELECT n
-                FROM EnglishMajornotesBundle:Majornote n, EnglishMajorsBundle:Major m WHERE n.mentorId = ?1 ORDER BY n.created DESC')->setParameter('1',$id)->getResult();
+        $notes = $em->getRepository('EnglishMajorsBundle:Major')->findMajorNotesByAdvisor($id);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(

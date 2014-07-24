@@ -16,43 +16,7 @@ use English\DescriptionsBundle\Form\DescriptionType;
  */
 class DescriptionController extends Controller
 {
-    /**
-     * Lists all Description entities.
-     *
-     * @Route("/", name="description")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishDescriptionsBundle:Description')->findAll();
-
-        return array('entities' => $entities);
-    }
-
-    /**
-     * Finds and displays a Description entity.
-     *
-     * @Route("/{id}/show", name="description_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Description entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new Description entity.
@@ -62,14 +26,14 @@ class DescriptionController extends Controller
      */
     public function newAction($callNumber,$term)
     {
-        $entity = new Description();
-        $entity->setCallNumber($callNumber);
-        $entity->setTerm($term);
-        $entity->setTopics('f');
-        $form   = $this->createForm(new DescriptionType(), $entity);
+        $description = new Description();
+        $description->setCallNumber($callNumber);
+        $description->setTerm($term);
+        $description->setTopics('f');
+        $form   = $this->createForm(new DescriptionType(), $description);
         
         return array(
-            'entity' => $entity,
+            'description' => $description,
             'form'   => $form->createView()
         );
     }
@@ -86,25 +50,25 @@ class DescriptionController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Description();
+        $description  = new Description();
         
-        $entity->setUserid($userid);
+        $description->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new DescriptionType(), $entity);
+        $form    = $this->createForm(new DescriptionType(), $description);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($description);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('description_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('listings_detail', array('callNumber' => $description->getCallNumber(), 'term'=>$description->getTerm())));
             
         }
 
         return array(
-            'entity' => $entity,
+            'description' => $description,
             'form'   => $form->createView()
         );
     }
@@ -119,17 +83,17 @@ class DescriptionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
+        $description = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
 
-        if (!$entity) {
+        if (!$description) {
             throw $this->createNotFoundException('Unable to find Description entity.');
         }
 
-        $editForm = $this->createForm(new DescriptionType(), $entity);
+        $editForm = $this->createForm(new DescriptionType(), $description);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'description'      => $description,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -146,13 +110,13 @@ class DescriptionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
+        $description = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
 
-        if (!$entity) {
+        if (!$description) {
             throw $this->createNotFoundException('Unable to find Description entity.');
         }
 
-        $editForm   = $this->createForm(new DescriptionType(), $entity);
+        $editForm   = $this->createForm(new DescriptionType(), $description);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -160,14 +124,14 @@ class DescriptionController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($description);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('description_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('listings_detail', array('callNumber' => $description->getCallNumber(), 'term'=>$description->getTerm())));
         }
 
         return array(
-            'entity'      => $entity,
+            'description'      => $description,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -188,13 +152,13 @@ class DescriptionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
+            $description = $em->getRepository('EnglishDescriptionsBundle:Description')->find($id);
 
-            if (!$entity) {
+            if (!$description) {
                 throw $this->createNotFoundException('Unable to find Description entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($description);
             $em->flush();
         }
 

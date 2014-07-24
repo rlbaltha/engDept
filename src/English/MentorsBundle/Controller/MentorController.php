@@ -26,33 +26,10 @@ class MentorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT a FROM EnglishMentorsBundle:Mentor a ORDER BY a.name";
-        $entities = $em->createQuery($dql1)->getResult();
-        return array('entities' => $entities);
+        $mentors = $em->createQuery($dql1)->getResult();
+        return array('mentors' => $mentors);
     }
-    
-    
-    /**
-     * Finds and displays a Mentor entity.
-     *
-     * @Route("/{id}/show", name="mentor_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Mentor entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new Mentor entity.
@@ -62,11 +39,11 @@ class MentorController extends Controller
      */
     public function newAction()
     {
-        $entity = new Mentor();
-        $form   = $this->createForm(new MentorType(), $entity);
+        $mentor = new Mentor();
+        $form   = $this->createForm(new MentorType(), $mentor);
 
         return array(
-            'entity' => $entity,
+            'mentor' => $mentor,
             'form'   => $form->createView()
         );
     }
@@ -83,17 +60,17 @@ class MentorController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Mentor();
+        $mentor  = new Mentor();
         
-        $entity->setUserid($userid);
+        $mentor->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new MentorType(), $entity);
+        $form    = $this->createForm(new MentorType(), $mentor);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($mentor);
             $em->flush();
 
             return $this->redirect($this->generateUrl('mentor'));
@@ -101,7 +78,7 @@ class MentorController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'mentor' => $mentor,
             'form'   => $form->createView()
         );
     }
@@ -116,17 +93,17 @@ class MentorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
+        $mentor = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
 
-        if (!$entity) {
+        if (!$mentor) {
             throw $this->createNotFoundException('Unable to find Mentor entity.');
         }
 
-        $editForm = $this->createForm(new MentorType(), $entity);
+        $editForm = $this->createForm(new MentorType(), $mentor);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'mentor'      => $mentor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -143,13 +120,13 @@ class MentorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
+        $mentor = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
 
-        if (!$entity) {
+        if (!$mentor) {
             throw $this->createNotFoundException('Unable to find Mentor entity.');
         }
 
-        $editForm   = $this->createForm(new MentorType(), $entity);
+        $editForm   = $this->createForm(new MentorType(), $mentor);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -157,14 +134,14 @@ class MentorController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($mentor);
             $em->flush();
 
             return $this->redirect($this->generateUrl('mentor'));
         }
 
         return array(
-            'entity'      => $entity,
+            'mentor'      => $mentor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -185,13 +162,13 @@ class MentorController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
+            $mentor = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
 
-            if (!$entity) {
+            if (!$mentor) {
                 throw $this->createNotFoundException('Unable to find Mentor entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($mentor);
             $em->flush();
         }
 

@@ -82,8 +82,18 @@ class DefaultController extends Controller
         $dql1 = "SELECT d FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
         $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($callNumber,$term );
-        $callNumber = $callNumber;
-        return array('course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType);
+        $user=$this->getUser();
+
+        if ($user) {
+            $username=$user->getUsername();
+            $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByUsername($username);
+            $userid = $people->getId();
+        }
+        else {
+            $people= null;
+            $userid = 0;
+        }
+        return array('course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType);
             
     }     
  

@@ -11,7 +11,7 @@ class MajornoteType extends AbstractType
     {
         $builder
             ->add('mentorId', 'hidden')
-            ->add('notes')
+            ->add('notes', 'ckeditor', array('required' => false,'label'=> 'Title','config_name' => 'editor_simple',))
         ;
     }
 

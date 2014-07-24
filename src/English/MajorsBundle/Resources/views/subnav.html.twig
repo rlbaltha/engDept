@@ -2,17 +2,14 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <!-- tablesorter plugin -->
+    <script src="{{ asset('bundles/englishhome/js/jquery.tablesorter.min.js') }}"></script>
+    <!-- tablesorter widget file - loaded after the plugin -->
+    <script src="{{ asset('bundles/englishhome/js/jquery.tablesorter.widgets.min.js') }}"></script>
     <script language="javascript">
         $(document).ready(function () {
+            $("table").tablesorter();
             $('#confirm').toggle();
-            $(document).ready(function () {
-                $("input:submit").addClass("btn btn-primary btn-lg btn-block");
-                $("input:text").addClass("form-control");
-                $("input:password").addClass("form-control");
-                $( "#toggle-menu" ).click(function() {
-                    alert( "Handler for .click() called." );
-                });
-            });
         });
     </script>
 {% endblock %}
@@ -34,9 +31,9 @@
                 <ul class="nav navbar-nav">
                     {% if is_granted('ROLE_ADVISORADMIN') %}
                         <li><a href="{{ path('major_new') }}">Add a New Major</a></li>
-                        <li><a title="Majors" href="{{ path('major') }}" >List All Majors</a></li>
-                        <li><a title="Advisors" href="{{ path('advisor') }}" >List Advisors</a></li>
-                        <li><a title="Mentors" href="{{ path('mentor') }}" >List Mentors</a></li>
+                        <li><a title="Majors" href="{{ path('major') }}" >All Majors</a></li>
+                        <li><a title="Advisors" href="{{ path('advisor') }}" >Advisors</a></li>
+                        <li><a title="Mentors" href="{{ path('mentor') }}" >Mentors</a></li>
                         <li><a title="Advanced Find" href="{{ path('major_advancedform') }}" >Advanced Find</a></li>
                     {% endif %}
                 </ul>

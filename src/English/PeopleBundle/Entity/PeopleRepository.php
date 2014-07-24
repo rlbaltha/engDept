@@ -73,6 +73,14 @@ class PeopleRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findGradsByAdvisor($people)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT p FROM EnglishGradcomBundle:Gradcom g,EnglishPeopleBundle:People p WHERE g.gid=p.id AND
+            g.people = ?1 ORDER BY p.lastName")
+            ->setParameter('1',$people)->getResult();
+    }
+
     public function findGradFaculty()
     {
         return $this->getEntityManager()

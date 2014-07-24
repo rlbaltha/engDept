@@ -26,9 +26,9 @@ class MajornoteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishMajornotesBundle:Majornote')->findAll();
+        $notes = $em->getRepository('EnglishMajornotesBundle:Majornote')->findAll();
 
-        return array('entities' => $entities);
+        return array('notes' => $notes);
     }
 
     /**
@@ -41,16 +41,16 @@ class MajornoteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
+        $note = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
 
-        if (!$entity) {
+        if (!$note) {
             throw $this->createNotFoundException('Unable to find Majornote entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'note'      => $note,
             'delete_form' => $deleteForm->createView(),        );
     }
 
@@ -62,13 +62,13 @@ class MajornoteController extends Controller
      */
      public function newAction($id)
     {
-        $entity = new Majornote();
-        $entity->setMentorId($id);
-        $entity->setNotes('<p></p>');
-        $form   = $this->createForm(new MajornoteType(), $entity);
+        $note = new Majornote();
+        $note->setMentorId($id);
+        $note->setNotes('<p></p>');
+        $form   = $this->createForm(new MajornoteType(), $note);
 
         return array(
-            'entity' => $entity,
+            'note' => $note,
             'form'   => $form->createView()
         );
     }   
@@ -85,23 +85,23 @@ class MajornoteController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Majornote();
-        $entity->setUserid($userid);     
+        $note  = new Majornote();
+        $note->setUserid($userid);     
         $request = $this->getRequest();
-        $form    = $this->createForm(new MajornoteType(), $entity);
+        $form    = $this->createForm(new MajornoteType(), $note);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($note);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getMentorId())));
+            return $this->redirect($this->generateUrl('major_show', array('id' => $note->getMentorId())));
             
         }
 
         return array(
-            'entity' => $entity,
+            'note' => $note,
             'form'   => $form->createView()
         );
     }
@@ -117,8 +117,8 @@ class MajornoteController extends Controller
     public function emailAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
-        $name = $entity->getName();
+        $note = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+        $name = $note->getName();
         if( ($x_pos = strpos($name, ',')) !== FALSE )
         $name = substr($name, $x_pos + 1) . ' ' . substr($name, 0, $x_pos);
         $body =  $name . ' has been mentored.';   
@@ -133,11 +133,11 @@ class MajornoteController extends Controller
         
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId(); 
-        $entity  = new Majornote();
-        $entity->setUserid($userid);
-        $entity->setMentorId($id);
-        $entity->setNotes($body);
-        $em->persist($entity);
+        $note  = new Majornote();
+        $note->setUserid($userid);
+        $note->setMentorId($id);
+        $note->setNotes($body);
+        $em->persist($note);
         $em->flush();
         
 
@@ -159,17 +159,17 @@ class MajornoteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
+        $note = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
 
-        if (!$entity) {
+        if (!$note) {
             throw $this->createNotFoundException('Unable to find Majornote entity.');
         }
 
-        $editForm = $this->createForm(new MajornoteType(), $entity);
+        $editForm = $this->createForm(new MajornoteType(), $note);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'note'      => $note,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -186,13 +186,13 @@ class MajornoteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
+        $note = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
 
-        if (!$entity) {
+        if (!$note) {
             throw $this->createNotFoundException('Unable to find Majornote entity.');
         }
 
-        $editForm   = $this->createForm(new MajornoteType(), $entity);
+        $editForm   = $this->createForm(new MajornoteType(), $note);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -200,14 +200,14 @@ class MajornoteController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($note);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getMentorId())));
+            return $this->redirect($this->generateUrl('major_show', array('id' => $note->getMentorId())));
         }
 
         return array(
-            'entity'      => $entity,
+            'note'      => $note,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -226,19 +226,19 @@ class MajornoteController extends Controller
 
         $form->submit($request);
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
+        $note = $em->getRepository('EnglishMajornotesBundle:Majornote')->find($id);
          
         if ($form->isValid()) {
            
-            if (!$entity) {
+            if (!$note) {
                 throw $this->createNotFoundException('Unable to find Majornote entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($note);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('major_show', array('id' => $entity->getMentorId())));
+        return $this->redirect($this->generateUrl('major_show', array('id' => $note->getMentorId())));
     }
 
     private function createDeleteForm($id)

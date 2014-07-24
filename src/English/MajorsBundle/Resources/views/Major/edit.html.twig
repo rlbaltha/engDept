@@ -1,119 +1,26 @@
-{% extends 'EnglishMajorsBundle:Major:layout.html.twig' %}
-
-{% block javascripts %}
-<script src="{{ asset('bundles/englishhome/js/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('bundles/englishhome/js/ckeditor/adapters/jquery.js') }}"></script>
-{% endblock %}
-
-{% block body %}
-
-<script language="javascript"> 
-$(document).ready(function()
-{
-$('#english_majorsbundle_majortype_notes').ckeditor( function() {}, {height:150, skin: 'chris',forcePasteAsPlainText : true,
-toolbar : [
-['Bold','Italic','Underline','TextColor','BGColor','Link','Unlink','NumberedList',
-'BulletedList','Outdent','Indent','Image','SpecialChar','RemoveFormat'],
-],} );
-});
-</script>
-
-<div class="row_contrast divider">
-    {% if is_granted('ROLE_ADVISORADMIN') %}
-    {% include 'EnglishMajorsBundle:Major:nav.html.twig' %}
-    {% endif %}
-</div>
-
-<div class="row"><div class="cell">
-<form action="{{ path('major_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
-    <div class="row"><div class="cell">{{ form_errors(edit_form) }}</div></div>
-    
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.name, 'Last, First') }}</div>
-    <div class="cell">{{ form_errors(edit_form.name) }}</div>
-    <div class="cell">{{ form_widget(edit_form.name) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.email) }}</div>
-    <div class="cell">{{ form_errors(edit_form.email) }}</div>
-    <div class="cell">{{ form_widget(edit_form.email) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.advisor) }}</div>
-    <div class="cell">{{ form_errors(edit_form.advisor) }}</div>
-    <div class="cell">{{ form_widget(edit_form.advisor) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.mentor) }}</div>
-    <div class="cell">{{ form_errors(edit_form.mentor) }}</div>
-    <div class="cell">{{ form_widget(edit_form.mentor) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.firstMajor, 'First Major') }}</div>
-    <div class="cell">{{ form_errors(edit_form.firstMajor) }}</div>
-    <div class="cell">{{ form_widget(edit_form.firstMajor) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.secondMajor, 'First Major') }}</div>
-    <div class="cell">{{ form_errors(edit_form.secondMajor) }}</div>
-    <div class="cell">{{ form_widget(edit_form.secondMajor) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.aoe) }}</div>
-    <div class="cell">{{ form_errors(edit_form.aoe) }}</div>
-    <div class="cell">{{ form_widget(edit_form.aoe) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.can) }}</div>
-    <div class="cell">{{ form_errors(edit_form.can) }}</div>
-    <div class="cell">{{ form_widget(edit_form.can) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.minor) }}</div>
-    <div class="cell">{{ form_errors(edit_form.minor) }}</div>
-    <div class="cell">{{ form_widget(edit_form.minor) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.honors) }}</div>
-    <div class="cell">{{ form_errors(edit_form.honors) }}</div>
-    <div class="cell">{{ form_widget(edit_form.honors) }}</div></div>
-
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.notes) }}</div>
-    <div class="cell">{{ form_errors(edit_form.notes) }}</div>
-    <div class="cell">{{ form_widget(edit_form.notes) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.checkedin) }}</div>
-    <div class="cell">{{ form_errors(edit_form.checkedin) }}</div>
-    <div class="cell">{{ form_widget(edit_form.checkedin) }}</div></div>
-  
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.hours) }}</div>
-    <div class="cell">{{ form_errors(edit_form.hours) }}</div>
-    <div class="cell">{{ form_widget(edit_form.hours) }}</div></div>
-    
-    <div class="row"><div class="cell width100">{{ form_label(edit_form.gpa) }}</div>
-    <div class="cell">{{ form_errors(edit_form.gpa) }}</div>
-    <div class="cell">{{ form_widget(edit_form.gpa) }}</div></div>
-    
-    <div class="row"><div class="cell">{{ form_rest(edit_form) }}</div></div>
-        
-        
-    <button type="submit">Update</button>
-   
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
 
-</form>
-</div>
-    
-<div class="row">
-<div id="delete{{entity.id}}" class="cell"> 
-<button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Delete</button> 
-</div>      
-    
-<div id="confirm{{entity.id}}" class="cell hidden">
-    <div class="cell">
-<form action="{{ path('major_delete', { 'id': entity.id }) }}" method="post">
-{{ form_widget(delete_form) }} 
-<button type="submit">Confirm Delete</button> 
-</form>
-</div>
-<div class="cell">
-<button onclick="$('#confirm{{entity.id}}').toggle();$('#delete{{entity.id}}').toggle()" type="submit">Cancel</button>    
-</div>
-</div> 
-</div>    
-    
-</div>
+{% block content %}
 
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #ffffff; min-height: 100vh">
+        <form class="" action="{{ path('major_update', { 'id': major.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
+            {{ form_widget(edit_form) }}
+            <button class="btn btn-default" type="submit">Update</button>
+        </form>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div id="delete" class="pull-right">
+                <button class="btn btn-warning" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Delete</button>
+            </div>
+
+            <div id="confirm" class="pull-right">
+                <form action="{{ path('donate_delete', { 'id': major.id}) }}" method="post">
+                    {{ form_widget(delete_form) }}
+                    <button class="btn btn-warning"type="submit">Confirm Delete</button>
+                </form>
+                <button class="btn btn-default" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Cancel</button>
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}

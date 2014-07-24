@@ -13,6 +13,7 @@ class PeopleType extends AbstractType
             ->add('username','hidden')
             ->add('lastName', 'text', array('label'=> 'Last Name','attr' => array('class' => 'form-control')))
             ->add('firstName', 'text', array('label'=> 'First Name','attr' => array('class' => 'form-control')))
+            ->add('title', 'ckeditor', array('required' => false,'label'=> 'Title','config_name' => 'editor_simple',))
             ->add('rank', 'text',  array('required' => false,'attr' => array('class' => 'form-control')))
             ->add('position','entity', array('class'=>'EnglishPositionBundle:Position', 'property'=>'position','expanded'=>true,'multiple'=>true,'required' => true, ))
             ->add('area','entity', array('class'=>'EnglishAreasBundle:Area', 'property'=>'area','expanded'=>true,'multiple'=>true, 'required' => false,))
