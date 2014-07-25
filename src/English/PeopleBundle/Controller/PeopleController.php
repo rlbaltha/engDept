@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Entity\UserManager;
 use English\PeopleBundle\Entity\People;
 use English\PeopleBundle\Form\PeopleType;
@@ -121,43 +122,7 @@ class PeopleController extends Controller
         return $this->render('EnglishPeopleBundle:People:index.html.twig', array('entities' => $entities, 'form' => $form->createView(), 'gradform' => $gradform->createView()));
     }
 
-    /**
-     * Finds and displays a People entity.
-     *
-     * @Route("/{id}/show", name="people_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $username = $this->get('security.context')->getToken()->getUsername();
-        $em = $this->getDoctrine()->getManager();
-        $people = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
-        $userid = $people->getId();
 
-        $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
-        $status = $people->getGradinfo()->getStatus();
-        $areas = $em->createQuery('SELECT a.area FROM EnglishPeopleBundle:People p JOIN p.area a WHERE p.id = ?1 ORDER BY a.area')->setParameter('1', $id)->getResult();
-
-
-        $gradcom = $em->createQuery('SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName')->setParameter('1', $id)->getResult();
-        $join = $em->createQuery('SELECT count(g.id) FROM EnglishGradcomBundle:Gradcom g WHERE g.people = ?1 AND g.gid = ?2')->setParameter('1', $people)->setParameter('2', $id)->getSingleResult();
-        if (!$people) {
-            throw $this->createNotFoundException('Unable to find People entity.');
-        }
-        $notes = $em->createQuery('SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2 
-            ORDER BY g.created DESC')->setParameter('1', $id)->setParameter('2', $userid)->getResult();
-
-        $deleteForm = $this->createDeleteForm($id);
-        return array(
-            'userid' => $userid,
-            'areas' => $areas,
-            'people' => $people,
-            'gradcom' => $gradcom,
-            'notes' => $notes,
-            'join' => $join,
-            'status' => $status,
-            'delete_form' => $deleteForm->createView(),);
-    }
 
     /**
      * Finds and displays a People entity.
@@ -234,7 +199,7 @@ class PeopleController extends Controller
             $em->persist($people);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('people_show', array('id' => $people->getId())));
+            return $this->redirect($this->generateUrl('directory_detail', array('id' => $people->getId())));
 
         }
 

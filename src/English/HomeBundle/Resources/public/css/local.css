@@ -16,3 +16,32 @@ input[type="checkbox"], input[type="radio"] {
 label {
     margin-top: 10px;
 }
+
+.page-header {
+    margin-top: 40px;
+}
+
+div#content {
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: #f3f0dd;
+    height: 100%;
+}
+
+div#content > div {
+    background-color: #ffffff;
+    min-height: 100vh
+}
+
+.btn-warning {
+    margin-top: -55px;
+}
+
+.navbar-brand {
+    font-size: 16pt;
+}
+
+.panel-heading > .btn-group {
+    margin-top: -5px;
+}

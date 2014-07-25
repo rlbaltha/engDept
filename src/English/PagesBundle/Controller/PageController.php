@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\PagesBundle\Entity\Page;
 use English\PagesBundle\Form\PageType;
 
@@ -27,6 +28,10 @@ class PageController extends Controller
      */
     public function indexAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $pages = $em->getRepository('EnglishPagesBundle:Page')->findAll();
@@ -44,6 +49,10 @@ class PageController extends Controller
      */
     public function createAction(Request $request)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $page = new Page();
         $form = $this->createCreateForm($page);
         $form->handleRequest($request);
@@ -90,6 +99,10 @@ class PageController extends Controller
      */
     public function newAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $page = new Page();
         $form   = $this->createCreateForm($page);
 
@@ -133,6 +146,10 @@ class PageController extends Controller
      */
     public function editAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
@@ -178,6 +195,10 @@ class PageController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
@@ -210,6 +231,10 @@ class PageController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 

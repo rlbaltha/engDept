@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\GradnotesBundle\Entity\Gradnotes;
 use English\GradnotesBundle\Form\GradnotesType;
 
@@ -16,43 +17,6 @@ use English\GradnotesBundle\Form\GradnotesType;
  */
 class GradnotesController extends Controller
 {
-    /**
-     * Lists all Gradnotes entities.
-     *
-     * @Route("/", name="gradnotes")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->findAll();
-
-        return array('entities' => $entities);
-    }
-
-    /**
-     * Finds and displays a Gradnotes entity.
-     *
-     * @Route("/{id}/show", name="gradnotes_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Gradnotes entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new Gradnotes entity.
@@ -62,13 +26,13 @@ class GradnotesController extends Controller
      */
     public function newAction($id)
     {
-        $entity = new Gradnotes();
-        $entity->setGid($id);
-        $entity->setNotes('<p></p>');
-        $form   = $this->createForm(new GradnotesType(), $entity);
+        $gradnote = new Gradnotes();
+        $gradnote->setGid($id);
+        $gradnote->setNotes('<p></p>');
+        $form   = $this->createForm(new GradnotesType(), $gradnote);
 
         return array(
-            'entity' => $entity,
+            'gradnote' => $gradnote,
             'form'   => $form->createView()
         );
     }
@@ -85,25 +49,25 @@ class GradnotesController extends Controller
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Gradnotes();
+        $gradnote  = new Gradnotes();
         
-        $entity->setUserid($userid);
+        $gradnote->setUserid($userid);
         
         $request = $this->getRequest();
-        $form    = $this->createForm(new GradnotesType(), $entity);
+        $form    = $this->createForm(new GradnotesType(), $gradnote);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($gradnote);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('people_show', array('id' => $entity->getGid())));
+            return $this->redirect($this->generateUrl('directory_detail', array('id' => $gradnote->getGid())));
             
         }
 
         return array(
-            'entity' => $entity,
+            'gradnote' => $gradnote,
             'form'   => $form->createView()
         );
     }
@@ -118,17 +82,17 @@ class GradnotesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
+        $gradnote = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
 
-        if (!$entity) {
+        if (!$gradnote) {
             throw $this->createNotFoundException('Unable to find Gradnotes entity.');
         }
 
-        $editForm = $this->createForm(new GradnotesType(), $entity);
+        $editForm = $this->createForm(new GradnotesType(), $gradnote);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'gradnote'      => $gradnote,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -145,13 +109,13 @@ class GradnotesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
+        $gradnote = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
 
-        if (!$entity) {
+        if (!$gradnote) {
             throw $this->createNotFoundException('Unable to find Gradnotes entity.');
         }
 
-        $editForm   = $this->createForm(new GradnotesType(), $entity);
+        $editForm   = $this->createForm(new GradnotesType(), $gradnote);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -159,14 +123,14 @@ class GradnotesController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($gradnote);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('people_show', array('id'=>$entity->getGid())));
+            return $this->redirect($this->generateUrl('directory_detail', array('id' => $gradnote->getGid())));
         }
 
         return array(
-            'entity'      => $entity,
+            'gradnote'      => $gradnote,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -187,17 +151,17 @@ class GradnotesController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
+            $gradnote = $em->getRepository('EnglishGradnotesBundle:Gradnotes')->find($id);
 
-            if (!$entity) {
+            if (!$gradnote) {
                 throw $this->createNotFoundException('Unable to find Gradnotes entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($gradnote);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('people_show', array('id'=>$entity->getGid())));
+        return $this->redirect($this->generateUrl('directory_detail', array('id' => $gradnote->getGid())));
     }
 
     private function createDeleteForm($id)

@@ -11,7 +11,7 @@ class GradnotesType extends AbstractType
     {
         $builder
             ->add('gid','hidden')
-            ->add('notes')
+            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
         ;
     }
 

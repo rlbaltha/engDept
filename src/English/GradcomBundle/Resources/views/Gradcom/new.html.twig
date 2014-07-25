@@ -1,13 +1,12 @@
- {% extends 'EnglishGradcomBundle:Gradcom:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishGradcomBundle::subnav.html.twig' %}
 
-<div class="row"><div class="cell">
-<form action="{{ path('gradcom_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Submit</button>
-    </p>
-</form>
-</div></div>
+{% block content %}
+
+    <div class="col-sm-offset-1 col-sm-10 well">
+        <form action="{{ path('gradcom_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+            {{ form_widget(form) }}
+            <button class="btn btn-default" type="submit">Create</button>
+        </form>
+    </div>
+
 {% endblock %}

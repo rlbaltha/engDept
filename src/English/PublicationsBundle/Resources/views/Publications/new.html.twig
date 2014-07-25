@@ -2,15 +2,11 @@
 
 {% block content %}
 
-<div class="row divider">
-<div class="cell">
-<form action="{{ path('publications_create') }}" method="post" {{ form_enctype(form) }}>
-{{ form_widget(form) }}
-<p>
-<button type="submit">Create</button>
-</p>
-</form>
-</div>
-</div>
+    <div class="col-sm-offset-1 col-sm-10 well">
+        <form action="{{ path('publications_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+            <button class="btn btn-default" type="submit">Create</button>
+        </form>
+    </div>
 
 {% endblock %}

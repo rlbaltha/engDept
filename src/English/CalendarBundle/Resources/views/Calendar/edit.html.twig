@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #f5f5f5; height: 100vh">
+    <div class="col-sm-offset-1 col-sm-10 well">
         <form class="" action="{{ path('calendar_update', { 'id': event.id }) }}" method="post" {{ form_enctype(edit_form) }}>
             {{ form_widget(edit_form) }}
             <button class="btn btn-default" type="submit">Update</button>

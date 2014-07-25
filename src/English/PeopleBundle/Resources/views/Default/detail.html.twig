@@ -3,147 +3,209 @@
 {% block content %}
     <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
 
-
-        <div class="{% if people.photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
-            <dl id="listing{{ people.id }}">
-                <dt>
-                    <strong>{{ people.firstName }} {{ people.lastName }}</strong>
+        <div class="row">
+            <div class="{% if people.photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
+                <dl id="listing{{ people.id }}">
+                    <dt>
+                    <h3>{{ people.firstName }} {{ people.lastName }}</h3>
                     {% if app.user == people.username or is_granted('ROLE_ADMIN') %}
-                        <a class="btn btn-default" href="{{ path('people_edit', { 'id': people.id }) }}">Edit</a>
+                        <a class="btn btn-default pull-right"
+                           href="{{ path('people_edit', { 'id': people.id }) }}">Edit</a>
                     {% endif %}
-                    <span class="pull-right">
-                            {% if app.request.pathinfo == '/people/gradfac' %}<a
-                                href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee
-                                Info</a>{% endif %}
-                    </span>
-                </dt>
-                <dd>
-                    {{ people.title | raw }}
-                    Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
-                    Phone:
-                    {{ people.officePhone }}
-                    Office:
-                    {{ people.officeNumber }}
-                </dd>
-            </dl>
-            <p>
-                {{ people.bio|raw }}
-            </p>
-            {% if people.officeHours != '' %}
+                    </dt>
+                    <dd>
+                        {{ people.title | raw }}
+                        Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
+                        Phone:
+                        {{ people.officePhone }}
+                        Office:
+                        {{ people.officeNumber }}
+                    </dd>
+                </dl>
                 <p>
-                    <strong>Office hours: </strong>{{ people.officeHours|raw }}
+                    {{ people.bio|raw }}
                 </p>
-            {% endif %}
-            {% if people.vitaUrl != '' %}
-                <p>
-                    <strong>Vita: </strong><a href="{{ people.vitaUrl }}" tabindex="1" title="Vita"
-                                              target="_blank">{{ people.vitaUrl }}</a>
-                </p>
-            {% endif %}
-            {% if people.homepageUrl != '' %}
-                <p>
-                    <strong>Website: </strong><a href="{{ people.homepageUrl }}" tabindex="1" title="Website"
-                                                 target="_blank">{{ people.homepageUrl }}</a>
-                </p>
-            {% endif %}
+                {% if people.officeHours != '' %}
+                    <p>
+                        <strong>Office hours: </strong>{{ people.officeHours|raw }}
+                    </p>
+                {% endif %}
+                {% if people.vitaUrl != '' %}
+                    <p>
+                        <strong>Vita: </strong><a href="{{ people.vitaUrl }}" tabindex="1" title="Vita"
+                                                  target="_blank">{{ people.vitaUrl }}</a>
+                    </p>
+                {% endif %}
+                {% if people.homepageUrl != '' %}
+                    <p>
+                        <strong>Website: </strong><a href="{{ people.homepageUrl }}" tabindex="1" title="Website"
+                                                     target="_blank">{{ people.homepageUrl }}</a>
+                    </p>
+                {% endif %}
 
-        </div>
-
-        {% if people.photoUrl != '' %}
-            <div class="col-sm-offset-2 col-sm-4">
-                <div class="thumbnail">
-                    <img src="{{ people.photoUrl }}" alt="Image of {{ people.firstName }} {{ people.lastName }}">
-                </div>
             </div>
-        {% endif %}
+
+            {% if people.photoUrl != '' %}
+                <div class="col-sm-offset-2 col-sm-4">
+                    <div class="thumbnail">
+                        <img src="{{ people.photoUrl }}" alt="Image of {{ people.firstName }} {{ people.lastName }}">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
 
 
         {% if peopleCourses %}
-            <div class="page-header">
-                <h4>Courses</h4>
-            </div>
-        <table class="table table-striped">
-            {% for courses in peopleCourses %}
-                <tr id="course{{ courses.id }}">
-                    <td>{{ courses.termName }}</td>
-                    <td>
-                        <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
-                                   title="Course Detail">{{ courses.courseName }}</a></strong></td>
-                    <td>{{ courses.title }}</td>
-                    <td>{{ courses.instructorName|upper }}</td>
-                    <td>{{ courses.callNumber }}</td>
-                    <td>{{ courses.callNumber2 }}</td>
-                    {% if courses.may == 1 %}
-                        <td class="cell bold">Maymester</td>{% endif %}
-                    <td>{{ courses.days }}</td>
-                    <td>{{ courses.time }}</td>
-                    <td>{{ courses.building }}</td>
-                    <td>{{ courses.room }}</td>
+            <div class="row">
+                <div class=" col-sm-12 page-header">
+                    <h4>Courses</h4>
+                </div>
+                <table class="table table-striped">
+                    {% for courses in peopleCourses %}
+                        <tr id="course{{ courses.id }}">
+                            <td>{{ courses.termName }}</td>
+                            <td>
+                                <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
+                                           title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                            <td>{{ courses.title }}</td>
+                            <td>{{ courses.instructorName|upper }}</td>
+                            <td>{{ courses.callNumber }}</td>
+                            <td>{{ courses.callNumber2 }}</td>
+                            {% if courses.may == 1 %}
+                                <td class="cell bold">Maymester</td>{% endif %}
+                            <td>{{ courses.days }}</td>
+                            <td>{{ courses.time }}</td>
+                            <td>{{ courses.building }}</td>
+                            <td>{{ courses.room }}</td>
 
-                </tr>
-            {% endfor %}
-        </table>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         {% endif %}
 
         {% if grads and (is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN')) %}
-            <div class="page-header">
-                <h4>Graduate Students</h4>
+            <div class="row">
+                <div class="page-header">
+                    <h4>Graduate Students</h4>
+                </div>
+                <dl>
+                    {% for people in grads %}
+                        <dt>
+                            <a id="detailLink{{ people.id }}" href="{{ path('directory_detail', { 'id': people.id }) }}"
+                               title="Detail"><strong>{{ people.firstName }} {{ people.lastName }}</strong></a>
+
+                        </dt>
+                        <dd>
+                            Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
+                        </dd>
+                    {% endfor %}
+                </dl>
+            </div>
+        {% endif %}
+        {% if people.gradinfo.status != 'NA' and (is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN')) %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group btn-group-sm pull-right" style="">
+                        {% if gradcom %}
+                            <a class="btn btn-default btn-sm" style="margin-left: 10px;"
+                               href="{{ path('gradcom_new', { 'id': people.id }) }}">
+                                Add committee member</a>
+                        {% endif %}
+                    </div>
+                    <h3 class="panel-title">Graduate Committee</h3>
+                </div>
+                <div class="panel-body">
+
+                    {% for gradcom in gradcom %}
+                        {{ gradcom.firstName }} {{ gradcom.lastName }}{% if gradcom.frole == 2 %}, Chair {% endif %}
+                        {% if is_granted('ROLE_GRADADMIN') or is_granted('ROLE_ADMIN') %}
+                            <a class="" style="margin-left: 10px;"
+                               href="{{ path('gradcom_edit', { 'id': gradcom.id }) }}">
+                                (change)</a>
+                        {% endif %}
+                        <br/>
+                    {% else %}
+                        This  Graduate student has no committee members listed.
+                    {% endfor %}
+                </div>
             </div>
 
-        {% for people in grads %}
-            <dl id="listing{{ people.id }}">
-                <dt>
-                    <a id="detailLink{{ people.id }}"  href="{{ path('directory_detail', { 'id': people.id }) }}" title="Detail"><strong>{{ people.firstName }} {{ people.lastName }}</strong></a>
-                        <span class="pull-right">
-                        {% if app.request.pathinfo == '/people/gradfac' %}<a href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee Info</a>{% endif %}
-                    </span>
-                </dt>
-                <dd>
-                    {{ people.title | raw }}
-                    Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
-                    Phone:
-                    {{ people.officePhone }}
-                    Office:
-                    {{ people.officeNumber }}
-                </dd>
-            </dl>
-        {% endfor %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group btn-group-sm pull-right" style="">
+                        {% if gradcom %}
+                            <a class="btn btn-default btn-sm" href="{{ path('gradnotes_new', { 'id': people.id }) }}">New
+                                Note</a>
+                        {% endif %}
+                    </div>
+                    <h3 class="panel-title">Graduate Advisor Notes</h3>
+                </div>
+                <div class="panel-body">
+
+                    <dl>
+                        {% for notes in notes %}
+                            <dt>
+                                {{ notes.updated |date('h:i A M d, Y') }}
+                            </dt>
+                            <dd>
+                                {{ notes.notes | raw }}
+                                <a href="{{ path('majornote_edit', { 'id': notes.id }) }}">Update/Delete</a>
+                            </dd>
+                        {% endfor %}
+
+                    </dl>
+                </div>
+            </div>
+
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            <div class="page-header">
-                <h4>Admin</h4>
+            <div class="row">
+                <div class="page-header">
+                    <h4>Admin</h4>
+                </div>
+
+                <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }} {% endfor %}</p>
+                <ul>
+                    <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Promote
+                            Advisor</a></li>
+                    <li>
+                        <a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Promote
+                            Advisor Admin</a></li>
+                    <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Promote
+                            Grad. Faculty</a></li>
+                    <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Promote
+                            Grad. Admin</a></li>
+                    <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Promote
+                            Search</a></li>
+                    <li>
+                        <a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Promote
+                            Search Admin</a></li>
+                    <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Promote
+                            Page Admin</a></li>
+
+
+                    <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Demote
+                            Advisor</a></li>
+                    <li>
+                        <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Demote
+                            Advisor Admin</a></li>
+                    <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Demote
+                            Grad. Faculty</a></li>
+                    <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Demote
+                            Grad. Admin</a></li>
+                    <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Demote
+                            Search</a></li>
+                    <li>
+                        <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Demote
+                            Search Admin</a></li>
+                    <li>
+                        <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Demote
+                            Page Admin</a></li>
+                </ul>
             </div>
-
-            <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }} {% endfor %}</p>
-            <ul>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Promote
-                        Advisor</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Promote
-                        Advisor Admin</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Promote
-                        Grad. Faculty</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Promote
-                        Grad. Admin</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Promote
-                        Search</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Promote
-                        Search Admin</a></li>
-
-
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Demote
-                        Advisor</a></li>
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISORADMIN' }) }}">Demote
-                        Advisor Admin</a></li>
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADFAC' }) }}">Demote
-                        Grad. Faculty</a></li>
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Demote
-                        Grad. Admin</a></li>
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Demote
-                        Search</a></li>
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Demote
-                        Search Admin</a></li>
-            </ul>
         {% endif %}
 
     </div>

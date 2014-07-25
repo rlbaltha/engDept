@@ -23,7 +23,7 @@ class PeopleRepository extends EntityRepository
     public function findPeopleByLastname($lastname)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT p FROM EnglishPeopleBundle:People p join p.gradinfo g WHERE LOWER(p.lastName) LIKE ?1 AND g.status!='Inactive' ORDER BY p.lastName,p.firstName;")
+            ->createQuery("SELECT p FROM EnglishPeopleBundle:People p join p.gradinfo g WHERE LOWER(p.lastName) LIKE ?1 AND g.status!='Inactive' ORDER BY p.lastName,p.firstName")
             ->setParameters(array('1' => $lastname))->getResult();
     }
 
@@ -86,6 +86,21 @@ class PeopleRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT p FROM EnglishPeopleBundle:People p join p.position o WHERE o.position='Graduate Faculty' ORDER BY p.lastName,p.firstName")
             ->getResult();
+    }
+
+    public function findGradComm($people)
+    {
+        return $this->getEntityManager($people)
+            ->createQuery("SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName")
+            ->setParameter('1', $people)->getResult();
+    }
+
+    public function findGradNotes($id, $userid)
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT g FROM EnglishGradnotesBundle:Gradnotes g WHERE g.gid = ?1 AND g.userid = ?2
+            ORDER BY g.created DESC")
+            ->setParameter('1', $id)->setParameter('2', $userid)->getResult();
     }
 
 

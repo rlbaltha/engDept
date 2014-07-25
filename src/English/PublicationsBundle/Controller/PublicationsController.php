@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\PublicationsBundle\Entity\Publications;
 use English\PublicationsBundle\Form\PublicationsType;
 
@@ -31,28 +32,6 @@ class PublicationsController extends Controller
         return array('publications' => $publications);
     }
 
-    /**
-     * Finds and displays a Publications entity.
-     *
-     * @Route("/{id}/show", name="publications_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Publications entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new Publications entity.
@@ -62,14 +41,17 @@ class PublicationsController extends Controller
      */
     public function newAction()
     {
-        $entity = new Publications();
-        $entity->setDescription('<p></p>');
-        $form   = $this->createForm(new PublicationsType(), $entity);
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+            $publication = new Publications();
+            $publication->setDescription('<p></p>');
+            $form   = $this->createForm(new PublicationsType(), $publication);
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView()
-        );
+            return array(
+                'publication' => $publication,
+                'form'   => $form->createView()
+            );
     }
 
     /**
@@ -81,18 +63,22 @@ class PublicationsController extends Controller
      */
     public function createAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
-        $entity  = new Publications();
-        $entity->setUserid($userid);
+        $publication  = new Publications();
+        $publication->setUserid($userid);
         $request = $this->getRequest();
-        $form    = $this->createForm(new PublicationsType(), $entity);
+        $form    = $this->createForm(new PublicationsType(), $publication);
         $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($publication);
             $em->flush();
 
             return $this->redirect($this->generateUrl('publications'));
@@ -100,7 +86,7 @@ class PublicationsController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'publication' => $publication,
             'form'   => $form->createView()
         );
     }
@@ -113,19 +99,23 @@ class PublicationsController extends Controller
      */
     public function editAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
+        $publication = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
-        if (!$entity) {
+        if (!$publication) {
             throw $this->createNotFoundException('Unable to find Publications entity.');
         }
 
-        $editForm = $this->createForm(new PublicationsType(), $entity);
+        $editForm = $this->createForm(new PublicationsType(), $publication);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'publication'      => $publication,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -140,15 +130,19 @@ class PublicationsController extends Controller
      */
     public function updateAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
+        $publication = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
-        if (!$entity) {
+        if (!$publication) {
             throw $this->createNotFoundException('Unable to find Publications entity.');
         }
 
-        $editForm   = $this->createForm(new PublicationsType(), $entity);
+        $editForm   = $this->createForm(new PublicationsType(), $publication);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -156,14 +150,14 @@ class PublicationsController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($publication);
             $em->flush();
 
             return $this->redirect($this->generateUrl('publications'));
         }
 
         return array(
-            'entity'      => $entity,
+            'publication'      => $publication,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -177,6 +171,10 @@ class PublicationsController extends Controller
      */
     public function deleteAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
@@ -184,13 +182,13 @@ class PublicationsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
+            $publication = $em->getRepository('EnglishPublicationsBundle:Publications')->find($id);
 
-            if (!$entity) {
+            if (!$publication) {
                 throw $this->createNotFoundException('Unable to find Publications entity.');
             }
 
-            $em->remove($entity);
+            $em->remove($publication);
             $em->flush();
         }
 

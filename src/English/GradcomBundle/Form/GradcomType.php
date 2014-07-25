@@ -13,7 +13,7 @@ class GradcomType extends AbstractType
         $position = 'Graduate Faculty';
         $builder
             ->add('gid','hidden')
-            ->add('people', 'entity', array('class' => 'EnglishPeopleBundle:People','query_builder' => function(EntityRepository $er) use ($position) {
+            ->add('people', 'entity', array('label'=> 'Graduate Faculty Member','attr' => array('class' => 'form-control'),'class' => 'EnglishPeopleBundle:People','query_builder' => function(EntityRepository $er) use ($position) {
                 return $er->createQueryBuilder('p')
                           ->join('p.position', 'o')
                           ->where("o.position = :position")
@@ -21,7 +21,7 @@ class GradcomType extends AbstractType
                           ->orderBy('p.lastName', 'ASC');
               },'multiple' => false, 'property'=> 'lastName'
               ))    
-            ->add('frole', 'choice', array('choices' => array('1' => 'Member', '2' => 'Chair'),'required'  => true,'label'  => 'Committee Role'))
+            ->add('frole', 'choice', array('attr' => array('class' => 'form-control'),'choices' => array('1' => 'Member', '2' => 'Chair'),'required'  => true,'label'  => 'Committee Role'))
             ->add('status', 'hidden')             
         ;
     }

@@ -10,7 +10,7 @@ class PublicationsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description')
+            ->add('description', 'ckeditor', array('config_name' => 'editor_default',))
         ;
     }
 

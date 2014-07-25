@@ -45,7 +45,7 @@
 
 </head>
 <body>
-<div class="col-sm-12" style="margin-top: 20px; padding:0px; ">
+<div class="col-sm-12" style="margin-top: 20px; padding:0px; background-color: #f5f5f5; ">
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #f3f0dd;padding-right: 20px;">
         <div class="navbar-header col-sm-3">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -115,7 +115,7 @@
                 class="col-sm-11"
             {% else %}
                 class="col-sm-12"
-            {% endif %} role="main" style="margin-bottom: 0px;padding-left: 0px; padding-right: 0px; background-color: #f3f0dd; height: 100%;">
+            {% endif %} role="main">
                 {% block content %}
                 {% endblock %}
             </div>
@@ -156,8 +156,7 @@
 
                 </div>
             {% endif %}
-            <div class="col-sm-12 "
-                 style="margin-bottom: 0px;padding-left: 0px; padding-right: 0px; background-color: #f3f0dd; height: 100%;">
+            <div id="content" class="col-sm-12 ">
                 {{ block('content') }}
             </div>
 
@@ -165,6 +164,15 @@
 
     </div>
 </div>
+
+
+<div class="row" style="background-color:#f3f0dd;">
+    <div class="col-sm-offset-4 col-sm-5" style="margin-top: 20px">
+        <p class="text-muted">The Department of English | Franklin College of Arts & Sciences | University of Georgia</p>
+        <p class="text-muted">254 Park Hall, Athens, Georgia, 30602-6205 | Phone: 706.542.1261 | Fax: 706.542.2181</p>
+    </div>
+</div>
+
 
 {# Modal #}
 <div class="modal fade" id="base_modal" tabindex="-1" aria-labelledby="baseModalLabel" aria-hidden="true" role="dialog">

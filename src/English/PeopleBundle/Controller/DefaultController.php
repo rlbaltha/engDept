@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\PeopleBundle\Entity\People;
 use English\PeopleBundle\Form\PeopleType;
 use English\PeopleBundle\Form\AdminPeopleType;
@@ -133,50 +134,64 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds and displays detail of People.
+     * Finds and displays detail of People  (user and viewer are NOT necessarily the same).
      *
      * @Route("/{id}/detail", name="directory_detail")
      * @Template("EnglishPeopleBundle:Default:detail.html.twig")
      */
     public function detailAction($id)
     {
-        $heading = 1;
         $em = $this->getDoctrine()->getManager();
         $people = new People();
-        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         $form = $this->createFindForm($people);
+        $heading = 1;
+
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+        $user=$this->getUser();
+        $username=$user->getUsername();
+        $current_user_people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByUsername($username);
+        $peopleid=$current_user_people->getId();
+        }
+        else {
+        $user= null;
+        $peopleid=0;
+        }
+
         $people= $em->getRepository('EnglishPeopleBundle:People')->find($id);
-        $username = $people->getUsername();
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username);
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($id);
         $grads =$em->getRepository('EnglishPeopleBundle:People')->findGradsByAdvisor($people);
-        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'grads'=>$grads, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
+        $gradcom =$em->getRepository('EnglishPeopleBundle:People')->findGradComm($people);
+        $notes =$em->getRepository('EnglishPeopleBundle:People')->findGradNotes($id, $peopleid);
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'grads'=>$grads, 'gradcom'=>$gradcom, 'notes'=>$notes,'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user,'userid' => $peopleid);
 
     }
 
 
     /**
-     * Finds and displays user profile
+     * Finds and displays user profile (user and viewer are the same)
      *
      * @Route("/profile", name="people_profile")
      * @Template("EnglishPeopleBundle:Default:detail.html.twig")
      */
     public function profileAction()
     {
-        $heading = 1;
         $em = $this->getDoctrine()->getManager();
         $people = new People();
-        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         $form = $this->createFindForm($people);
-        $username=$this->getUser()->getUsername();
+        $heading = 1;
+
+        $user=$this->getUser();
+        $username=$user->getUsername();
         $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByUsername($username);
-        $id = $people->getId();
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($username);
-        $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($id);
+        $peopleid=$people->getId();
+
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
+        $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($peopleid);
         $grads =$em->getRepository('EnglishPeopleBundle:People')->findGradsByAdvisor($people);
-        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'grads'=>$grads, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user);
+        $gradcom =$em->getRepository('EnglishPeopleBundle:People')->findGradComm($people);
+        $notes =$em->getRepository('EnglishPeopleBundle:People')->findGradNotes($peopleid, $peopleid);
+        return array('people' => $people, 'peopleCourses' => $peopleCourses, 'grads'=>$grads,'gradcom'=>$gradcom, 'notes'=>$notes, 'heading' => $heading, 'form' => $form->createView(),'areas' => $areas,'user' => $user,'userid' => $peopleid);
 
     }
 
@@ -189,6 +204,8 @@ class DefaultController extends Controller
      */
     public function editAction($id)
     {
+
+
         $em = $this->getDoctrine()->getManager();
         $heading = 1;
         $people = new People();
@@ -197,28 +214,33 @@ class DefaultController extends Controller
 
         $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
 
-        if (!$people) {
-            throw $this->createNotFoundException('Unable to find People entity.');
-        }
+        $people_username=$people->getUsername();
+        $user=$this->getUser();
+        $username=$user->getUsername();
 
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $people_username==$username) {
+            if (!$people) {
+                throw $this->createNotFoundException('Unable to find People entity.');
+            }
 
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            $editForm = $this->createForm(new AdminPeopleType(), $people);
-        }
-        else  {
             $editForm = $this->createForm(new PeopleType(), $people);
+
+            $deleteForm = $this->createDeleteForm($id);
+
+            return array(
+                'people'      => $people,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+                'areas' => $areas,
+                'heading' => $heading,
+                'form' => $form->createView(),
+            );
+        }
+        else {
+            throw new AccessDeniedException();
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'people'      => $people,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-            'areas' => $areas,
-            'heading' => $heading,
-            'form' => $form->createView(),
-        );
     }
 
 
@@ -231,6 +253,10 @@ class DefaultController extends Controller
      */
     public function updateAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $people = $em->getRepository('EnglishPeopleBundle:People')->find($id);
@@ -271,6 +297,10 @@ class DefaultController extends Controller
      */
     public function deleteAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 

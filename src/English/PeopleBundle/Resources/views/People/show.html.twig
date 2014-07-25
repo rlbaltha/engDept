@@ -63,36 +63,6 @@
            {% endif %}
             
             
-{% if status != 'NA' and (is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN') or entity.id==userid) %}   
-<div class="row_contrast"><div class="cell bold">Graduate Information</div></div> 
-<div class="row"><div class="cell bold">Committee</div></div> 
-        {% for gradcom in gradcom %}
-        <div class="row">
-            <div class="cell">{{ gradcom.firstName}} {{ gradcom.lastName}}{% if gradcom.frole == 2 %}, Chair {% endif %}
-            {% if is_granted('ROLE_GRADADMIN') %}<a href="{{ path('gradcom_edit', { 'id': gradcom.id }) }}">Update</a>{% endif %}</div>
-        </div>
-        {% endfor %}
 
-{% if is_granted('ROLE_GRADADMIN') %}
-<div class="row divider"><div class="cell">
-        <a href="{{ path('gradcom_new', { 'id': entity.id }) }}">Add to Committee</a></div></div>
-{% endif %}
-{% if is_granted('ROLE_GRADFAC') or is_granted('ROLE_GRADADMIN') %}
-<div class="row_contrast"><div class="cell bold">Graduate Advisor Notes</div></div>
-        <div class="row divider">
-            <div class="cell"><a href="{{ path('gradnotes_new', { 'id': entity.id }) }}">New Note</a></div>
-        </div>
-        {% for notes in notes %}
-        <div class="row">
-            <div class="cell">{{ notes.notes | raw}}</div>
-        </div>
-
-       <div class="row divider">
-            <div class="cell">{{ notes.updated |date('h:i A M d, Y')}}</div>
-            <div class="cell"><a href="{{ path('gradnotes_edit', { 'id': notes.id }) }}">Update/Delete</a></div>
-        </div>
-        {% endfor %}
-{% endif %}
-{% endif %}            
 {% endblock %}
 
