@@ -57,8 +57,19 @@ class PageController extends Controller
         $form = $this->createCreateForm($page);
         $form->handleRequest($request);
 
+
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            foreach ($page->getSection()->getPages() as $pages) {
+                if ($page->getSortorder() <= $pages->getSortorder()) {
+                    $currentsort = $pages->getSortorder();
+                    $page->setSortOrder($currentsort + 1);
+                }
+            }
+
+
             $em->persist($page);
             $em->flush();
 
@@ -103,7 +114,9 @@ class PageController extends Controller
             throw new AccessDeniedException();
         }
 
+        $sort = 1;
         $page = new Page();
+        $page->setSortorder($sort);
         $form   = $this->createCreateForm($page);
 
         return array(
@@ -223,6 +236,62 @@ class PageController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Moves a Project entity up one in the display order.
+     *
+     * @Route("/{pageid}/{previouspageid}/promote", name="page_promote")
+     */
+    public function promoteAction($pageid, $previouspageid)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository('EnglishPagesBundle:Page')->find($pageid);
+        $currentOrder = $page->getSortorder();
+        $previousPage = $em->getRepository('EnglishPagesBundle:Page')->find($previouspageid);
+        $previousOrder = $previousPage->getSortorder();
+        $page->setSortOrder($previousOrder);
+        $previousPage->setSortorder($currentOrder);
+        $em->persist($page);
+        $em->persist($previousPage);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('pages_show', array('id' => $page->getId())));
+
+    }
+
+    /**
+     * Moves a Project entity down one in the display order.
+     *
+     * @Route("/{pageid}/{followingpageid}/demote", name="page_demote")
+     */
+    public function demoteAction($pageid, $followingpageid)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository('EnglishPagesBundle:Page')->find($pageid);
+        $currentOrder = $page->getSortorder();
+        $followingPage = $em->getRepository('EnglishPagesBundle:Page')->find($followingpageid);
+        $followingOrder = $followingPage->getSortorder();
+        $page->setSortOrder($followingOrder);
+        $followingPage->setSortorder($currentOrder);
+        $em->persist($page);
+        $em->persist($followingPage);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('pages_show', array('id' => $page->getId())));
+
+    }
+
+
+
+
     /**
      * Deletes a Page entity.
      *

@@ -1,23 +1,48 @@
 {% extends 'EnglishPagesBundle::subnav.html.twig' %}
 
 {% block content %}
-    <div class="col-sm-offset-1 col-sm-10" style="background-color: #f5f5f5; min-height: 100vh; padding-right: 0px;padding-left: 0px;">
-        <div id="sidebar" class="col-sm-2" style="background-color: #f5f5f5; min-height: 100vh; ">
+    <div class="col-sm-offset-1 col-sm-10" style="background-color: #f5f5f5; min-height: 100vh;">
+        <div id="sidebar" class="col-sm-3" style="background-color: #f5f5f5; min-height: 100vh; ">
             <ul class="nav nav-list">
                 {% for page in page.section.pages %}
+                    {% set previouspage = loop.index0 - 1 %}
+                    {% set followingpage = loop.index0 + 1 %}
                     <li>
                         {% if page.link is null or page.link == '' %}
-                            <a href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
+                            <a style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
                         {% else %}
-                            <a target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
+                            <a style="display: inline-block" target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_PAGEADMIN') %}
+                        <span class="pull-right">
+                            {% if not loop.first %}
+                                <a style="display:inline;padding:0"
+                                   href="{{ path('page_promote', { 'pageid':page.id, 'previouspageid':page.section.pages[previouspage].id}) }}">
+                                    <i class="glyphicon glyphicon-chevron-up small"></i>
+                                </a>
+                            {% endif %}
+                            {% if not loop.last %}
+                                <a style="display:inline;padding:0"
+                                   href="{{ path('page_demote', { 'pageid':page.id, 'followingpageid':page.section.pages[followingpage].id}) }}">
+                                    <i class="glyphicon glyphicon-chevron-down small"></i>
+                                </a>
+                            {% endif %}
+                        </span>
                         {% endif %}
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-sm-10" style="background-color: #ffffff; min-height: 100vh; padding: 40px; ">
+        <div class="col-sm-9" style="background-color: #ffffff; min-height: 100vh;padding: 60px;">
+            {% if is_granted('ROLE_PAGEADMIN') %}
+            <span class="pull-right">
+               <a class="btn btn-default" style="display: inline-block" title="Edit this page" href="{{ path('pages_edit', { 'id':page.id}) }}">Edit</a>
+            </span>
+            {% endif %}
             {{ page.pageBody|raw }}
         </div>
     </div>
 
 {% endblock %}
+
+

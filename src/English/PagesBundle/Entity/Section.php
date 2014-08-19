@@ -31,6 +31,7 @@ class Section
 
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="section")
+     * @ORM\OrderBy({"sortorder" = "ASC"})
      */
     protected $pages;
 

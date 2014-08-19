@@ -32,9 +32,11 @@
                         <li>
                             <a href="{{ path('section_new') }}">Add Section</a>
                         </li>
+                       {% if 'pages_show' in app.request.get('_route' ) %}
                         <li>
                             <a href="{{ path('pages_new') }}">Add Page</a>
                         </li>
+                       {% endif %}
                     {% endif %}
                 </ul>
             </div>
