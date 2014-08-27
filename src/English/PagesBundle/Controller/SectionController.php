@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\PagesBundle\Entity\Section;
 use English\PagesBundle\Form\SectionType;
+use English\PagesBundle\Entity\Page;
 
 /**
  * Section controller.
@@ -49,9 +50,17 @@ class SectionController extends Controller
         $form = $this->createCreateForm($section);
         $form->handleRequest($request);
 
+        $page = new Page();
+        $page->setSortOrder(1);
+        $page->setMenuName('Home');
+        $page->setSection($section);
+
+
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($section);
+            $em->persist($page);
             $em->flush();
 
             return $this->redirect($this->generateUrl('section'));

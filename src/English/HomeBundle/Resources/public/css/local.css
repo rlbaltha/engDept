@@ -14,7 +14,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 label {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .page-header {
@@ -44,4 +44,8 @@ div#content > div {
 
 .panel-heading > .btn-group {
     margin-top: -5px;
+}
+
+.dropdown-toggle:hover > ul.dropdown-menu {
+    display: block;
 }

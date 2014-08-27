@@ -104,18 +104,22 @@ class PageController extends Controller
     /**
      * Displays a form to create a new Page entity.
      *
-     * @Route("/new", name="pages_new")
+     * @Route("/{sectionid}/{pageid}/new", name="pages_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($sectionid, $pageid)
     {
         if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
             throw new AccessDeniedException();
         }
-
+        $em = $this->getDoctrine()->getManager();
+        $section = $em->getRepository('EnglishPagesBundle:Section')->find($sectionid);
+        $parent = $em->getRepository('EnglishPagesBundle:Page')->find($pageid);
         $sort = 1;
         $page = new Page();
+        $page->setSection($section);
+        $page->setParent($parent);
         $page->setSortorder($sort);
         $form   = $this->createCreateForm($page);
 
@@ -137,6 +141,8 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
+        $section = $page->getSection();
+        $menu = $em->getRepository('EnglishPagesBundle:Page')->findPageMenu($section);
 
         if (!$page) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -145,6 +151,7 @@ class PageController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'menu'  => $menu,
             'page'      => $page,
             'delete_form' => $deleteForm->createView(),
         );
@@ -310,6 +317,7 @@ class PageController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
+            $section = $page->getSection();
 
             if (!$page) {
                 throw $this->createNotFoundException('Unable to find Page entity.');
@@ -319,7 +327,7 @@ class PageController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('page'));
+        return $this->redirect($this->generateUrl('section_show', array('id' => $section->getId())));
     }
 
     /**

@@ -62,6 +62,10 @@ class DonateController extends Controller
      */
     public function newAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+        
         $fund = new Donate();
         $form   = $this->createForm(new DonateType(), $fund);
 
@@ -80,6 +84,9 @@ class DonateController extends Controller
      */
     public function createAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
         $fund  = new Donate();
         $request = $this->getRequest();
         $form    = $this->createForm(new DonateType(), $fund);
@@ -108,6 +115,9 @@ class DonateController extends Controller
      */
     public function editAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
 
         $fund = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
@@ -135,6 +145,9 @@ class DonateController extends Controller
      */
     public function updateAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
 
         $fund = $em->getRepository('EnglishDonateBundle:Donate')->find($id);
@@ -172,6 +185,9 @@ class DonateController extends Controller
      */
     public function deleteAction($id)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 

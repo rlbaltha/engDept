@@ -19,7 +19,9 @@ class PageType extends AbstractType
             ->add('link','text', array('label'=>'Link (if used will override link to page body)', 'attr' => array('class' => 'text form-control'),))
             ->add('pageBody', 'ckeditor', array('config_name' => 'editor_page',))
             ->add('section', 'entity', array('class' => 'EnglishPagesBundle:Section',
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Select', 'attr' => array('class' => 'form-control'),))
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Section', 'attr' => array('class' => 'form-control'),))
+            ->add('parent', 'entity', array('class' => 'EnglishPagesBundle:Page',
+                'property' => 'menuName','expanded'=>false,'multiple'=>false,'label'  => 'Parent page', 'attr' => array('class' => 'form-control'),))
         ;
     }
     

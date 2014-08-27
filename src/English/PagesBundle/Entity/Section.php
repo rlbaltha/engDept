@@ -29,6 +29,14 @@ class Section
      */
     private $name;
 
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="info", type="text")
+     */
+    private $info;
+
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="section")
      * @ORM\OrderBy({"sortorder" = "ASC"})
@@ -106,5 +114,28 @@ class Section
     public function getPages()
     {
         return $this->pages;
+    }
+
+    /**
+     * Set info
+     *
+     * @param string $info
+     * @return Section
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * Get info
+     *
+     * @return string 
+     */
+    public function getInfo()
+    {
+        return $this->info;
     }
 }

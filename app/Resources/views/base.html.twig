@@ -55,7 +55,7 @@
             </button>
             <a name="top"></a>
             <a class="navbar-brand" style="font-family: 'Lora', 'Times New Roman', 'serif';" href="{{ path('home') }}"
-               title="English Department Homepage"><strong>English at University of Georgia</strong></a>
+               title="English Department Homepage"><strong>English at UGA</strong></a>
         </div>
 
         <div id="mainnav" class="navbar-collapse collapse">
@@ -124,7 +124,7 @@
             {% if 'home' in app.request.attributes.get('_route') %}
                 <div class="col-sm-offset-1 col-sm-10 " style="padding:20px;margin-top: 50px;">
 
-                    <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel">
+                    <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel" data-interval="8000"  data-pause="hover">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             {% for slide in slideshow %}
