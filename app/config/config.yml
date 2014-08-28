@@ -24,6 +24,7 @@ twig:
     globals:
       application_name:       %app_name%
       ldap_auth:              %ldap%
+      twitter:              %twitter%
 
 # Assetic Configuration
 assetic:
