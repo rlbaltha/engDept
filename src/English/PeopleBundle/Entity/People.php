@@ -210,8 +210,14 @@ class People
     /**
      * @ORM\OneToMany(targetEntity="English\GradcomBundle\Entity\Gradcom", mappedBy="grad")
      */
-    protected $grad;  
-    
+    protected $grad;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="English\PagesBundle\Entity\Page", mappedBy="user")
+     */
+    protected $pages;
+
     /**
     * @ORM\Column(type="datetime", nullable=true)
     * @Gedmo\Timestampable(on="create")
@@ -702,7 +708,7 @@ class People
     /**
      * Set gradinfo
      *
-     * @param English\GradinfoBundle\Entity\Gradinfo $gradinfo
+     * @param \English\GradinfoBundle\Entity\Gradinfo $gradinfo
      */
     public function setGradinfo(\English\GradinfoBundle\Entity\Gradinfo $gradinfo)
     {
@@ -712,7 +718,7 @@ class People
     /**
      * Get gradinfo
      *
-     * @return English\GradinfoBundle\Entity\Gradinfo 
+     * @return \English\GradinfoBundle\Entity\Gradinfo
      */
     public function getGradinfo()
     {
@@ -748,7 +754,7 @@ class People
     /**
      * Add position
      *
-     * @param English\PositionBundle\Entity\Position $position
+     * @param \English\PositionBundle\Entity\Position $position
      */
     public function addPosition(\English\PositionBundle\Entity\Position $position)
     {
@@ -758,7 +764,7 @@ class People
     /**
      * Get position
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPosition()
     {
@@ -768,7 +774,7 @@ class People
     /**
      * Add gradcom
      *
-     * @param English\GradcomBundle\Entity\Gradcom $gradcom
+     * @param \English\GradcomBundle\Entity\Gradcom $gradcom
      */
     public function addGradcom(\English\GradcomBundle\Entity\Gradcom $gradcom)
     {
@@ -778,7 +784,7 @@ class People
     /**
      * Get gradcom
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGradcom()
     {
@@ -788,7 +794,7 @@ class People
     /**
      * Get grad
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGrad()
     {
@@ -798,7 +804,7 @@ class People
     /**
      * Add area
      *
-     * @param English\AreasBundle\Entity\Area $area
+     * @param \English\AreasBundle\Entity\Area $area
      */
     public function addArea(\English\AreasBundle\Entity\Area $area)
     {
@@ -808,7 +814,7 @@ class People
     /**
      * Get area
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArea()
     {
@@ -833,5 +839,91 @@ class People
     public function getOasisname()
     {
         return $this->oasisname;
+    }
+
+    /**
+     * Remove area
+     *
+     * @param \English\AreasBundle\Entity\Area $area
+     */
+    public function removeArea(\English\AreasBundle\Entity\Area $area)
+    {
+        $this->area->removeElement($area);
+    }
+
+    /**
+     * Remove position
+     *
+     * @param \English\PositionBundle\Entity\Position $position
+     */
+    public function removePosition(\English\PositionBundle\Entity\Position $position)
+    {
+        $this->position->removeElement($position);
+    }
+
+    /**
+     * Remove gradcom
+     *
+     * @param \English\GradcomBundle\Entity\Gradcom $gradcom
+     */
+    public function removeGradcom(\English\GradcomBundle\Entity\Gradcom $gradcom)
+    {
+        $this->gradcom->removeElement($gradcom);
+    }
+
+    /**
+     * Add grad
+     *
+     * @param \English\GradcomBundle\Entity\Gradcom $grad
+     * @return People
+     */
+    public function addGrad(\English\GradcomBundle\Entity\Gradcom $grad)
+    {
+        $this->grad[] = $grad;
+
+        return $this;
+    }
+
+    /**
+     * Remove grad
+     *
+     * @param \English\GradcomBundle\Entity\Gradcom $grad
+     */
+    public function removeGrad(\English\GradcomBundle\Entity\Gradcom $grad)
+    {
+        $this->grad->removeElement($grad);
+    }
+
+    /**
+     * Add pages
+     *
+     * @param \English\PagesBundle\Entity\Page $pages
+     * @return People
+     */
+    public function addPage(\English\PagesBundle\Entity\Page $pages)
+    {
+        $this->pages[] = $pages;
+
+        return $this;
+    }
+
+    /**
+     * Remove pages
+     *
+     * @param \English\PagesBundle\Entity\Page $pages
+     */
+    public function removePage(\English\PagesBundle\Entity\Page $pages)
+    {
+        $this->pages->removeElement($pages);
+    }
+
+    /**
+     * Get pages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPages()
+    {
+        return $this->pages;
     }
 }

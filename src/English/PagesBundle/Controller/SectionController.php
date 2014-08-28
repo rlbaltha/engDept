@@ -29,6 +29,7 @@ class SectionController extends Controller
      */
     public function indexAction()
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $sections = $em->getRepository('EnglishPagesBundle:Section')->findAll();

@@ -22,7 +22,7 @@
                         </strong>
                         <p><a href="{{ fund.link }}" title="Make an Online Gift Now" target="_blank">Make an Online Gift Now</a></p>
 
-                        <p>{{ fund.description }}</p>
+                        <p>{{ fund.description|raw }}</p>
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="pull-right" href="{{ path('donate_edit', { 'id': fund.id }) }}">Update/Delete</a>

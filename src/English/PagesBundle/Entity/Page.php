@@ -23,6 +23,11 @@ class Page
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="English\PeopleBundle\Entity\People", inversedBy="page")
+     */
+    protected $user;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="menu_name", type="string", length=255)
@@ -315,5 +320,28 @@ class Page
     public function getSortorder()
     {
         return $this->sortorder;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \English\PeopleBundle\Entity\People $user
+     * @return Page
+     */
+    public function setUser(\English\PeopleBundle\Entity\People $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \English\PeopleBundle\Entity\People 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

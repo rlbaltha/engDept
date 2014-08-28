@@ -163,10 +163,6 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             <div class="row">
-                <div class="page-header">
-                    <h4>Admin</h4>
-                </div>
-
                 <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }} {% endfor %}</p>
                 <ul>
                     <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Promote

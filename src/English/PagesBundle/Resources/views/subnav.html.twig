@@ -22,11 +22,22 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand"
-                   href="#">{% if 'pages_show' in app.request.get('_route' ) %}<h1 class="small" style="margin-top: 0px;margin-left: 20px;">{{ page.section.name|upper }}{% else %}Sections{% endif %}</h1></a>
+                   href="#">
+                    {% if 'pages_show' in app.request.get('_route' ) %}
+                    <h1 class="small" style="margin-top: 0px;margin-left: 20px;">
+                        {% if page.section.name == 'grad' %}Graduate Studies in English
+                        {% elseif  page.section.name == 'undergrad' %}Undergraduate Studies in English
+                        {% elseif  page.section.name == 'fyc' %}First-year Composition
+                        {% endif %}
+                        {% else %}
+                            Sections
+                        {% endif %}
+                    </h1>
+                </a>
             </div>
             <div id="subnav" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_PAGEADMIN') %}
                         <li>
                             <a href="{{ path('section') }}">List Sections</a>
                         </li>
@@ -39,10 +50,10 @@
                                     Page</a>
                             </li>
                             {% if not page.parent %}
-                            <li>
-                                <a href="{{ path('pages_new', {'sectionid':page.section.id, 'pageid':page.id}) }}">Add
-                                    SubPage</a>
-                            </li>
+                                <li>
+                                    <a href="{{ path('pages_new', {'sectionid':page.section.id, 'pageid':page.id}) }}">Add
+                                        SubPage</a>
+                                </li>
                             {% endif %}
                         {% endif %}
                     {% endif %}

@@ -61,6 +61,9 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user=$this->getUser();
+            $username=$user->getUsername();
+            $people=$pages = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username);
 
             foreach ($page->getSection()->getPages() as $pages) {
                 if ($page->getSortorder() <= $pages->getSortorder()) {
@@ -69,7 +72,7 @@ class PageController extends Controller
                 }
             }
 
-
+            $page->setUser($people);
             $em->persist($page);
             $em->flush();
 

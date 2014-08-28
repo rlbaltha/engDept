@@ -8,7 +8,6 @@
 
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     {% block sidebar %}
-        <li><a class='last' title="Logout" href="{{ path('fos_user_change_password') }}">Password</a></li>
         <li><a class='last' title="Logout" href="{{ path('people_profile') }}">Profile</a></li>
         {% if is_granted('ROLE_ADVISOR') %}
             <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>

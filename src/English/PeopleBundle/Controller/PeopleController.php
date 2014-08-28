@@ -156,59 +156,6 @@ class PeopleController extends Controller
         );
     }
 
-    /**
-     * Displays a form to create a new People entity.
-     *
-     * @Route("/new", name="people_new")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $username = $this->get('security.context')->getToken()->getUsername();
-        $people = new People();
-        $people->setUsername($username);
-        $form = $this->createForm(new PeopleType(), $people);
-
-        return array(
-            'people' => $people,
-            'form' => $form->createView()
-        );
-    }
-
-    /**
-     * Creates a new People entity.
-     *
-     * @Route("/create", name="people_create")
-     * @Method("post")
-     * @Template("EnglishPeopleBundle:People:new.html.twig")
-     */
-    public function createAction()
-    {
-        $username = $this->get('security.context')->getToken()->getUsername();
-
-        $people = new People();
-
-        $people->setUsername($username);
-
-        $request = $this->getRequest();
-        $form = $this->createForm(new PeopleType(), $people);
-        $form->submit($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($people);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('directory_detail', array('id' => $people->getId())));
-
-        }
-
-        return array(
-            'people' => $people,
-            'form' => $form->createView()
-        );
-    }
-
 
     /**
      * promote Users
