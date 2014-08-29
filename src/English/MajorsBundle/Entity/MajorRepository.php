@@ -58,8 +58,8 @@ class MajorRepository extends EntityRepository
     public function findMajorNotesByAdvisor($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT n
-                FROM EnglishMajornotesBundle:Majornote n, EnglishMajorsBundle:Major m WHERE n.mentorId = ?1 ORDER BY n.created DESC")
+            ->createQuery("SELECT n.id,n.notes,n.updated, p.lastName, p.firstName
+                FROM EnglishMajornotesBundle:Majornote n JOIN EnglishPeopleBundle:People p WHERE n.userid=p.id AND n.mentorId = ?1 ORDER BY n.created DESC")
             ->setParameter('1',$id)->getResult();
     }
 

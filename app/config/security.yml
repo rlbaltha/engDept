@@ -33,7 +33,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/advisor/, role: ROLE_ADMIN }
+        - { path: ^/advisor/, role: ROLE_ADVISORADMIN }
         - { path: ^/area/, role: ROLE_ADMIN }
         - { path: ^/slideshow/, role: ROLE_ADMIN }
         - { path: ^/spotlight/, role: ROLE_ADMIN }
@@ -50,9 +50,9 @@ security:
         - { path: ^/gradinfo/, role: ROLE_USER } 
         - { path: ^/gradnotes/, role: ROLE_USER } 
         - { path: ^/link/, role: ROLE_USER } 
-        - { path: ^/majornote/, role: ROLE_USER } 
-        - { path: ^/major/, role: ROLE_USER } 
-        - { path: ^/mentor/, role: ROLE_USER } 
+        - { path: ^/majornote/, role: ROLE_ADVISOR }
+        - { path: ^/major/, role: ROLE_ADVISOR }
+        - { path: ^/mentor/, role: ROLE_ADVISORADMIN }
         - { path: ^/people/, role: ROLE_USER } 
 
 

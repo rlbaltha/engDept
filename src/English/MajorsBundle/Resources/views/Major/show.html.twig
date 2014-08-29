@@ -4,6 +4,9 @@
 
     {% set mid = major.id %}
     <div class="col-sm-offset-1 col-sm-10 well">
+        {% if is_granted('ROLE_ADVISORADMIN') %}
+            <a class="btn btn-default pull-right" href="{{ path('major_edit', { 'id': major.id }) }}">Update</a>
+        {% endif %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -40,9 +43,7 @@
             </div>
             <div class="panel-body">
                 {{ major.notes | raw }}
-                {% if is_granted('ROLE_ADVISORADMIN') %}
-                    <a href="{{ path('major_edit', { 'id': major.id }) }}">Update/Delete</a>
-                {% endif %}
+
             </div>
         </div>
 
@@ -55,7 +56,7 @@
                     <a class="btn btn-default" id='mentor_email' href="{{ path('majornote_email', { 'id': major.id }) }}">Email Mentored
                         Notification</a>
                 </div>
-                <h3 class="panel-title">Mentor Notes </h3>
+                <h3 class="panel-title">Advisor/Mentor Notes </h3>
 
                 <span id='processing' class='' style='display:none;'>Processing</span>
             </div>
@@ -63,6 +64,9 @@
 
                 <dl>
                     {% for notes in notes %}
+                        <dt>
+                            {{ notes.firstName }} {{ notes.lastName }}
+                        </dt>
                         <dt>
                             {{ notes.updated |date('h:i A M d, Y') }}
                         </dt>

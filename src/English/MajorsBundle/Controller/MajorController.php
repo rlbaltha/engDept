@@ -102,19 +102,21 @@ class MajorController extends Controller
         $major->setStatus('0');
 
         $form = $this->createFormBuilder($major)
-            ->add('name', 'text', array('attr' => array('class' => 'width300')))
-            ->add('email', 'text', array('attr' => array('class' => 'width300')))
-            ->add('firstMajor', 'text', array('label'  => '1st major',))
-            ->add('secondMajor', 'text', array('label'  => '2nd major',))
-            ->add('aoe', 'text', array('attr' => array('class' => 'width300')))
-            ->add('can', 'text', array('label'  => '810',))
-            ->add('minor')   
-            ->add('honors','choice', array('choices' => array('0'=>'No','1'=> 'Yes','2'=> 'Both'),'expanded'=>true,))
-            ->add('hours', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'Hours >=',)) 
-            ->add('gpa', 'number', array('attr' => array('widget' => 'single_text','class' => 'width50'),'label'  => 'GPA >=',))
-            ->add('status','choice', array('choices' => array('0'=>'Active','1'=> 'Graduated','2'=> 'Inactive'),'expanded'=>true,))     
+            ->add('name', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('email', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('firstMajor', 'text', array('attr' => array('class' => 'text form-control')))
+            ->add('secondMajor', 'text', array('required' => false,'attr' => array('class' => 'text form-control')))
+            ->add('aoe', 'text', array('attr' => array('required' => false,'class' => 'text form-control')))
+            ->add('can', 'text', array('attr' => array('required' => false,'class' => 'text form-control')))
+            ->add('minor', 'text', array('attr' => array('required' => false,'class' => 'text form-control')))
+            ->add('honors','choice', array('choices' => array('0'=>'No','1'=> 'Yes','2'=>'Both'),'expanded'=>true,))
+            ->add('gpa', 'number', array('label'=>'GPA (greater than)','attr' => array('required' => false,'class' => 'form-control')))
+            ->add('hours', 'number', array('label'=>'Hours (greater than)','attr' => array('required' => false,'class' => 'form-control')))
+            ->add('status','choice', array('choices' => array('0'=>'Active','1'=> 'Graduated','2'=> 'Inactive'),'expanded'=>true,))
             ->getForm();
-        
+
+
+
         return array(
              'form'   => $form->createView()
         );

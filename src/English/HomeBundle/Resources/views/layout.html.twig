@@ -6,7 +6,7 @@
 
 {% block title %}English Home{% endblock %}
 
-{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+{% if is_granted('ROLE_USER') %}
     {% block sidebar %}
         <li><a class='last' title="Logout" href="{{ path('people_profile') }}">Profile</a></li>
         {% if is_granted('ROLE_ADVISOR') %}
@@ -14,9 +14,6 @@
         {% endif %}
         <li><a title="Calendar" href="{{ path('calendar') }}">Calendar</a></li>
         <li><a title="Links" href="{{ path('link') }}">Dept. Links</a></li>
-        {% if is_granted('ROLE_ADVISORADMIN') %}
-            <li><a title="Advising" href="{{ path('major') }}">Majors</a></li>
-        {% endif %}
         {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}
             <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
         {% endif %}
