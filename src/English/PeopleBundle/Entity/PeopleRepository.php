@@ -15,9 +15,16 @@ class PeopleRepository extends EntityRepository
 
     public function findPeopleByUsername($username)
     {
-        return $this->getEntityManager()
+        $query = $this->getEntityManager()
             ->createQuery("SELECT p FROM EnglishPeopleBundle:People p  WHERE p.username = ?1")
-            ->setParameters(array('1' => $username))->getSingleResult();
+            ->setParameters(array('1' => $username));
+
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+
     }
 
     public function findPeopleByLastname($lastname)

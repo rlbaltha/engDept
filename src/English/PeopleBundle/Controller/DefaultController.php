@@ -193,6 +193,16 @@ class DefaultController extends Controller
         $user=$this->getUser();
         $username=$user->getUsername();
         $people= $em->getRepository('EnglishPeopleBundle:People')->findPeopleByUsername($username);
+
+        if (!$people) {
+            $userManager = $this->get('fos_user.user_manager');
+            $user=$this->getUser();
+            $userManager->deleteUser($user);
+            $session = $this->get('session');
+            $session->clear();
+            throw new AccessDeniedException();
+        }
+
         $peopleid=$people->getId();
 
         $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
