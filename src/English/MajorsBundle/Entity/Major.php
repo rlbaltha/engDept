@@ -95,7 +95,7 @@ class Major
     /**
      * @var boolean $honors
      *
-     * @ORM\Column(name="honors", type="boolean")
+     * @ORM\Column(name="honors", type="boolean", nullable=true)
      */
     private $honors;
 
