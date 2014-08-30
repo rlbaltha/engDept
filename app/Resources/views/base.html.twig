@@ -47,7 +47,7 @@
 <body>
 <div class="col-sm-12" style="padding:0; background-color: #f5f5f5; ">
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #f3f0dd;padding-right: 20px;">
-        <div class="navbar-header col-sm-3">
+        <div class="navbar-header col-sm-2">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -55,7 +55,7 @@
             </button>
             <a name="top"></a>
             <a class="navbar-brand" style="font-family: 'Lora', 'Times New Roman', 'serif';" href="{{ path('home') }}"
-               title="English Department Homepage">English at UGA</a>
+               title="English Department Homepage">English</a>
         </div>
 
         <div id="mainnav" class="navbar-collapse collapse">
@@ -138,7 +138,7 @@
                             {% for slide in slideshow %}
                                 <div class="item {% if loop.first %}active{% endif %}">
                                     <div class="col-sm-6">
-                                        <img src="{{ slide.photoUrl }}"
+                                        <img style="width:80%" src="{{ slide.photoUrl }}"
                                              alt="{{ slide.title }}">
                                     </div>
                                     <div class="col-sm-6">
