@@ -49,3 +49,8 @@ div#content > div {
     display: block;
 }
 
+.navbar-nav li a {
+    margin-right:0;
+    padding-right: 7px;
+    padding-left: 5px;
+}
