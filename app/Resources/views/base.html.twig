@@ -46,8 +46,8 @@
 </head>
 <body>
 <div class="col-sm-12" style="padding:0; background-color: #f5f5f5; ">
-    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #f3f0dd;padding-right: 20px;">
-        <div class="navbar-header col-sm-2">
+    <nav class="navbar navbar-default navbar-fixed-top" style="max-height:50px; background-color: #f3f0dd;padding-right: 5px;">
+        <div class="navbar-header col-sm-1">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -122,7 +122,7 @@
         {% else %}
             <a id="main_content" name="main_content"></a>
             {% if 'home' in app.request.attributes.get('_route') or 'default' in app.request.attributes.get('_route') %}
-                <div class="col-sm-offset-1 col-sm-10 " style="padding:20px;margin-top: 50px;">
+                <div class="col-sm-offset-1 col-sm-10 " style="padding:20px;">
 
                     <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel" data-interval="8000"  data-pause="hover">
                         <!-- Indicators -->
@@ -142,7 +142,7 @@
                                              alt="{{ slide.title }}">
                                     </div>
                                     <div class="col-sm-6">
-                                        <h1 style="font-size: 32pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
+                                        <h1 style="font-size: 24pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
                                             {{ slide.title }}
                                         </h1>
 
