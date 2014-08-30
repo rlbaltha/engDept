@@ -62,7 +62,7 @@ class DefaultController extends Controller
             'action' => $this->generateUrl('directory'),
             'method' => 'POST',
         ));
-        $form->add('lastName', 'text', array('label' => 'Search', 'attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),));
+        $form->add('lastName', 'text', array('label' => ' ', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Lastname'),));
 
         return $form;
     }
