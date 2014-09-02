@@ -8,7 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\MentorsBundle\Entity\Mentor;
+use English\MajorsBundle\Entity\Major;
 use English\MentorsBundle\Form\MentorType;
+use English\MajorsBundle\Form\FindType;
+
 
 /**
  * Mentor controller.
@@ -26,9 +29,31 @@ class MentorController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
         $dql1 = "SELECT a FROM EnglishMentorsBundle:Mentor a ORDER BY a.name";
         $mentors = $em->createQuery($dql1)->getResult();
-        return array('mentors' => $mentors);
+        return array(
+            'mentors' => $mentors,
+            'find_form' => $find_form->createView()
+        );
+    }
+
+
+    /**
+     * Creates a find form
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFindForm(Major $major)
+    {
+        $form = $this->createForm(new FindType(), $major, array(
+            'action' => $this->generateUrl('major'),
+            'method' => 'POST',
+        ));
+        $form->add('name', 'text', array('label' => ' ', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Lastname'),));
+
+        return $form;
     }
 
 
@@ -40,12 +65,16 @@ class MentorController extends Controller
      */
     public function newAction()
     {
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $mentor = new Mentor();
         $form   = $this->createForm(new MentorType(), $mentor);
 
         return array(
             'mentor' => $mentor,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -58,6 +87,9 @@ class MentorController extends Controller
      */
     public function createAction()
     {
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
@@ -80,7 +112,8 @@ class MentorController extends Controller
 
         return array(
             'mentor' => $mentor,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -92,6 +125,9 @@ class MentorController extends Controller
      */
     public function editAction($id)
     {
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $em = $this->getDoctrine()->getManager();
 
         $mentor = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
@@ -107,6 +143,7 @@ class MentorController extends Controller
             'mentor'      => $mentor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -119,6 +156,9 @@ class MentorController extends Controller
      */
     public function updateAction($id)
     {
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $em = $this->getDoctrine()->getManager();
 
         $mentor = $em->getRepository('EnglishMentorsBundle:Mentor')->find($id);
@@ -145,6 +185,7 @@ class MentorController extends Controller
             'mentor'      => $mentor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -156,6 +197,7 @@ class MentorController extends Controller
      */
     public function deleteAction($id)
     {
+
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 

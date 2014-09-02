@@ -2,13 +2,16 @@
 
 namespace English\MajorsBundle\Controller;
 
+use Proxies\__CG__\English\PeopleBundle\Entity\People;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\MajorsBundle\Entity\Major;
 use English\MajorsBundle\Form\MajorType;
+use English\MajorsBundle\Form\FindType;
 
 /**
  * Major controller.
@@ -27,13 +30,16 @@ class MajorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+
         if ($this->get('security.context')->isGranted('ROLE_ADVISORADMIN')) {
             $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajors();
         } else {
         $username = $this->getUser()->getUsername();
             $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByUsername($username);
         }
-        return array('majors' => $majors);
+        return array('majors' => $majors, 'find_form' => $find_form->createView(),);
     }
 
 
@@ -45,9 +51,13 @@ class MajorController extends Controller
      */
     public function findbyadvisorAction($id)
     {
-         $em = $this->getDoctrine()->getManager();
-         $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByAdvisor($id);
-        return array('majors' => $majors);
+        $em = $this->getDoctrine()->getManager();
+
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+
+        $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByAdvisor($id);
+        return array('majors' => $majors, 'find_form' => $find_form->createView(),);
     } 
     
         
@@ -59,9 +69,14 @@ class MajorController extends Controller
      */
     public function findbymentorAction($id)
     {
-       $em = $this->getDoctrine()->getManager();
-       $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByMentor($id);
-       return array('majors' => $majors);
+        $em = $this->getDoctrine()->getManager();
+
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+
+        $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByMentor($id);
+
+        return array('majors' => $majors, 'find_form' => $find_form->createView(),);
     }
     
     /**
@@ -70,22 +85,42 @@ class MajorController extends Controller
      * @Route("/find", name="major_find")
      * @Method("post")
      */
-    public function findAction()
-    {   $request = $this->get('request');
-        $postData = $request->request->get('form');
-        $name = strtolower($postData['name'] . "%");
+    public function findAction(Request $request)
+    {
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+        $find_form->handleRequest($request);
+        $name = $find_form->get('name')->getData() . "%";
+        $name = strtolower($name);
+
         $em = $this->getDoctrine()->getManager();
+
+
         $majors = $em->getRepository('EnglishMajorsBundle:Major')->findMajorsByName($name);
-        $form = $this->createFormBuilder(new Major())
-            ->add('name', array('attr' => array('class' => 'text form-control')))
-            ->getForm();
+
         if (!$majors) {
             throw $this->createNotFoundException('Unable to find Major entity.');
         }
-        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('entities' => $majors, 'form' => $form->createView()));
-        }  
-        
-      
+        return $this->render('EnglishMajorsBundle:Major:index.html.twig', array('majors' => $majors, 'find_form' => $find_form->createView()));
+        }
+
+
+
+    /**
+     * Creates a find form
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFindForm(Major $major)
+    {
+        $form = $this->createForm(new FindType(), $major, array(
+            'action' => $this->generateUrl('major_find'),
+            'method' => 'POST',
+        ));
+        $form->add('name', 'text', array('label' => ' ', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Lastname'),));
+
+        return $form;
+    }
         
     /**
      * Displays a form to create an advance find
@@ -96,6 +131,9 @@ class MajorController extends Controller
     public function advancedformAction()
     {
         $major = new Major();
+        $find_form = $this->createFindForm($major);
+
+
         $major->setHonors('2');
         $major->setHours('0');
         $major->setGpa('0');
@@ -118,7 +156,7 @@ class MajorController extends Controller
 
 
         return array(
-             'form'   => $form->createView()
+             'form'   => $form->createView(), 'find_form' => $find_form->createView(),
         );
     }       
         
@@ -145,6 +183,11 @@ class MajorController extends Controller
         $hours = $postData['hours'];
         $gpa = $postData['gpa'];
         $em = $this->getDoctrine()->getManager();
+
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+
+
         if ($honors == 0) {$queryHonors = " AND m.honors ='0' ";} elseif ($honors == 1) {$queryHonors = " AND m.honors ='1' ";} else {$queryHonors = '';};
         $dql1 = "SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e 
@@ -155,7 +198,7 @@ class MajorController extends Controller
 
             return $this->redirect($this->generateUrl('major_advancedform'));
         }
-        return array('majors' => $majors);
+        return array('majors' => $majors, 'find_form' => $find_form->createView(),);
         }          
         
     /**
@@ -169,6 +212,7 @@ class MajorController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
+        $find_form = $this->createFindForm($major);
 
         if (!$major) {
             throw $this->createNotFoundException('Unable to find Majors.');
@@ -179,7 +223,9 @@ class MajorController extends Controller
         return array(
             'major'      => $major,
             'notes'       => $notes,
-            'delete_form' => $deleteForm->createView(),        );
+            'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
+        );
     }
 
     /**
@@ -190,7 +236,9 @@ class MajorController extends Controller
      */
     public function newAction()
     {
+
         $major = new Major();
+        $find_form = $this->createFindForm($major);
         $major -> setStatus('0');
         $major -> setFirstMajor('ENGL');
         $major -> setSecondMajor('none');
@@ -204,7 +252,9 @@ class MajorController extends Controller
 
         return array(
             'major' => $major,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form' => $find_form->createView()
+
         );
     }
 
@@ -219,8 +269,9 @@ class MajorController extends Controller
     {
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
-        
-        $major  = new Major();
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
         
         $major->setUserid($userid);
         
@@ -239,7 +290,8 @@ class MajorController extends Controller
 
         return array(
             'major' => $major,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -252,6 +304,9 @@ class MajorController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
 
         $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
@@ -266,6 +321,7 @@ class MajorController extends Controller
             'major'      => $major,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -279,6 +335,9 @@ class MajorController extends Controller
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
 
         $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
 
@@ -304,6 +363,7 @@ class MajorController extends Controller
             'major'      => $major,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 

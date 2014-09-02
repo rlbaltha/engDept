@@ -8,19 +8,6 @@
             {{ form_widget(form) }}
             <button class="btn btn-default" type="submit">Update</button>
         </form>
-        {% if is_granted('ROLE_ADMIN') %}
-            <div id="delete" class="pull-right">
-                <button class="btn btn-warning" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Delete</button>
-            </div>
-
-            <div id="confirm" class="pull-right">
-                <form action="{{ path('donate_delete', { 'id': major.id}) }}" method="post">
-                    {{ form_widget(delete_form) }}
-                    <button class="btn btn-warning"type="submit">Confirm Delete</button>
-                </form>
-                <button class="btn btn-default" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Cancel</button>
-            </div>
-        {% endif %}
     </div>
 
 {% endblock %}

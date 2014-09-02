@@ -7,14 +7,10 @@
         <table class="table table-striped">
             {% for advisor in advisors %}
                 <tr>
-                    <td>{{ advisor.name }}
-                        <div class="btn-group pull-right">
-                            <a class="btn btn-default" href="{{ path('major_findbyadvisor', { 'id': advisor.id }) }}">List Advisees</a>
+                    <td><a title="Find {{ advisor.name }}'s majors"class="" href="{{ path('major_findbyadvisor', { 'id': advisor.id }) }}">{{ advisor.name }}</a>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a class="btn btn-default" href="{{ path('advisor_edit', { 'id': advisor.id }) }}">Update/Delete</a>
+                                <a class="btn btn-default pull-right" href="{{ path('advisor_edit', { 'id': advisor.id }) }}">Update/Delete</a>
                             {% endif %}
-                        </div>
-
                     </td>
                 </tr>
             {% endfor %}

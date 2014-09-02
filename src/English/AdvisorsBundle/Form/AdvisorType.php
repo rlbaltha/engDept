@@ -10,8 +10,8 @@ class AdvisorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('username')
+            ->add('name', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('username', 'text', array('attr' => array('class' => 'form-control')))
         ;
     }
 

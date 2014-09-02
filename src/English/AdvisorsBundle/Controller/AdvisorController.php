@@ -8,7 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\AdvisorsBundle\Entity\Advisor;
+use English\MajorsBundle\Entity\Major;
 use English\AdvisorsBundle\Form\AdvisorType;
+use English\MajorsBundle\Form\FindType;
 
 /**
  * Advisor controller.
@@ -26,9 +28,30 @@ class AdvisorController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
         $dql1 = "SELECT a FROM EnglishAdvisorsBundle:Advisor a ORDER BY a.name";
         $advisors = $em->createQuery($dql1)->getResult();
-        return array('advisors' => $advisors);
+        return array(
+            'advisors' => $advisors,
+            'find_form' => $find_form->createView()
+        );
+    }
+
+    /**
+     * Creates a find form
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFindForm(Major $major)
+    {
+        $form = $this->createForm(new FindType(), $major, array(
+            'action' => $this->generateUrl('major'),
+            'method' => 'POST',
+        ));
+        $form->add('name', 'text', array('label' => ' ', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Lastname'),));
+
+        return $form;
     }
 
     /**
@@ -41,6 +64,9 @@ class AdvisorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
         if (!$advisor) {
@@ -51,7 +77,9 @@ class AdvisorController extends Controller
 
         return array(
             'advisor'      => $advisor,
-            'delete_form' => $deleteForm->createView(),        );
+            'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
+        );
     }
 
     /**
@@ -62,12 +90,17 @@ class AdvisorController extends Controller
      */
     public function newAction()
     {
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $advisor = new Advisor();
         $form   = $this->createForm(new AdvisorType(), $advisor);
 
         return array(
             'advisor' => $advisor,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -80,6 +113,11 @@ class AdvisorController extends Controller
      */
     public function createAction()
     {
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
+
         $username = $this->get('security.context')->getToken()->getUsername();
         $userid = $this->getDoctrine()->getManager()->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getId();
         
@@ -102,7 +140,8 @@ class AdvisorController extends Controller
 
         return array(
             'advisor' => $advisor,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -115,6 +154,9 @@ class AdvisorController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
 
         $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
 
@@ -129,6 +171,7 @@ class AdvisorController extends Controller
             'advisor'      => $advisor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -141,6 +184,10 @@ class AdvisorController extends Controller
      */
     public function updateAction($id)
     {
+
+        $major = new Major();
+        $find_form = $this->createFindForm($major);
+
         $em = $this->getDoctrine()->getManager();
 
         $advisor = $em->getRepository('EnglishAdvisorsBundle:Advisor')->find($id);
@@ -167,6 +214,7 @@ class AdvisorController extends Controller
             'advisor'      => $advisor,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form' => $find_form->createView()
         );
     }
 
@@ -178,6 +226,8 @@ class AdvisorController extends Controller
      */
     public function deleteAction($id)
     {
+
+
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
