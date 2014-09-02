@@ -223,7 +223,7 @@ class DefaultController extends Controller
      */
     public function newAction()
     {
-        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === ($this->get('security.context')->isGranted('ROLE_ADMIN') OR $this->get('security.context')->isGranted('ROLE_GRADADMIN'))) {
             throw new AccessDeniedException();
         }
 
@@ -256,7 +256,7 @@ class DefaultController extends Controller
     public function createAction()
     {
 
-        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === ($this->get('security.context')->isGranted('ROLE_ADMIN') OR $this->get('security.context')->isGranted('ROLE_GRADADMIN'))) {
             throw new AccessDeniedException();
         }
 

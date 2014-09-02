@@ -41,7 +41,7 @@
                 {% if is_granted('ROLE_GRADADMIN') %}
                     <li><a title="Gradcom" href="{{ path('people_gradfac') }}">Graduate Faculty</a></li>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GRADADMIN') %}
                 <li><a href="{{ path('people_new') }}">New Listing</a></li>
                 {% endif %}
 
