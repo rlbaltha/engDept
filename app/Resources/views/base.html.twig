@@ -130,7 +130,7 @@
         {% else %}
             <a id="main_content" name="main_content"></a>
             {% if 'home' in app.request.attributes.get('_route') or 'default' in app.request.attributes.get('_route') %}
-                <div class="col-sm-offset-1 col-sm-10 " style="margin-top: 40px;margin-bottom: 10px">
+                <div class="col-sm-12 " style="padding: 0;">
 
                     <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel" data-interval="12000"  data-pause="hover">
                         <!-- Indicators -->
@@ -142,13 +142,13 @@
                         </ol>
 
                         <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
+                        <div class="carousel-inner" >
                             {% for slide in slideshow %}
                                 <div class="item {% if loop.first %}active{% endif %}">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="padding-top: 2%;padding-bottom: 2%;padding-left: 10%;">
                                         <img src="{{ slide.photoUrl }}" class="img-responsive img-thumbnail pull-right" alt="Responsive image  of {{ slide.title }}">
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="padding-top: 2%;padding-bottom: 2%;padding-right: 10%;">
                                         <h1 style="font-size: 24pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
                                             {{ slide.title }}
                                         </h1>
@@ -159,6 +159,14 @@
                                 </div>
                             {% endfor %}
                         </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
                     </div>
 
                 </div>

@@ -83,3 +83,19 @@ div#content > div {
 .navbar-inverse div a:hover {
     color: #000000;
 }
+
+.carousel-indicators li {
+    background-color: #777777;
+}
+
+.carousel-indicators li.active {
+    background-color: #555555;
+}
+
+.carousel-control.left {
+    background-image: none;
+}
+
+.carousel-control.right {
+    background-image: none;
+}
