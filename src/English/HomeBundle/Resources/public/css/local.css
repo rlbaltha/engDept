@@ -51,8 +51,6 @@ div#content > div {
 
 .navbar-nav li a {
     margin-right:0;
-    padding-right: 7px;
-    padding-left: 7px;
 }
 
 .navbar-inverse {
@@ -99,3 +97,32 @@ div#content > div {
 .carousel-control.right {
     background-image: none;
 }
+
+
+/********** Media Queries **********/
+
+@media (max-width: 1199px) {
+    .navbar .nav > li > a {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+}
+
+@media (max-width: 920px) {
+    .navbar .nav > li > a {
+        padding-left: 3px;
+        padding-right: 3px;
+        font-size: smaller;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .navbar .nav > li > a {
+        padding-left: 3px;
+        padding-right: 3px;
+        font-size: smaller;
+    }
+}
+

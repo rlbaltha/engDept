@@ -55,7 +55,7 @@
         {% if people.photoUrl != '' %}
             <div class="col-sm-offset-2 col-sm-4">
                 <div class="thumbnail">
-                    <img src="{{ people.photoUrl }}" alt="Image of {{ people.firstName }} {{ people.lastName }}">
+                    <img class="img-responsive" src="{{ people.photoUrl }}" alt="Image of {{ people.firstName }} {{ people.lastName }}">
                 </div>
             </div>
         {% endif %}

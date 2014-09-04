@@ -46,7 +46,7 @@
                 {% endif %}
 
             </ul>
-                    <form class="navbar-form navbar-right" role="search" action="{{ path('directory') }}" method="post" {{ form_enctype(search_form) }}>
+                    <form class="navbar-form navbar-right hidden-sm" role="search" action="{{ path('directory') }}" method="post" {{ form_enctype(search_form) }}>
                         <div class="form-group">
                             {{ form_row(search_form.lastName) }}
                         </div>

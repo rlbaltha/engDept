@@ -35,11 +35,11 @@
                 <th>Instructor</th>
                 <th>Days</th>
                 <th>Times</th>
-                <th>Building</th>
+                <th class="hidden-md hidden-sm hidden-xs">Building</th>
                 <th>Room</th>
-                <th>Call</th>
-                <th></th>
-                <th>{% if '05' in courses[0].term %}Maymester{% endif %}</th>
+                <th class="hidden-md hidden-sm hidden-xs">Call</th>
+                <th class="hidden-md hidden-sm hidden-xs"></th>
+                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in courses[0].term %}Maymester{% endif %}</th>
             </tr>
             </thead>
             <tbody>
@@ -51,11 +51,11 @@
                     <td>{{ courses.instructorName|upper }}</td>
                     <td>{{ courses.days }}</td>
                     <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12}}{% else %}{{ courses.time|slice(0,2)}}{% endif %}:{{ courses.time|slice(2,2)}}{% if courses.time|slice(0,2) > 12 %} PM{% else %} AM{% endif %}</td>
-                    <td>{{ courses.building }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ courses.building }}</td>
                     <td>{{ courses.room }}</td>
-                    <td>{{ courses.callNumber }}</td>
-                    <td>{{ courses.callNumber2 }}</td>
-                    <td>{% if courses.may == 1 %}Maymester{% endif %}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber2 }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{% if courses.may == 1 %}Maymester{% endif %}</td>
                 </tr>
             {% endfor %}
             </tbody>
