@@ -1,25 +1,34 @@
 {% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
 {% block content %}
-<div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
+    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
         {% for people in people %}
             <dl id="listing{{ people.id }}">
                 <dt>
-                    <a id="detailLink{{ people.id }}"  href="{{ path('directory_detail', { 'id': people.id }) }}" title="Detail"><strong>{{ people.firstName }} {{ people.lastName }}</strong></a>
+                    <a id="detailLink{{ people.id }}" href="{{ path('directory_detail', { 'id': people.id }) }}"
+                       title="Detail"><strong>{{ people.firstName }} {{ people.lastName }}</strong></a>
                         <span class="pull-right">
-                        {% if app.request.pathinfo == '/people/gradfac' %}<a href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee Info</a>{% endif %}
+                        {% if app.request.pathinfo == '/people/gradfac' %}<a
+                            href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee Info</a>{% endif %}
                     </span>
                 </dt>
                 <dd>
                     {{ people.title | raw }}
-                    Email: <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
-                    Phone:
-                    {{ people.officePhone }}
+                    <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
+                    {% if people.officePhone != '' %}
+                        <span class="margin-left">
+                    Phone: {{ people.officePhone }}
+                    </span>
+                    {% endif %}
+                    {% if people.officeNumber != '' %}
+                        <span class="margin-left">
                     Office:
-                    {{ people.officeNumber }}
+                            {{ people.officeNumber }}
+                    </span>
+                    {% endif %}
                 </dd>
             </dl>
         {% endfor %}
-</div>
+    </div>
 
 {% endblock %}

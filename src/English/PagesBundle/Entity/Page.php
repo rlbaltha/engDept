@@ -23,7 +23,7 @@ class Page
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="English\PeopleBundle\Entity\People", inversedBy="page")
+     * @ORM\ManyToOne(targetEntity="English\PeopleBundle\Entity\People", inversedBy="pages")
      */
     protected $user;
 

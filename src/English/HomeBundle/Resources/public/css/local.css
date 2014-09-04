@@ -54,3 +54,32 @@ div#content > div {
     padding-right: 7px;
     padding-left: 7px;
 }
+
+.navbar-inverse {
+    background-color: #777777;
+    padding-right: 20px;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #f3f0dd;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #000000;
+}
+
+
+.navbar-inverse .navbar-brand {
+    color: #f3f0dd;
+}
+
+.margin-left {
+    margin-left: 20px;
+}
+
+.navbar-inverse div p, .navbar-inverse div a {
+    color: #f3f0dd;
+}
+
+.navbar-inverse div a:hover {
+    color: #000000;
+}

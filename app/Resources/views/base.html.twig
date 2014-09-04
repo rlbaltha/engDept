@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="col-sm-12" style="padding:0; background-color: #f5f5f5; ">
-    <nav class="navbar navbar-default navbar-fixed-top" style=" background-color: #f3f0dd;padding-right: 20px;">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav">
                 <span class="icon-bar"></span>
@@ -54,6 +54,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a name="top"></a>
+
             <a class="navbar-brand" style="font-family: 'Lora', 'Times New Roman', 'serif';" href="{{ path('home') }}"
                title="English Department Homepage">English</a>
         </div>
@@ -74,6 +75,7 @@
                 <li><a title="Make a Gift" href="{{ path('donate') }}">Make a Gift</a></li>
 
             </ul>
+
             <ul class="nav navbar-nav navbar-right" id="account-dropdown">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li>
@@ -84,7 +86,13 @@
                         <a title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
                     </li>
                 {% endif %}
+                <li>
+                    <a style="padding:0" href="http://www.uga.edu" target="_blank">
+                        <img alt="UGA Arch logo" title="Go to the UGA homepage" style="height:50px; float: right; margin-right: 0; margin-left: 10px; border-left: solid white 5px; " src="{{ asset('bundles/englishhome/images/archB.gif') }}"/>
+                    </a>
+                </li>
             </ul>
+
         </div>
     </nav>
 
@@ -122,9 +130,9 @@
         {% else %}
             <a id="main_content" name="main_content"></a>
             {% if 'home' in app.request.attributes.get('_route') or 'default' in app.request.attributes.get('_route') %}
-                <div class="col-sm-offset-1 col-sm-10 " style="padding:30px;">
+                <div class="col-sm-offset-1 col-sm-10 " style="margin-top: 40px;margin-bottom: 10px">
 
-                    <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel" data-interval="8000"  data-pause="hover">
+                    <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel" data-interval="12000"  data-pause="hover">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             {% for slide in slideshow %}
@@ -138,15 +146,14 @@
                             {% for slide in slideshow %}
                                 <div class="item {% if loop.first %}active{% endif %}">
                                     <div class="col-sm-6">
-                                        <img style="width:80%" src="{{ slide.photoUrl }}"
-                                             alt="{{ slide.title }}">
+                                        <img src="{{ slide.photoUrl }}" class="img-responsive img-thumbnail pull-right" alt="Responsive image  of {{ slide.title }}">
                                     </div>
                                     <div class="col-sm-6">
                                         <h1 style="font-size: 24pt;font-family: 'Lora', 'Times New Roman', 'serif';font-weight: bold;">
                                             {{ slide.title }}
                                         </h1>
 
-                                        <p>{{ slide.description }}
+                                        <p>{{ slide.description|raw }}
                                         </p>
                                     </div>
                                 </div>
@@ -167,10 +174,13 @@
 
 </div>
 
-<div class="col-sm-12"  style="background-color:#f3f0dd;">
+<div class="col-sm-12 navbar-inverse">
 <div class="col-sm-offset-4">
-    <p style='margin-top: 20px;' class="text-muted">The Department of English | Franklin College of Arts & Sciences | University of Georgia</p>
-    <p class="text-muted">254 Park Hall, Athens, Georgia, 30602-6205 | Phone: 706.542.1261 | Fax: 706.542.2181</p>
+    <p style='margin-top: 20px;'>The Department of English |
+        <a href="http://www.franklin.uga.edu"  target="_blank">Franklin College of Arts & Sciences</a>  |
+        <a href="http://www.uga.edu" target="_blank">The University of Georiga</a>
+    </p>
+    <p>254 Park Hall, Athens, Georgia, 30602-6205 | Phone: 706.542.1261 | Fax: 706.542.2181</p>
 </div>
 </div>
 
