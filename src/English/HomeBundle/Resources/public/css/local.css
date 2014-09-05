@@ -107,7 +107,7 @@ div#content > div {
 }
 
 .carousel-indicators {
-    bottom: 0;
+    display:none;
 }
 
 
