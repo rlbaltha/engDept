@@ -7,7 +7,7 @@
         <div class="{% if people.photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
             <dl id="listing{{ people.id }}">
                 <dt>
-                <h3>{{ people.firstName }} {{ people.lastName }}</h3>
+                <h2>{{ people.firstName }} {{ people.lastName }}</h2>
                 {% if app.user == people.username or is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-default pull-right"
                        href="{{ path('people_edit', { 'id': people.id }) }}">Edit</a>
@@ -39,13 +39,13 @@
             {% endif %}
             {% if people.vitaUrl != '' %}
                 <p>
-                    <strong>Vita: </strong><a href="{{ people.vitaUrl }}" tabindex="1" title="Vita"
+                    <strong>Vita: </strong><a href="{{ people.vitaUrl }}" title="Vita"
                                               target="_blank">{{ people.vitaUrl }}</a>
                 </p>
             {% endif %}
             {% if people.homepageUrl != '' %}
                 <p>
-                    <strong>Website: </strong><a href="{{ people.homepageUrl }}" tabindex="1" title="Website"
+                    <strong>Website: </strong><a href="{{ people.homepageUrl }}" title="Website"
                                                  target="_blank">{{ people.homepageUrl }}</a>
                 </p>
             {% endif %}
@@ -55,7 +55,7 @@
         {% if people.photoUrl != '' %}
             <div class="col-sm-offset-2 col-sm-4">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="{{ people.photoUrl }}" alt="Image of {{ people.firstName }} {{ people.lastName }}">
+                    <img class="img-responsive" src="{{ people.photoUrl }}" alt="{{ people.firstName }} {{ people.lastName }}">
                 </div>
             </div>
         {% endif %}

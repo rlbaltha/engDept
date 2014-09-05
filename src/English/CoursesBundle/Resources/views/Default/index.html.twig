@@ -39,7 +39,7 @@
                 <th>Room</th>
                 <th class="hidden-md hidden-sm hidden-xs">Call</th>
                 <th class="hidden-md hidden-sm hidden-xs"></th>
-                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in courses[0].term %}Maymester{% endif %}</th>
+                <th class="hidden-md hidden-sm hidden-xs">{% if courses %}{% if '05' in courses[0].term %}Maymester{% endif %}{% endif %}</th>
             </tr>
             </thead>
             <tbody>

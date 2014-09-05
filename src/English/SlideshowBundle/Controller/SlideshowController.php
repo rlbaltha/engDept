@@ -27,7 +27,7 @@ class SlideshowController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $slideshow = $em->getRepository('EnglishSlideshowBundle:Slideshow')->findAll();
+        $slideshow = $em->getRepository('EnglishSlideshowBundle:Slideshow')->findAllOrdered();
 
         return array('slideshow' => $slideshow);
     }

@@ -16,8 +16,9 @@
                         {% else %}
                             <a style="display: inline-block" target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
                         {% endif %}
+                        {% if page.children|length > 0  %}
                         <ul id='page_sub{{ page.id }}' class="">
-                        {% for page in page.children %}
+                        {% for page in page.children  %}
                             <li>
                                 {% if (page.link is null or page.link == '') %}
                                     <a style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
@@ -27,7 +28,7 @@
                                 </li>
                         {% endfor %}
                         </ul>
-
+                        {% endif %}
                         {% if is_granted('ROLE_PAGEADMIN') %}
                         <span class="pull-right">
                             {% if not loop.first %}

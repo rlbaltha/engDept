@@ -70,6 +70,14 @@ div#content > div {
     color: #f3f0dd;
 }
 
+.navbar-default .navbar-nav > li > a.active {
+    font-weight: bold;
+}
+
+.navbar form label {
+    color: #777777;
+}
+
 .margin-left {
     margin-left: 20px;
 }
@@ -97,6 +105,8 @@ div#content > div {
 .carousel-control.right {
     background-image: none;
 }
+
+
 
 
 /********** Media Queries **********/

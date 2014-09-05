@@ -16,7 +16,8 @@
                             {{ slide.title }}
                         </strong>
 
-                        <p>{{ slide.description }}</p>
+                        <p>{{ slide.description|raw }}</p>
+                        <p>Order:  {{ slide.sortOrder }}</p>
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="pull-right" href="{{ path('slideshow_edit', { 'id': slide.id }) }}">Update/Delete</a>

@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class SlideshowRepository extends EntityRepository
 {
+
+    public function findAllOrdered()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT s FROM EnglishSlideshowBundle:Slideshow s ORDER BY s.sortOrder ASC'
+            )
+            ->getResult();
+    }
 }

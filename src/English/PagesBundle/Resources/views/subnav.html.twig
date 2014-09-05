@@ -35,9 +35,9 @@
                     </h1>
                 </a>
             </div>
-            <div id="subnav" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    {% if is_granted('ROLE_PAGEADMIN') %}
+            {% if is_granted('ROLE_PAGEADMIN') %}
+                <div id="subnav" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
                         <li>
                             <a href="{{ path('section') }}">List Sections</a>
                         </li>
@@ -56,9 +56,9 @@
                                 </li>
                             {% endif %}
                         {% endif %}
-                    {% endif %}
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            {% endif %}
             <!--/.nav-collapse -->
         </div>
         <!--/.container-fluid -->

@@ -56,7 +56,14 @@ class Slideshow
      *
      * @ORM\Column(name="userid", type="integer", nullable=true)
      */
-    private $userid; 
+    private $userid;
+
+    /**
+     * @var integer $sortOrder
+     *
+     * @ORM\Column(name="sortOrder", type="integer", nullable=true)
+     */
+    private $sortOrder;
     
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -222,4 +229,25 @@ class Slideshow
     {
         return $this->description;
     }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
+
 }

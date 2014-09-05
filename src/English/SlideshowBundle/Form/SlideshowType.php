@@ -13,6 +13,7 @@ class SlideshowType extends AbstractType
             ->add('title','text', array('attr' => array('class' => 'text form-control'),))
             ->add('photoUrl','text', array('attr' => array('class' => 'text form-control'),))
             ->add('description', 'ckeditor', array('required' => false,'label'=> 'Title','config_name' => 'editor_simple',))
+            ->add('sortOrder', 'number', array('attr' => array('class' => 'form-control')))
         ;
     }
 
