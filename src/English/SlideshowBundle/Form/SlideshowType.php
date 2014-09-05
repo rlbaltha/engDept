@@ -12,7 +12,7 @@ class SlideshowType extends AbstractType
         $builder
             ->add('title','text', array('attr' => array('class' => 'text form-control'),))
             ->add('photoUrl','text', array('attr' => array('class' => 'text form-control'),))
-            ->add('description', 'ckeditor', array('required' => false,'label'=> 'Title','config_name' => 'editor_simple',))
+            ->add('description', 'ckeditor', array('required' => false,'label'=> 'Title','config_name' => 'editor_default',))
             ->add('sortOrder', 'number', array('attr' => array('class' => 'form-control')))
         ;
     }

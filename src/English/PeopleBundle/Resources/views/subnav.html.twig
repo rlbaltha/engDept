@@ -21,10 +21,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#"><h1 class="small" style="margin-top: 0px;margin-left: 20px;">{% if heading == '2' %}Instructors{% elseif heading == '3' %}Administration{% elseif heading == '4' %}Graduate Students{% elseif heading == '5' %}Retired/Emeritus{% else %}Faculty{% endif %}</h1></a>
         </div>
         <div id="subnav" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a class="{% if app.request.get('type')==1 or 'area' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('directory_type', {'type': '1'}) }} "  title="Select directory type" >Faculty</a></li>
+                <li><a href="{{ path('directory_type', {'type': '1'}) }} "  title="Select directory type" >Faculty</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -33,12 +34,12 @@
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a class="{% if app.request.get('type')==2 %}active{% endif %}" href="{{ path('directory_type', {'type': '2'}) }} "  title="Select directory type" >Instructors</a></li>
-                <li><a class="{% if app.request.get('type')==3 %}active{% endif %}" href="{{ path('directory_type', {'type': '3'}) }} "  title="Select directory type" >Administration</a></li>
-                <li><a class="{% if app.request.get('type')==4 %}active{% endif %}" href="{{ path('directory_type', {'type': '4'}) }} "  title="Select directory type" >Graduate Students</a></li>
-                <li><a class="{% if app.request.get('type')==5 %}active{% endif %}" href="{{ path('directory_type', {'type': '5'}) }} "  title="Select directory type" >Retired/Emeritus Faculty</a></li>
+                <li><a href="{{ path('directory_type', {'type': '2'}) }} "  title="Select directory type" >Instructors</a></li>
+                <li><a href="{{ path('directory_type', {'type': '3'}) }} "  title="Select directory type" >Administration</a></li>
+                <li><a href="{{ path('directory_type', {'type': '4'}) }} "  title="Select directory type" >Graduate Students</a></li>
+                <li><a href="{{ path('directory_type', {'type': '5'}) }} "  title="Select directory type" >Retired/Emeritus Faculty</a></li>
                 {% if is_granted('ROLE_GRADADMIN') %}
-                    <li><a class="{% if app.request.get('type')==6 %}active{% endif %}" title="Gradcom" href="{{ path('people_gradfac') }}">Graduate Faculty</a></li>
+                    <li><a title="Gradcom" href="{{ path('people_gradfac') }}">Graduate Faculty</a></li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GRADADMIN') %}
                 <li><a href="{{ path('people_new') }}">New Listing</a></li>
