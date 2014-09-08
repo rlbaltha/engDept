@@ -111,6 +111,26 @@ div#content > div {
 }
 
 
+/********** Accessibility **********/
+
+#skip a, #skip a:hover, #skip a:visited
+{
+    position:absolute;
+    left:0px;
+    top:-500px;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
+#skip a:active, #skip a:focus
+{
+    position:static;
+    display: inline-block;
+    width:auto;
+    height:auto;
+    margin-bottom: -10px;
+}
 
 
 /********** Media Queries **********/

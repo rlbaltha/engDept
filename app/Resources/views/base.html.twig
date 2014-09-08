@@ -61,7 +61,7 @@
 
         <div id="mainnav" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li id="skip" class="hidden">
+                <li id="skip" >
                     <a href="#main_content">Skip Navigation</a>
                 </li>
                 <li><a title="People" href="{{ path('directory') }}">People</a></li>
@@ -95,8 +95,9 @@
 
         </div>
     </nav>
-
+    <a id="main_content" name="main_content"></a>
     <div id="mainContainer" style="margin-top: 50px">
+
         {{ block('subnav') }}
 
 
@@ -128,7 +129,7 @@
                 {% endblock %}
             </div>
         {% else %}
-            <a id="main_content" name="main_content"></a>
+
             {% if 'home' in app.request.attributes.get('_route') or 'default' in app.request.attributes.get('_route') %}
                 <div class="col-sm-12 " style="padding: 0;">
 
@@ -172,6 +173,7 @@
                 </div>
             {% endif %}
             <div id="content" class="col-sm-12 ">
+
                 {{ block('content') }}
             </div>
 
