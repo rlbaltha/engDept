@@ -30,16 +30,16 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getManager();
         $startDate = date("Y-m-d") ;
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
-        $events = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
-        return array('events' => $events);
+            $calendar = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
+        return array('calendar' => $calendar);
         } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getManager();
         $startDate = date("Y-m-d") ;
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2  and c.username = ?3 ORDER BY c.date ASC";
-        $events = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
-        return array('events' => $events);
+            $calendar = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
+        return array('calendar' => $calendar);
         }
 
     }    

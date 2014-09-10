@@ -4,15 +4,23 @@
     <div class="col-sm-offset-1 col-sm-10 well">
             <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Calendar</h2>
 
+        {% for calendar in calendar %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
 
-            {% for calendar in calendar %}
-                {{ calendar.date|date("l, F d") }} {{ calendar.time|date("g:i A") }}
-                <h3> {{ calendar.title }}</h3>
-                <div class="">{% autoescape false %}{{ calendar.description }}{% endautoescape %}</div>
-                <hr/>
-            {% else %}
-                <div class="">There are no events on our calendar this month.  Please check back.</div>
-            {% endfor %}
+                    {{ calendar.date|date("l, F d") }} {{ calendar.time|date("g:i A") }}
+                </div>
+                <div class="panel-body">
+                    <h3>{{ calendar.title }}</h3>
+
+                    <p>{{ calendar.description }}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="panel-body">
+                <p>There are currently no events in the calendar. Please check back soon.</p>
+            </div>
+        {% endfor %}
 
     </div>
 {% endblock %}

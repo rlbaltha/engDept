@@ -3,21 +3,22 @@
 {% block content %}
 
     <div class="col-sm-offset-1 col-sm-10 well">
+        {% for calendar in calendar %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
 
-        <table class="table table-striped">
-            {% for event in events %}
-                <tr>
-                    <td>
-                        {{ event.title }}
-                        {{ event.time|date('h:i a') }}
-                        <a class="pull-right" href="{{ path('calendar_edit', { 'id': event.id }) }}">Update/Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ event.description|raw }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+                    {{ calendar.date|date("l, F d") }} {{ calendar.time|date("g:i A") }}
+                </div>
+                <div class="panel-body">
+                    <h3>{{ calendar.title }}</h3>
+                    <p>{{ calendar.description }}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="panel-body">
+                <p>There are currently no events in the calendar.  Please check back soon.</p>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}

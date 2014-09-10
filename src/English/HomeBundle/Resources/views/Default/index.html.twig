@@ -4,20 +4,30 @@
     <div class="col-sm-offset-1 col-sm-10 " style="margin-top:20px;padding-top:20px; background-color:#f3f0dd ">
 
         <div class="col-sm-7 well">
-                <a class="pull-right" title="Calendar" href="{{ path('calendar_index') }}">All
+            <a class="pull-right" title="Calendar" href="{{ path('calendar_index') }}">All
                 Upcoming Events</a>
-                <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Calendar</h2>
+
+            <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Calendar</h2>
 
 
             {% for calendar in calendar %}
-                {{ calendar.date|date("l, F d") }} {{ calendar.time|date("g:i A") }}
-                <h3> {{ calendar.title }}</h3>
-                <div class="">{% autoescape false %}{{ calendar.description }}{% endautoescape %}</div>
-                <hr/>
-                {% else %}
-                    <div class="">There are no events on our calendar this month.  Please check back.</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
 
+                        {{ calendar.date|date("l, F d") }} {{ calendar.time|date("g:i A") }}
+                    </div>
+                    <div class="panel-body">
+                        <h3>{{ calendar.title }}</h3>
+
+                        <p>{{ calendar.description }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="panel-body">
+                    <p>There are currently no events in the calendar. Please check back soon.</p>
+                </div>
             {% endfor %}
+
 
             {% if special_spotlight %}
                 <div class="" style="padding-top: 20px">
@@ -37,20 +47,30 @@
 
 
         <div class="col-sm-offset-1 col-sm-4 well">
-            <h2 class="page-header"  style="font-family: 'Lora', 'Times New Roman', 'serif';">Spotlight</h2>
+            <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Spotlight</h2>
             {% for spotlight in spotlight %}
                 <div class="thumbnail">
                     <img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}">
+
                     <div class="caption">
-                            {{ spotlight.title }}
+                        {{ spotlight.title }}
                     </div>
                 </div>
                 <p>{{ spotlight.description|raw }}</p>
             {% endfor %}
 
             {% if twitter=='yes' %}
-                <a class="twitter-timeline" href="https://twitter.com/UGAEnglish" data-widget-id="504275673385406465">Tweets by @UGAEnglish</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                <a class="twitter-timeline" href="https://twitter.com/UGAEnglish" data-widget-id="504275673385406465">Tweets
+                    by @UGAEnglish</a>
+                <script>!function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + "://platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, "script", "twitter-wjs");</script>
             {% endif %}
 
         </div>

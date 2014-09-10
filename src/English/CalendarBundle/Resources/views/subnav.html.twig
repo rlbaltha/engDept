@@ -5,8 +5,14 @@
     <script language="javascript">
         $(document).ready(function () {
             $('#confirm').toggle();
+            $( "#english_calendarbundle_calendartype_date" ).datepicker();
         });
     </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/jquery-ui.min.css') }}">
 {% endblock %}
 
 {% block subnav %}
