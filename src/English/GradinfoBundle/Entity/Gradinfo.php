@@ -31,12 +31,12 @@ class Gradinfo
     private $status;
 
     /**
-     * @var integer $userid
+     * @var integer $sortorder
      *
-     * @ORM\Column(name="userid", type="integer", nullable=true)
+     * @ORM\Column(name="sortorder", type="integer", nullable=true)
      */
-    private $userid; 
-    
+    private $sortorder;
+
 
     /**
      * @ORM\OneToMany(targetEntity="English\PeopleBundle\Entity\People", mappedBy="gradinfo" )
@@ -131,30 +131,11 @@ class Gradinfo
         return $this->updated;
     }
 
-    /**
-     * Set userid
-     *
-     * @param integer $userid
-     */
-    public function setUserid($userid)
-    {
-        $this->userid = $userid;
-    }
-
-    /**
-     * Get userid
-     *
-     * @return integer 
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
 
     /**
      * Add people
      *
-     * @param English\PeopleBundle\Entity\People $people
+     * @param \English\PeopleBundle\Entity\People $people
      */
     public function addPeople(\English\PeopleBundle\Entity\People $people)
     {
@@ -164,10 +145,56 @@ class Gradinfo
     /**
      * Get people
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPeople()
     {
         return $this->people;
+    }
+
+    /**
+     * Set sortorder
+     *
+     * @param integer $sortorder
+     * @return Gradinfo
+     */
+    public function setSortorder($sortorder)
+    {
+        $this->sortorder = $sortorder;
+
+        return $this;
+    }
+
+    /**
+     * Get sortorder
+     *
+     * @return integer 
+     */
+    public function getSortorder()
+    {
+        return $this->sortorder;
+    }
+
+    /**
+     * Add people
+     *
+     * @param \English\PeopleBundle\Entity\People $people
+     * @return Gradinfo
+     */
+    public function addPerson(\English\PeopleBundle\Entity\People $people)
+    {
+        $this->people[] = $people;
+
+        return $this;
+    }
+
+    /**
+     * Remove people
+     *
+     * @param \English\PeopleBundle\Entity\People $people
+     */
+    public function removePerson(\English\PeopleBundle\Entity\People $people)
+    {
+        $this->people->removeElement($people);
     }
 }

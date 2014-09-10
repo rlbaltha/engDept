@@ -65,10 +65,10 @@
     {% if peopleCourses %}
         <div class="row">
             <div class=" col-sm-12 page-header">
-                <h4>Courses</h4>
+                <h4>Current Courses</h4>
             </div>
             <table class="table table-striped">
-                {% for courses in peopleCourses %}
+                {% for courses in peopleCourses if courses.type>0 %}
                     <tr id="course{{ courses.id }}">
                         <td>{{ courses.termName }}</td>
                         <td>
@@ -87,8 +87,40 @@
                         <td>{{ courses.room }}</td>
 
                     </tr>
+                    {% else %}
+                        <tr><td>No current course listings found.</td></tr>
                 {% endfor %}
             </table>
+
+            {% if is_granted('ROLE_USER') %}
+            <div class=" col-sm-12 page-header">
+                <h4 style="cursor: pointer" id="previous_courses_heading">Previous Courses (click to view/hide)</h4>
+            </div>
+            <table id="previous_courses" class="table table-striped">
+                {% for courses in peopleCourses if courses.type==0 %}
+                    <tr id="course{{ courses.id }}">
+                        <td>{{ courses.termName }}</td>
+                        <td>
+                            <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
+                                       title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                        <td>{{ courses.title }}</td>
+                        <td>{{ courses.instructorName|upper }}</td>
+                        <td>{{ courses.callNumber }}</td>
+                        <td>{{ courses.callNumber2 }}</td>
+                        {% if courses.may == 1 %}
+                            <td class="cell bold">Maymester</td>{% endif %}
+                        <td>{{ courses.days }}</td>
+                        <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12 }}{% else %}{{ courses.time|slice(0,2) }}{% endif %}
+                            :{{ courses.time|slice(2,2) }}{% if courses.time|slice(0,2) > 12 %} PM{% else %} AM{% endif %}</td>
+                        <td>{{ courses.building }}</td>
+                        <td>{{ courses.room }}</td>
+
+                    </tr>
+                {% else %}
+                    <tr><td>No previous course listings found.</td></tr>
+                {% endfor %}
+            </table>
+            {% endif %}
         </div>
     {% endif %}
 

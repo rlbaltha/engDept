@@ -60,9 +60,9 @@ class PeopleRepository extends EntityRepository
     public function findPeopleCourses($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.may,c.building,c.room,t.termName,t.term
+            ->createQuery("SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.may,c.building,c.room,t.termName,t.term,t.type
              FROM EnglishCoursesBundle:Course c, EnglishPeopleBundle:People p, EnglishTermBundle:Term t
-             WHERE LOWER(c.instructorName) = LOWER(p.oasisname) AND c.term = t.term AND t.type = '2' AND p.id = ?1 ORDER BY t.termName,c.courseName")
+             WHERE LOWER(c.instructorName) = LOWER(p.oasisname) AND c.term = t.term AND p.id = ?1 ORDER BY t.term desc,c.courseName")
             ->setParameter('1', $id)->getResult();
     }
 

@@ -5,6 +5,10 @@
     <script language="javascript">
         $(document).ready(function () {
             $('#confirm').toggle();
+            $('#previous_courses').toggle();
+            $( "#previous_courses_heading" ).click(function() {
+                $('#previous_courses').toggle();
+            });
         });
     </script>
 {% endblock %}
