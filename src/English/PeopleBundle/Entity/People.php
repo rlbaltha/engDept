@@ -86,15 +86,6 @@ class People
      */
     private $oasisname = 'Needed';   
     
-    
-    /**
-     * @var string $password
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
-    
-    
 
     /**
      * @var text $officeHours
@@ -399,28 +390,6 @@ class People
     {
         return $this->username;
     }
-    
-    
-    /**
-     * Set password
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    
     
 
     /**

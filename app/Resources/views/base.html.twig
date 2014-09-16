@@ -66,7 +66,6 @@
                 </li>
                 <li><a title="People" href="{{ path('directory') }}">People</a></li>
                 <li><a title="Courses" href="{{ path('listings') }}">Courses</a></li>
-                <li><a title="Publications" href="{{ path('publications') }}">Publications</a></li>
                 <li><a title="First Year Composition" href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Comp.</a></li>
                 <li><a title="Undergraduate Studies in English" href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate</a>
                 </li>
@@ -96,7 +95,7 @@
         </div>
     </nav>
     <a id="main_content" name="main_content"></a>
-    <div id="mainContainer" style="margin-top: 50px">
+    <div id="mainContainer" style="margin-top: 50px;">
 
         {{ block('subnav') }}
 
@@ -172,8 +171,7 @@
 
                 </div>
             {% endif %}
-            <div id="content" class="col-sm-12 ">
-
+            <div id="content" class="col-sm-12 " style="border-top: 1px solid #e3e3e3; ">
                 {{ block('content') }}
             </div>
 
