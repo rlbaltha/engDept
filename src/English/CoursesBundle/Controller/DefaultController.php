@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
+use English\CoursesBundle\Entity\Course;
+use English\CoursesBundle\Form\CourseType;
 
 /**
  * Courses Public controller.
@@ -21,16 +24,47 @@ class DefaultController extends Controller
      * @Route("/", name="listings")
      * @Template("EnglishCoursesBundle:Default:index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $currentType = 'Upper';
         $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
-        $courses = $em->createQuery($dql1)->getResult();
+        $course = new Course();
+        $form = $this->createFindForm($course);
+
+        if ($request->getMethod() == 'POST') {
+            $currentType = 'Search';
+            $form->handleRequest($request);
+            $courseName = "%" . $form->get('courseName')->getData() . "%";
+            $courseName = strtolower($courseName);
+            $courses= $em->getRepository('EnglishCoursesBundle:Course')->findFormCourses($courseName);
+
+        } else {
+            $currentType = 'Upper';
+            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
+            $courses = $em->createQuery($dql1)->getResult();
+        }
+
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
         $currentTerm = $em->createQuery($dql3)->getSingleresult();
-        return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType);
+        return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
+    }
+
+
+    /**
+     * Creates a find form
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFindForm(Course $course)
+    {
+        $form = $this->createForm(new CourseType(), $course, array(
+            'action' => $this->generateUrl('listings'),
+            'method' => 'POST',
+        ));
+        $form->add('courseName', 'text', array('label' => 'Search', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Course'),));
+
+        return $form;
     }
  
     /**
@@ -43,6 +77,8 @@ class DefaultController extends Controller
     {
         $currentTerm = array('term' => $term);
         $currentType = $type;
+        $course = new Course();
+        $form = $this->createFindForm($course);
         $em = $this->getDoctrine()->getManager();
         if ($type == 'Upper') {
             $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area IN ('1','2','3','4','5') ORDER BY c.courseName";
@@ -61,7 +97,7 @@ class DefaultController extends Controller
             }
         $courses = $em->createQuery($dql1)->setParameter('1', $term)->getResult();
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
-        return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType)); 
+        return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),));
             
     } 
 
@@ -76,6 +112,8 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $currentType = 'Upper';
+        $course = new Course();
+        $form = $this->createFindForm($course);
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
         $currentTerm = $em->createQuery($dql3)->getSingleresult();
@@ -94,7 +132,7 @@ class DefaultController extends Controller
             $people= null;
             $userid = 0;
         }
-        return array('course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType);
+        return array('course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
             
     }     
  
@@ -106,6 +144,8 @@ class DefaultController extends Controller
      */    
     public function byareaAction($term)
     {
+        $course = new Course();
+        $form = $this->createFindForm($course);
         $currentTerm = array('term' => $term);
         $currentType = 'Upper by Area';
         $em = $this->getDoctrine()->getManager();
@@ -116,7 +156,7 @@ class DefaultController extends Controller
         $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea4($term);
         $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea5($term);
         
-        return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, )); 
+        return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, 'search_form' => $form->createView(), ));
             
     }      
     

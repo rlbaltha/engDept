@@ -19,7 +19,7 @@ class DescriptionType extends AbstractType
             ->add('requirements', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Specific course requirements for grading purposes (e.g., written and oral tests and reports, research papers, performances or other similar requirements, participation requirements, if any) '))
             ->add('grading', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Grading Policy (How the final grade will be determined with respect to weights or course points assigned to various course requirements.) '))
             ->add('attendance', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Information regarding attendance policy (If there are specific requirements for attendance, these should be stated; if attendance is to be weighed for the final grade, the syllabus should state what the weight or course points will be.) '))
-            ->add('material', 'ckeditor', array('config_name' => 'editor_simple','label'=>'>Required course material, including texts '))
+            ->add('material', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Required course material, including texts'))
             ->add('makeup', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Policy for make-up of assignments '))
             ->add('url', 'text', array('label'=>'Course website URL ','attr' => array('class' => 'form-control')))
             ->add('topics', 'choice', array('choices' => array ('t' => 'Yes','f' => 'No'), 
