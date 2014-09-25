@@ -120,7 +120,7 @@ class DefaultController extends Controller
         $dql_call = '%'.$callNumber.'%';
         $dql1 = "SELECT d FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
-        $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($callNumber,$term );
+        $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($dql_call,$term );
         $user=$this->getUser();
 
         if ($user) {

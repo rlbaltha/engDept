@@ -73,11 +73,11 @@ class CourseRepository extends EntityRepository
 
     }
 
-    public function findByCallTerm($callNumber, $term)
+    public function findByCallTerm($dql_call, $term)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT c FROM EnglishCoursesBundle:Course c WHERE c.callNumber = ?1 AND c.term= ?2')
-            ->setParameter('1',$callNumber)->setParameter('2',$term)->setMaxResults(1)->getSingleResult();
+            ->createQuery('SELECT c FROM EnglishCoursesBundle:Course c WHERE (c.callNumber LIKE ?1 or c.callNumber2 LIKE ?1) AND c.term= ?2')
+            ->setParameter('1',$dql_call)->setParameter('2',$term)->setMaxResults(1)->getSingleResult();
 
     }
 

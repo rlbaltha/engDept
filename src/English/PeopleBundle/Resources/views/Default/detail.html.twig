@@ -98,10 +98,14 @@
             </div>
             <table id="previous_courses" class="table table-striped">
                 {% for courses in peopleCourses if courses.type==0 %}
+                        {% if 'POD' in courses.callNumber or 'POH' in courses.callNumber %}
+                        {% set call = courses.callNumber2 %}
+                        {% else %}
+                        {% set call = courses.callNumber %}{% endif %}
                     <tr id="course{{ courses.id }}">
                         <td>{{ courses.termName }}</td>
                         <td>
-                            <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
+                            <strong><a href="{{ path('listings_detail', { 'callNumber': call, 'term': courses.term }) }}"
                                        title="Course Detail">{{ courses.courseName }}</a></strong></td>
                         <td>{{ courses.title }}</td>
                         <td>{{ courses.instructorName|upper }}</td>
