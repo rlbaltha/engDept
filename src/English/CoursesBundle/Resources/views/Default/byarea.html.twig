@@ -85,7 +85,9 @@
                 <td>{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
-                <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12}}{% else %}{{ courses.time|slice(0,2)}}{% endif %}:{{ courses.time|slice(2,2)}}{% if courses.time|slice(0,2) > 12 %} PM{% else %} AM{% endif %}</td>
+                <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12}}
+                    {% else %}{{ courses.time|slice(0,2)}}{% endif %}:
+                    {{ courses.time|slice(2,2)}}{% if courses.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}</td>
                 <td>{{ courses.building }}</td>
                 <td>{{ courses.room }}</td>
                 <td>{{ courses.callNumber }}</td>

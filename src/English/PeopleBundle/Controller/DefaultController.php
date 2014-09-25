@@ -438,6 +438,11 @@ class DefaultController extends Controller
     public function findMentorAction()
     {
         $mentor = "None found";
+        $heading = 1;
+        $em = $this->getDoctrine()->getManager();
+        $people = new People();
+        $form = $this->createFindForm($people);
+        $areas = $em->getRepository('EnglishAreasBundle:Area')->findAll();
         if ($this->get('request')) {
             $request = $this->get('request');
             $postData = $request->request->get('form');
@@ -445,20 +450,20 @@ class DefaultController extends Controller
             $email = strtolower($email);
 
             $em = $this->getDoctrine()->getManager();
-            $dql1 = "SELECT n.name as mname,a.name as aname FROM EnglishMajorsBundle:Major m JOIN m.mentor n JOIN m.advisor a WHERE LOWER(m.email) = ?1";
+            $dql1 = "SELECT n.name as mname,a.name as aname FROM EnglishMajorsBundle:Major m JOIN m.mentor n JOIN m.advisor a WHERE LOWER(m.email) = ?1 AND m.email!=''";
             $mentor = $em->createQuery($dql1)->setParameter('1', $email)->getResult();
             if ($email == '') {
                 $notification = 'Please enter your email address.';
             } elseif (!$mentor) {
-                $notification = 'We did not find your email address.  Please try again.';
+                $notification = 'We did not find your email address.  Please try again or check with the Undergraduate Office.';
             } else {
                 $notification = 'Check the People listing above for contact information.';
             }
         };
-        $form = $this->createFormBuilder(new Major())
-            ->add('email')
+        $mentor_form = $this->createFormBuilder(new Major())
+            ->add('email', 'text', array('label' => 'Find my advisor and mentor', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Email')))
             ->getForm();
-        return $this->render('EnglishPeopleBundle:Default:findMentor.html.twig', array('mentor' => $mentor, 'notification' => $notification, 'form' => $form->createView(),));
+        return $this->render('EnglishPeopleBundle:Default:findMentor.html.twig', array('areas' => $areas, 'heading' => $heading, 'search_form' => $form->createView(),'mentor' => $mentor, 'notification' => $notification, 'mentor_form' => $mentor_form->createView(),));
     }
 
 }

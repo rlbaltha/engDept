@@ -1,26 +1,21 @@
 {% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
-
 {% block content %}
-<div class="row">
-<div class='cell'>{% for mentor in mentor %}Your advisor is {{mentor.aname}}.{% endfor %}</div>
-</div>
-<div class="row">
-<div class='cell'>{% for mentor in mentor %}Your mentor is {{mentor.mname}}.{% endfor %}</div>
-</div>
-<div class="row">
-<div class='cell'>{{notification}}</div>
-</div>
-<div class="row">
-<form action="{{ path('whoismymentor') }}" method="post" {{ form_enctype(form) }}>
+<div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
 
-<div class="cell">
-{{ form_widget(form) }}
-</div> 
-<div class="cell">
-<button type="submit">Find my advisor and mentor</button>
-</div> 
+<p>{% for mentor in mentor %}Your advisor is <strong>{{mentor.aname}}</strong>.{% endfor %}</p>
+<p>{% for mentor in mentor %}Your mentor is <strong>{{mentor.mname}}</strong>.{% endfor %}</p>
 
-</form> 
+<p>{{notification}}</p>
+<hr/>
+    <p>
+    <form action="{{ path('whoismymentor') }}" method="post" {{ form_enctype(mentor_form) }}>
+        <div class="form-group">
+        {{ form_row(mentor_form.email) }}
+        <button class="btn btn-default" type="submit">Go</button>
+        </div>
+    </form>
+    </p>
+
 </div>
 {% endblock %}
