@@ -16,7 +16,7 @@ body {
 .width300 {width:300px}
 .center {text-align:center;}
 .main {float:left;width:743px; border:3px solid black;border-top:0px;;border-bottom-right-radius: 30px;border-bottom-left-radius: 30px; -moz-border-radius-bottomleft:30px;-moz-border-radius-bottomright:30px;}
-.mid {width:100%;float:left;margin-bottom:20px;background: #fff url(http://www.english.uga.edu/~dawgspeak/midsect2.jpg); background-repeat:no-repeat;}
+.mid {width:100%;float:left;margin-bottom:20px;background: #fff}
 .nav {width:100%;padding-top:30px;font-weight:bold;clear:both;}
 .alpha {width:100%;padding:20px;}
 .section {width:100%;padding-left:20px;padding-right:20px;padding-top:5px;padding-bottom:5px;}
