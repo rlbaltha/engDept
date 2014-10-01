@@ -132,7 +132,7 @@ class DefaultController extends Controller
             $people= null;
             $userid = 0;
         }
-        return array('course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
+        return array('people' => $people,'course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
             
     }     
  

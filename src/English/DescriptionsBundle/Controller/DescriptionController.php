@@ -162,7 +162,7 @@ class DescriptionController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('course'));
+        return $this->redirect($this->generateUrl('people_profile'));
     }
 
     private function createDeleteForm($id)

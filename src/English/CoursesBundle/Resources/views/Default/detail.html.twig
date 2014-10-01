@@ -36,9 +36,10 @@
             </tr>
             </tbody>
         </table>
-
         {% if courseDetail and (courseDetail[0].userid == userid or  is_granted('ROLE_ADMIN')) %}
-                    <a class="btn btn-default pull-right" href="{{ path('description_edit', { 'id': courseDetail[0].id }) }}">Update/Delete</a>
+            <a class="btn btn-default pull-right" href="{{ path('description_edit', { 'id': courseDetail[0].id }) }}">Update/Delete</a>
+        {% elseif not courseDetail and (course.instructorname|lower == people.oasisname|lower or  is_granted('ROLE_ADMIN'))  %}
+            <a class="btn btn-default pull-right" href="{{ path('description_new', {'term':course.term, 'callNumber':course.callNumber})}}">Add Description</a>
         {% endif %}
 
         <dl>
