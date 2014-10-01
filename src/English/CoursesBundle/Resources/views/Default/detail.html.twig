@@ -42,8 +42,18 @@
             <a class="btn btn-default pull-right" href="{{ path('description_new', {'term':course.term, 'callNumber':course.callNumber})}}">Add Description</a>
         {% endif %}
 
+
+
         <dl>
             {% for courseDetail in courseDetail %}
+            {% if courseDetail.topicsTitle != '' %}
+                <dt>
+                    Topics Title
+                </dt>
+                <dd>
+                    {{ courseDetail.topicsTitle|raw }}
+                </dd>
+            {% endif %}
             {% if courseDetail.url != '' %}
                 <dd>
                     <a href="{{ courseDetail.url }}" title="Course Web Site" target="_blank">Course Web Site</a>
