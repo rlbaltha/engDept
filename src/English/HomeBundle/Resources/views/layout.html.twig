@@ -13,7 +13,7 @@
             <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
         {% endif %}
         <li><a title="Calendar" href="{{ path('calendar') }}">Calendar</a></li>
-        <a title="Dept. Information" href="{{ path('pages_show', { 'id': 124, 'sub':'dept' }) }}">Dept. Info.</a>
+        <li><a title="Dept. Information" href="{{ path('pages_show', { 'id': 124, 'sub':'dept' }) }}">Dept. Info.</a></li>
         {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}
             <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
         {% endif %}
