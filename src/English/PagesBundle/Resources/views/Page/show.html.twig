@@ -1,8 +1,15 @@
 {% extends 'EnglishPagesBundle::subnav.html.twig' %}
 
 {% block content %}
-    <div class="col-sm-offset-1 col-sm-10" style="background-color: #f5f5f5; min-height: 100vh;">
-        <div id="sidebar" class="col-sm-3" style="background-color: #f5f5f5; min-height: 100vh;">
+    {% if is_granted('ROLE_USER')%}
+        {% set width='col-sm-12' %}
+        {% set sidebar='col-sm-2' %}
+    {% else %}
+        {% set width='col-sm-offset-1 col-sm-10' %}
+        {% set sidebar='col-sm-3' %}
+    {% endif %}
+    <div class="{{ width }}" style="min-height: 100vh;">
+        <div id="sidebar" class="{{ sidebar }}" style="background-color: #f5f5f5; min-height: 100vh;">
             <ul class="nav nav-list">
                 <li class="" style="margin-top: 10px;">
                     {{ page.section.info|raw }}
