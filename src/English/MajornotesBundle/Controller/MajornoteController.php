@@ -7,8 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use English\MajorsBundle\Entity\Major;
 use English\MajornotesBundle\Entity\Majornote;
 use English\MajornotesBundle\Form\MajornoteType;
+use English\MajorsBundle\Form\FindType;
 
 /**
  * Majornote controller.
@@ -68,9 +70,14 @@ class MajornoteController extends Controller
         $note->setNotes('<p></p>');
         $form   = $this->createForm(new MajornoteType(), $note);
 
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+
         return array(
             'note' => $note,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form'   => $find_form->createView()
+
         );
     }   
 
@@ -92,6 +99,9 @@ class MajornoteController extends Controller
         $form    = $this->createForm(new MajornoteType(), $note);
         $form->submit($request);
 
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($note);
@@ -103,7 +113,8 @@ class MajornoteController extends Controller
 
         return array(
             'note' => $note,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'find_form'   => $find_form->createView()
         );
     }
     
@@ -144,10 +155,24 @@ class MajornoteController extends Controller
 
     return $this->redirect($this->generateUrl('major_show', array('id' => $id ))); 
     }
-    
-    
- 
-    
+
+
+
+    /**
+     * Creates a find form
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFindForm(Major $major)
+    {
+        $form = $this->createForm(new FindType(), $major, array(
+            'action' => $this->generateUrl('major_find'),
+            'method' => 'POST',
+        ));
+        $form->add('name', 'text', array('label' => ' ', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Lastname'),));
+
+        return $form;
+    }
     
 
     /**
@@ -166,6 +191,8 @@ class MajornoteController extends Controller
             throw $this->createNotFoundException('Unable to find Majornote entity.');
         }
 
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
         $editForm = $this->createForm(new MajornoteType(), $note);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -173,6 +200,7 @@ class MajornoteController extends Controller
             'note'      => $note,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form'   => $find_form->createView()
         );
     }
 
@@ -193,6 +221,8 @@ class MajornoteController extends Controller
             throw $this->createNotFoundException('Unable to find Majornote entity.');
         }
 
+        $major= new Major();
+        $find_form = $this->createFindForm($major);
         $editForm   = $this->createForm(new MajornoteType(), $note);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -211,6 +241,7 @@ class MajornoteController extends Controller
             'note'      => $note,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'find_form'   => $find_form->createView()
         );
     }
 
