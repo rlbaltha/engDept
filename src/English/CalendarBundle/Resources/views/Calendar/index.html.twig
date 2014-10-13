@@ -6,7 +6,9 @@
         {% for calendar in calendar %}
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    {% if app.user.username==calendar.username or is_granted('ROLE_ADMIN') %}
                     <a class="pull-right" href="{{ path('calendar_edit', { 'id': calendar.id }) }}">Update/Delete</a>
+                    {% endif %}
 
                     {{ calendar.date|date("l, F d") }} {{ calendar.time|date("g:i A") }}
                 </div>
