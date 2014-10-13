@@ -26,13 +26,6 @@ class CalendarController extends Controller
      */
     public function indexAction()
     {
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-        $em = $this->getDoctrine()->getManager();
-        $startDate = date("Y-m-d") ;
-        $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
-            $calendar = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
-        return array('calendar' => $calendar);
-        } else {
         $securityContext = $this->get('security.context');
         $username = $securityContext->getToken()->getUsername();  
         $em = $this->getDoctrine()->getManager();
@@ -40,9 +33,22 @@ class CalendarController extends Controller
         $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2  and c.username = ?3 ORDER BY c.date ASC";
             $calendar = $em->createQuery($dql1)->setParameter('2',$startDate)->setParameter('3',$username)->setMaxResults(20)->getResult();
         return array('calendar' => $calendar);
-        }
+    }
 
-    }    
+    /**
+     * Lists Calendar entities for user.
+     *
+     * @Route("/byuser", name="calendar_byuser")
+     * @Template("EnglishCalendarBundle:Calendar:index.html.twig")
+     */
+    public function byUserAction()
+    {
+            $em = $this->getDoctrine()->getManager();
+            $startDate = date("Y-m-d") ;
+            $dql1 = "SELECT c.id,c.title,c.date,c.time,c.description,c.username FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?2 ORDER BY c.date ASC";
+            $calendar = $em->createQuery($dql1)->setParameter('2',$startDate)->setMaxResults(20)->getResult();
+            return array('calendar' => $calendar);
+    }
 
 
     /**
