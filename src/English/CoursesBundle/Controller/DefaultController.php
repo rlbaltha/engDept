@@ -108,7 +108,12 @@ class DefaultController extends Controller
             $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 ORDER BY c.courseName";
             }
         $courses = $em->createQuery($dql1)->setParameter('1', $term)->getResult();
-        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+        }
+        else {
+            $terms = $em->getRepository('EnglishCoursesBundle:Course')->currentterms();
+        }
         return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),));
             
     } 
