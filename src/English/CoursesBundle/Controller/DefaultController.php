@@ -168,7 +168,12 @@ class DefaultController extends Controller
         $currentTerm = $em->createQuery($dql2)->setParameter('1', $term)->getSingleResult();
         $currentType = 'Upper by Area';
 
-        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+            $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+        }
+        else {
+            $terms = $em->getRepository('EnglishCoursesBundle:Course')->currentterms();
+        }
         $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea1($term);
         $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea2($term);
         $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea3($term);
