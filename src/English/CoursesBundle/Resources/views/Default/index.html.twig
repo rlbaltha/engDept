@@ -38,7 +38,7 @@
                 <th class="hidden-md hidden-sm hidden-xs">Building</th>
                 <th>Room</th>
                 <th class="hidden-md hidden-sm hidden-xs">Call</th>
-                <th class="hidden-md hidden-sm hidden-xs"></th>
+                <th class="hidden-md hidden-sm hidden-xs">{% if currentType=='Search' %}Term{% endif %}</th>
                 <th class="hidden-md hidden-sm hidden-xs">{% if courses %}{% if '05' in courses[0].term %}Maymester{% endif %}{% endif %}</th>
             </tr>
             </thead>
@@ -56,8 +56,8 @@
                         {{ courses.time|slice(2,2)}}{% if courses.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}</td>
                     <td class="hidden-md hidden-sm hidden-xs">{{ courses.building }}</td>
                     <td>{{ courses.room }}</td>
-                    <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}</td>
-                    <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber2 }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}{{ courses.callNumber2 }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{% if currentType=='Search' %}{{ courses.term }}{% endif %}</td>
                     <td class="hidden-md hidden-sm hidden-xs">{% if courses.may == 1 %}Maymester{% endif %}</td>
                 </tr>
             {% endfor %}
