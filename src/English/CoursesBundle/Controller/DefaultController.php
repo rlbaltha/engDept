@@ -132,8 +132,8 @@ class DefaultController extends Controller
         $course = new Course();
         $form = $this->createFindForm($course);
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
-        $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
-        $currentTerm = $em->createQuery($dql3)->getSingleresult();
+        $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.term = ?1";
+        $currentTerm = $em->createQuery($dql3)->setParameter('1', $term)->getSingleresult();
         $dql_call = '%'.$callNumber.'%';
         $dql1 = "SELECT d FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
