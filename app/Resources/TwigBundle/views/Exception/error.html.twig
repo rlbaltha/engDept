@@ -1,10 +1,9 @@
-{% extends '::base.html.twig' %}
-{% block body %}
+{% extends 'EnglishHomeBundle::layout.html.twig' %}
 
-<body>
-    <h1>Oops! An Error Occurred</h1>
-    <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
-</body>
+{% block content %}
+    <div class="col-sm-offset-1 col-sm-10" style="padding-top:10px; background-color:#f3f0dd ">
 
+        <div class="alert alert-info" role="alert">It looks like nothing was found at this location.  Please check your request.</div>
 
+    </div>
 {% endblock %}
