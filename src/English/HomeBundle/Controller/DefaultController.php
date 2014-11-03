@@ -17,7 +17,6 @@ class DefaultController extends Controller
      * Lists all Home entities.
      *
      * @Route("/", name="home")
-     * @Template()
      */
     public function indexAction()
     {
@@ -40,7 +39,6 @@ class DefaultController extends Controller
      * Lists all Home entities.
      *
      * @Route("/calendar_index", name="calendar_index")
-     * @Template()
      */
     public function cal_indexAction()
     {
@@ -50,5 +48,14 @@ class DefaultController extends Controller
         $dql1 = "SELECT c.title,c.date,c.time,c.description FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?1 and c.date < ?2 ORDER BY c.date ASC";
         $calendar = $em->createQuery($dql1)->setParameter('1',$startDate)->setParameter('2',$endDate)->getResult();
         return $this->render('EnglishHomeBundle:Default:cal_index.html.twig', array('calendar' => $calendar,)); 
-    }    
+    }
+
+    /**.
+     *
+     * @Route("/notfound", name="home_notfound")
+     */
+    public function notfoundAction()
+    {
+        return $this->render('EnglishHomeBundle:Default:notfound.html.twig', array());
+    }
 }
