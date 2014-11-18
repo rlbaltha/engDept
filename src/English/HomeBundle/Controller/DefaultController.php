@@ -48,8 +48,21 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT c.title,c.date,c.time,c.description FROM EnglishCalendarBundle:Calendar c WHERE c.date >= ?1 and c.date < ?2 ORDER BY c.date ASC";
         $calendar = $em->createQuery($dql1)->setParameter('1',$startDate)->setParameter('2',$endDate)->getResult();
-        return $this->render('EnglishHomeBundle:Default:cal_index.html.twig', array('calendar' => $calendar,)); 
+        return $this->render('EnglishHomeBundle:Default:cal_index.html.twig', array('calendar' => $calendar,));
+
     }
+
+    /**
+     * Lists all Home entities.
+     *
+     * @Route("/feed", name="home_feed")
+     */
+    public function feedAction()
+    {
+        return $this->render('EnglishHomeBundle:Default:feed.html.twig', array());
+
+    }
+
 
     /**.
      *
@@ -59,4 +72,6 @@ class DefaultController extends Controller
     {
         throw new NotFoundHttpException("Page not found");
     }
+
+
 }

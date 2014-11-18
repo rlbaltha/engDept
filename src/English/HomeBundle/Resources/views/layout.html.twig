@@ -18,6 +18,7 @@
             <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
         {% endif %}
         </li>
+        <li><a title="Chronicle News" href="{{ path('home_feed') }}">Chronicle News</a></li>
 
         {% if is_granted('ROLE_ADMIN') %}
             <li>Admin</li>

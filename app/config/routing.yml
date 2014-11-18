@@ -107,17 +107,11 @@ EnglishAuthenticateBundle:
     type:     annotation
     prefix:   /
 
-EnglishPublicationsBundle:
-    resource: "@EnglishPublicationsBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 EnglishPositionBundle:
     resource: "@EnglishPositionBundle/Controller/"
     type:     annotation
     prefix:   /
 
-# app/config/routing.yml
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -227,12 +221,6 @@ EnglishAdvisorsBundle:
     type:     annotation
     prefix:   /
 
-DefaultNotFoundRedirect:
-    pattern: /{route}
-    defaults:
-        { _controller: EnglishHomeBundle:Default:notfound }
-    requirements:
-        route: .+
 
 
 # Internal routing configuration to handle ESI

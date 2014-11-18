@@ -43,7 +43,6 @@ class AppKernel extends Kernel
             new English\TermBundle\EnglishTermBundle(),
             new English\HomeBundle\EnglishHomeBundle(),
             new English\PositionBundle\EnglishPositionBundle(),
-            new English\PublicationsBundle\EnglishPublicationsBundle(),
             new English\AuthenticateBundle\EnglishAuthenticateBundle(),
             new English\DonateBundle\EnglishDonateBundle(),
             new English\DawgspeakBundle\EnglishDawgspeakBundle(),
