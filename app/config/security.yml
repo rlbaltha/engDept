@@ -32,6 +32,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
+
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/advisor/, role: ROLE_ADVISORADMIN }
         - { path: ^/area/, role: ROLE_ADMIN }
@@ -53,7 +54,8 @@ security:
         - { path: ^/majornote/, role: ROLE_ADVISOR }
         - { path: ^/major/, role: ROLE_ADVISOR }
         - { path: ^/mentor/, role: ROLE_ADVISORADMIN }
-        - { path: ^/people/, role: ROLE_USER } 
+        - { path: ^/people/, role: ROLE_USER }
+        - { path: ^/home/feed, role: ROLE_USER, requires_channel: http }
 
 
     role_hierarchy:
