@@ -27,9 +27,10 @@
 
     <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh;">
 
-        <table class="table">
+        <table class="table  table-striped">
             <thead>
             <tr>
+                <th>Term</th>
                 <th>Course</th>
                 <th>Title</th>
                 <th>Instructor</th>
@@ -45,6 +46,7 @@
             <tbody>
             {% for courses in courses %}
                 <tr>
+                    <td>{{ courses.termName }}</td>
                     <td><strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                    title="Course Detail">{{ courses.courseName }}</a></strong></td>
                     <td>{{ courses.title }}</td>
