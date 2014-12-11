@@ -129,7 +129,7 @@
             </div>
         {% else %}
 
-            {% if 'home' in app.request.attributes.get('_route') or 'default' in app.request.attributes.get('_route') %}
+            {% if app.request.attributes.get('_route')=='home' or 'default' in app.request.attributes.get('_route') %}
                 <div class="col-sm-12 " style="padding: 0; min-height: 420px;">
 
                     <div id="carousel-example-generic" class="carousel slide col-sm-12 center" data-ride="carousel" data-interval="12000"  data-pause="hover">

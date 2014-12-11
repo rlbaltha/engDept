@@ -107,17 +107,11 @@ EnglishAuthenticateBundle:
     type:     annotation
     prefix:   /
 
-EnglishPublicationsBundle:
-    resource: "@EnglishPublicationsBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 EnglishPositionBundle:
     resource: "@EnglishPositionBundle/Controller/"
     type:     annotation
     prefix:   /
 
-# app/config/routing.yml
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

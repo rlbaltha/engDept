@@ -32,6 +32,7 @@ class HelpController extends Controller
         return array('entities' => $entities);
     }
 
+
     /**
      * Finds and displays a Help entity.
      *

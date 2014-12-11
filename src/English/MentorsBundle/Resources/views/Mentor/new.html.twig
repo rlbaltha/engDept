@@ -1,16 +1,17 @@
- {% extends 'EnglishMentorsBundle:Mentor:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
-<div class="row"><div class="cell"><a href="{{ path('mentor') }}">List</a></div></div>
 
-<div class="row"><div class="cell">
-<form action="{{ path('mentor_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-</div></div>
-        
+{% block content %}
+
+    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #ffffff; min-height: 100vh">
+        <form action="{{ path('mentor_create') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+            <p>
+                <button class="btn btn-default" type="submit">Create</button>
+            </p>
+        </form>
+    </div>
+
 {% endblock %}
+
+

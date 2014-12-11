@@ -25,7 +25,7 @@ class MajorRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.gpa
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e
-             WHERE e.username = ?1 or a.username = ?1 ORDER BY m.name ASC")
+             WHERE  m.status=0 AND (e.username = ?1 or a.username = ?1) ORDER BY m.name ASC")
             ->setParameter('1',$username)->getResult();
     }
 
