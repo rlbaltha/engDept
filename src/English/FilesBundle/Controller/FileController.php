@@ -57,17 +57,19 @@ class FileController extends Controller
     /**
      * Lists all File entities.
      *
-     * @Route("/{labelid}/", name="file")
+     * @Route("/{section}/{labelid}/", name="file", defaults={"section" = "search"} )
      * @Template()
      */
     public function indexAction($labelid)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.name ASC";
+        $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.created DESC";
         $files = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
         $dql2 = "SELECT l FROM EnglishFilesBundle:Label l WHERE l.display = TRUE";
         $labels = $em->createQuery($dql2)->getResult();
-        return array('files' => $files, 'labels' => $labels);       
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
+        return array('files' => $files, 'labels' => $labels, 'labelid' => $labelid,);
     }
 
 
@@ -230,7 +232,7 @@ class FileController extends Controller
     /**
      * Finds and displays a File.
      *
-     * @Route("/{id}/view", name="file_view")
+     * @Route("/{section}/{id}/view", name="file_view", defaults={"section" = "search"} )
      * 
      */     
     public function viewAction($id)

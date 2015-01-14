@@ -33,9 +33,13 @@ class SectionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sections = $em->getRepository('EnglishPagesBundle:Section')->findAll();
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
+
 
         return array(
             'sections' => $sections,
+            'labelid' => $labelid,
         );
     }
     /**
@@ -122,6 +126,8 @@ class SectionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $section = $em->getRepository('EnglishPagesBundle:Section')->find($id);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
 
         if (!$section) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -132,6 +138,7 @@ class SectionController extends Controller
         return array(
             'section'      => $section,
             'delete_form' => $deleteForm->createView(),
+            'labelid' => $labelid,
         );
     }
 

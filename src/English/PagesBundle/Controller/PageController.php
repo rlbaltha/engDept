@@ -35,9 +35,12 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $pages = $em->getRepository('EnglishPagesBundle:Page')->findAll();
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
 
         return array(
             'pages' => $pages,
+            'labelid' => $labelid,
         );
     }
     /**
@@ -56,6 +59,7 @@ class PageController extends Controller
         $page = new Page();
         $form = $this->createCreateForm($page);
         $form->handleRequest($request);
+
 
 
 
@@ -125,10 +129,13 @@ class PageController extends Controller
         $page->setParent($parent);
         $page->setSortorder($sort);
         $form   = $this->createCreateForm($page);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
 
         return array(
             'page' => $page,
             'form'   => $form->createView(),
+            'labelid' => $labelid,
         );
     }
 
@@ -146,6 +153,8 @@ class PageController extends Controller
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
         $section = $page->getSection();
         $menu = $em->getRepository('EnglishPagesBundle:Page')->findPageMenu($section);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
 
         if (!$page) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -157,6 +166,7 @@ class PageController extends Controller
             'menu'  => $menu,
             'page'      => $page,
             'delete_form' => $deleteForm->createView(),
+            'labelid' => $labelid,
         );
     }
 
@@ -176,6 +186,8 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
 
         if (!$page) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -188,6 +200,7 @@ class PageController extends Controller
             'page'      => $page,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'labelid' => $labelid,
         );
     }
 

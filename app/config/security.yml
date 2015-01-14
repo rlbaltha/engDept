@@ -32,6 +32,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
 
+        - { path: ^/newsletter, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/advisor/, role: ROLE_ADVISORADMIN }

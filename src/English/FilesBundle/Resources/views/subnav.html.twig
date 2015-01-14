@@ -35,7 +35,7 @@
                         {% for label in labels %}
                             <li>
                                 <a title="{{ label.name }}"
-                                   href="{{ path('file', {'labelid':label.id}) }}">{{ label.name }}</a>
+                                   href="{{ path('file', {'section': 'search', 'labelid':label.id}) }}">{{ label.name }}</a>
                             </li>
                         {% endfor %}
                     {% endif %}

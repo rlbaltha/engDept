@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class LabelRepository extends EntityRepository
 {
+    /**
+     * find newsletter label
+     */
+    public function findNewsletterLabel()
+    {
+        return $this->getEntityManager()
+            ->createQuery("SELECT l  FROM EnglishFilesBundle:Label l WHERE l.name = 'newsletter' ")
+            ->getSingleResult();
+    }
 }

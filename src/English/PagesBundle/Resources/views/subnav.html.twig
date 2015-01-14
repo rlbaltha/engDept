@@ -29,6 +29,7 @@
                         {% elseif  page.section.name == 'undergrad' %}Undergraduate Studies in English
                         {% elseif  page.section.name == 'fyc' %}First-year Composition
                         {% elseif  page.section.name == 'dept' %}Department Information
+                        {% elseif  page.section.name == 'newsletter' %}Park Hall Monitor
                         {% endif %}
                         {% else %}
                             Sections
@@ -56,7 +57,10 @@
                                         SubPage</a>
                                 </li>
                             {% endif %}
+
                         {% endif %}
+                        <li><a title="List Images" href="{{ path('file', {'section': 'newsletter', 'labelid':labelid}) }}">List Images</a></li>
+                        <li><a href="{{ path('file_upload') }}">Upload Images</a></li>
                     </ul>
                 </div>
             {% endif %}

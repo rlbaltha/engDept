@@ -1,4 +1,9 @@
-{% extends 'EnglishFilesBundle::subnav.html.twig' %}
+{% if app.request.get('section') =='newsletter' %}
+{% set subnav = 'EnglishPagesBundle::subnav.html.twig' %}
+{% else %}
+{% set subnav = 'EnglishFilesBundle::subnav.html.twig' %}
+{% endif %}
+{% extends subnav %}
 
 {% block content %}
 
@@ -7,14 +12,10 @@
         <table class="table table-striped">
             {% for file in files %}
                 <tr>
-                    <td><a title="{{ file.name }}" href="{{ path('file_view', { 'id': file.id }) }}">{{ file.name }}</a><br/>
-                        {{ file.description }}
-                        <div class="btn-group pull-right">
-                            {% if is_granted('ROLE_SEARCHADMIN') %}<a href="{{ path('file_edit', { 'id': file.id }) }}">Edit/Delete</a>
-                            {% endif %}
-                        </div>
-
-                    </td>
+                    <td><a title="{{ file.name }}" href="{{ path('file_view', { 'id': file.id }) }}">{{ file.name }}</a></td>
+                    <td><input class="form-control pull-right" style="width:500px;" value="{{ path('file_view', { 'id': file.id }) }}"/></td>
+                    <td>{{ file.description }}</td>
+                    <td>{% if is_granted('ROLE_SEARCHADMIN') %}<a href="{{ path('file_edit', { 'id': file.id }) }}">Edit/Delete</a>{% endif %}</td>
                 </tr>
                 {% else %}
                 <tr>
