@@ -12,9 +12,9 @@
         <table class="table table-striped">
             {% for file in files %}
                 <tr>
-                    <td><a title="{{ file.name }}" href="{{ path('public_view', { 'id': file.id, 'section':app.request.get('section')}) }}">{{ file.name
+                    <td><a title="{{ file.name }}" href="{{ path('public_view', { 'id': file.id, 'sub':app.request.get('section')}) }}">{{ file.name
                             }}</a></td>
-                    <td><input class="form-control pull-right" style="width:500px;" value="{{ path('public_view', { 'id': file.id, 'section':app.request.get('section') })
+                    <td><input class="form-control pull-right" style="width:500px;" value="{{ path('public_view', { 'id': file.id, 'sub':app.request.get('section') })
                         }}"/></td>
                     <td>{{ file.description }}</td>
                     <td>{% if is_granted('ROLE_SEARCHADMIN') %}<a href="{{ path('file_edit', { 'id': file.id }) }}">Edit/Delete</a>{% endif %}</td>

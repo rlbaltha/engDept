@@ -369,7 +369,7 @@ class PageController extends Controller
     /**
      * Finds and displays an image for pages.
      *
-     * @Route("/{section}/{id}/view", name="public_view", defaults={"section" = "image"} )
+     * @Route("/{id}/view", name="public_view" )
      *
      */
     public function viewAction($id)
