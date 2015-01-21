@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use English\PagesBundle\Entity\Page;
 use English\PagesBundle\Form\PageType;
@@ -363,4 +364,69 @@ class PageController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * Finds and displays an image for pages.
+     *
+     * @Route("/{section}/{id}/view", name="public_view", defaults={"section" = "image"} )
+     *
+     */
+    public function viewAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $file = $em->getRepository('EnglishFilesBundle:File')->find($id);
+
+        if (!$file) {
+            throw $this->createNotFoundException('Unable to find File entity.');
+        }
+        $ext = $file->getExt();
+
+        $response = new Response();
+
+        $response->setStatusCode(200);
+        switch ($ext) {
+            case "png":
+                $response->headers->set('Content-Type', 'image/png');
+                break;
+            case "gif":
+                $response->headers->set('Content-Type', 'image/gif');
+                break;
+            case "jpg":
+                $response->headers->set('Content-Type', 'image/jpeg');
+                break;
+            case "odt":
+                $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.text');
+                break;
+            case "ods":
+                $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.spreadsheet');
+                break;
+            case "odp":
+                $response->headers->set('Content-Type', 'application/vnd.oasis.opendocument.presentation');
+                break;
+            case "doc":
+                $response->headers->set('Content-Type', 'application/msword');
+                break;
+            case "ppt":
+                $response->headers->set('Content-Type', 'application/mspowerpoint');
+                break;
+            case "xls":
+                $response->headers->set('Content-Type', 'application/x-msexcel');
+                break;
+            case "pdf":
+                $response->headers->set('Content-Type', 'application/pdf');
+                break;
+            default:
+                $response->headers->set('Content-Type', 'application/octet-stream');
+        }
+        $response->setContent( file_get_contents( $file->getAbsolutePath() ));
+
+        $response->send();
+
+        return $response;
+    }
+
+
+
 }
