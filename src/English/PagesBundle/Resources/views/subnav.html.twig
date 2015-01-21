@@ -40,20 +40,22 @@
             {% if is_granted('ROLE_PAGEADMIN') %}
                 <div id="subnav" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        {% if 'section' in app.request.get('_route' ) %}
                         <li>
                             <a href="{{ path('section') }}">List Sections</a>
                         </li>
                         <li>
                             <a href="{{ path('section_new') }}">Add Section</a>
                         </li>
-                        {% if 'pages_show' in app.request.get('_route' ) %}
+                        {% endif %}
+                        {% if 'pages_show' in app.request.get('_route' ) or 'newsletter_show' in app.request.get('_route' ) %}
                             <li>
-                                <a href="{{ path('pages_new', {'sectionid':page.section.id, 'pageid':0 }) }}">Add
+                                <a href="{{ path('pages_new', {'sectionid':section.id, 'pageid':0 }) }}">Add
                                     Page</a>
                             </li>
-                            {% if not page.parent %}
+                            {% if 'pages_show' in app.request.get('_route' ) %}
                                 <li>
-                                    <a href="{{ path('pages_new', {'sectionid':page.section.id, 'pageid':page.id}) }}">Add
+                                    <a href="{{ path('pages_new', {'sectionid':section.id, 'pageid':page.id}) }}">Add
                                         SubPage</a>
                                 </li>
                             {% endif %}

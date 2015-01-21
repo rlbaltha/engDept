@@ -167,6 +167,13 @@ knp_snappy:
         options:    []
 
 ivory_ck_editor:
+    plugins:
+        imagebrowser:
+            path:     "bundles/englishhome/ckeditor/imagebrowser/"
+            filename: "plugin.js"
+        filebrowser:
+            path:     "bundles/englishhome/ckeditor/filebrowser/"
+            filename: "plugin.js"
     configs:
         editor_default:
             toolbar: "toolbar_default"
@@ -185,11 +192,13 @@ ivory_ck_editor:
         editor_page:
             startupFocus: true
             toolbar: "toolbar_page"
+            extraPlugins: 'filebrowser,imagebrowser'
             removePlugins: "elementspath,contextmenu,liststyle,tabletools"
             allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[href,target,name]{*}(*); table(*); th tr td strong em; ol ul li span(*){font-size,font-family,color,background-color}; img[*]{*}; iframe{*}[*];'
             disableNativeSpellChecker: false
             height: 500
             stylesSet: 'default_styles:../../bundles/englishhome/js/ckeditor_styles.js'
+            imageBrowser_listUrl: "/engDept/web/app_dev.php/file/imagebrowser"
     toolbars:
         configs:
             toolbar_default: [ ['Styles','Bold','Italic','Underline','Strike','JustifyLeft','JustifyCenter','JustifyRight','TextColor','BGColor','FontSize'],['Link','Unlink','NumberedList','BulletedList','Outdent','Indent','Image','MediaEmbed'],[ 'PasteText', 'PasteFromWord', 'Undo', 'Redo','RemoveFormat'] ]

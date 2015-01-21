@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use English\FilesBundle\Entity\File;
 use English\FilesBundle\Form\FileType;
 use English\FilesBundle\Form\UploadType;
@@ -70,6 +71,22 @@ class FileController extends Controller
         $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
         $labelid = $label->getId();
         return array('files' => $files, 'labels' => $labels, 'labelid' => $labelid,);
+    }
+
+    /**
+     * Lists all File entities.
+     *
+     * @Route("/imagebrowser", name="imagebrowser")
+     * @Template()
+     */
+    public function imagebrowserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
+        $dql1 = "SELECT f.path as image FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.created DESC";
+        $files = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
+        return new JsonResponse(array('files' => $files));
     }
 
 

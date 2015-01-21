@@ -121,6 +121,31 @@ class SectionController extends Controller
     /**
      * Finds and displays a Page entity.
      *
+     * @Route("/newsletter", name="newsletter_show")
+     * @Method("GET")
+     * @Template("EnglishPagesBundle:Section:show.html.twig")
+     */
+    public function showNewsletterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $section = $em->getRepository('EnglishPagesBundle:Section')->findNewsletterSection();
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
+
+        if (!$section) {
+            throw $this->createNotFoundException('Unable to find Section.');
+        }
+
+        return array(
+            'section'      => $section,
+            'labelid' => $labelid,
+        );
+    }
+
+    /**
+     * Finds and displays a Page entity.
+     *
      * @Route("/{id}", name="section_show")
      * @Method("GET")
      * @Template()
@@ -137,14 +162,14 @@ class SectionController extends Controller
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'section'      => $section,
-            'delete_form' => $deleteForm->createView(),
             'labelid' => $labelid,
         );
     }
+
+
 
     /**
      * Displays a form to edit an existing Section entity.

@@ -165,6 +165,7 @@ class PageController extends Controller
         return array(
             'menu'  => $menu,
             'page'      => $page,
+            'section'      => $section,
             'delete_form' => $deleteForm->createView(),
             'labelid' => $labelid,
         );

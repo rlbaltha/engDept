@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class SectionRepository extends EntityRepository
 {
+    /**
+     * find pages for menu
+     */
+    public function findNewsletterSection()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT s  FROM EnglishPagesBundle:Section s WHERE s.name = ?1')
+            ->setParameter('1','newsletter')->getSingleResult();
+    }
 }
