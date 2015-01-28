@@ -38,6 +38,13 @@ class Section
     private $info;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="masthead", type="string", length=255, nullable=true)
+     */
+    private $masthead;
+
+    /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="section")
      * @ORM\OrderBy({"sortorder" = "ASC"})
      */
@@ -137,5 +144,28 @@ class Section
     public function getInfo()
     {
         return $this->info;
+    }
+
+    /**
+     * Set masthead
+     *
+     * @param string $masthead
+     * @return Section
+     */
+    public function setMasthead($masthead)
+    {
+        $this->masthead = $masthead;
+
+        return $this;
+    }
+
+    /**
+     * Get masthead
+     *
+     * @return string 
+     */
+    public function getMasthead()
+    {
+        return $this->masthead;
     }
 }

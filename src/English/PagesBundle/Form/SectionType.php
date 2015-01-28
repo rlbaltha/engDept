@@ -16,6 +16,7 @@ class SectionType extends AbstractType
     {
         $builder
             ->add('name','text', array('attr' => array('class' => 'text form-control'),))
+            ->add('masthead','text', array('attr' => array('class' => 'text form-control'),))
             ->add('info', 'ckeditor', array('config_name' => 'editor_default',))
         ;
     }
