@@ -18,4 +18,11 @@ class TermRepository extends EntityRepository
             ->createQuery('SELECT t from EnglishTermBundle:Term t ORDER BY t.term DESC')
             ->getResult();
     }
+
+    public function findCurrentTerm()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT t FROM English\TermBundle\Entity\Term t WHERE t.type = 2')
+            ->getSingleResult();
+    }
 }

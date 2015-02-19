@@ -15,7 +15,7 @@ class MajorRepository extends EntityRepository
     public function findMajors()
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.term_mentored as termMentored
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 ORDER BY m.name ASC")
             ->getResult();
     }
@@ -23,7 +23,7 @@ class MajorRepository extends EntityRepository
     public function findMajorsByUsername($username)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.gpa
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.updated,m.aoe,m.checkedin,m.can,m.hours,m.term_mentored as termMentored
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e
              WHERE  m.status=0 AND (e.username = ?1 or a.username = ?1) ORDER BY m.name ASC")
             ->setParameter('1',$username)->getResult();
@@ -32,7 +32,7 @@ class MajorRepository extends EntityRepository
     public function findMajorsByAdvisor($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.term_mentored as termMentored
              FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND a.id = ?1 ORDER BY m.name ASC")
             ->setParameter('1',$id)->getResult();
     }
@@ -40,7 +40,7 @@ class MajorRepository extends EntityRepository
     public function findMajorsByMentor($id)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.term_mentored as termMentored
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND e.id = ?1 ORDER BY m.name ASC")
             ->setParameter('1',$id)->getResult();
     }
@@ -49,7 +49,7 @@ class MajorRepository extends EntityRepository
     public function findMajorsByName($name)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.gpa
+            ->createQuery("SELECT m.id,m.name,m.email,a.name as aName,e.name as eName,m.firstMajor,m.secondMajor,m.aoe,m.updated,m.hours,m.can,m.checkedin,m.term_mentored as termMentored
             FROM EnglishMajorsBundle:Major m JOIN m.advisor a JOIN m.mentor e WHERE m.status=0 AND LOWER(m.name) LIKE ?1 ORDER BY m.name")
             ->setParameter('1',$name)->getResult();
     }

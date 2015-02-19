@@ -55,8 +55,7 @@ class DefaultController extends Controller
         else {
             $terms = $em->getRepository('EnglishCoursesBundle:Course')->currentterms();
         }
-        $dql3 = "SELECT t FROM English\TermBundle\Entity\Term t WHERE t.type = 2";
-        $currentTerm = $em->createQuery($dql3)->getSingleResult();
+        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm();
         return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
     }
 

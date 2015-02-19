@@ -138,12 +138,19 @@ class Major
      *
      * @ORM\Column(name="gpa", type="decimal", nullable=true)
      */
-    private $gpa; 
-    
-    
+    private $gpa;
+
+
+    /**
+     * @var string $term_mentored
+     * @ORM\Column(name="term_mentored", type="string", length=255, nullable=true)
+     *
+     */
+    protected $term_mentored;
+
     /**
     * @var datetime $mentored
-    * @ORM\Column(type="datetime", nullable=true)
+    * @ORM\Column(name="mentored", type="datetime", nullable=true)
     * 
     */
     protected $mentored;  
@@ -571,5 +578,28 @@ class Major
     public function getHours()
     {
         return $this->hours;
+    }
+
+    /**
+     * Set term_mentored
+     *
+     * @param string $termMentored
+     * @return Major
+     */
+    public function setTermMentored($termMentored)
+    {
+        $this->term_mentored = $termMentored;
+
+        return $this;
+    }
+
+    /**
+     * Get term_mentored
+     *
+     * @return string 
+     */
+    public function getTermMentored()
+    {
+        return $this->term_mentored;
     }
 }
