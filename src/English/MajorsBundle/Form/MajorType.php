@@ -31,8 +31,7 @@ class MajorType extends AbstractType
             ->add('minor', 'text', array('attr' => array('required' => false,'class' => 'text form-control')))
             ->add('honors','choice', array('choices' => array('0'=>'No','1'=> 'Yes'),'expanded'=>true,))
             ->add('notes', 'ckeditor', array('required' => false,'label'=> 'Title','config_name' => 'editor_simple',))
-            ->add('hours', 'text', array('attr' => array('required' => false,'class' => 'text form-control')))
-            ->add('gpa', 'text', array('attr' => array('required' => false,'class' => 'text form-control')))
+            ->add('termMentored', 'text', array('label'=> 'Term Mentored','attr' => array('required' => false,'class' => 'text form-control')))
             ->add('status','choice', array('choices' => array('0'=>'Active','1'=> 'Graduated','2'=> 'Inactive'),'expanded'=>true,))
             ->add('checkedin','choice', array('choices' => array('0'=>'No','1'=> 'Yes'),'expanded'=>true,));    
         ;
