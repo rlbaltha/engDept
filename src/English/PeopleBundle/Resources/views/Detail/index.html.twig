@@ -1,0 +1,33 @@
+{% extends 'EnglishPeopleBundle::detail_subnav.html.twig' %}
+
+{% block content -%}
+<div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
+    <h1>TA/Instructor information</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Appreticeship Completed</th>
+                <th>Course Load</th>
+                <th>Home Dept.</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('detail_show', { 'id': entity.id }) }}">{{ entity.people.lastname|title }}, {{ entity.people.firstname|title }} </a></td>
+                <td>{% if entity.startdate %}{{ entity.startdate}}{% endif %}</td>
+                <td>{% if entity.enddate %}{{ entity.enddate }}{% endif %}</td>
+                <td>{% if entity.appCompleted %}{{ entity.appCompleted }}{% endif %}</td>
+                <td>{{ entity.courseloadF }}/{{ entity.courseloadS }}</td>
+                <td>{{ entity.homeDept }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+    {% endblock %}

@@ -69,7 +69,7 @@ class PeopleRepository extends EntityRepository
     public function findGradCom($userid)
     {
         return $this->getEntityManager()
-            ->createQuery("SELECT p.lastName,p.firstName,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName")
+            ->createQuery("SELECT p.lastName,p.firstName,p.area,g.frole,g.id FROM EnglishGradcomBundle:Gradcom g JOIN g.people p WHERE g.gid = ?1 ORDER BY p.lastName")
             ->setParameter('1', $userid)->getResult();
     }
 

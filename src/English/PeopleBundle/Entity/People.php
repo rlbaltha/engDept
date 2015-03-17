@@ -205,6 +205,12 @@ class People
 
 
     /**
+     * @ORM\OneToOne(targetEntity="English\PeopleBundle\Entity\Detail", mappedBy="people")
+     */
+    protected $detail;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="English\PagesBundle\Entity\Page", mappedBy="user")
      */
     protected $pages;
@@ -894,5 +900,28 @@ class People
     public function getPages()
     {
         return $this->pages;
+    }
+
+    /**
+     * Set detail
+     *
+     * @param \English\PeopleBundle\Entity\Detail $detail
+     * @return People
+     */
+    public function setDetail(\English\PeopleBundle\Entity\Detail $detail = null)
+    {
+        $this->detail = $detail;
+
+        return $this;
+    }
+
+    /**
+     * Get detail
+     *
+     * @return \English\PeopleBundle\Entity\Detail 
+     */
+    public function getDetail()
+    {
+        return $this->detail;
     }
 }

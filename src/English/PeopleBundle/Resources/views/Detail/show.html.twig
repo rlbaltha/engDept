@@ -1,0 +1,62 @@
+{% extends 'EnglishPeopleBundle::detail_subnav.html.twig' %}
+
+{% block content -%}
+<div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
+    <h1>TA/Instructor Information</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Appreticeship Completed</th>
+            <th>Course Load</th>
+            <th>Home Dept.</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ entity.people.lastname|title }}, {{ entity.people.firstname|title }}</td>
+                <td>{% if entity.startdate %}{{ entity.startdate}}{% endif %}</td>
+                <td>{% if entity.enddate %}{{ entity.enddate }}{% endif %}</td>
+                <td>{% if entity.appCompleted %}{{ entity.appCompleted }}{% endif %}</td>
+                <td>{{ entity.courseloadF }}/{{ entity.courseloadS }}</td>
+                <td>{{ entity.homeDept }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Accomplishments</h3>
+        </div>
+        <div class="panel-body">
+            {{ entity.accomplishments }}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Placement</h3>
+        </div>
+        <div class="panel-body">
+            {{ entity.placement }}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Notes</h3>
+        </div>
+        <div class="panel-body">
+            {{ entity.notes }}
+        </div>
+    </div>
+
+
+
+        <a class="btn btn-default" href="{{ path('detail_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+
+    </div>
+{% endblock %}
