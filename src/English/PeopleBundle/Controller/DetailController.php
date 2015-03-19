@@ -21,15 +21,15 @@ class DetailController extends Controller
     /**
      * Lists all Detail entities.
      *
-     * @Route("/", name="detail")
+     * @Route("/{type}", name="detail", defaults={"type" = "current"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($type)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EnglishPeopleBundle:Detail')->findAll();
+        $entities = $em->getRepository('EnglishPeopleBundle:Detail')->findType($type);
 
         return array(
             'entities' => $entities,
@@ -110,7 +110,7 @@ class DetailController extends Controller
     /**
      * Finds and displays a Detail entity.
      *
-     * @Route("/{id}", name="detail_show")
+     * @Route("/{id}/show", name="detail_show")
      * @Method("GET")
      * @Template()
      */

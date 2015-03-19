@@ -11,12 +11,12 @@
                         {% if app.request.pathinfo == '/people/gradfac' %}<a
                             href="{{ path('people_showgradcomm', { 'id': people.id }) }}">Committee Info</a>{% endif %}
                     </span>
-                    {% if is_granted('ROLE_ADMIN')  %}
+                    {% if is_granted('ROLE_TAADMIN')  %}
                     {% if not people.detail  %}
-                    <a  class="btn btn-default" href="{{ path('detail_new', { 'id': people.id }) }}"
+                    <a  class="btn btn-default pull-right" href="{{ path('detail_new', { 'id': people.id }) }}"
                        title="Detail for TAs">Create TA/Instructor Info.</a>
                     {% else %}
-                        <a  class="btn btn-default" href="{{ path('detail_show', { 'id': people.detail.id }) }}"
+                        <a  class="btn btn-default pull-right" href="{{ path('detail_show', { 'id': people.detail.id }) }}"
                             title="Detail for TAs">View TA/Instructor Info.</a>
                     {% endif %}
                     {% endif %}

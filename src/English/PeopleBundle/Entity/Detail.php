@@ -50,6 +50,13 @@ class Detail
     private $appCompleted = 'no';
 
     /**
+     * @var \string
+     *
+     * @ORM\Column(name="appWith", type="string", length=255, nullable=true)
+     */
+    private $appWith;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="placement", type="text", nullable=true)
@@ -93,6 +100,17 @@ class Detail
      */
     private $people;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="English\TermBundle\Entity\Term")
+     *
+     */
+    private $startterm;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="English\TermBundle\Entity\Term")
+     *
+     */
+    private $endterm;
 
     /**
      * Get id
@@ -270,14 +288,76 @@ class Detail
         return $this;
     }
 
+
     /**
-     * Get notes
+     * Set appCompleted
+     *
+     * @param string $appCompleted
+     * @return Detail
+     */
+    public function setAppCompleted($appCompleted)
+    {
+        $this->appCompleted = $appCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get appCompleted
      *
      * @return string 
      */
-    public function getNotes()
+    public function getAppCompleted()
     {
-        return $this->notes;
+        return $this->appCompleted;
+    }
+
+    /**
+     * Set appWith
+     *
+     * @param string $appWith
+     * @return Detail
+     */
+    public function setAppWith($appWith)
+    {
+        $this->appWith = $appWith;
+
+        return $this;
+    }
+
+    /**
+     * Get appWith
+     *
+     * @return string 
+     */
+    public function getAppWith()
+    {
+        return $this->appWith;
+    }
+
+
+
+    /**
+     * Set endterm
+     *
+     * @param \English\TermBundle\Entity\Term $endterm
+     * @return Detail
+     */
+    public function setEndterm(\English\TermBundle\Entity\Term $endterm = null)
+    {
+        $this->endterm = $endterm;
+
+        return $this;
+    }
+
+    /**
+     * Get endterm
+     *
+     * @return \English\TermBundle\Entity\Term 
+     */
+    public function getEndterm()
+    {
+        return $this->endterm;
     }
 
     /**
@@ -314,25 +394,35 @@ class Detail
     }
 
     /**
-     * Set appCompleted
+     * Get notes
      *
-     * @param string $appCompleted
+     * @return string 
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Set startterm
+     *
+     * @param \English\TermBundle\Entity\Term $startterm
      * @return Detail
      */
-    public function setAppCompleted($appCompleted)
+    public function setStartterm(\English\TermBundle\Entity\Term $startterm = null)
     {
-        $this->appCompleted = $appCompleted;
+        $this->startterm = $startterm;
 
         return $this;
     }
 
     /**
-     * Get appCompleted
+     * Get startterm
      *
-     * @return string 
+     * @return \English\TermBundle\Entity\Term 
      */
-    public function getAppCompleted()
+    public function getStartterm()
     {
-        return $this->appCompleted;
+        return $this->startterm;
     }
 }

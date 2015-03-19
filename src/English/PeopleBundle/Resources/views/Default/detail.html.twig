@@ -223,6 +223,8 @@
                         Search Admin</a></li>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Promote
                         Page Admin</a></li>
+                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_TAADMIN' }) }}">Promote
+                        TA Info Admin</a></li>
 
 
                 <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Demote
@@ -242,6 +244,9 @@
                 <li>
                     <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Demote
                         Page Admin</a></li>
+                <li>
+                    <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_TAADMIN' }) }}">Demote
+                        TA Info Admin</a></li>
             </ul>
         </div>
     {% endif %}

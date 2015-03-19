@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class DetailRepository extends EntityRepository
 {
+    public function findType($type)
+    {
+        if($type=='current') {
+            return $this->getEntityManager()
+                ->createQuery("SELECT d FROM EnglishPeopleBundle:Detail d WHERE d.endterm is null")
+                ->getResult();
+        }
+        else {
+            return $this->getEntityManager()
+                ->createQuery("SELECT d FROM EnglishPeopleBundle:Detail d WHERE d.endterm is not null")
+                ->getResult();
+        }
+
+
+
+    }
 }

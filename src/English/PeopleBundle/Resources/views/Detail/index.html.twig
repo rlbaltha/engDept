@@ -1,16 +1,32 @@
 {% extends 'EnglishPeopleBundle::detail_subnav.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <!-- tablesorter plugin -->
+    <script src="{{ asset('bundles/englishhome/js/jquery.tablesorter.min.js') }}"></script>
+    <!-- tablesorter widget file - loaded after the plugin -->
+    <script src="{{ asset('bundles/englishhome/js/jquery.tablesorter.widgets.min.js') }}"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+            $("table").tablesorter({
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content -%}
 <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
+
     <h1>TA/Instructor information</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th>Start Term</th>
+                <th>End Term</th>
                 <th>Appreticeship Completed</th>
+                <th>Appreticed With</th>
                 <th>Course Load</th>
                 <th>Home Dept.</th>
             </tr>
@@ -19,9 +35,10 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('detail_show', { 'id': entity.id }) }}">{{ entity.people.lastname|title }}, {{ entity.people.firstname|title }} </a></td>
-                <td>{% if entity.startdate %}{{ entity.startdate}}{% endif %}</td>
-                <td>{% if entity.enddate %}{{ entity.enddate }}{% endif %}</td>
-                <td>{% if entity.appCompleted %}{{ entity.appCompleted }}{% endif %}</td>
+                <td>{% if entity.startterm %}{{ entity.startterm.termname}}{% endif %}</td>
+                <td>{% if entity.endterm %}{{ entity.endterm.termname}}{% endif %}</td>
+                <td>{{ entity.appCompleted }}</td>
+                <td>{{ entity.appWith }}</td>
                 <td>{{ entity.courseloadF }}/{{ entity.courseloadS }}</td>
                 <td>{{ entity.homeDept }}</td>
             </tr>
