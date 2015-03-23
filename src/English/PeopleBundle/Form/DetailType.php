@@ -31,7 +31,8 @@ class DetailType extends AbstractType
             ->add('courseloadF', 'choice', array('label'=> 'Course load Fall','choices'   => array('0' => '0','1' => '1', '2' => '2', '3' => '3', '4' => '4'),'required'  => false,  'expanded' => true,))
             ->add('courseloadS', 'choice', array('label'=> 'Course load Spring','choices'   => array('0' => '0','1' => '1', '2' => '2', '3' => '3', '4' => '4'),'required'  => false,  'expanded' => true,))
             ->add('homeDept', 'text', array('attr' => array('class' => 'form-control')))
-            ->add('appCompleted', 'choice', array('label'=> 'Completed apprenticeship','choices'   => array('yes' => 'yes', 'no' => 'no'),'required'  => true, 'expanded' => true,))
+            ->add('appCompleted', 'choice', array('label'=> 'Completed apprenticeship','choices'   => array('Yes' => 'Yes', 'No' => 'No', 'NR' => 'NR'),
+                'required'  => true, 'expanded' => true,))
             ->add('appWith', 'text', array('label'=> 'Apprenticed with','required'  => false,'attr' => array('class' => 'form-control')))
             ->add('homeDept', 'choice', array('label'=> 'Home department','choices'   => array('Eng' => 'Eng', 'Ling' => 'Ling'),'required'  => true,  'expanded' => true,))
             ->add('notes', 'ckeditor', array('required' => false,'label'=> 'Notes','config_name' => 'editor_simple',))        ;
