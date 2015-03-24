@@ -38,7 +38,9 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('detail_show', { 'id': entity.id }) }}">{{ entity.people.lastname|title }}, {{ entity.people.firstname|title }} </a>
+                <td><a href="{{ path('detail_show', { 'id': entity.id }) }}">{{ entity.people.lastname|title }}, {{ entity.people.firstname|title }}
+                        {% if entity.notes !='' %}*{% endif %}
+                    </a>
                 </td>
                 <td>{{ entity.people.gradinfo.status|slice(0,3) }}</td>
 
