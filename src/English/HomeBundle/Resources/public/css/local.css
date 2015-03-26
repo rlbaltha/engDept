@@ -3,6 +3,10 @@ dd {
     margin-bottom: 30px;
 }
 
+a {
+    color:#24547e
+}
+
 .subnav {
     margin-bottom: 0px;
     background-color: #ffffff;
@@ -54,7 +58,7 @@ div#content > div {
 }
 
 .navbar-inverse {
-    background-color: #777777;
+    background-color: #494949;
     padding-right: 20px;
 }
 .navbar-inverse .navbar-nav > li > a {
@@ -110,7 +114,11 @@ div#content > div {
     display:none;
 }
 
-
+.onesidedropshadow {
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
 /********** Accessibility **********/
 
 #skip a, #skip a:hover, #skip a:visited
