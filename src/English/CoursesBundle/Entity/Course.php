@@ -119,6 +119,14 @@ class Course
      * @ORM\Column(name="may", type="boolean", nullable=true)
      */
     private $may;
+
+    /**
+     * @var text $notes
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
+     */
+    private $notes;
+
     
      /**
      * @var integer $userid
@@ -487,5 +495,28 @@ class Course
     public function getUserid()
     {
         return $this->userid;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     * @return Course
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string 
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }

@@ -25,4 +25,11 @@ class TermRepository extends EntityRepository
             ->createQuery('SELECT t FROM English\TermBundle\Entity\Term t WHERE t.type = 2')
             ->getSingleResult();
     }
+
+    public function findPendingTerm()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT t FROM English\TermBundle\Entity\Term t WHERE t.type = 3')
+            ->getSingleResult();
+    }
 }

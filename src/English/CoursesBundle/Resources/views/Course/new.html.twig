@@ -1,16 +1,16 @@
- {% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
+{% extends 'EnglishCoursesBundle::dialog.html.twig' %}
  
- {% block body %}
+{% block content %}
 
-<div class="row"><div class="cell"><a href="{{ path('course') }}">List</a></div></div>
+<div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh;">
 
-<div class="row"><div class="cell">
+
 <form action="{{ path('course_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
     {{ form_widget(form) }}
     <p>
         <button type="submit">Create</button>
     </p>
 </form>
-</div></div>
+</div>
 
 {% endblock %}

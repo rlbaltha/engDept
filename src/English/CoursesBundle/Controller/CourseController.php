@@ -110,12 +110,20 @@ class CourseController extends Controller
      */
     public function newAction()
     {
+
         $entity = new Course();
+        $entity->setCourseName('ENGL');
+        $entity->setBuilding('Park Hall');
+        $entity->setInstructorName('Staff');
+        $entity->setCallNumber('00000');
+
         $form   = $this->createForm(new CourseType(), $entity);
+
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+
         );
     }
 

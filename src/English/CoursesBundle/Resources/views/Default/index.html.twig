@@ -46,7 +46,8 @@
             <tbody>
             {% for courses in courses %}
                 <tr>
-                    <td>{{ courses.termName }}</td>
+                    <td><a href="{{ path('course_edit', { 'id': courses.id}) }}"
+                                                        title="Edit Coursel">Edit</a>{{ courses.termName }}</td>
                     <td><strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                    title="Course Detail">{{ courses.courseName }}</a></strong></td>
                     <td>{{ courses.title }}</td>

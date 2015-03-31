@@ -1,27 +1,22 @@
- {% extends 'EnglishCoursesBundle:Course:layout.html.twig' %}
- 
- {% block body %}
+{% extends 'EnglishCoursesBundle::dialog.html.twig' %}
 
-<div class="row">
-    <div class="cell"><a href="{{ path('course') }}">List</a></div>   
-</div>
+{% block content %}
 
-<div class="row">
-    <div class="cell">
-        <form action="{{ path('course_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-        {{ form_widget(edit_form) }}
+<div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh;">
+
+<form action="{{ path('course_create') }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
+    {{ form_widget(edit_form) }}
+    <p>
         <button type="submit">Update</button>
-        </form>
-    </div>    
+    </p>
+</form>
+    <form action="{{ path('course_delete', { 'id': entity.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button type="submit">Delete</button>
+    </form>
 </div>
 
-<div class="row">
-    <div class="cell"> 
-        <form action="{{ path('course_delete', { 'id': entity.id }) }}" method="post">
-        {{ form_widget(delete_form) }} 
-        <button type="submit">Delete</button> 
-        </form>
-    </div>
-</div>
 
 {% endblock %}
+
+
