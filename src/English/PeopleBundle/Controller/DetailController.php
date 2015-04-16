@@ -119,6 +119,9 @@ class DetailController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishPeopleBundle:Detail')->find($id);
+        $peopleid = $entity->getPeople()->getId();
+        $peopleCourses =$em->getRepository('EnglishPeopleBundle:People')->findPeopleCourses($peopleid);
+
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Detail entity.');
@@ -128,7 +131,8 @@ class DetailController extends Controller
 
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'peopleCourses'      => $peopleCourses,
+
         );
     }
 
