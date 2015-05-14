@@ -1,75 +1,81 @@
 {% extends 'EnglishPagesBundle::subnav.html.twig' %}
 
 {% block content %}
-    {% if is_granted('ROLE_USER')%}
-        {% set width='col-sm-12' %}
-        {% set sidebar='col-sm-2' %}
-    {% else %}
-        {% set width='col-sm-offset-1 col-sm-10' %}
-        {% set sidebar='col-sm-3' %}
-    {% endif %}
-    <div class="{{ width }}" style="min-height: 100vh;background-color: #f3f0dd;">
-        <div id="sidebar" class="{{ sidebar }}" style="background-color: #f5f5f5; min-height: 100vh;">
-            <ul class="nav nav-list">
-                <li class="" style="margin-top: 10px;">
-                    {{ page.section.info|raw }}
-                </li>
-                {% for page in menu %}
-                    {% set previouspage = loop.index0 - 1 %}
-                    {% set followingpage = loop.index0 + 1 %}
-                    <li>
-                        {% if (page.link is null or page.link == '') %}
-                            <a id="page{{ page.id }}" style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
-                        {% else %}
-                            <a style="display: inline-block" target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
-                        {% endif %}
-                        {% if page.children|length > 0  %}
-                        <ul id='page_sub{{ page.id }}' class="">
-                        {% for page in page.children  %}
+    <div class="row-offcanvas row-offcanvas-left">
+        <div id="sidebar" class="sidebar-offcanvas">
+            <div class="col-md-12">
+                <h3></h3>
+                <ul class="nav nav-pills nav-stacked">
+                        <li class="" style="margin-top: 10px;">
+                            {{ page.section.info|raw }}
+                        </li>
+                        {% for page in menu %}
+                            {% set previouspage = loop.index0 - 1 %}
+                            {% set followingpage = loop.index0 + 1 %}
                             <li>
                                 {% if (page.link is null or page.link == '') %}
-                                    <a style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
+                                    <a id="page{{ page.id }}" style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
                                 {% else %}
                                     <a style="display: inline-block" target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
                                 {% endif %}
-                                </li>
-                        {% endfor %}
-                        </ul>
-                        {% endif %}
-                        {% if is_granted('ROLE_PAGEADMIN') %}
-                        <span class="pull-right">
+                                {% if page.children|length > 0  %}
+                                    <ul id='page_sub{{ page.id }}' class="">
+                                        {% for page in page.children  %}
+                                            <li>
+                                                {% if (page.link is null or page.link == '') %}
+                                                    <a style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
+                                                {% else %}
+                                                    <a style="display: inline-block" target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                {% if is_granted('ROLE_PAGEADMIN') %}
+                                    <span class="pull-right">
                             {% if not loop.first %}
                                 <a style="display:inline;padding:0"
                                    href="{{ path('page_promote', { 'pageid':page.id, 'previouspageid':page.section.pages[previouspage].id}) }}">
                                     <i class="glyphicon glyphicon-chevron-up small"></i>
                                 </a>
                             {% endif %}
-                            {% if not loop.last %}
-                                <a style="display:inline;padding:0"
-                                   href="{{ path('page_demote', { 'pageid':page.id, 'followingpageid':page.section.pages[followingpage].id}) }}">
-                                    <i class="glyphicon glyphicon-chevron-down small"></i>
-                                </a>
-                            {% endif %}
+                                        {% if not loop.last %}
+                                            <a style="display:inline;padding:0"
+                                               href="{{ path('page_demote', { 'pageid':page.id, 'followingpageid':page.section.pages[followingpage].id}) }}">
+                                                <i class="glyphicon glyphicon-chevron-down small"></i>
+                                            </a>
+                                        {% endif %}
                         </span>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                </ul>
+            </div>
         </div>
-        <div class="col-sm-9" style="background-color: #ffffff; min-height: 100vh;">
-            {% if section.masthead!='' %}
-                <div class="">
-                <img src="{{ section.masthead}}" class="img-responsive" alt="{{ section.name }} masthead">
-                </div>
-            {% endif %}
-            {% if (is_granted('ROLE_PAGEADMIN') )and page.user.username==app.user.username %}
-            <span class="pull-right">
+        <div id="main">
+            <div class="col-md-12">
+                <p class="visible-xs">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                </p>
+                <h2></h2>
+                <div class="row">
+                    <div class="col-md-12"><div class="well">
+                            {% if section.masthead!='' %}
+                                <div class="">
+                                    <img src="{{ section.masthead}}" class="img-responsive" alt="{{ section.name }} masthead">
+                                </div>
+                            {% endif %}
+                            {% if (is_granted('ROLE_PAGEADMIN') )and page.user.username==app.user.username %}
+                                <span class="pull-right">
                <a class="btn btn-default" style="display: inline-block" title="Edit this page" href="{{ path('pages_edit', { 'id':page.id}) }}">Edit</a>
             </span>
-            {% endif %}
-            {{ page.pageBody|raw }}
+                            {% endif %}
+                            {{ page.pageBody|raw }}
+                        </div></div>
+                </div>
+            </div>
         </div>
-    </div>
+    </div><!--/row-offcanvas -->
 
 {% endblock %}
 

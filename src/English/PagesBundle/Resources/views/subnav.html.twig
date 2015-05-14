@@ -6,6 +6,9 @@
     <script language="javascript">
         $(document).ready(function () {
             $('#confirm').toggle();
+            $('[data-toggle=offcanvas]').click(function() {
+                $('.row-offcanvas').toggleClass('active');
+            });
         });
     </script>
 {% endblock %}
