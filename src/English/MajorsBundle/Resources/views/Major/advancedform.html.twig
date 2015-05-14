@@ -1,13 +1,9 @@
 {% extends 'EnglishMajorsBundle::subnav.html.twig' %}
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
         <form action="{{ path('major_advancedfind') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
             {{ form_widget(form) }}
             <button class="btn btn-default" type="submit">Find</button>
         </form>
-    </div>
-
 {% endblock %}
 

@@ -1,16 +1,11 @@
 {% extends 'EnglishFilesBundle::subnav.html.twig' %}
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
-
         <dl>
             {% for label in labels %}
                 <dt>{{ label.name }}<a class="pull-right" href="{{ path('label_edit', { 'id': label.id }) }}">Edit/Delete</a></dt>
                 <dd>{{ label.display }}</dd>
             {% endfor %}
         </dl>
-    </div>
-
 {% endblock %}
 

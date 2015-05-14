@@ -1,8 +1,6 @@
 {% extends 'EnglishPositionBundle::subnav.html.twig' %}
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
         <form class="" action="{{ path('position_update', { 'id': position.id }) }}" method="post" {{ form_enctype(edit_form) }}>
             {{ form_widget(edit_form) }}
             <button class="btn btn-default" type="submit">Update</button>
@@ -18,7 +16,5 @@
             </form>
             <button class="btn btn-default" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Cancel</button>
         </div>
-    </div>
-
 {% endblock %}
 

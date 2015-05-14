@@ -2,16 +2,12 @@
 
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #ffffff; min-height: 100vh">
         <form action="{{ path('mentor_create') }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
             <p>
                 <button class="btn btn-default" type="submit">Create</button>
             </p>
         </form>
-    </div>
-
 {% endblock %}
 
 

@@ -192,6 +192,9 @@ body {
     overflow:auto;
 }
 
+.well {
+    background-color: #ffffff;
+}
 /*
  * off Canvas sidebar
  * --------------------------------------------------

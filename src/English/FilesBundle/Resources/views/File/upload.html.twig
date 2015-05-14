@@ -21,11 +21,9 @@
 
 {% block content %}
 
-    <div class="col-sm-offset-1 col-sm-10 well">
         <form class="" action="#" method="post" {{ form_enctype(form) }} novalidate="novalidate">
             {{ form_widget(form) }}
             <button class="btn btn-default" type="submit">Upload</button>
         </form>
-    </div>
 
 {% endblock %}

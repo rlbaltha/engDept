@@ -1,7 +1,6 @@
 {% extends 'EnglishHomeBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="col-sm-offset-1 col-sm-10 well">
             <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Calendar</h2>
 
         {% for calendar in calendar %}
@@ -21,6 +20,4 @@
                 <p>There are currently no events in the calendar. Please check back soon.</p>
             </div>
         {% endfor %}
-
-    </div>
 {% endblock %}

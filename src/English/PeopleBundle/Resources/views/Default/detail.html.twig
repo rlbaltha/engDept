@@ -1,8 +1,6 @@
 {% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
 {% block content %}
-    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
-
     <div class="row">
         <div class="{% if people.photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
             <dl id="listing{{ people.id }}">
@@ -250,8 +248,6 @@
             </ul>
         </div>
     {% endif %}
-
-    </div>
 
 {% endblock %}
 

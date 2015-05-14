@@ -2,13 +2,9 @@
 
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #ffffff; min-height: 100vh">
         <p class="pull-right">** Denotes Required Information</p>
         <form class="" action="{{ path('people_create') }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form, { 'attr': {'novalidate': 'novalidate' }}) }}
             <button class="btn btn-default" type="submit">Update</button>
         </form>
-    </div>
-
 {% endblock %}

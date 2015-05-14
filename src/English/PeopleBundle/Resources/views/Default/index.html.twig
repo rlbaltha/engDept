@@ -1,7 +1,6 @@
 {% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
 {% block content %}
-    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh">
         {% for people in people %}
             <dl id="listing{{ people.id }}">
                 <dt>
@@ -39,6 +38,4 @@
                 </dd>
             </dl>
         {% endfor %}
-    </div>
-
 {% endblock %}
