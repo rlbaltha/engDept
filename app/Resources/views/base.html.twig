@@ -1,7 +1,7 @@
 {# engDept/app/Resources/views/base.html.twig #}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,14 +71,14 @@
                 <li id="skip">
                     <a href="#main_content">Skip Navigation</a>
                 </li>
-                <li><a title="People" href="{{ path('directory') }}">People</a></li>
-                <li><a title="Courses" href="{{ path('listings') }}">Courses</a></li>
-                <li><a title="First Year Composition" href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Comp.</a></li>
-                <li><a title="Undergraduate Studies in English" href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate</a>
+                <li><a href="{{ path('directory') }}">People</a></li>
+                <li><a href="{{ path('listings') }}">Courses</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Comp.</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate</a>
                 </li>
-                <li><a title="Graduate Studies in English" href="{{ path('pages_show', { 'id': 5, 'sub':'grad' }) }}">Graduate</a></li>
-                <li><a title="Creative Writing" href="{{ path('pages_show', { 'id': 143, 'sub':'cwp' }) }}">Creative Writing</a></li>
-                <li><a title="Make a Gift" href="{{ path('pages_show', { 'id': 156, 'sub':'donate' }) }}">Make a Gift</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 5, 'sub':'grad' }) }}">Graduate</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 143, 'sub':'cwp' }) }}">Creative Writing</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 156, 'sub':'donate' }) }}">Make a Gift</a></li>
 
             </ul>
 
