@@ -41,6 +41,12 @@ CWPRedirect:
     pattern: /grad/areas/creativewrit.html
     defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
 
+CWPRedirect2:
+    path:     /
+    host:     cwp.uga.edu
+    defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
+
+
 BlakeIndexRedirect:
     pattern: /Blake_Concordance
     defaults:

@@ -69,7 +69,7 @@
         <div id="mainnav" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li id="skip">
-                    <a href="#main_content">Skip Navigation</a>
+                    <a id="main_nav" href="#main_content">Skip Navigation</a>
                 </li>
                 <li><a href="{{ path('directory') }}">People</a></li>
                 <li><a href="{{ path('listings') }}">Courses</a></li>
@@ -92,6 +92,9 @@
                         <a title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
                     </li>
                 {% endif %}
+                    <li id="skip">
+                        <a id="main_content" href="#main_nav">Skip to <Top></Top></a>
+                    </li>
                 <li>
                     <a style="padding:0" href="http://www.uga.edu" target="_blank">
                         <img alt="UGA Arch logo" title="Go to the UGA homepage"
@@ -103,7 +106,7 @@
 
         </div>
     </nav>
-    <a id="main_content" name="main_content"></a>
+
 
     <div id="mainContainer" style="margin-top: 45px;">
 
@@ -195,6 +198,7 @@
                         <div class="col-md-12" style="background-color: #f3f0dd; min-height: 100vh">
                             {% if app.request.attributes.get('_route')=='home' or 'default' in app.request.attributes.get('_route') or 'pages' in app.request
                             .attributes.get('_route') %}
+
                                 {{ block('content') }}
                             {% else %}
                                 <div class="well">
