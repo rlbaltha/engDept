@@ -1,9 +1,6 @@
  {% extends 'EnglishSlideshowBundle::subnav.html.twig' %}
  
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
-
         <table class="table table-striped">
             {% for slide in slideshow %}
                 <tr>
@@ -26,6 +23,4 @@
                 </tr>
             {% endfor %}
         </table>
-    </div>
-
 {% endblock %}

@@ -41,8 +41,6 @@
                     <li><a id="upperink" href="{{ path('listings_byarea', { 'term': currentTerm.term }) }}" title="List Upper Division Courses by Area" >Upper by Area</a></li>
                     <li><a id="gradink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Graduate'  }) }}" title="List Graduate Courses" >Graduate</a></li>
 
-                    <li><a id="new course" href="{{ path('course_new') }}" title="Create New Course" >New Course</a></li>
-
                 </ul>
                 <form class="navbar-form navbar-right hidden-sm" role="search" action="{{ path('listings') }}" method="post" {{ form_enctype(search_form) }}>
                     <div class="form-group">

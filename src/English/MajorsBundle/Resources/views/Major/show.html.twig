@@ -3,7 +3,6 @@
 {% block content %}
 
     {% set mid = major.id %}
-    <div class="col-sm-offset-1 col-sm-10 well">
         {% if is_granted('ROLE_ADVISORADMIN') %}
             <a class="btn btn-default pull-right" href="{{ path('major_edit', { 'id': major.id }) }}">Update</a>
         {% endif %}
@@ -84,8 +83,6 @@
                 $('#processing').toggle();
             });
         </script>
-
-    </div>
 
 {% endblock %}
 

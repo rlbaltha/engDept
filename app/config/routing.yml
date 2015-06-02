@@ -38,11 +38,14 @@ BISPRedirect:
         permanent: true
 
 CWPRedirect:
-    pattern: /cwp/{page}
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: http://www.uga.edu
-        permanent: true
+    pattern: /grad/areas/creativewrit.html
+    defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
+
+CWPRedirect2:
+    path:     /
+    host:     cwp.uga.edu
+    defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
+
 
 BlakeIndexRedirect:
     pattern: /Blake_Concordance

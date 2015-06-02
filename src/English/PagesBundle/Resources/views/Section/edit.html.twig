@@ -2,8 +2,6 @@
 
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
         {{ form(edit_form) }}
         <div id="delete" class="pull-right">
             <button class="btn btn-warning" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Delete</button>
@@ -13,7 +11,5 @@
             {{ form(delete_form) }}
             <button class="btn btn-default" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Cancel</button>
         </div>
-    </div>
-
 {% endblock %}
 

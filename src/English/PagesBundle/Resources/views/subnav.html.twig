@@ -30,6 +30,8 @@
                         {% elseif  page.section.name == 'fyc' %}First-year Composition
                         {% elseif  page.section.name == 'dept' %}Department Information
                         {% elseif  page.section.name == 'newsletter' %}Park Hall Monitor
+                        {% elseif  page.section.name == 'cwp' %}Creative Writing Program
+                        {% elseif  page.section.name == 'donate' %}Make a Gift
                         {% endif %}
                         {% else %}
                             Sections
@@ -41,12 +43,12 @@
                 <div id="subnav" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         {% if 'section' in app.request.get('_route' ) %}
-                        <li>
-                            <a href="{{ path('section') }}">List Sections</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('section_new') }}">Add Section</a>
-                        </li>
+                            <li>
+                                <a href="{{ path('section') }}">List Sections</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('section_new') }}">Add Section</a>
+                            </li>
                         {% endif %}
                         {% if 'pages_show' in app.request.get('_route' ) or 'newsletter_show' in app.request.get('_route' ) %}
                             <li>
@@ -72,4 +74,3 @@
     </div>
 
 {% endblock %}
-

@@ -1,8 +1,6 @@
 {% extends 'EnglishPagesBundle::subnav.html.twig' %}
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
         <h3>{{ section.name }}</h3>
         <table class="table table-striped">
             {% for page in section.pages %}
@@ -21,6 +19,4 @@
                 </tr>
             {% endfor %}
         </table>
-    </div>
-
 {% endblock %}

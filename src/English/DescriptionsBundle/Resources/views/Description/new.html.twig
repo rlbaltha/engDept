@@ -1,12 +1,8 @@
 {% extends 'EnglishDescriptionsBundle::subnav.html.twig' %}
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well">
         <form class="" action="{{ path('description_create') }}" method="post" {{ form_enctype(form) }} novalidate="novalidate">
             {{ form_widget(form) }}
             <button class="btn btn-default" type="submit">Post</button>
         </form>
-    </div>
-
 {% endblock %}

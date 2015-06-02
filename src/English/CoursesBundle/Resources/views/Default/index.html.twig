@@ -24,9 +24,6 @@
 {% endblock %}
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well-lg" style="background-color: #ffffff; min-height: 100vh;">
-
         <table class="table  table-striped">
             <thead>
             <tr>
@@ -46,18 +43,16 @@
             <tbody>
             {% for courses in courses %}
                 <tr>
-                    <td><a href="{{ path('course_edit', { 'id': courses.id}) }}"
-                                                        title="Edit Coursel">Edit</a>{{ courses.termName }}</td>
+                    <td>{{ courses.termName }}</td>
                     <td><strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                    title="Course Detail">{{ courses.courseName }}</a></strong></td>
                     <td>{{ courses.title }}</td>
                     <td>{{ courses.instructorName|upper }}</td>
                     <td>{{ courses.days }}</td>
-                    <td class="text-right">
+                    <td class="">
                         {% if courses.time > 0%}
                         {% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12}}
-                        {% else %}{{ courses.time|slice(0,2)|number_format}}{% endif %}:
-                        {{ courses.time|slice(2,2)}}{% if courses.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}
+                        {% else %}{{ courses.time|slice(0,2)|number_format}}{% endif %}:{{ courses.time|slice(2,2)}}{% if courses.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}
                         {% else %}
                         {% endif %}
                     </td>
@@ -70,5 +65,4 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
 {% endblock %}

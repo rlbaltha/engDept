@@ -2,8 +2,6 @@
 
 
 {% block content %}
-
-    <div class="col-sm-offset-1 col-sm-10 well" style="background-color: #ffffff; min-height: 100vh">
         <form class="" action="{{ path('major_update', { 'id': major.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate="novalidate">
             {{ form_widget(edit_form) }}
             <button class="btn btn-default" type="submit">Update</button>
@@ -21,6 +19,4 @@
                 <button class="btn btn-default" onclick="$('#confirm').toggle();$('#delete').toggle()" type="submit">Cancel</button>
             </div>
         {% endif %}
-    </div>
-
 {% endblock %}
