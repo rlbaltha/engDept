@@ -13,13 +13,15 @@
                             {% set previouspage = loop.index0 - 1 %}
                             {% set followingpage = loop.index0 + 1 %}
                             <li>
-                                {% if (page.link is null or page.link == '') %}
-                                    <a id="page{{ page.id }}" style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
+                                {% if page.children|length > 0  %}
+                                    <a class="active" data-toggle="collapse" data-target="#page_sub{{ page.id }}" id="page{{ page.id }}" style="display: inline-block" href="javascript:void(0);">{{ page.menuname }}</a>
+                                {% elseif (page.link is null or page.link == '') %}
+                                    <a class="active" data-toggle="collapse" data-target="#page_sub{{ page.id }}" id="page{{ page.id }}" style="display: inline-block" href="{{ path('pages_show', { 'id': page.id, 'sub':page.section.name }) }}">{{ page.menuname }}</a>
                                 {% else %}
                                     <a style="display: inline-block" target="_blank" href="{{ page.link }}">{{ page.menuname }}</a>
                                 {% endif %}
                                 {% if page.children|length > 0  %}
-                                    <ul id='page_sub{{ page.id }}' class="">
+                                    <ul id='page_sub{{ page.id }}' class="collapse">
                                         {% for page in page.children  %}
                                             <li>
                                                 {% if (page.link is null or page.link == '') %}

@@ -6,9 +6,13 @@
     <script language="javascript">
         $(document).ready(function () {
             $('#confirm').toggle();
+            $(".toggle_subnav").click(function(){
+                $(this).toggleClass('active, inactive');
+            })
         });
     </script>
 {% endblock %}
+
 
 {% block subnav %}
     <!-- Static navbar -->
