@@ -11,6 +11,7 @@ class SpotlightType extends AbstractType
     {
         $builder
             ->add('photoUrl', 'text', array('attr' => array('class' => 'text form-control')))
+            ->add('photolink', 'text', array('attr' => array('class' => 'text form-control'),'required' => false,'label'=> 'Photo link'))
             ->add('title', 'text', array('attr' => array('class' => 'text form-control')))
             ->add('description', 'ckeditor', array('config_name' => 'editor_page',))
             ->add('sortOrder', 'choice', array('choices'   => array(1, 2, 3), 'multiple'  => false, 'expanded'  => true,'attr' => array('class' => 'form-control'),))

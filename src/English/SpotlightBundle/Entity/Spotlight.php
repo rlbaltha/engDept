@@ -29,6 +29,14 @@ class Spotlight
      */
     private $photoUrl;
 
+
+    /**
+     * @var string $photolink
+     *
+     * @ORM\Column(name="photolink", type="string", length=255)
+     */
+    private $photolink;
+
     /**
      * @var string $title
      *
@@ -245,5 +253,28 @@ class Spotlight
     public function getSortOrder()
     {
         return $this->sortOrder;
+    }
+
+    /**
+     * Set photolink
+     *
+     * @param string $photolink
+     * @return Spotlight
+     */
+    public function setPhotolink($photolink)
+    {
+        $this->photolink = $photolink;
+
+        return $this;
+    }
+
+    /**
+     * Get photolink
+     *
+     * @return string 
+     */
+    public function getPhotolink()
+    {
+        return $this->photolink;
     }
 }

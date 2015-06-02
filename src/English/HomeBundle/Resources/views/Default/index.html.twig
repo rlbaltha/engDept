@@ -34,7 +34,11 @@
                             <div class="caption">
                                 <h3>{{ spotlight.title }}</h3>
                             </div>
-                            <img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}">
+                            {% if spotlight.photolink !='' %}
+                                <a href="{{ spotlight.photolink }}"><img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}"></a>
+                            {% else %}
+                                <img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}">
+                            {% endif %}
                         </div>
                         <p>{{ spotlight.description|raw }}</p>
                     {% endfor %}
@@ -48,8 +52,11 @@
             <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Spotlight</h2>
             {% for spotlight in spotlight %}
                 <div class="thumbnail">
+                    {% if spotlight.photolink !='' %}
+                    <a href="{{ spotlight.photolink }}"><img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}"></a>
+                    {% else %}
                     <img src="{{ spotlight.photoUrl }}" alt="{{ spotlight.title }}">
-
+                    {% endif %}
                     <div class="caption">
                         {{ spotlight.title }}
                     </div>
