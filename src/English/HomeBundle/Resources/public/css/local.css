@@ -119,6 +119,11 @@ div#content > div {
     -moz-box-shadow: 0 8px 6px -6px black;
     box-shadow: 0 8px 6px -6px black;
 }
+
+ul ul, ol ul {
+    list-style-type: none;
+}
+
 /********** Accessibility **********/
 
 #skip a, #skip a:hover, #skip a:visited

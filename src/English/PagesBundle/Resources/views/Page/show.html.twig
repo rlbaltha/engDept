@@ -5,7 +5,7 @@
         {% set width='col-sm-12' %}
         {% set sidebar='col-sm-2' %}
     {% else %}
-        {% set width='col-sm-offset-1 col-sm-10' %}
+        {% set width='col-sm-12' %}
         {% set sidebar='col-sm-3' %}
     {% endif %}
     <div class="{{ width }}" style="min-height: 100vh;background-color: #f3f0dd;">
@@ -56,7 +56,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-sm-9" style="background-color: #ffffff; min-height: 100vh;">
+        <div class="col-sm-9" style="background-color: #ffffff; min-height: 100vh; padding-top:20px; padding-left: 40px;padding-right: 40px;">
             {% if section.masthead!='' %}
                 <div class="">
                 <img src="{{ section.masthead}}" class="img-responsive" alt="{{ section.name }} masthead">
