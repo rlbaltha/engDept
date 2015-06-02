@@ -33,7 +33,7 @@ class Spotlight
     /**
      * @var string $photolink
      *
-     * @ORM\Column(name="photolink", type="string", length=255)
+     * @ORM\Column(name="photolink", type="string", length=255, nullable=true)
      */
     private $photolink;
 
