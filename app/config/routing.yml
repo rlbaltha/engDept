@@ -91,11 +91,6 @@ WBlakeRedirect:
 
 # end of redirects
 
-EnglishDawgspeakBundle:
-    resource: "@EnglishDawgspeakBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 default:
     pattern:  /
     defaults: { _controller: EnglishHomeBundle:Default:index }
