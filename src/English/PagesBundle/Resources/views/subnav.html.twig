@@ -25,9 +25,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                {% if 'pages_show' in app.request.get('_route' ) %}
                 <a class="navbar-brand"
                    href="#">
-                    {% if 'pages_show' in app.request.get('_route' ) %}
+
                     <h1 class="small" style="margin-top: 0px;margin-left: 20px;">
                         {% if page.section.name == 'grad' %}Graduate Studies in English
                         {% elseif  page.section.name == 'undergrad' %}Undergraduate Studies in English
@@ -39,9 +40,10 @@
                         {% endif %}
                         {% else %}
                             Sections
-                        {% endif %}
+
                     </h1>
                 </a>
+                {% endif %}
             </div>
             {% if is_granted('ROLE_PAGEADMIN') %}
                 <div id="subnav" class="navbar-collapse collapse">
