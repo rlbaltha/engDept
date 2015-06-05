@@ -33,7 +33,7 @@
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
-                                {% if (is_granted('ROLE_PAGEADMIN') )or page.user.username==app.user.username %}
+                                {% if (is_granted('ROLE_PAGEADMIN') )or page.user==app.user %}
                                     <span class="pull-right">
                             {% if not loop.first %}
                                 <a style="display:inline;padding:0"
@@ -57,7 +57,7 @@
         <div id="main">
             <div class="col-md-12">
                 <p class="visible-xs">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i>Menu</button>
                 </p>
                 <div class="row">
                     <div class="col-md-12"><div class="well" style="min-height: 85vh; padding-top: 20px; padding: 40px;">
@@ -66,7 +66,7 @@
                                     <img src="{{ section.masthead}}" class="img-responsive" alt="{{ section.name }} masthead">
                                 </div>
                             {% endif %}
-                            {% if (is_granted('ROLE_PAGEADMIN') )or page.user.username==app.user.username %}
+                            {% if (is_granted('ROLE_PAGEADMIN') )or page.user==app.user %}
                                 <span class="pull-right">
                <a class="btn btn-default" style="display: inline-block" title="Edit this page" href="{{ path('pages_edit', { 'id':page.id}) }}">Edit</a>
             </span>
