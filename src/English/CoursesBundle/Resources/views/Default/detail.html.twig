@@ -5,32 +5,33 @@
             <thead>
             <tr>
                 <th>Course</th>
-                <th>Title</th>
+                <th class="hidden-md hidden-sm hidden-xs">Title</th>
                 <th>Instructor</th>
                 <th>Days</th>
                 <th>Times</th>
-                <th>Building</th>
+                <th class="hidden-md hidden-sm hidden-xs">Building</th>
                 <th>Room</th>
-                <th>Call</th>
-                <th></th>
-                <th>{% if '05' in course.term %}Maymester{% endif %}</th>
+                <th class="hidden-md hidden-sm hidden-xs">Call</th>
+                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in course.term %}Maymester{% endif %}</th>
             </tr>
             </thead>
             <tbody>
-            <tr id="course{{ course.id }}">
-                <td><strong>{{ course.courseName }}</strong></td>
-                <td>{{ course.title }}</td>
-                <td>{{ course.instructorName|upper }}</td>
-                <td>{{ course.days }}</td>
-                <td>{% if course.time|slice(0,2) > 12 %}{{ course.time|slice(0,2) - 12}}
-                    {% else %}{{ course.time|slice(0,2)}}{% endif %}:
-                    {{ course.time|slice(2,2)}}{% if course.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}</td>
-                <td>{{ course.building }}</td>
-                <td>{{ course.room }}</td>
-                <td>{{ course.callNumber }}</td>
-                <td>{{ course.callNumber2 }}</td>
-                <td>{% if course.may == 1 %}Maymester{% endif %}</td>
-
+            <tr>
+                    <td><strong>{{ course.courseName }}</strong></td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ course.title }}</td>
+                    <td>{{ course.instructorName|upper }}</td>
+                    <td>{{ course.days }}</td>
+                    <td>
+                        {% if course.time > 0%}
+                        {% if course.time|slice(0,2) > 12 %}{{ course.time|slice(0,2) - 12}}
+                        {% else %}{{ course.time|slice(0,2)|number_format}}{% endif %}:{{ course.time|slice(2,2)}}{% if course.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}
+                        {% else %}
+                        {% endif %}
+                    </td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ course.building }}</td>
+                    <td>{{ course.room }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{{ course.callNumber }}{{ course.callNumber2 }}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{% if course.may == 1 %}Maymester{% endif %}</td>
             </tr>
             </tbody>
         </table>
