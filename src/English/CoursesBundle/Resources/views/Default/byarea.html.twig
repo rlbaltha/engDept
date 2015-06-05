@@ -39,7 +39,7 @@
                     {% endif %}
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                title="Course Detail">{{ courses.courseName }}</a></strong></td>
-                <td>{{ courses.title }}</td>
+                <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
                 <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12}}{% else %}
@@ -83,7 +83,7 @@
                 <td>
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                title="Course Detail">{{ courses.courseName }}</a></strong></td>
-                <td>{{ courses.title }}</td>
+                <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
                 <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12}}{% else %}
