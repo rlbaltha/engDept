@@ -72,10 +72,9 @@
                         <td>
                             <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                        title="Course Detail">{{ courses.courseName }}</a></strong></td>
-                        <td>{{ courses.title }}</td>
-                        <td>{{ courses.instructorName|upper }}</td>
-                        <td>{{ courses.callNumber }}</td>
-                        <td>{{ courses.callNumber2 }}</td>
+                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
+                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}</td>
+                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber2 }}</td>
                         {% if courses.may == 1 %}
                             <td class="cell bold">Maymester</td>{% endif %}
                         <td>{{ courses.days }}</td>
@@ -105,10 +104,9 @@
                         <td>
                             <strong><a href="{{ path('listings_detail', { 'callNumber': call, 'term': courses.term }) }}"
                                        title="Course Detail">{{ courses.courseName }}</a></strong></td>
-                        <td>{{ courses.title }}</td>
-                        <td>{{ courses.instructorName|upper }}</td>
-                        <td>{{ courses.callNumber }}</td>
-                        <td>{{ courses.callNumber2 }}</td>
+                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
+                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}</td>
+                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber2 }}</td>
                         {% if courses.may == 1 %}
                             <td class="cell bold">Maymester</td>{% endif %}
                         <td>{{ courses.days }}</td>
