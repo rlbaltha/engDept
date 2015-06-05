@@ -5,7 +5,7 @@
             <a class="pull-right" title="Calendar" href="{{ path('calendar_index') }}">All
                 Upcoming Events</a>
 
-            <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Calendar</h2>
+            <h2 class="page-header">Calendar</h2>
 
 
             {% for calendar in calendar %}
@@ -28,7 +28,7 @@
 
 
             {% if special_spotlight %}
-                <div class="" style="padding-top: 20px">
+                <div style="padding-top: 20px">
                     {% for spotlight in special_spotlight %}
                         <div class="thumbnail">
                             <div class="caption">
@@ -49,7 +49,7 @@
 
 
         <div class="col-sm-5 well" style="padding:30px;">
-            <h2 class="page-header" style="font-family: 'Lora', 'Times New Roman', 'serif';">Spotlight</h2>
+            <h2 class="page-header">Spotlight</h2>
             {% for spotlight in spotlight %}
                 <div class="thumbnail">
                     {% if spotlight.photolink !='' %}

@@ -11,7 +11,8 @@
         {% stylesheets '@bootstrap_less' combine=true  output='css/compiled/main.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/local.css') }}">
-        <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         {% endstylesheets %}
         <style type="text/css">
             th.header {
@@ -61,7 +62,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="font-family: 'Lora', 'Times New Roman', 'serif';" href="{{ path('home') }}"
+            <a class="navbar-brand"  href="{{ path('home') }}"
                title="English Department Homepage">English <span class="hidden-md hidden-sm hidden-xs">at UGA</span></a>
         </div>
 
@@ -168,7 +169,7 @@
                                                      alt="Responsive image  of {{ slide.title }}">
                                             </div>
                                             <div class="col-sm-6" style="padding-top: 2%;padding-bottom: 2%;padding-right: 10%;">
-                                                <h2 style="font-size: 24pt;font-family: 'Lora', 'Times New Roman', 'serif';">
+                                                <h2>
                                                     {{ slide.title }}
                                                 </h2>
 
