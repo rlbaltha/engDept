@@ -51,6 +51,7 @@ class Page
 
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     * @ORM\OrderBy({"sortorder" = "ASC"})
      */
     private $children;
 
