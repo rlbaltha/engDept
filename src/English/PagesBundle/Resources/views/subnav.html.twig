@@ -61,8 +61,13 @@
                             </li>
                             {% if 'pages_show' in app.request.get('_route' ) %}
                                 <li>
+                                {% if page.parent  %}
+                                    <a href="{{ path('pages_new', {'sectionid':section.id, 'pageid':page.parent.id}) }}">Add
+                                        SubPage</a>
+                                {% else %}
                                     <a href="{{ path('pages_new', {'sectionid':section.id, 'pageid':page.id}) }}">Add
                                         SubPage</a>
+                                {% endif %}
                                 </li>
                             {% endif %}
 
