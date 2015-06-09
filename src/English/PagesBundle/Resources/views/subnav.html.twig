@@ -27,13 +27,13 @@
                 </button>
                 <a class="navbar-brand"
                    href="#">
-                    {% if 'pages_show' in app.request.get('_route' ) %}
+                    {% if 'pages_show' in app.request.get('_route' ) or 'newsletter' in app.request.get('_route' ) %}
                     <h1 class="small" style="margin-top: 0px;margin-left: 20px;">
                         {% if page.section.name == 'grad' %}Graduate Studies in English
                         {% elseif  page.section.name == 'undergrad' %}Undergraduate Studies in English
                         {% elseif  page.section.name == 'fyc' %}First-year Composition
                         {% elseif  page.section.name == 'dept' %}Department Information
-                        {% elseif  page.section.name == 'newsletter' %}Park Hall Monitor
+                        {% elseif  page.section.name == 'newsletter'  or 'newsletter' in app.request.get('_route' ) %}Park Hall Monitor
                         {% elseif  page.section.name == 'cwp' %}Creative Writing Program
                         {% elseif  page.section.name == 'donate' %}Make a Gift
                         {% endif %}
