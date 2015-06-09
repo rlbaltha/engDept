@@ -44,7 +44,7 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="on_nav", type="string", length=255)
+     * @ORM\Column(name="on_nav", type="string", length=255, nullable=true)
      */
     private $on_nav='0';
 
