@@ -17,53 +17,19 @@ class CourseRepository extends EntityRepository
  * queries for upper by area course listing
  * 
  */
-   public function upperbyarea1($term)
+    public function upperbyarea($term, $area)
     {
-       return $this->getEntityManager()
-               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
-               ->setParameter('1',$term)->setParameter('2','1')->getResult();
+        return $this->createQueryBuilder('c')
+            ->where('c.term = :term')
+            ->andWhere('c.area = :area')
+            ->setParameter('term', $term)
+            ->setParameter('area', '1')
+            ->getQuery()
+            ->getResult()
+            ;
 
     }
 
-   public function upperbyarea2($term)
-    {
-       return $this->getEntityManager()
-               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
-               ->setParameter('1',$term)->setParameter('2','2')->getResult();
-
-    }
-
-   public function upperbyarea3($term)
-    {
-       return $this->getEntityManager()
-               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
-               ->setParameter('1',$term)->setParameter('2','3')->getResult();
-
-    }
-
-   public function upperbyarea4($term)
-    {
-       return $this->getEntityManager()
-               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
-               ->setParameter('1',$term)->setParameter('2','4')->getResult();
-
-    }
-
-   public function upperbyarea5($term)
-    {
-       return $this->getEntityManager()
-               ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may FROM EnglishCoursesBundle:Course c WHERE c.term = ?1 and c.area = ?2 ORDER BY c.courseName')
-               ->setParameter('1',$term)->setParameter('2','5')->getResult();
-
-    }
-
-   public function currentterms()
-    {
-       return $this->getEntityManager()
-               ->createQuery('SELECT t.termName,t.term FROM EnglishTermBundle:Term t WHERE t.type >= ?1 ORDER BY t.term')
-               ->setParameter('1','1')->getResult();
-
-    }
 
     public function terms()
     {

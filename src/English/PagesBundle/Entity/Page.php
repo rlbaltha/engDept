@@ -44,6 +44,13 @@ class Page
     /**
      * @var string
      *
+     * @ORM\Column(name="on_nav", type="string", length=255)
+     */
+    private $on_nav='0';
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="page_body", type="text", nullable=true)
      */
     private $pageBody;
@@ -344,5 +351,29 @@ class Page
     public function getUser()
     {
         return $this->user;
+    }
+
+
+    /**
+     * Set on_nav
+     *
+     * @param string $onNav
+     * @return Page
+     */
+    public function setOnNav($onNav)
+    {
+        $this->on_nav = $onNav;
+
+        return $this;
+    }
+
+    /**
+     * Get on_nav
+     *
+     * @return string 
+     */
+    public function getOnNav()
+    {
+        return $this->on_nav;
     }
 }

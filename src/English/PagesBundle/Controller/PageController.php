@@ -143,6 +143,39 @@ class PageController extends Controller
     /**
      * Finds and displays a Page entity.
      *
+     * @Route("/newsletter", name="pages_newsletter")
+     * @Method("GET")
+     * @Template("EnglishPagesBundle:Page:show.html.twig")
+     */
+    public function newsletterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository('EnglishPagesBundle:Page')->findOnNav();
+        $id = $page->getId();
+        $section = $page->getSection();
+        $menu = $em->getRepository('EnglishPagesBundle:Page')->findPageMenu($section);
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
+
+        if (!$page) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'menu'  => $menu,
+            'page'      => $page,
+            'section'      => $section,
+            'delete_form' => $deleteForm->createView(),
+            'labelid' => $labelid,
+        );
+    }
+
+    /**
+     * Finds and displays a Page entity.
+     *
      * @Route("/{id}", name="pages_show")
      * @Method("GET")
      * @Template()
@@ -171,6 +204,8 @@ class PageController extends Controller
             'labelid' => $labelid,
         );
     }
+
+
 
     /**
      * Displays a form to edit an existing Page entity.
@@ -240,6 +275,15 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
+
+        $postData = $request->request->get('english_pagesbundle_page');
+        $onNav = $postData['on_nav'];
+
+        if ($onNav == 1) {
+            $default_page = $em->getRepository('EnglishPagesBundle:Page')->findOnNav();
+            $default_page->setOnNav('0');
+            $em->persist($default_page);
+        }
 
         if (!$page) {
             throw $this->createNotFoundException('Unable to find Page entity.');

@@ -15,10 +15,23 @@ class PageRepository extends EntityRepository
     /**
      * find pages for menu
      */
-    public function findPageMenu($section)
-    {
-            return $this->getEntityManager()
-                ->createQuery('SELECT p  FROM EnglishPagesBundle:Page p WHERE p.parent IS NULL AND p.section = ?1 ORDER BY p.sortorder')
-                ->setParameter('1',$section)->getResult();
+    public function  findPageMenu($section) {
+        return $this->createQueryBuilder('p')
+            ->where('p.parent is null')
+            ->andWhere('p.section = :section')
+            ->setParameter('section', $section)
+            ->orderBy('p.sortorder')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findOnNav() {
+        return $this->createQueryBuilder('p')
+            ->where('p.on_nav = :on_nav')
+            ->setParameter('on_nav','1')
+            ->getQuery()
+            ->getSingleResult()
+            ;
     }
 }

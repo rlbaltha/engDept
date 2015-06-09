@@ -137,8 +137,7 @@ class MajornoteController extends Controller
         $message = \Swift_Message::newInstance()
         ->setSubject('Mentored Notification')
         ->setFrom('rlbaltha@uga.edu')
-        ->setTo('lgn1013@uga.edu')
-        ->setCc('rmenke@uga.edu')
+        ->setTo('rlbaltha@uga.edu')
         ->setBody($body)
         ;
         $this->get('mailer')->send($message);
@@ -151,8 +150,9 @@ class MajornoteController extends Controller
         $note->setNotes($body);
 
         $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
-        $current_term = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm();
-        $current_term_name = $current_term->getTermName();
+        $type=1;
+        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findTermByType($type);
+        $current_term_name = $currentTerm->getTermName();
         $major->setTermMentored($current_term_name);
 
         $em->persist($note);

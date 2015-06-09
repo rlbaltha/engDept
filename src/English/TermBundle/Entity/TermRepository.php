@@ -12,24 +12,36 @@ use Doctrine\ORM\EntityRepository;
  */
 class TermRepository extends EntityRepository
 {
+
+    public function currentterms()
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.type >= :type')
+            ->orderBy('t.term')
+            ->setParameter('type','1')
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+
     public function findTermsSorted()
     {
-        return $this->getEntityManager()
-            ->createQuery('SELECT t from EnglishTermBundle:Term t ORDER BY t.term DESC')
-            ->getResult();
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.term','DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
-    public function findCurrentTerm()
+    public function findTermByType($type)
     {
-        return $this->getEntityManager()
-            ->createQuery('SELECT t FROM English\TermBundle\Entity\Term t WHERE t.type = 2')
-            ->getSingleResult();
+        return $this->createQueryBuilder('t')
+            ->where('t.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getSingleResult()
+            ;
     }
 
-    public function findPendingTerm()
-    {
-        return $this->getEntityManager()
-            ->createQuery('SELECT t FROM English\TermBundle\Entity\Term t WHERE t.type = 3')
-            ->getSingleResult();
-    }
 }

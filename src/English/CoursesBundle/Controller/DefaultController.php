@@ -53,9 +53,10 @@ class DefaultController extends Controller
             $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         }
         else {
-            $terms = $em->getRepository('EnglishCoursesBundle:Course')->currentterms();
+            $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
         }
-        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm();
+        $type=1;
+        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findTermByType($type);
         return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
     }
 
@@ -111,7 +112,7 @@ class DefaultController extends Controller
             $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         }
         else {
-            $terms = $em->getRepository('EnglishCoursesBundle:Course')->currentterms();
+            $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
         }
         return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),));
             
@@ -171,13 +172,18 @@ class DefaultController extends Controller
             $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
         }
         else {
-            $terms = $em->getRepository('EnglishCoursesBundle:Course')->currentterms();
+            $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
         }
-        $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea1($term);
-        $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea2($term);
-        $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea3($term);
-        $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea4($term);
-        $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea5($term);
+        $area =1;
+        $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
+        $area =2;
+        $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
+        $area =3;
+        $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
+        $area =4;
+        $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
+        $area =5;
+        $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
         
         return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, 'search_form' => $form->createView(), ));
             

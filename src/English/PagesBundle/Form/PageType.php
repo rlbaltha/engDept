@@ -23,6 +23,9 @@ class PageType extends AbstractType
             ->add('parent', 'entity', array('class' => 'EnglishPagesBundle:Page',
                 'property' => 'menuName','expanded'=>false,'multiple'=>false,'label'  => 'Parent page', 'required'=> false,'attr' => array('class' => 'form-control'),))
             ->add('sortOrder','number', array('attr' => array('class' => 'text form-control'),))
+            ->add('on_nav', 'choice', array('choices'  => array('0' => 'No', '1' => 'Yes', ),
+                'required' => true,'label'  => 'On Top Nav','expanded'=>true,'multiple'=>false,
+            ))
         ;
     }
     
