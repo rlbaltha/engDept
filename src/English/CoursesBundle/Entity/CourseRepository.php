@@ -23,7 +23,7 @@ class CourseRepository extends EntityRepository
             ->where('c.term = :term')
             ->andWhere('c.area = :area')
             ->setParameter('term', $term)
-            ->setParameter('area', '1')
+            ->setParameter('area', $area)
             ->getQuery()
             ->getResult()
             ;

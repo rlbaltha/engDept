@@ -174,16 +174,11 @@ class DefaultController extends Controller
         else {
             $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
         }
-        $area =1;
-        $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
-        $area =2;
-        $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
-        $area =3;
-        $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
-        $area =4;
-        $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
-        $area =5;
-        $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,$area);
+        $area1 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'1');
+        $area2 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'2');
+        $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'3');
+        $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'4');
+        $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'5');
         
         return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, 'search_form' => $form->createView(), ));
             
