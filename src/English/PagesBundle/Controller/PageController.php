@@ -216,13 +216,18 @@ class PageController extends Controller
      */
     public function editAction($id)
     {
-        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
-            throw new AccessDeniedException();
-        }
 
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
+        $user=$this->getUser();
+
+
+        if ( false===(($this->get('security.context')->isGranted('ROLE_PAGEADMIN')) || ($page->getUser()->getUsername()==$user->getUsername())) ) {
+            throw new AccessDeniedException();
+        }
+
+
         $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
         $labelid = $label->getId();
 
@@ -268,13 +273,14 @@ class PageController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        if (false === $this->get('security.context')->isGranted('ROLE_PAGEADMIN')) {
-            throw new AccessDeniedException();
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('EnglishPagesBundle:Page')->find($id);
+        $user=$this->getUser();
+
+        if ( false===(($this->get('security.context')->isGranted('ROLE_PAGEADMIN')) || ($page->getUser()->getUsername()==$user->getUsername())) ) {
+            throw new AccessDeniedException();
+        }
 
         $postData = $request->request->get('english_pagesbundle_page');
         $onNav = $postData['on_nav'];
