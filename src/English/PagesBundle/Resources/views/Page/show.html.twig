@@ -73,10 +73,12 @@
                                     <img src="{{ section.masthead }}" class="img-responsive" alt="{{ section.name }} masthead">
                                 </div>
                             {% endif %}
-                            {% if (is_granted('ROLE_PAGEADMIN') )or page.user==app.user %}
+                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_PAGEADMIN') or page.user.username==app.user.username %}
                                 <span class="pull-right">
-               <a class="btn btn-default" style="display: inline-block" title="Edit this page" href="{{ path('pages_edit', { 'id':page.id}) }}">Edit</a>
-            </span>
+                                <a class="btn btn-default" style="display: inline-block" title="Edit this page" href="{{ path('pages_edit', { 'id':page.id}) }}">Edit</a>
+                                </span>
+                            {% endif %}
                             {% endif %}
                             {{ page.pageBody|raw }}
                         </div>
