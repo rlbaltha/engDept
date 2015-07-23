@@ -14,7 +14,7 @@ class DescriptionType extends AbstractType
             ->add('term','hidden')
             ->add('course','hidden')
             ->add('instructorName','hidden')
-            ->add('description', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Description '))
+            ->add('description', 'ckeditor', array('config_name' => 'editor_default','label'=>'Description '))
             ->add('assignments', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Principal course assignments (such as required reading papers, other activities, and the week of the course in which these assignments are expected to be completed and submitted) '))
             ->add('requirements', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Specific course requirements for grading purposes (e.g., written and oral tests and reports, research papers, performances or other similar requirements, participation requirements, if any) '))
             ->add('grading', 'ckeditor', array('config_name' => 'editor_simple','label'=>'Grading Policy (How the final grade will be determined with respect to weights or course points assigned to various course requirements.) '))
