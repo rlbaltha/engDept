@@ -34,8 +34,12 @@
                 <td>
                     {% if '4060' in courses.courseName or '4210' in courses.courseName or '4220' in courses.courseName  or '4222' in courses.courseName  or '4295' in courses.courseName  or '4296' in courses.courseName %}(1)
                     {% elseif '4225' in courses.courseName or '4230' in courses.courseName or '4230' in courses.courseName or '4240' in courses.courseName or '4270' in courses.courseName or '4290' in courses.courseName or '4297' in courses.courseName %}(2)
-                    {% elseif '4300' in courses.courseName or '4310' in courses.courseName or '4320' in courses.courseName or '4330' in courses.courseName or '4270' in courses.courseName or '4340' in courses.courseName or '4350' in courses.courseName or '4360' in courses.courseName or '4370' in courses.courseName or '4390' in courses.courseName %}(3)
-                    {% elseif '4400' in courses.courseName or '4410' in courses.courseName or '4420' in courses.courseName or '4430' in courses.courseName or '4440' in courses.courseName or '4450' in courses.courseName or '4460' in courses.courseName or '4470' in courses.courseName or '4480' in courses.courseName or '4490' in courses.courseName or '4700' in courses.courseName %}(4)
+                    {% elseif '4300' in courses.courseName or '4310' in courses.courseName or '4320' in courses.courseName or '4330' in courses.courseName or
+                    '4270' in courses.courseName or '4340' in courses.courseName or '4350' in courses.courseName or '4360' in courses.courseName or '4370' in
+                    courses.courseName or '4390' in courses.courseName or '4331' in courses.courseName %}(3)
+                    {% elseif '4400' in courses.courseName or '4410' in courses.courseName or '4420' in courses.courseName or '4430' in courses.courseName or '4440' in courses.courseName or '4450' in courses.courseName
+                    or '4460' in courses.courseName or '4470' in courses.courseName or '4480' in courses.courseName or '4490' in courses.courseName or '4700'
+                    in courses.courseName or '4491' in courses.courseName %}(4)
                     {% endif %}
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                title="Course Detail">{{ courses.courseName }}</a></strong></td>
