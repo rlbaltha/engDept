@@ -44,4 +44,15 @@ class TermRepository extends EntityRepository
             ;
     }
 
+    public function findDefaultTerm()
+    {
+        $type =2;
+        return $this->createQueryBuilder('t')
+            ->where('t.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
+
 }

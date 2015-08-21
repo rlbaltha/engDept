@@ -45,9 +45,9 @@ class DefaultController extends Controller
 
 
         } else {
-            $currentType = 'Upper';
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName,t.type FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND t.type = 2 ORDER BY c.courseName";
-            $courses = $em->createQuery($dql1)->getResult();
+            $term = $em->getRepository('EnglishTermBundle:Term')->findDefaultTerm();
+            return $this->redirect($this->generateUrl('listings_list', array('term' => $term->getTerm(), 'type'=> 'Upper')));
+
         }
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
             $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
