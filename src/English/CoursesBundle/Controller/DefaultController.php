@@ -27,26 +27,32 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $currrentTerm = $em->getRepository('EnglishTermBundle:Term')->findDefaultTerm();
+        $term = $currrentTerm->getTerm();
+
         $course = new Course();
-        $form = $this->createFindForm($course);
+        $form = $this->createFindForm($course, $term);
+
 
         if ($request->getMethod() == 'POST') {
+            $currrentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm($term);
             $currentType = 'Search';
             $form->handleRequest($request);
             $courseName = "%" . $form->get('courseName')->getData() . "%";
             $courseName = strtolower($courseName);
+            $term = $form->get('term')->getData();
             if ($this->get('security.context')->isGranted('ROLE_USER')) {
-                $courses= $em->getRepository('EnglishCoursesBundle:Course')->findAllFormCourses($courseName);
+                $courses= $em->getRepository('EnglishCoursesBundle:Course')->findAllCourses($courseName);
             }
             else {
-                $courses= $em->getRepository('EnglishCoursesBundle:Course')->findFormCourses($courseName);
+                $courses= $em->getRepository('EnglishCoursesBundle:Course')->findCourses($courseName, $term);
             }
 
 
 
         } else {
-            $term = $em->getRepository('EnglishTermBundle:Term')->findDefaultTerm();
-            return $this->redirect($this->generateUrl('listings_list', array('term' => $term->getTerm(), 'type'=> 'Upper')));
+
+            return $this->redirect($this->generateUrl('listings_list', array('term' => $term, 'type'=> 'Upper')));
 
         }
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
@@ -55,9 +61,8 @@ class DefaultController extends Controller
         else {
             $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
         }
-        $type=1;
-        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findTermByType($type);
-        return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
+
+        return array('courses' => $courses,'terms' => $terms,'currentTerm' => $currrentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
     }
 
 
@@ -66,13 +71,14 @@ class DefaultController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createFindForm(Course $course)
+    private function createFindForm(Course $course, $term)
     {
         $form = $this->createForm(new CourseType(), $course, array(
             'action' => $this->generateUrl('listings'),
             'method' => 'POST',
         ));
-        $form->add('courseName', 'text', array('label' => 'Search', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Course'),));
+        $form->add('courseName', 'text', array('label' => 'Search', 'attr' => array('size'=>'10','class' => 'form-control', 'placeholder' => 'Course'),))
+            ->add('term', 'hidden', array('data' => $term,));
 
         return $form;
     }
@@ -86,12 +92,11 @@ class DefaultController extends Controller
     public function listAction($term,$type)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql2 = "SELECT t FROM English\TermBundle\Entity\Term t WHERE t.term = ?1";
-        $currentTerm = $em->createQuery($dql2)->setParameter('1', $term)->getSingleResult();
+        $currrentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm($term);
 
         $currentType = $type;
         $course = new Course();
-        $form = $this->createFindForm($course);
+        $form = $this->createFindForm($course, $term);
         if ($type == 'Upper') {
             $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND c.term = ?1 and c.area IN ('1','2','3','4','5') ORDER BY c.courseName";
             }
@@ -114,7 +119,8 @@ class DefaultController extends Controller
         else {
             $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
         }
-        return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),));
+        return $this->render('EnglishCoursesBundle:Default:index.html.twig', array('courses' => $courses,'terms' => $terms,'currentTerm' => $currrentTerm,
+            'currentType' => $currentType, 'search_form' => $form->createView(),));
             
     } 
 
@@ -128,12 +134,11 @@ class DefaultController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
+        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm($term);
         $currentType = 'Upper';
         $course = new Course();
-        $form = $this->createFindForm($course);
+        $form = $this->createFindForm($course, $term);
         $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
-        $dql3 = "SELECT t.termName,t.term FROM English\TermBundle\Entity\Term t WHERE t.term = ?1";
-        $currentTerm = $em->createQuery($dql3)->setParameter('1', $term)->getSingleresult();
         $dql_call = '%'.$callNumber.'%';
         $dql1 = "SELECT d FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
         $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
@@ -163,9 +168,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $course = new Course();
-        $form = $this->createFindForm($course);
-        $dql2 = "SELECT t FROM English\TermBundle\Entity\Term t WHERE t.term = ?1";
-        $currentTerm = $em->createQuery($dql2)->setParameter('1', $term)->getSingleResult();
+        $form = $this->createFindForm($course, $term);
+        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm($term);
         $currentType = 'Upper by Area';
 
         if ($this->get('security.context')->isGranted('ROLE_USER')) {

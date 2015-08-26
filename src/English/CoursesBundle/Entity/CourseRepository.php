@@ -55,19 +55,34 @@ class CourseRepository extends EntityRepository
 
     }
 
-    public function findFormCourses($courseName)
-    {
-        return $this->getEntityManager()
-            ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE (LOWER(c.courseName) LIKE ?1 OR LOWER(c.instructorName) LIKE ?1 OR LOWER(c.title) LIKE ?1) AND c.term=t.term AND t.type > 0')
-            ->setParameter('1',$courseName)->getResult();
+
+
+    public function findCourses($courseName, $term) {
+        return $this->createQueryBuilder('c')
+            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
+            ->join('EnglishTermBundle:Term', 't')
+            ->where('c.term = t.term')
+            ->andWhere('(LOWER(c.courseName) LIKE :courseName OR LOWER(c.instructorName) LIKE :courseName OR LOWER(c.title) LIKE :courseName) and c.term =
+            :term')
+            ->setParameter('courseName', $courseName)
+            ->setParameter('term', $term)
+            ->getQuery()
+            ->getResult();
 
     }
 
-    public function findAllFormCourses($courseName)
-    {
-        return $this->getEntityManager()
-            ->createQuery('SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c  WHERE (LOWER(c.courseName) LIKE ?1 OR LOWER(c.instructorName) LIKE ?1 OR LOWER(c.title) LIKE ?1) ORDER BY c.term Desc')
-            ->setParameter('1',$courseName)->getResult();
+    public function findAllCourses($courseName) {
+        return $this->createQueryBuilder('c')
+            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
+            ->join('EnglishTermBundle:Term', 't')
+            ->where('c.term = t.term')
+            ->andwhere('LOWER(c.courseName) LIKE :courseName OR LOWER(c.instructorName) LIKE :courseName OR LOWER(c.title) LIKE :courseName')
+            ->setParameter('courseName', $courseName)
+            ->orderBy('c.term','DESC')
+            ->addOrderBy('c.courseName',"ASC")
+            ->getQuery()
+            ->getResult();
 
     }
+
 }
