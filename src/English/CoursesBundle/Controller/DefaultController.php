@@ -56,7 +56,7 @@ class DefaultController extends Controller
 
         }
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
-            $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+            $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
         }
         else {
             $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
@@ -97,24 +97,10 @@ class DefaultController extends Controller
         $currentType = $type;
         $course = new Course();
         $form = $this->createFindForm($course, $term);
-        if ($type == 'Upper') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND c.term = ?1 and c.area IN ('1','2','3','4','5') ORDER BY c.courseName";
-            }
-        elseif ($type == 'FYC') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND  c.term = ?1 and c.courseName LIKE 'ENGL1%' ORDER BY c.courseName";
-            }
-        elseif ($type == 'Surveys') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND  c.term = ?1 and c.area > 'f' ORDER BY c.courseName";
-            }
-        elseif ($type == 'Graduate') {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND  c.term = ?1 and (c.courseName LIKE 'ENGL5%' or c.courseName LIKE 'ENGL6%' or c.courseName LIKE 'ENGL7%' or c.courseName LIKE 'ENGL8%' or c.courseName LIKE 'ENGL9%' ) ORDER BY c.courseName";
-            }
-        else {
-            $dql1 = "SELECT c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName FROM EnglishCoursesBundle:Course c, EnglishTermBundle:Term t WHERE c.term = t.term AND  c.term = ?1 ORDER BY c.courseName";
-            }
-        $courses = $em->createQuery($dql1)->setParameter('1', $term)->getResult();
+        $courses = $em->getRepository('EnglishCoursesBundle:Course')->findCoursesByType($term, $type);
+
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
-            $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+            $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
         }
         else {
             $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();
@@ -138,11 +124,10 @@ class DefaultController extends Controller
         $currentType = 'Upper';
         $course = new Course();
         $form = $this->createFindForm($course, $term);
-        $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
-        $dql_call = '%'.$callNumber.'%';
-        $dql1 = "SELECT d FROM EnglishDescriptionsBundle:Description d WHERE d.callNumber LIKE ?1 AND d.term = ?2";
-        $courseDetail = $em->createQuery($dql1)->setParameter('1', $dql_call)->setParameter('2', $term)->getResult();
-        $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($dql_call,$term );
+        $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
+        $call = '%'.$callNumber.'%';
+        $courseDetail = $em->getRepository('EnglishDescriptionsBundle:Description')->findDescriptionByCallTerm ($call, $term);
+        $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($call,$term );
         $user=$this->getUser();
 
         if ($user) {
@@ -173,7 +158,7 @@ class DefaultController extends Controller
         $currentType = 'Upper by Area';
 
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
-            $terms = $em->getRepository('EnglishCoursesBundle:Course')->terms();
+            $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
         }
         else {
             $terms = $em->getRepository('EnglishTermBundle:Term')->currentterms();

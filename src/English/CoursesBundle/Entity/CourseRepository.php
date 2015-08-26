@@ -12,11 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseRepository extends EntityRepository
 {
-    
- /**
- * queries for upper by area course listing
- * 
- */
+
+    /**
+     * queries for upper by area course listing
+     *
+     */
     public function upperbyarea($term, $area)
     {
         return $this->createQueryBuilder('c')
@@ -25,39 +25,22 @@ class CourseRepository extends EntityRepository
             ->setParameter('term', $term)
             ->setParameter('area', $area)
             ->getQuery()
-            ->getResult()
-            ;
-
-    }
-
-
-    public function terms()
-    {
-        return $this->getEntityManager()
-            ->createQuery('SELECT t.termName,t.term FROM EnglishTermBundle:Term t ORDER BY t.term DESC')
             ->getResult();
 
     }
-    
-   public function findbyname($coursename)
-    {
-       return $this->getEntityManager()
-               ->createQuery('SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.courseName = ?1 AND c.term=t.term AND t.type > 0')
-               ->setParameter('1',$coursename)->getResult();
 
-    }
-
-    public function findByCallTerm($dql_call, $term)
-    {
-        return $this->getEntityManager()
-            ->createQuery('SELECT c FROM EnglishCoursesBundle:Course c WHERE (c.callNumber LIKE ?1 or c.callNumber2 LIKE ?1) AND c.term= ?2')
-            ->setParameter('1',$dql_call)->setParameter('2',$term)->setMaxResults(1)->getSingleResult();
-
+    public function findByCallTerm($call, $term) {
+        return $this->createQueryBuilder('c')
+            ->where("c.callNumber LIKE :call and  c.term = :term")
+            ->setParameter('call', $call)
+            ->setParameter('term', $term)
+            ->getQuery()
+            ->getSingleResult();
     }
 
 
-
-    public function findCourses($courseName, $term) {
+    public function findCourses($courseName, $term)
+    {
         return $this->createQueryBuilder('c')
             ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
             ->join('EnglishTermBundle:Term', 't')
@@ -71,18 +54,49 @@ class CourseRepository extends EntityRepository
 
     }
 
-    public function findAllCourses($courseName) {
+    public function findAllCourses($courseName)
+    {
         return $this->createQueryBuilder('c')
             ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
             ->join('EnglishTermBundle:Term', 't')
             ->where('c.term = t.term')
             ->andwhere('LOWER(c.courseName) LIKE :courseName OR LOWER(c.instructorName) LIKE :courseName OR LOWER(c.title) LIKE :courseName')
             ->setParameter('courseName', $courseName)
-            ->orderBy('c.term','DESC')
-            ->addOrderBy('c.courseName',"ASC")
+            ->orderBy('c.term', 'DESC')
+            ->addOrderBy('c.courseName', "ASC")
             ->getQuery()
             ->getResult();
 
     }
 
+    public function findCoursesByType($term, $type)
+    {
+        if ($type == 'Upper') {
+            $andwhere ="c.area IN ('1','2','3','4','5')";
+        } elseif ($type == 'FYC') {
+            $andwhere ="c.courseName LIKE 'ENGL1%'";
+        } elseif ($type == 'Surveys') {
+            $andwhere = "c.courseName LIKE 'ENGL2%'";
+        } elseif ($type == 'Graduate') {
+            $andwhere = "c.courseName LIKE 'ENGL5%' or c.courseName LIKE 'ENGL6%' or c.courseName LIKE 'ENGL7%' or c.courseName LIKE 'ENGL8%' or c
+                .courseName LIKE 'ENGL9%'";
+        };
+
+        $courses = $this->createQueryBuilder('c')
+            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
+            ->join('EnglishTermBundle:Term', 't')
+            ->where('c.term = t.term')
+            ->andWhere('c.term = :term')
+            ->andWhere($andwhere)
+            ->setParameter('term', $term)
+            ->orderBy('c.courseName', "ASC")
+            ->getQuery()
+            ->getResult();
+
+        return $courses;
+
+    }
+
+
 }
+

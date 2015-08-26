@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class DescriptionRepository extends EntityRepository
 {
+    public function findDescriptionByCallTerm ($call, $term){
+        return $this->createQueryBuilder('d')
+            ->where('d.callNumber LIKE :call and d.term = :term')
+            ->setParameter('call', $call)
+            ->setParameter('term', $term)
+            ->getQuery()
+            ->getResult();
+    }
 }
