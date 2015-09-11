@@ -89,6 +89,11 @@ WBlakeRedirect:
         path:  http://www.english.uga.edu/~nhilton/wblake
         permanent: true
 
+WritingcenterRedirect:
+    path:     /
+    host:     writingcenter.english.uga.edu
+    defaults: { _controller: EnglishPagesBundle:Page:show, id:34 }
+
 # end of redirects
 
 default:
