@@ -36,7 +36,6 @@
                 <th class="hidden-md hidden-sm hidden-xs">Building</th>
                 <th>Room</th>
                 <th class="hidden-md hidden-sm hidden-xs">Call</th>
-                {% if currentType=='Search' %}<th class="hidden-md hidden-sm hidden-xs">Term</th>{% endif %}
                 <th class="hidden-md hidden-sm hidden-xs">{% if courses %}{% if '05' in courses[0].term %}Maymester{% endif %}{% endif %}</th>
             </tr>
             </thead>
@@ -59,7 +58,6 @@
                     <td class="hidden-md hidden-sm hidden-xs">{{ courses.building }}</td>
                     <td>{{ courses.room }}</td>
                     <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}{{ courses.callNumber2 }}</td>
-                    {% if currentType=='Search' %}<td class="hidden-md hidden-sm hidden-xs">{{ courses.term }}</td>{% endif %}
                     <td class="hidden-md hidden-sm hidden-xs">{% if courses.may == 1 %}Maymester{% endif %}</td>
                 </tr>
             {% endfor %}
