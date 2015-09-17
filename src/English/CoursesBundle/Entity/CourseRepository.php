@@ -35,7 +35,7 @@ class CourseRepository extends EntityRepository
             ->setParameter('call', $call)
             ->setParameter('term', $term)
             ->getQuery()
-            ->getSingleResult();
+            ->getResult();
     }
 
 

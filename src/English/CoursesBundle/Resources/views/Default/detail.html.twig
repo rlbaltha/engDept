@@ -12,10 +12,11 @@
                 <th class="hidden-md hidden-sm hidden-xs">Building</th>
                 <th>Room</th>
                 <th class="hidden-md hidden-sm hidden-xs">Call</th>
-                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in course.term %}Maymester{% endif %}</th>
+                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in courses[0].term %}Maymester{% endif %}</th>
             </tr>
             </thead>
             <tbody>
+            {% for course in courses %}
             <tr>
                     <td><strong>{{ course.courseName }}</strong></td>
                     <td class="hidden-md hidden-sm hidden-xs">{{ course.title }}</td>
@@ -33,12 +34,19 @@
                     <td class="hidden-md hidden-sm hidden-xs">{{ course.callNumber }}{{ course.callNumber2 }}</td>
                     <td class="hidden-md hidden-sm hidden-xs">{% if course.may == 1 %}Maymester{% endif %}</td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
+        <hr/>
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <p>
         {% if courseDetail and (courseDetail[0].userid == userid or  is_granted('ROLE_ADMIN')) %}
             <a class="btn btn-default pull-right" href="{{ path('description_edit', { 'id': courseDetail[0].id }) }}">Update/Delete</a>
-        {% elseif not courseDetail and (course.instructorname|lower == people.oasisname|lower or  is_granted('ROLE_ADMIN'))  %}
-            <a class="btn btn-default pull-right" href="{{ path('description_new', {'term':course.term, 'callNumber':course.callNumber})}}">Add Description</a>
+        {% elseif not courseDetail and (courses[0].instructorname|lower == people.oasisname|lower or  is_granted('ROLE_ADMIN'))  %}
+            <a class="btn btn-default pull-right" href="{{ path('description_new', {'term':courses[0].term, 'callNumber':courses[0].callNumber})}}">Add Description</a>
+        {% endif %}
+        </p>
         {% endif %}
 
 
@@ -122,6 +130,9 @@
             <div class="cell">No description has been offered by the instructor at this time.</div>
             </p>
         {% endfor %}
+
+
+
 {% endblock %}
 
 
