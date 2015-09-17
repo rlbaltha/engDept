@@ -24,6 +24,7 @@ class CourseRepository extends EntityRepository
             ->andWhere('c.area = :area')
             ->setParameter('term', $term)
             ->setParameter('area', $area)
+            ->orderBy('c.area, c.courseName')
             ->getQuery()
             ->getResult();
 

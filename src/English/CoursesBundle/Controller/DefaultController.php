@@ -91,6 +91,11 @@ class DefaultController extends Controller
      */
     public function listAction($term,$type)
     {
+
+        if ($type =='Areas') {
+            return $this->redirect($this->generateUrl('listings_byarea',
+              array('term' => $term)));
+        }
         $em = $this->getDoctrine()->getManager();
         $currrentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm($term);
 
@@ -146,7 +151,7 @@ class DefaultController extends Controller
     /**
      * Finds and displays upper division courses by area
      *
-     * @Route("/{term}/byarea", name="listings_byarea")
+     * @Route("/{term}/Area", name="listings_byarea")
      * @Template()
      */    
     public function byareaAction($term)
@@ -155,7 +160,7 @@ class DefaultController extends Controller
         $course = new Course();
         $form = $this->createFindForm($course, $term);
         $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findCurrentTerm($term);
-        $currentType = 'Upper by Area';
+        $currentType = 'Areas';
 
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
             $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
