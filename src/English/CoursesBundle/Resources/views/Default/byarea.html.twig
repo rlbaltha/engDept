@@ -30,7 +30,7 @@
         </thead>
         <tbody>
         {% for courses in area1 %}
-            <tr>
+            <tr class="{% if courses.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
                 <td>
                     {% if '4060' in courses.courseName or '4210' in courses.courseName or '4220' in courses.courseName  or '4222' in courses.courseName  or '4295' in courses.courseName  or '4296' in courses.courseName %}(1)
                     {% elseif '4225' in courses.courseName or '4230' in courses.courseName or '4230' in courses.courseName or '4240' in courses.courseName or '4270' in courses.courseName or '4290' in courses.courseName or '4297' in courses.courseName %}(2)
@@ -42,7 +42,9 @@
                     in courses.courseName or '4491' in courses.courseName %}(4)
                     {% endif %}
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
-                               title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                               title="Course Detail">{{ courses.courseName }}</a></strong>
+                    {% if courses.max == '0' and  is_granted('ROLE_COURSEADMIN') %}(hidden){% endif %}
+                </td>
                 <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
@@ -83,10 +85,12 @@
         </thead>
         <tbody>
         {% for courses in area2 %}
-            <tr>
+            <tr class="{% if courses.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
                 <td>
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
-                               title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                               title="Course Detail">{{ courses.courseName }}</a></strong>
+                    {% if courses.max == '0' and  is_granted('ROLE_COURSEADMIN') %}(hidden){% endif %}
+                </td>
                 <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
@@ -126,10 +130,12 @@
         </thead>
         <tbody>
         {% for courses in area3 %}
-            <tr>
+            <tr class="{% if courses.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
                 <td>
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
-                               title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                               title="Course Detail">{{ courses.courseName }}</a></strong>
+                    {% if courses.max == '0' and  is_granted('ROLE_COURSEADMIN') %}(hidden){% endif %}
+                </td>
                 <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
@@ -170,10 +176,12 @@
         </thead>
         <tbody>
         {% for courses in area4 %}
-            <tr>
+            <tr class="{% if courses.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
                 <td>
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
-                               title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                               title="Course Detail">{{ courses.courseName }}</a></strong>
+                    {% if courses.max == '0' and  is_granted('ROLE_COURSEADMIN') %}(hidden){% endif %}
+                </td>
                 <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
@@ -211,10 +219,12 @@
         </thead>
         <tbody>
         {% for courses in area5 %}
-            <tr>
+            <tr class="{% if courses.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
                 <td>
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
-                               title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                               title="Course Detail">{{ courses.courseName }}</a></strong>
+                    {% if courses.max == '0' and  is_granted('ROLE_COURSEADMIN') %}(hidden){% endif %}
+                </td>
                 <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
                 <td>{{ courses.instructorName|upper }}</td>
                 <td>{{ courses.days }}</td>
