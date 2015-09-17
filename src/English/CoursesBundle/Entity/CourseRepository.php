@@ -43,7 +43,7 @@ class CourseRepository extends EntityRepository
     public function findCourses($courseName, $term)
     {
         return $this->createQueryBuilder('c')
-            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
+            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,c.max,t.termName')
             ->join('EnglishTermBundle:Term', 't')
             ->where('c.term = t.term')
             ->andWhere('(LOWER(c.courseName) LIKE :courseName OR LOWER(c.instructorName) LIKE :courseName OR LOWER(c.title) LIKE :courseName) and c.term =
@@ -58,7 +58,7 @@ class CourseRepository extends EntityRepository
     public function findAllCourses($courseName)
     {
         return $this->createQueryBuilder('c')
-            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
+            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,c.max,t.termName')
             ->join('EnglishTermBundle:Term', 't')
             ->where('c.term = t.term')
             ->andwhere('LOWER(c.courseName) LIKE :courseName OR LOWER(c.instructorName) LIKE :courseName OR LOWER(c.title) LIKE :courseName')
@@ -84,7 +84,7 @@ class CourseRepository extends EntityRepository
         };
 
         $courses = $this->createQueryBuilder('c')
-            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,t.termName')
+            ->select('c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.days,c.time,c.id,c.term,c.building,c.room,c.may,c.max,t.termName')
             ->join('EnglishTermBundle:Term', 't')
             ->where('c.term = t.term')
             ->andWhere('c.term = :term')

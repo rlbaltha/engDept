@@ -114,6 +114,14 @@ class Course
     private $area;
 
     /**
+     * @var string $max
+     *
+     * @ORM\Column(name="max", type="string", length=255, nullable=true)
+     */
+    private $max;
+
+
+    /**
      * @var boolean $may
      *
      * @ORM\Column(name="may", type="boolean", nullable=true)
@@ -518,5 +526,28 @@ class Course
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Set max
+     *
+     * @param string $max
+     * @return Course
+     */
+    public function setMax($max)
+    {
+        $this->max = $max;
+
+        return $this;
+    }
+
+    /**
+     * Get max
+     *
+     * @return string 
+     */
+    public function getMax()
+    {
+        return $this->max;
     }
 }
