@@ -201,7 +201,7 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         <div class="row">
-            <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }} {% endfor %}</p>
+            <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }}{% if not loop.last %}, {% endif %} {% endfor %}</p>
             <ul>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Promote
                         Advisor</a></li>
@@ -219,6 +219,8 @@
                         Search Admin</a></li>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Promote
                         Page Admin</a></li>
+                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_COURSEADMIN' }) }}">Promote
+                        Course Admin</a></li>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_TAADMIN' }) }}">Promote
                         TA Info Admin</a></li>
 
@@ -240,6 +242,9 @@
                 <li>
                     <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Demote
                         Page Admin</a></li>
+                <li>
+                    <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_COURSEADMIN' }) }}">Demote
+                        Course Admin</a></li>
                 <li>
                     <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_TAADMIN' }) }}">Demote
                         TA Info Admin</a></li>

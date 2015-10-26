@@ -132,7 +132,7 @@ class DefaultController extends Controller
         $terms = $em->getRepository('EnglishTermBundle:Term')->findTermsSorted();
         $call = '%'.$callNumber.'%';
         $courseDetail = $em->getRepository('EnglishDescriptionsBundle:Description')->findDescriptionByCallTerm ($call, $term);
-        $course = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($call,$term );
+        $courses = $em->getRepository('EnglishCoursesBundle:Course')->findByCallTerm($call,$term );
         $user=$this->getUser();
 
         if ($user) {
@@ -144,7 +144,7 @@ class DefaultController extends Controller
             $people= null;
             $userid = 0;
         }
-        return array('people' => $people,'course' => $course,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
+        return array('people' => $people,'courses' => $courses,'courseDetail' => $courseDetail, 'callNumber'=> $callNumber,'userid'=> $userid,'terms' => $terms,'currentTerm' => $currentTerm,'currentType' => $currentType, 'search_form' => $form->createView(),);
             
     }     
  
