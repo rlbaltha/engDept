@@ -150,8 +150,7 @@ class MajornoteController extends Controller
         $note->setNotes($body);
 
         $major = $em->getRepository('EnglishMajorsBundle:Major')->find($id);
-        $type=1;
-        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findTermByType($type);
+        $currentTerm = $em->getRepository('EnglishTermBundle:Term')->findDefaultTerm();
         $current_term_name = $currentTerm->getTermName();
         $major->setTermMentored($current_term_name);
 
