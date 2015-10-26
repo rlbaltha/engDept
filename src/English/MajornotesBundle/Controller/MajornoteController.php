@@ -137,7 +137,7 @@ class MajornoteController extends Controller
         $message = \Swift_Message::newInstance()
         ->setSubject('Mentored Notification')
         ->setFrom('rlbaltha@uga.edu')
-        ->setTo('rlbaltha@uga.edu')
+        ->setTo('jkallerm@uga.edu')
         ->setBody($body)
         ;
         $this->get('mailer')->send($message);
