@@ -1,56 +1,23 @@
 # app/config/security.yml
+
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
-
-    encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
-
     firewalls:
         main:
             pattern: ^/
-            form_login:
-                csrf_provider: form.csrf_provider
-                default_target_path: /directory/profile
-            logout:
-                path:   /logout
-                target: /home
-            anonymous:    true
-            switch_user: true
-
-    access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-
-        - { path: ^/newsletter, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/advisor/, role: ROLE_ADVISORADMIN }
-        - { path: ^/area/, role: ROLE_ADMIN }
-        - { path: ^/slideshow/, role: ROLE_ADMIN }
-        - { path: ^/spotlight/, role: ROLE_ADMIN }
-        - { path: ^/term/, role: ROLE_ADMIN }
-
-        - { path: ^/section/, role: ROLE_PAGEADMIN }
-
-        - { path: ^/file/, role: ROLE_SEARCH }
-
-        - { path: ^/calendar/, role: ROLE_USER } 
-        - { path: ^/course/, role: ROLE_USER } 
-        - { path: ^/description/, role: ROLE_USER }
-        - { path: ^/gradcom/, role: ROLE_USER } 
-        - { path: ^/gradinfo/, role: ROLE_USER } 
-        - { path: ^/gradnotes/, role: ROLE_USER } 
-        - { path: ^/link/, role: ROLE_USER } 
-        - { path: ^/majornote/, role: ROLE_ADVISOR }
-        - { path: ^/major/, role: ROLE_ADVISOR }
-        - { path: ^/mentor/, role: ROLE_ADVISORADMIN }
-        - { path: ^/people/, role: ROLE_USER }
-        - { path: ^/home/feed, role: ROLE_USER}
+            trusted_sso:
+                manager: admin_sso
+                create_users: true
+                login_action: false
+                logout_action: false
+                login_path: /login
+                check_path: /login_check
+            provider: fos_userbundle
 
 
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+
