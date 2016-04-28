@@ -96,7 +96,7 @@ swiftmailer:
     sender_address: %mailer_sender_address%
     spool: { type: memory }
 
-webnet_sso_auth:
+be_simple_sso_auth:
     admin_sso:
         protocol:
             id: cas
@@ -105,7 +105,7 @@ webnet_sso_auth:
             id: cas
             login_url: https://cas.dev.uga.edu/cas/login
             logout_url: https://cas.dev.uga.edu/cas/logout
-            validation_url: https://cas.dev.uga.edu/cas/serviceValidate
+            validation_url: https://cas.dev.uga.edu/cas/validate
 
 fos_user:
     db_driver: orm
