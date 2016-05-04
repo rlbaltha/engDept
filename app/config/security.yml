@@ -4,8 +4,10 @@ security:
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
+        doctrine:
+            entity:
+                class: English\PeopleBundle\EnglishPeopleBundle
+                property: username
     firewalls:
         main:
             pattern: ^/
@@ -15,8 +17,8 @@ security:
                 login_action: false
                 logout_action: false
                 login_path: /login
-                check_path: /login
-            provider: fos_userbundle
+                check_path: /login_check
+            provider: doctrine
             anonymous:    true
 
     access_control:
