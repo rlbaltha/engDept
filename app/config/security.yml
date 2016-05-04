@@ -17,7 +17,7 @@ security:
                 login_action: false
                 logout_action: false
                 login_path: /login
-                check_path: /login_check
+                check_path: /login
             provider: doctrine
             anonymous:    true
 
