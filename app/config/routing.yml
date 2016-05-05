@@ -2,13 +2,9 @@ login:
     pattern: /login
 login_check:
     pattern: /login_check
-
 logout:
-    pattern: /logout
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: https://cas.stage.uga.edu/cas/logout
-        permanent: true
+    pattern:  /
+    defaults: { _controller: EnglishHomeBundle:Default:index }
 
 
 english_pages:
