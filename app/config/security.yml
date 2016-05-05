@@ -16,6 +16,9 @@ security:
             provider: fos_userbundle
             anonymous:    true
             switch_user: true
+            logout:
+              path:   /logout
+              target: /home
 
     providers:
         chain_provider:
