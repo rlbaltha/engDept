@@ -14,7 +14,7 @@ security:
                 login_action: false
                 logout_action: false
                 login_path: /login
-                check_path: /login_check
+                check_path: /login
                 failure_path: /register
             provider: fos_userbundle
             anonymous:    true
