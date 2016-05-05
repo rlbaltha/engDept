@@ -1,28 +1,42 @@
 # app/config/security.yml
 
 security:
-    encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
-    providers:
-        doctrine:
-            entity:
-                class: English\PeopleBundle\EnglishPeopleBundle
-                property: username
     firewalls:
         main:
             pattern: ^/
+            logout:
+                path:   /logout
+                target: /
             trusted_sso:
                 manager: admin_sso
                 create_users: true
+                created_users_roles: [ 'ROLE_USER' ]
                 login_action: false
                 logout_action: false
                 login_path: /login
-                check_path: /login
-            provider: doctrine
+                check_path: /login_check
+                failure_path: /register
+            provider: fos_userbundle
             anonymous:    true
+            switch_user: true
+
+    providers:
+        chain_provider:
+            chain:
+                providers: [fos_userbundle]
+
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
 
     access_control:
-        - { path: ^/login$, role: ROLE_USER}
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/home, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
 
         - { path: ^/newsletter, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
