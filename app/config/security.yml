@@ -4,9 +4,6 @@ security:
     firewalls:
         main:
             pattern: ^/
-            logout:
-                path:   /logout
-                target: /
             trusted_sso:
                 manager: admin_sso
                 create_users: true

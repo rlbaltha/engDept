@@ -3,8 +3,7 @@ login:
 login_check:
     pattern: /login_check
 logout:
-    pattern:  /
-    defaults: { _controller: EnglishHomeBundle:Default:index }
+    pattern: /logout
 
 
 english_pages:
