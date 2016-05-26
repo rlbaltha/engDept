@@ -27,7 +27,6 @@ twig:
     strict_variables: %kernel.debug%
     globals:
       application_name:       %app_name%
-      ldap_auth:              %ldap%
       twitter:              %twitter%
 
 # Assetic Configuration
@@ -103,11 +102,9 @@ be_simple_sso_auth:
             version: 2
         server:
             id: cas
-            login_url: https://cas.stage.uga.edu/cas/login
-            logout_url: https://cas.stage.uga.edu/cas/logout
-            validation_url: https://cas.stage.uga.edu/cas/serviceValidate
-
-
+            login_url: https://cas.uga.edu/cas/login
+            logout_url: https://cas.uga.edu/cas/logout
+            validation_url: https://cas.uga.edu/cas/validate
 
 
 fos_user:
@@ -122,8 +119,6 @@ fos_user:
         sender_name:    English Dept.
     service:
         user_manager:   fos_user.user_manager.default
-
-
 
 
 # Doctrine extensions
