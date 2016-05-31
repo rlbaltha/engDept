@@ -18,7 +18,11 @@
             <tbody>
             {% for course in courses %}
             <tr>
-                    <td><strong>{{ course.courseName }}</strong></td>
+                    <td>{% if is_granted('ROLE_ADMIN') %}
+                        <a class="" href="{{ path('course_edit', { 'id': course.id }) }}"><strong>{{ course.courseName }}</strong></a>
+                        {% else %}
+                        <strong>{{ course.courseName }}</strong>
+                    {% endif %}</td>
                     <td class="hidden-md hidden-sm hidden-xs">{{ course.title }}</td>
                     <td>{{ course.instructorName|upper }}</td>
                     <td>{{ course.days }}</td>
