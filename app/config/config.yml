@@ -104,8 +104,7 @@ be_simple_sso_auth:
             id: cas
             login_url: https://cas.uga.edu/cas/login
             logout_url: https://cas.uga.edu/cas/logout
-            validation_url: https://cas.uga.edu/cas/validate
-
+            validation_url: https://cas.uga.edu/cas/serviceValidate
 
 fos_user:
     db_driver: orm

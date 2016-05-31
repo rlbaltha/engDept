@@ -79,28 +79,6 @@ class CourseController extends Controller
         }  
 
         
-    /**
-     * Finds and displays a Course entity.
-     *
-     * @Route("/{id}/show", name="course_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Course entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
-    }
 
     /**
      * Displays a form to create a new Course entity.
@@ -170,6 +148,9 @@ class CourseController extends Controller
      */
     public function editAction($id)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
@@ -197,9 +178,14 @@ class CourseController extends Controller
      */
     public function updateAction($id)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
+        $callNumber = $entity->getCallNumber();
+        $term = $entity->getTerm();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Course entity.');
@@ -216,7 +202,7 @@ class CourseController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('listings_detail', array('callNumber' => $callNumber, 'term' => $term)));
         }
 
         return array(
@@ -251,7 +237,7 @@ class CourseController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('course'));
+        return $this->redirect($this->generateUrl('listings'));
     }
 
     private function createDeleteForm($id)
