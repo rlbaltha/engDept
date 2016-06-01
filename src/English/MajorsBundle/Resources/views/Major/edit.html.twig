@@ -12,7 +12,7 @@
             </div>
 
             <div id="confirm" class="pull-right">
-                <form action="{{ path('donate_delete', { 'id': major.id}) }}" method="post">
+                <form action="{{ path('major_delete', { 'id': major.id}) }}" method="post">
                     {{ form_widget(delete_form) }}
                     <button class="btn btn-warning"type="submit">Confirm Delete</button>
                 </form>

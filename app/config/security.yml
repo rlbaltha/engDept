@@ -48,10 +48,10 @@ security:
 #                path:   /logout
 #                target: /
 #            anonymous:    true
-#
-#
-#    encoders:
-#        FOS\UserBundle\Model\UserInterface: sha512
+
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
 
 
     access_control:

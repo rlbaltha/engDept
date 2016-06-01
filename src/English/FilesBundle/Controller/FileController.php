@@ -58,24 +58,6 @@ class FileController extends Controller
     /**
      * Lists all File entities.
      *
-     * @Route("/{section}/{labelid}/", name="file", defaults={"section" = "search"} )
-     * @Template()
-     */
-    public function indexAction($labelid)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.created DESC";
-        $files = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
-        $dql2 = "SELECT l FROM EnglishFilesBundle:Label l WHERE l.display = TRUE";
-        $labels = $em->createQuery($dql2)->getResult();
-        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
-        $labelid = $label->getId();
-        return array('files' => $files, 'labels' => $labels, 'labelid' => $labelid,);
-    }
-
-    /**
-     * Lists all File entities.
-     *
      * @Route("/imagebrowser", name="imagebrowser")
      * @Template()
      */
@@ -146,7 +128,7 @@ class FileController extends Controller
     /**
      * Displays a form to edit an existing File entity.
      *
-     * @Route("/{id}/edit", name="file_edit")
+     * @Route("/edit/{id}", name="file_edit")
      * @Template()
      */
     public function editAction($id)
@@ -172,7 +154,7 @@ class FileController extends Controller
     /**
      * Edits an existing File entity.
      *
-     * @Route("/{id}/update", name="file_update")
+     * @Route("/update/{id}", name="file_update")
      * @Method("post")
      * @Template("EnglishFilesBundle:File:edit.html.twig")
      */
@@ -244,7 +226,25 @@ class FileController extends Controller
             ->getForm()
         ;
     }
-    
+
+
+    /**
+     * Lists all File entities.
+     *
+     * @Route("/{section}/{labelid}/", name="file", defaults={"section" = "search"} )
+     * @Template()
+     */
+    public function indexAction($labelid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dql1 = "SELECT f FROM EnglishFilesBundle:File f JOIN f.label l WHERE l.id = ?1 ORDER BY f.created DESC";
+        $files = $em->createQuery($dql1)->setParameter('1',$labelid)->getResult();
+        $dql2 = "SELECT l FROM EnglishFilesBundle:Label l WHERE l.display = TRUE";
+        $labels = $em->createQuery($dql2)->getResult();
+        $label = $em->getRepository('EnglishFilesBundle:Label')->findNewsletterLabel();
+        $labelid = $label->getId();
+        return array('files' => $files, 'labels' => $labels, 'labelid' => $labelid,);
+    }
     
     /**
      * Finds and displays a File.
