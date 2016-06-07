@@ -1,10 +1,10 @@
 login:
-    pattern: /login
+    path: /login
     defaults: { _controller: EnglishHomeBundle:Default:index }
 login_check:
-    pattern: /login_check
+    path: /login_check
 logout:
-    pattern: /logout
+    path: /logout
     defaults: { _controller: EnglishHomeBundle:Default:index }
 
 wwwRedirect:
@@ -22,40 +22,40 @@ english_pages:
 
 # redirects for old urls
 FYCdefault:
-    pattern:  /fyc/home.html
+    path:  /fyc/home.html
     defaults: { _controller: EnglishPagesBundle:Page:show, id:1 }
 
 GRADdefault:
-    pattern:  /grad/home.html
+    path:  /grad/home.html
     defaults: { _controller: EnglishPagesBundle:Page:show, id:5 }
 
 UNDERGRADdefault:
-    pattern:  /undergrad/home.html
+    path:  /undergrad/home.html
     defaults: { _controller: EnglishPagesBundle:Page:show, id:9 }
 
 BISPIndexRedirect:
-    pattern: /bisp
+    path: /bisp
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: http://bis.uga.edu/
         permanent: true
 
 BISPIndexSlashRedirect:
-    pattern: /bisp/
+    path: /bisp/
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: http://bis.uga.edu/
         permanent: true
 
 BISPRedirect:
-    pattern: /bisp/{page}
+    path: /bisp/{page}
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: http://bis.uga.edu/
         permanent: true
 
 CWPRedirect:
-    pattern: /grad/areas/creativewrit.html
+    path: /grad/areas/creativewrit.html
     defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
 
 CWPRedirect2:
@@ -65,42 +65,42 @@ CWPRedirect2:
 
 
 BlakeIndexRedirect:
-    pattern: /Blake_Concordance
+    path: /Blake_Concordance
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  http://www.english.uga.edu/~nhilton/ee/home.html
         permanent: true
 
 BlakeIndexSlashRedirect:
-    pattern: /Blake_Concordance/
+    path: /Blake_Concordance/
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  http://www.english.uga.edu/~nhilton/ee/home.html
         permanent: true
 
 BlakeRedirect:
-    pattern: /Blake_Concordance/{page}
+    path: /Blake_Concordance/{page}
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  http://www.english.uga.edu/~nhilton/ee/home.html
         permanent: true
 
 WBlakeIndexRedirect:
-    pattern: /wblake
+    path: /wblake
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  http://www.english.uga.edu/~nhilton/wblake/home1.html
         permanent: true
 
 WBlakeIndexSlashRedirect:
-    pattern: /wblake/
+    path: /wblake/
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  http://www.english.uga.edu/~nhilton/wblake/home.html
         permanent: true
 
 WBlakeRedirect:
-    pattern: /wblake/{page}
+    path: /wblake/{page}
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path:  http://www.english.uga.edu/~nhilton/wblake
@@ -114,7 +114,7 @@ WritingcenterRedirect:
 # end of redirects
 
 default:
-    pattern:  /
+    path:  /
     defaults: { _controller: EnglishHomeBundle:Default:index }
     
 EnglishDonateBundle:
