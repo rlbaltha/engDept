@@ -60,20 +60,14 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/home, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-
-        - { path: ^/newsletter, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/advisor/, role: ROLE_ADVISORADMIN }
         - { path: ^/area/, role: ROLE_ADMIN }
         - { path: ^/slideshow/, role: ROLE_ADMIN }
         - { path: ^/spotlight/, role: ROLE_ADMIN }
         - { path: ^/term/, role: ROLE_ADMIN }
-
         - { path: ^/section/, role: ROLE_PAGEADMIN }
-
         - { path: ^/file/, role: ROLE_SEARCH }
-
         - { path: ^/calendar/, role: ROLE_USER }
         - { path: ^/course/, role: ROLE_USER }
         - { path: ^/description/, role: ROLE_USER }
@@ -86,3 +80,5 @@ security:
         - { path: ^/mentor/, role: ROLE_ADVISORADMIN }
         - { path: ^/people/, role: ROLE_USER }
         - { path: ^/home/feed, role: ROLE_USER}
+        - { path: ^/newsletter, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
