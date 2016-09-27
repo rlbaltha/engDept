@@ -42,7 +42,10 @@
             <tbody>
             {% for course in courses %}
                 <tr class="{% if course.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
-                    <td>{{ course.termName }}</td>
+                    <td>{% if is_granted('ROLE_COURSEADMIN') or is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-primary btn-xs" href="{{ path('course_edit', { 'id': course.id }) }}">Edit</a>
+                        {% endif %}
+                        {{ course.termName }}</td>
                     <td class=""><strong><a href="{{ path('listings_detail', { 'callNumber': course.callNumber, 'term': course.term }) }}"
                                    title="Course Detail">{{ course.courseName }}</a></strong>
                         {% if course.max == '0' and  is_granted('ROLE_COURSEADMIN') %}(hidden){% endif %}
