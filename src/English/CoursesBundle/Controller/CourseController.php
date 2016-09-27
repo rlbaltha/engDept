@@ -88,12 +88,18 @@ class CourseController extends Controller
      */
     public function newAction()
     {
-
+        $em = $this->getDoctrine()->getManager();
+        $currrentTerm = $em->getRepository('EnglishTermBundle:Term')->findDefaultTerm();
+        $term = $currrentTerm->getTerm();
         $entity = new Course();
         $entity->setCourseName('ENGL');
         $entity->setBuilding('Park Hall');
         $entity->setInstructorName('Staff');
         $entity->setCallNumber('00000');
+        $entity->setTerm($term);
+        $entity->setDays('TBA');
+        $entity->setTime('TBA');
+        $entity->setRoom('TBA');
 
         $form   = $this->createForm(new CourseType(), $entity);
 
@@ -120,8 +126,9 @@ class CourseController extends Controller
         $entity  = new Course();
         
         $entity->setUserid($userid);
-        
+
         $request = $this->getRequest();
+
         $form    = $this->createForm(new CourseType(), $entity);
         $form->submit($request);
 
@@ -130,7 +137,7 @@ class CourseController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('listings_detail', array('callNumber' => $entity->getCallNumber(), 'term' => $entity->getTerm())));
             
         }
 

@@ -11,12 +11,14 @@ class CourseType extends AbstractType
     {
         $builder
             ->add('courseName', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('title', 'text', array('attr' => array('class' => 'form-control')))
             ->add('instructorName', 'text', array('attr' => array('class' => 'form-control')))
             ->add('callNumber', 'text', array('attr' => array('class' => 'form-control')))
             ->add('building', 'text', array('attr' => array('class' => 'form-control')))
             ->add('room', 'text', array('attr' => array('class' => 'form-control')))
             ->add('days', 'text', array('attr' => array('class' => 'form-control')))
             ->add('time', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('term', 'text', array('attr' => array('class' => 'form-control')))
             ->add('may')
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
 
