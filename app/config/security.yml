@@ -48,10 +48,10 @@ security:
 #                path:   /logout
 #                target: /
 #            anonymous:    true
-
-
-    encoders:
-        FOS\UserBundle\Model\UserInterface: sha512
+#
+#
+#    encoders:
+#        FOS\UserBundle\Model\UserInterface: sha512
 
 
     access_control:
@@ -65,7 +65,7 @@ security:
         - { path: ^/area/, role: ROLE_ADMIN }
         - { path: ^/slideshow/, role: ROLE_ADMIN }
         - { path: ^/spotlight/, role: ROLE_ADMIN }
-        - { path: ^/term/, role: ROLE_ADMIN }
+        - { path: ^/term/, role: ROLE_COURSEADMIN }
         - { path: ^/section/, role: ROLE_PAGEADMIN }
         - { path: ^/file/, role: ROLE_SEARCH }
         - { path: ^/calendar/, role: ROLE_USER }

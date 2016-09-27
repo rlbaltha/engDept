@@ -178,7 +178,7 @@ class CourseController extends Controller
      */
     public function updateAction($id)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (!$this->get('security.context')->isGranted('ROLE_COURSEADMIN')) {
             throw new AccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
@@ -221,7 +221,7 @@ class CourseController extends Controller
     public function deleteAction($id)
     {
 
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (!$this->get('security.context')->isGranted('ROLE_COURSEADMIN')) {
             throw new AccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
