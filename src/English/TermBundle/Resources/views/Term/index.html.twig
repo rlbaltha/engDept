@@ -7,7 +7,7 @@
                     <td>{{ term.term }}</td>
                     <td>{{ term.termName }}</td>
                     <td>{% if term.type == 1 %}Display in Menu{% elseif term.type == 3 %}Pending{% elseif term.type == 2 %}Default{% else %}Archive{% endif %}</td>
-                    <td>{% if is_granted('ROLE_ADMIN') %}
+                    <td>{% if is_granted('ROLE_COURSEADMIN') %}
                             <a class="pull-right" href="{{ path('term_edit', { 'id': term.id }) }}">Update/Delete</a>
                         {% endif %}</td>
                 </tr>

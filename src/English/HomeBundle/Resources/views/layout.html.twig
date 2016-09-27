@@ -10,29 +10,31 @@
     {% block sidebar %}
         <li><a class='last' title="Logout" href="{{ path('people_profile') }}">Profile</a></li>
         {% if is_granted('ROLE_ADVISOR') %}
-    <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
-{% endif %}
+            <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
+        {% endif %}
         <li><a title="Calendar" href="{{ path('calendar') }}">Calendar</a></li>
-        <li><a title="Dept. Information" href="{{ path('pages_show', { 'id': 124, 'sub':'dept' }) }}">Dept. Info.</a></li>
+        <li><a title="Dept. Information" href="{{ path('pages_show', { 'id': 124, 'sub':'dept' }) }}">Dept. Info.</a>
+        </li>
         {% if is_granted('ROLE_SEARCH') or is_granted('ROLE_SEARCHADMIN') %}
-    <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
-{% endif %}
+            <li><a title="Search Files" href="{{ path('file', {'labelid':'0'}) }}">Search</a></li>
+        {% endif %}
         </li>
         <li><a title="Chronicle News" href="{{ path('home_feed') }}">Chronicle News</a></li>
-
+        {% if is_granted('ROLE_COURSEADMIN') %}
+            <li><a title="Term" href="{{ path('term') }}">Term</a></li>
+        {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
-    <li>Admin</li>
-    <li><a title="Areas" href="{{ path('area') }}">Areas</a></li>
-    <li><a title="Positions" href="{{ path('position') }}">Positions</a></li>
-    <li><a title="Slideshow" href="{{ path('slideshow') }}">Slideshow</a></li>
-    <li><a title="Spotlight" href="{{ path('spotlight') }}">Spotlight</a></li>
-    <li><a title="Term" href="{{ path('term') }}">Term</a></li>
-    <li><a title="Labels" href="{{ path('label') }}">Labels</a></li>
-    <li><a title="Labels" href="{{ path('section') }}">Sections</a></li>
-{% endif %}
+            <li>Admin</li>
+            <li><a title="Areas" href="{{ path('area') }}">Areas</a></li>
+            <li><a title="Positions" href="{{ path('position') }}">Positions</a></li>
+            <li><a title="Slideshow" href="{{ path('slideshow') }}">Slideshow</a></li>
+            <li><a title="Spotlight" href="{{ path('spotlight') }}">Spotlight</a></li>
+            <li><a title="Labels" href="{{ path('label') }}">Labels</a></li>
+            <li><a title="Labels" href="{{ path('section') }}">Sections</a></li>
+        {% endif %}
         {% if is_granted('ROLE_PAGEADMIN') %}
-    <li><a title="Labels" href="{{ path('newsletter_show') }}">Newsletter</a></li>
-{% endif %}
+            <li><a title="Labels" href="{{ path('newsletter_show') }}">Newsletter</a></li>
+        {% endif %}
     {% endblock %}
 {% endif %}
 
