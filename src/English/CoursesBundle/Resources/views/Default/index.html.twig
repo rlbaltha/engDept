@@ -51,7 +51,7 @@
                     <td>{{ course.instructorName|upper }}</td>
                     <td>{{ course.days }}</td>
                     <td>
-                        {% if course.time > 0%}
+                        {% if course.time == 'TBA'%}TBA{% elseif course.time > 0 %}
                         {% if course.time|slice(0,2) > 12 %}{{ course.time|slice(0,2) - 12}}
                         {% else %}{{ course.time|slice(0,2)|number_format}}{% endif %}:{{ course.time|slice(2,2)}}{% if course.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}
                         {% else %}
