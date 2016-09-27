@@ -26,7 +26,7 @@ class CourseController extends Controller
     public function indexAction()
     {
         
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if ($this->get('security.context')->isGranted('ROLE_COURSEADMIN')) {
         $em = $this->getDoctrine()->getManager();
         $dql1 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
         $courses = $em->createQuery($dql1)->getResult();
@@ -148,7 +148,7 @@ class CourseController extends Controller
      */
     public function editAction($id)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (!$this->get('security.context')->isGranted('ROLE_COURSEADMIN')) {
             throw new AccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
@@ -220,6 +220,10 @@ class CourseController extends Controller
      */
     public function deleteAction($id)
     {
+
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 

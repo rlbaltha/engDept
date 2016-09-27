@@ -42,7 +42,7 @@
             <tbody>
             {% for course in courses %}
                 <tr class="{% if course.max == '0' and not is_granted('ROLE_COURSEADMIN') %}hide{% endif %}">
-                    <td>{% if is_granted('ROLE_COURSEADMIN') or is_granted('ROLE_ADMIN') %}
+                    <td>{% if is_granted('ROLE_COURSEADMIN') %}
                             <a class="btn btn-primary btn-xs" href="{{ path('course_edit', { 'id': course.id }) }}">Edit</a>
                         {% endif %}
                         {{ course.termName }}</td>
