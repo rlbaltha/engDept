@@ -224,6 +224,11 @@ class CourseController extends Controller
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('EnglishCoursesBundle:Course')->find($id);
+        $term = $entity->getTerm();
+
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
@@ -241,7 +246,7 @@ class CourseController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('listings'));
+        return $this->redirect($this->generateUrl('listings_list', array('term' => $term, 'type' => 'Upper')));
     }
 
     private function createDeleteForm($id)
