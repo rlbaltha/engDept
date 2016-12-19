@@ -12,7 +12,7 @@
                 <th class="hidden-md hidden-sm hidden-xs">Building</th>
                 <th>Room</th>
                 <th class="hidden-md hidden-sm hidden-xs">Call</th>
-                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in courses[0].term %}Maymester{% endif %}</th>
+                <th class="hidden-md hidden-sm hidden-xs">{% if '05' in courses[0].term %}Sub-term{% endif %}</th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                     <td class="hidden-md hidden-sm hidden-xs">{{ course.building }}</td>
                     <td>{{ course.room }}</td>
                     <td class="hidden-md hidden-sm hidden-xs">{{ course.callNumber }}{{ course.callNumber2 }}</td>
-                    <td class="hidden-md hidden-sm hidden-xs">{% if course.may == 1 %}Maymester{% endif %}</td>
+                    <td class="hidden-md hidden-sm hidden-xs">{% if course.may == 1 %}Maymester{% endif %} {{ course.summerterm }}</td>
             </tr>
             {% endfor %}
             </tbody>

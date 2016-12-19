@@ -20,6 +20,7 @@ class CourseType extends AbstractType
             ->add('time', 'text', array('attr' => array('class' => 'form-control')))
             ->add('term', 'text', array('attr' => array('class' => 'form-control')))
             ->add('area', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('summerterm', 'text', array('attr' => array('class' => 'form-control')))
             ->add('may')
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
 

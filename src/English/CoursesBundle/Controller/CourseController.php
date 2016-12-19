@@ -28,7 +28,7 @@ class CourseController extends Controller
         
         if ($this->get('security.context')->isGranted('ROLE_COURSEADMIN')) {
         $em = $this->getDoctrine()->getManager();
-        $dql1 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
+        $dql1 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName,c.summerterm FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE c.term=t.term AND t.type = 2";
         $courses = $em->createQuery($dql1)->getResult();
       
         
@@ -45,7 +45,7 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getManager();
         $oasisname = $em->getRepository('EnglishPeopleBundle:People')->findOneByUsername($username)->getOasisname();  
         $oasisname = '%'.strtolower($oasisname).'%';
-        $dql2 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE (LOWER(c.instructorName) LIKE ?1) AND c.term=t.term AND t.type >= 1";
+        $dql2 = "SELECT c.id,c.courseName,c.title,c.instructorName,c.callNumber,c.callNumber2,c.time,c.days,c.term,t.termName,c.summerterm FROM EnglishCoursesBundle:Course c,EnglishTermBundle:Term t  WHERE (LOWER(c.instructorName) LIKE ?1) AND c.term=t.term AND t.type >= 1";
         $courses = $em->createQuery($dql2)->setParameter('1',$oasisname)->getResult();
         return array('courses' => $courses);
         }

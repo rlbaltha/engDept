@@ -129,6 +129,13 @@ class Course
     private $may;
 
     /**
+     * @var string $title
+     *
+     * @ORM\Column(name="summerterm", type="string", length=255, nullable=true)
+     */
+    private $summerterm;
+
+    /**
      * @var text $notes
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
@@ -549,5 +556,29 @@ class Course
     public function getMax()
     {
         return $this->max;
+    }
+
+    /**
+     * Set summerterm
+     *
+     * @param string $summerterm
+     *
+     * @return Course
+     */
+    public function setSummerterm($summerterm)
+    {
+        $this->summerterm = $summerterm;
+
+        return $this;
+    }
+
+    /**
+     * Get summerterm
+     *
+     * @return string
+     */
+    public function getSummerterm()
+    {
+        return $this->summerterm;
     }
 }
