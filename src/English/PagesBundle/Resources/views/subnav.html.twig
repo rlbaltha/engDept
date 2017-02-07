@@ -28,7 +28,7 @@
                 <a class="navbar-brand"
                    href="#">
                     {% if 'pages_show' in app.request.get('_route' ) or 'newsletter' in app.request.get('_route' ) %}
-                    <h3 style="margin-top: 0px;margin-left: 20px;">
+                    <h3  style="margin-top: 0px;margin-left: 20px;">
                         {% if page.section.name == 'grad' %}Graduate Studies in English
                         {% elseif  page.section.name == 'undergrad' %}Undergraduate Studies in English
                         {% elseif  page.section.name == 'fyc' %}First-year Composition
@@ -40,7 +40,7 @@
                         {% else %}
                             Sections
                         {% endif %}
-                    </h1>
+                    </h3>
                 </a>
             </div>
             {% if is_granted('ROLE_PAGEADMIN') %}
