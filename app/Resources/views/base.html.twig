@@ -12,8 +12,8 @@
         <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/local.css') }}">
-        <link href='https://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 
         <style type="text/css">
             th.header {
@@ -59,8 +59,13 @@
 
 </head>
 <body>
-<div class="col-sm-12" style="padding:0; background-color: #f5f5f5; ">
-    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="col-sm-12" style="padding:0; ">
+    <div class="header-row">
+        <a class="navbar-brand "  href="{{ path('home') }}"
+           title="English Department Homepage"><img class="header-img" alt="UGA English Department logo" src="{{ asset('bundles/englishhome/images/logo.png') }}"/></a>
+
+    </div>
+        <nav class="navbar navbar-default">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnav">
                 <span class="sr-only">Toggle navigation</span>
@@ -68,8 +73,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"  href="{{ path('home') }}"
-               title="English Department Homepage">English <span class="hidden-md hidden-sm hidden-xs">at UGA</span></a>
+
         </div>
 
         <div id="mainnav" class="navbar-collapse collapse">
@@ -77,15 +81,18 @@
                 <li id="skip">
                     <a id="main_nav" href="#main_content">Skip Navigation</a>
                 </li>
-                <li><a href="{{ path('directory') }}">People</a></li>
-                <li><a href="{{ path('listings') }}">Courses</a></li>
-                <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Comp.</a></li>
-                <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate</a>
+
+                <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Composition</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate Studies</a>
                 </li>
-                <li><a href="{{ path('pages_show', { 'id': 5, 'sub':'grad' }) }}">Graduate</a></li>
+                <li><a href="{{ path('pages_show', { 'id': 5, 'sub':'grad' }) }}">GraduateStudies</a></li>
                 <li><a href="{{ path('pages_show', { 'id': 143, 'sub':'cwp' }) }}">Creative Writing</a></li>
                 <li><a href="{{ path('pages_newsletter') }}">Newsletter</a></li>
                 <li><a href="{{ path('pages_show', { 'id': 156, 'sub':'donate' }) }}">Make a Gift</a></li>
+
+                <li><a href="{{ path('listings') }}">Courses</a></li>
+                <li><a href="{{ path('directory') }}">People</a></li>
+                <li><a href="{{ path('calendar_index') }}">Events</a></li>
 
             </ul>
 
@@ -102,20 +109,13 @@
                     <li id="skip">
                         <a id="main_content" href="#main_nav">Skip to Top</a>
                     </li>
-                <li>
-                    <a style="padding:0" href="http://www.uga.edu" target="_blank">
-                        <img alt="UGA Arch logo" title="Go to the UGA homepage"
-                             style="height:50px; float: right; margin-right: 0; margin-left: 10px; border-left: solid white 5px; "
-                             src="{{ asset('bundles/englishhome/images/archB.gif') }}"/>
-                    </a>
-                </li>
             </ul>
 
         </div>
     </nav>
 
 
-    <div id="mainContainer" style="margin-top: 45px;">
+    <div id="mainContainer">
 
         {{ block('subnav') }}
 
@@ -225,7 +225,7 @@
 
 </div>
 
-<div class="col-sm-12 navbar-inverse">
+<div class="col-sm-12 subnav">
     <div class="col-sm-offset-4">
         <p style='margin-top: 20px;'>The Department of English |
             <a href="http://www.franklin.uga.edu" target="_blank">Franklin College of Arts & Sciences</a> |
