@@ -85,18 +85,18 @@
                 </li>
 
                 {% if 'englvm01' in app.request.uri|lower %}
-                    <li><a href="https://engl.test.franklin.uga.edu/first-year-composition">First Year Composition</a></li>
-                    <li><a href="https://engl.test.franklin.uga.edu/undergraduate-studies">Undergraduate Studies</a>
+                    <li><a href="https://engl.prod.franklin.uga.edu/first-year-composition">First Year Composition</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/undergraduate-studies">Undergraduate Studies</a>
                     </li>
-                    <li><a href="https://engl.test.franklin.uga.edu/graduate-studies">Graduate Studies</a></li>
-                    <li><a href="https://engl.test.franklin.uga.edu/creative-writing-program">The Creative Writing Program</a></li>
-                    <li><a href="{{ path('pages_newsletter') }}">Newsletter</a></li>
-                    <li><a href="https://engl.test.franklin.uga.edu/make-gift">Make a Gift</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/graduate-studies">Graduate Studies</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/creative-writing-program">The Creative Writing Program</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/park-hall-monitor">Newsletter</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/make-gift">Make a Gift</a></li>
 
                     <li><a href="{{ path('listings') }}">Courses</a></li>
-                    <li><a href="https://engl.test.franklin.uga.edu/directory/graduate-faculty">People</a></li>
-                    <li><a href="https://engl.test.franklin.uga.edu/news/all">News</a></li>
-                    <li><a href="https://engl.test.franklin.uga.edu/events/all">Events</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/directory/graduate-faculty">People</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/news/all">News</a></li>
+                    <li><a href="https://engl.prod.franklin.uga.edu/events/all">Events</a></li>
                 {% else %}
                     <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Composition</a></li>
                     <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate Studies</a>
