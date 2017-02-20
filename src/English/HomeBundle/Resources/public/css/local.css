@@ -64,6 +64,7 @@ div#content > div {
 
 .navbar-default{
     background-color: #fffaf0;
+    border-top: 0;
 
 }
 .navbar .navbar-nav > li > a {
@@ -115,7 +116,7 @@ div#content > div {
     margin-bottom: 0;
     background-color: #eeeeee;
     color: #5c6878;
-    margin-top: -16px;
+    margin-top: -20px;
 }
 
 
@@ -148,6 +149,14 @@ div#content > div {
 
 ul ul, ol ul {
     list-style-type: none;
+}
+
+ul.nav > li > a {
+    padding-top:0;padding-bottom: 0;
+}
+
+#subnav  li > a {
+    padding-top:15px;padding-bottom: 0;
 }
 
 /********** Accessibility **********/

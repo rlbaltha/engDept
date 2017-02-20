@@ -61,7 +61,7 @@
 </head>
 <body>
 <div class="col-sm-12" style="padding:0; ">
-    <div class="header-row">
+    <div class="header-row" style="padding-left:10%; padding-right:10%">
         <a class="navbar-brand " href="{{ path('home') }}"
            title="English Department Homepage"><img class="header-img" alt="UGA English Department logo"
                                                     src="{{ asset('bundles/englishhome/images/logo.png') }}"/></a>
@@ -78,13 +78,13 @@
 
         </div>
 
-        <div id="mainnav" class="navbar-collapse collapse">
+        <div id="mainnav" class="navbar-collapse collapse" style="padding-left:10%; padding-right:10%;">
             <ul class="nav navbar-nav">
                 <li id="skip">
                     <a id="main_nav" href="#main_content">Skip Navigation</a>
                 </li>
 
-                {% if 'englvm01' in app.request.uri|lower %}
+                {% if 'englvm01' in app.request.uri|lower or 'localhost' in app.request.uri|lower %}
                     <li><a href="https://engl.prod.franklin.uga.edu/first-year-composition">First Year Composition</a></li>
                     <li><a href="https://engl.prod.franklin.uga.edu/undergraduate-studies">Undergraduate Studies</a>
                     </li>
@@ -112,7 +112,8 @@
                 {% endif %}
 
             </ul>
-
+            {% if 'englvm01' in app.request.uri|lower or 'localhost' in app.request.uri|lower %}
+            {% else %}
             <ul class="nav navbar-nav navbar-right" id="account-dropdown">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li>
@@ -127,6 +128,7 @@
                     <a id="main_content" href="#main_nav">Skip to Top</a>
                 </li>
             </ul>
+            {% endif %}
 
         </div>
     </nav>
