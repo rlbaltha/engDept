@@ -11,30 +11,6 @@
 
 {% block subnav %}
 
-<!-- Static navbar -->
-<div class="navbar navbar-default subnav" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#subnav">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#"><h1 class="small" style="margin-top: 0px;margin-left: 20px;">TA/Instructor Information</h1></a>
-
-        </div>
-        <div id="subnav" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ path('directory_type', {'type': '4'}) }} "  title="Select directory type" >Graduate Students</a></li>
-                <li><a href="{{ path('detail') }} "  title="TA/Instructor Information" >List TA/Instructor Details</a></li>
-                <li><a href="{{ path('detail', {'type': 'grad'}) }} "  title="Graduates" >List Graduates</a></li>
-            </ul>
-
-        </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
-</div>
 
 {% endblock %}
 

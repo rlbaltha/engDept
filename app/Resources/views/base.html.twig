@@ -97,6 +97,12 @@
                     <li><a href="http://www.english.uga.edu/directory/graduate-faculty">People</a></li>
                     <li><a href="http://www.english.uga.edu/news/all">News</a></li>
                     <li><a href="http://www.english.uga.edu/events/all">Events</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li><a class='last' title="Logout" href="{{ path('people_profile') }}">Descriptions</a></li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADVISOR') %}
+                        <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
+                    {% endif %}
                 {% else %}
                     <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Composition</a></li>
                     <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate Studies</a>
@@ -138,39 +144,6 @@
 
         {{ block('subnav') }}
 
-
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and block('sidebar') %}
-
-            <div class="row-offcanvas row-offcanvas-left">
-                <div id="sidebar" class="sidebar-offcanvas">
-                    <div class="col-md-12">
-
-                        <ul class="nav nav-pills nav-stacked">
-                            {{ block('sidebar') }}
-                        </ul>
-                    </div>
-                </div>
-                <div id="main" role="main">
-                    <div class="col-md-12">
-                        <p class="visible-xs">
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i
-                                        class="glyphicon glyphicon-chevron-left"></i>
-                            </button>
-                        </p>
-                        <div class="row">
-                            <div class="col-md-12" style="background-color: #f3f0dd; min-height: 100vh">
-                                <div class="well">
-                                    {% block content %}
-                                    {% endblock %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/row-offcanvas -->
-
-        {% else %}
-
             <div id="main" role="main">
                 <div class="col-md-12">
                     <div class="row">
@@ -188,10 +161,6 @@
                     </div>
                 </div>
             </div>
-
-
-        {% endif %}
-
     </div>
 
 

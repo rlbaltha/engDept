@@ -15,56 +15,5 @@
 
 {% block subnav %}
 
-<!-- Static navbar -->
-<div class="navbar navbar-default subnav" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#subnav">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#"><h3 style="margin-top: 0px;margin-left: 20px;">{% if heading == '2' %}Instructors{% elseif heading == '3' %}Administration{% elseif heading == '4' %}Graduate Students{% elseif heading == '5' %}Retired/Emeritus{% else %}Faculty{% endif %}</h3></a>
-
-        </div>
-        <div id="subnav" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ path('directory_type', {'type': '1'}) }} "  title="Select directory type" >Faculty</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        {% for area in areas %}
-                            <li><a href="{{ path('directory_area', {'area': area.id}) }} "  title="Select area" >{{area.area}}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                <li><a href="{{ path('directory_type', {'type': '2'}) }} "  title="Select directory type" >Instructors</a></li>
-                <li><a href="{{ path('directory_type', {'type': '3'}) }} "  title="Select directory type" >Administration</a></li>
-                <li><a href="{{ path('directory_type', {'type': '4'}) }} "  title="Select directory type" >Graduate Students</a></li>
-                <li><a href="{{ path('directory_type', {'type': '5'}) }} "  title="Select directory type" >Retired/Emeritus Faculty</a></li>
-                {% if is_granted('ROLE_GRADADMIN') %}
-                    <li><a title="Gradcom" href="{{ path('people_gradfac') }}">Graduate Faculty</a></li>
-                {% endif %}
-                {% if is_granted('ROLE_TAADMIN') %}
-                    <li><a href="{{ path('detail') }} "  title="TA/Instructor Information" >List TA/Instructor Details</a></li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GRADADMIN') %}
-                <li><a href="{{ path('people_new') }}">New Listing</a></li>
-                {% endif %}
-
-            </ul>
-                    <form class="navbar-form navbar-right hidden-sm" role="search" action="{{ path('directory') }}" method="post" {{ form_enctype(search_form) }}>
-                        <div class="form-group">
-                            {{ form_row(search_form.lastName) }}
-                        </div>
-                        <button type="submit" class="btn btn-default">Go</button>
-                    </form>
-
-        </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
-</div>
-
 {% endblock %}
 

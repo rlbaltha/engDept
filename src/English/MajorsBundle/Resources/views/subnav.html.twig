@@ -16,7 +16,7 @@
 
 {% block subnav %}
     <!-- Static navbar -->
-    <div class="navbar navbar-default subnav" role="navigation" >
+    <div class="navbar navbar-default subnav" role="navigation"  style="padding-left:10%; padding-right:10%;">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -27,7 +27,7 @@
                 </button>
                 <a class="navbar-brand" href="#">Majors</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="subnav" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     {% if is_granted('ROLE_ADVISORADMIN') %}
                         <li><a href="{{ path('major_new') }}">Add a New Major</a></li>

@@ -22,29 +22,6 @@
      </div>
      </div>  
 
-    <div class="row divider">
-    {% if entity.photoUrl != '' %}
-        <div class="cell bio_photo">
-        <div class="photo_cell">
-        <img class="image" alt="Photo" src="{{ entity.photoUrl }}"/>
-        </div>
-        </div>
-    {% endif %}
-        <div class="cell bio_text">{% autoescape false %}{{ entity.bio }}{% endautoescape %}</div>
-        <div class="cell bio_text">
-            <span class="bold">Office hours: </span>{% autoescape false %}{{ entity.officeHours }}{% endautoescape %}
-        </div>
-        {% if entity.vitaUrl != '' %}
-        <div class="cell bio_text">
-            <span class="bold">Vita: </span><a href="{{ entity.vitaUrl }}" tabindex="1" title="Vita" target="_blank" >{{ entity.vitaUrl }}</a>
-        </div>
-        {% endif %}
-        {% if entity.homepageUrl != '' %}
-        <div class="cell bio_text">
-            <span class="bold">Website: </span><a href="{{ entity.homepageUrl }}" tabindex="1" title="Website" target="_blank" >{{ entity.homepageUrl }}</a>
-        </div>
-        {% endif %}
-    </div>
 
 {% if is_granted('ROLE_ADMIN')  %}
      <div class="row"><div class="cell bold">Internal Information</div></div>

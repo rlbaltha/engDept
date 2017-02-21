@@ -2,61 +2,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="{% if people.photoUrl != '' %}col-sm-6{% else %}col-sm-12{% endif %}">
-            <dl id="listing{{ people.id }}">
-                <dt>
-                <h2>{{ people.firstName }} {{ people.lastName }}</h2>
-                {% if app.user == people.username or is_granted('ROLE_ADMIN') %}
-                    <a class="btn btn-default pull-right"
-                       href="{{ path('people_edit', { 'id': people.id }) }}">Edit</a>
-                {% endif %}
-                </dt>
-                <dd>
-                    {{ people.title | raw }}
-                    <a href="mailto:{{ people.email }}" title="email address">{{ people.email }}</a>
-                    {% if people.officePhone != '' %}
-                        <span class="margin-left">
-                    Phone: {{ people.officePhone }}
-                    </span>
-                    {% endif %}
-                    {% if people.officeNumber != '' %}
-                        <span class="margin-left">
-                    Office:
-                            {{ people.officeNumber }}
-                    </span>
-                    {% endif %}
-                </dd>
-            </dl>
-            <p>
-                {{ people.bio|raw }}
-            </p>
-            {% if people.officeHours != '' %}
-                <p>
-                    <strong>Office hours: </strong>{{ people.officeHours|raw }}
-                </p>
-            {% endif %}
-            {% if people.vitaUrl != '' %}
-                <p>
-                    <strong>Vita: </strong><a href="{{ people.vitaUrl }}" title="Vita"
-                                              target="_blank">{{ people.vitaUrl }}</a>
-                </p>
-            {% endif %}
-            {% if people.homepageUrl != '' %}
-                <p>
-                    <strong>Website: </strong><a href="{{ people.homepageUrl }}" title="Website"
-                                                 target="_blank">{{ people.homepageUrl }}</a>
-                </p>
-            {% endif %}
-
-        </div>
-
-        {% if people.photoUrl != '' %}
-            <div class="col-sm-offset-2 col-sm-4">
-                <div class="thumbnail">
-                    <img class="img-responsive" src="{{ people.photoUrl }}" alt="{{ people.firstName }} {{ people.lastName }}">
-                </div>
-            </div>
-        {% endif %}
+        <h2>{{ people.firstName }} {{ people.lastName }}</h2>
     </div>
 
 
@@ -84,42 +30,46 @@
                         <td>{{ courses.room }}</td>
 
                     </tr>
-                    {% else %}
-                        <tr><td>No current course listings found.</td></tr>
+                {% else %}
+                    <tr>
+                        <td>No current course listings found.</td>
+                    </tr>
                 {% endfor %}
             </table>
 
             {% if is_granted('ROLE_USER') %}
-            <div class=" col-sm-12 page-header">
-                <h3 style="cursor: pointer" id="previous_courses_heading">Previous Courses (click to view/hide)</h3>
-            </div>
-            <table id="previous_courses" class="table table-striped">
-                {% for courses in peopleCourses if courses.type==0 %}
+                <div class=" col-sm-12 page-header">
+                    <h3 style="cursor: pointer" id="previous_courses_heading">Previous Courses (click to view/hide)</h3>
+                </div>
+                <table id="previous_courses" class="table table-striped">
+                    {% for courses in peopleCourses if courses.type==0 %}
                         {% if 'POD' in courses.callNumber or 'POH' in courses.callNumber %}
-                        {% set call = courses.callNumber2 %}
+                            {% set call = courses.callNumber2 %}
                         {% else %}
-                        {% set call = courses.callNumber %}{% endif %}
-                    <tr id="course{{ courses.id }}">
-                        <td>{{ courses.termName }}</td>
-                        <td>
-                            <strong><a href="{{ path('listings_detail', { 'callNumber': call, 'term': courses.term }) }}"
-                                       title="Course Detail">{{ courses.courseName }}</a></strong></td>
-                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
-                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}</td>
-                        <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber2 }}</td>
-                        {% if courses.may == 1 %}
-                            <td class="cell bold">Maymester</td>{% endif %}
-                        <td>{{ courses.days }}</td>
-                        <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12 }}{% else %}{{ courses.time|slice(0,2) }}{% endif %}
-                            :{{ courses.time|slice(2,2) }}{% if courses.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}</td>
-                        <td>{{ courses.building }}</td>
-                        <td>{{ courses.room }}</td>
+                            {% set call = courses.callNumber %}{% endif %}
+                        <tr id="course{{ courses.id }}">
+                            <td>{{ courses.termName }}</td>
+                            <td>
+                                <strong><a href="{{ path('listings_detail', { 'callNumber': call, 'term': courses.term }) }}"
+                                           title="Course Detail">{{ courses.courseName }}</a></strong></td>
+                            <td class="hidden-md hidden-sm hidden-xs">{{ courses.title }}</td>
+                            <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber }}</td>
+                            <td class="hidden-md hidden-sm hidden-xs">{{ courses.callNumber2 }}</td>
+                            {% if courses.may == 1 %}
+                                <td class="cell bold">Maymester</td>{% endif %}
+                            <td>{{ courses.days }}</td>
+                            <td>{% if courses.time|slice(0,2) > 12 %}{{ courses.time|slice(0,2) - 12 }}{% else %}{{ courses.time|slice(0,2) }}{% endif %}
+                                :{{ courses.time|slice(2,2) }}{% if courses.time|slice(0,2) > 11 %} PM{% else %} AM{% endif %}</td>
+                            <td>{{ courses.building }}</td>
+                            <td>{{ courses.room }}</td>
 
-                    </tr>
-                {% else %}
-                    <tr><td>No previous course listings found.</td></tr>
-                {% endfor %}
-            </table>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>No previous course listings found.</td>
+                        </tr>
+                    {% endfor %}
+                </table>
             {% endif %}
         </div>
     {% endif %}
@@ -201,7 +151,9 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         <div class="row">
-            <p><strong>ROLES:</strong>  {% for role in user.roles %} {{ role }}{% if not loop.last %}, {% endif %} {% endfor %}</p>
+            <p>
+                <strong>ROLES:</strong> {% for role in user.roles %} {{ role }}{% if not loop.last %}, {% endif %} {% endfor %}
+            </p>
             <ul>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Promote
                         Advisor</a></li>
