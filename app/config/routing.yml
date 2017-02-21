@@ -15,29 +15,20 @@ wwwRedirect:
         path: https://www.english.uga.edu
         permanent: true
 
-english_pages:
-    resource: "@EnglishPagesBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-# redirects for old urls
-FYCdefault:
-    path:  /fyc/home.html
-    defaults: { _controller: EnglishPagesBundle:Page:show, id:1 }
-
-GRADdefault:
-    path:  /grad/home.html
-    defaults: { _controller: EnglishPagesBundle:Page:show, id:5 }
-
-UNDERGRADdefault:
-    path:  /undergrad/home.html
-    defaults: { _controller: EnglishPagesBundle:Page:show, id:9 }
-
-BISPIndexRedirect:
-    path: /bisp
+WritingcenterRedirect:
+    path:  /
+    host: writingcenter.english.uga.edu
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
-        path: http://bis.uga.edu/
+        path: http://www.english.uga.edu/writing-center
+        permanent: true
+
+CWPRedirect:
+    path:  /
+    host: cwp.uga.edu
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: http://www.english.uga.edu/creative-writing-program
         permanent: true
 
 BISPIndexSlashRedirect:
@@ -46,70 +37,6 @@ BISPIndexSlashRedirect:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: http://bis.uga.edu/
         permanent: true
-
-BISPRedirect:
-    path: /bisp/{page}
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: http://bis.uga.edu/
-        permanent: true
-
-CWPRedirect:
-    path: /grad/areas/creativewrit.html
-    defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
-
-CWPRedirect2:
-    path:     /
-    host:     cwp.uga.edu
-    defaults: { _controller: EnglishPagesBundle:Page:show, id:143 }
-
-
-BlakeIndexRedirect:
-    path: /Blake_Concordance
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path:  http://www.english.uga.edu/~nhilton/ee/home.html
-        permanent: true
-
-BlakeIndexSlashRedirect:
-    path: /Blake_Concordance/
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path:  http://www.english.uga.edu/~nhilton/ee/home.html
-        permanent: true
-
-BlakeRedirect:
-    path: /Blake_Concordance/{page}
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path:  http://www.english.uga.edu/~nhilton/ee/home.html
-        permanent: true
-
-WBlakeIndexRedirect:
-    path: /wblake
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path:  http://www.english.uga.edu/~nhilton/wblake/home1.html
-        permanent: true
-
-WBlakeIndexSlashRedirect:
-    path: /wblake/
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path:  http://www.english.uga.edu/~nhilton/wblake/home.html
-        permanent: true
-
-WBlakeRedirect:
-    path: /wblake/{page}
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path:  http://www.english.uga.edu/~nhilton/wblake
-        permanent: true
-
-WritingcenterRedirect:
-    path:     /
-    host:     writingcenter.english.uga.edu
-    defaults: { _controller: EnglishPagesBundle:Page:show, id:34 }
 
 # end of redirects
 
@@ -224,26 +151,3 @@ EnglishAdvisorsBundle:
     type:     annotation
     prefix:   /
 
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-fos_user_profile:
-    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
-
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
-
-# Internal routing configuration to handle ESI
-#_internal:
-#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-#   prefix:   /_internal
