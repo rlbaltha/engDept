@@ -85,18 +85,18 @@
                 </li>
 
                 {% if 'englvm01' in app.request.uri|lower or 'localhost' in app.request.uri|lower %}
-                    <li><a href="https://engl.prod.franklin.uga.edu/first-year-composition">First Year Composition</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/undergraduate-studies">Undergraduate Studies</a>
+                    <li><a href="http://www.english.uga.edu/first-year-composition">First Year Composition</a></li>
+                    <li><a href="http://www.english.uga.edu/undergraduate-studies">Undergraduate Studies</a>
                     </li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/graduate-studies">Graduate Studies</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/creative-writing-program">The Creative Writing Program</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/park-hall-monitor">Newsletter</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/make-gift">Make a Gift</a></li>
+                    <li><a href="http://www.english.uga.edu/graduate-studies">Graduate Studies</a></li>
+                    <li><a href="http://www.english.uga.edu/creative-writing-program">The Creative Writing Program</a></li>
+                    <li><a href="http://www.english.uga.edu/park-hall-monitor">Newsletter</a></li>
+                    <li><a href="http://www.english.uga.edu/make-gift">Make a Gift</a></li>
 
                     <li><a href="{{ path('listings') }}">Courses</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/directory/graduate-faculty">People</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/news/all">News</a></li>
-                    <li><a href="https://engl.prod.franklin.uga.edu/events/all">Events</a></li>
+                    <li><a href="http://www.english.uga.edu/directory/graduate-faculty">People</a></li>
+                    <li><a href="http://www.english.uga.edu/news/all">News</a></li>
+                    <li><a href="http://www.english.uga.edu/events/all">Events</a></li>
                 {% else %}
                     <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Composition</a></li>
                     <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate Studies</a>
@@ -173,68 +173,14 @@
 
             <div id="main" role="main">
                 <div class="col-md-12">
-
-
-                    {% if app.request.attributes.get('_route')=='home' or 'default' in app.request.attributes.get('_route') %}
-                        <div class="row"
-                             style="padding: 0; min-height: 420px;max-height: 420px;background-color: #ffffff">
-
-                            <div id="carousel-example-generic" class="carousel slide col-sm-12 center"
-                                 data-ride="carousel" data-interval="12000" data-pause="hover">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    {% for slide in slideshow %}
-                                        <li data-target="#carousel-example-generic" data-slide-to="{{ loop.index }}"
-                                            class="{% if loop.first %}active{% endif %}"></li>
-                                    {% endfor %}
-                                </ol>
-
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    {% for slide in slideshow %}
-                                        <div class="item {% if loop.first %}active{% endif %}">
-                                            <div class="col-sm-6"
-                                                 style="padding-top: 2%;padding-bottom: 2%;padding-left: 10%;">
-                                                <img src="{{ slide.photoUrl }}"
-                                                     class="img-responsive img-thumbnail pull-right"
-                                                     alt="Responsive image  of {{ slide.title }}">
-                                            </div>
-                                            <div class="col-sm-6"
-                                                 style="padding-top: 2%;padding-bottom: 2%;padding-right: 10%;">
-                                                <h2>
-                                                    {{ slide.title }}
-                                                </h2>
-
-                                                <p>{{ slide.description|raw }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#carousel-example-generic" role="button"
-                                   data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Go to previous screen</span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" role="button"
-                                   data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Go to next screen</span>
-                                </a>
-                            </div>
-
-                        </div>
-                    {% endif %}
-
-
                     <div class="row">
-                        <div class="col-md-12" style="background-color: #f3f0dd; min-height: 100vh">
+                        <div class="col-md-12" style="background-color: #fff; min-height: 100vh">
                             {% if app.request.attributes.get('_route')=='home' or 'default' in app.request.attributes.get('_route') or 'pages' in app.request
                             .attributes.get('_route') %}
 
                                 {{ block('content') }}
                             {% else %}
-                                <div class="well">
+                                <div style="padding-left:10%; padding-right:10%;">
                                     {{ block('content') }}
                                 </div>
                             {% endif %}

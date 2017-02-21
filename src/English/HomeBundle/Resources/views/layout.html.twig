@@ -16,9 +16,7 @@
         <li><a title="Dept. Information" href="{{ path('pages_show', { 'id': 124, 'sub':'dept' }) }}">Dept. Info.</a>
         </li>
         </li>
-        {% if is_granted('ROLE_COURSEADMIN') %}
-            <li><a title="Term" href="{{ path('term') }}">Term</a></li>
-        {% endif %}
+
         {% if is_granted('ROLE_ADMIN') %}
             <li>Admin</li>
             <li><a title="Slideshow" href="{{ path('slideshow') }}">Slideshow</a></li>

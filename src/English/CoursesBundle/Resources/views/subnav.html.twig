@@ -40,7 +40,9 @@
                     <li><a id="upperink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Upper'  }) }}" title="List Upper Division Courses" >Upper Division</a></li>
                     <li><a id="upperink" href="{{ path('listings_byarea', { 'term': currentTerm.term }) }}" title="List Upper Division Courses by Area" >Upper by Area</a></li>
                     <li><a id="gradink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Graduate'  }) }}" title="List Graduate Courses" >Graduate</a></li>
-
+                    {% if is_granted('ROLE_COURSEADMIN') %}
+                        <li><a title="Term" href="{{ path('term') }}">Term</a></li>
+                    {% endif %}
                 </ul>
                 <form class="navbar-form navbar-right hidden-sm" role="search" action="{{ path('listings') }}" method="post" {{ form_enctype(search_form) }}>
                     <div class="form-group">
