@@ -30,6 +30,14 @@
                             <a href="{{ path('area_new') }}">Add Area of Faculty Expertise</a>
                         {% endif %}
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            {% for area in areas %}
+                                <li><a href="{{ path('directory_area', {'area': area.id}) }} "  title="Select area" >{{area.area}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
