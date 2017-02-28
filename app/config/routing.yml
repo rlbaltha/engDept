@@ -7,14 +7,6 @@ logout:
     path: /logout
     defaults: { _controller: EnglishHomeBundle:Default:index }
 
-wwwRedirect:
-    path:  /
-    host: english.uga.edu
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: https://www.english.uga.edu
-        permanent: true
-
 WritingcenterRedirect:
     path:  /
     host: writingcenter.english.uga.edu

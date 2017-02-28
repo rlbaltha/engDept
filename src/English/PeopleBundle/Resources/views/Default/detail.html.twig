@@ -1,10 +1,6 @@
 {% extends 'EnglishPeopleBundle::subnav.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        <h2>{{ people.firstName }} {{ people.lastName }}</h2>
-    </div>
-
 
     {% if peopleCourses %}
         <div class="row">
@@ -164,18 +160,8 @@
                         Grad. Faculty</a></li>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Promote
                         Grad. Admin</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Promote
-                        Search</a></li>
-                <li>
-                    <a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Promote
-                        Search Admin</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Promote
-                        Page Admin</a></li>
                 <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_COURSEADMIN' }) }}">Promote
                         Course Admin</a></li>
-                <li><a href="{{ path('people_promote', { 'username': user.username, 'role': 'ROLE_TAADMIN' }) }}">Promote
-                        TA Info Admin</a></li>
-
 
                 <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_ADVISOR' }) }}">Demote
                         Advisor</a></li>
@@ -186,20 +172,9 @@
                         Grad. Faculty</a></li>
                 <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_GRADADMIN' }) }}">Demote
                         Grad. Admin</a></li>
-                <li><a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCH' }) }}">Demote
-                        Search</a></li>
-                <li>
-                    <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_SEARCHADMIN' }) }}">Demote
-                        Search Admin</a></li>
-                <li>
-                    <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_PAGEADMIN' }) }}">Demote
-                        Page Admin</a></li>
                 <li>
                     <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_COURSEADMIN' }) }}">Demote
                         Course Admin</a></li>
-                <li>
-                    <a href="{{ path('people_demote', { 'username': user.username, 'role': 'ROLE_TAADMIN' }) }}">Demote
-                        TA Info Admin</a></li>
             </ul>
         </div>
     {% endif %}

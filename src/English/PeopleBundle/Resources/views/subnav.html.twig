@@ -14,6 +14,23 @@
 {% endblock %}
 
 {% block subnav %}
-
+    <!-- Static navbar -->
+    <div class="navbar navbar-default subnav" role="navigation"  style="padding-left:10%; padding-right:10%; min-height:90px;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#subnav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><h3>{{ people.firstName }} {{ people.lastName }}</h3></a>
+            </div>
+            <div id="subnav" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </div>
 {% endblock %}
 

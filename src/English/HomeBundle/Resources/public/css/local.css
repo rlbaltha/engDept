@@ -90,7 +90,7 @@ div#content > div {
 }
 
 .header-img {
-    height: 10em;
+    max-height: 10em;
 }
 
 .header-row {
@@ -116,11 +116,16 @@ div#content > div {
     margin-bottom: 0;
     background-color: #eeeeee;
     color: #5c6878;
-    margin-top: -20px;
+    margin-top: -15px;
 }
 
+#subnav > ul {
+    margin-top: 20px;
+}
 
-
+#subnav > form {
+    margin-top: 20px;
+}
 .carousel-indicators li {
     background-color: #777777;
 }
