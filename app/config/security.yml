@@ -1,57 +1,57 @@
 # app/config/security.yml
 
 security:
-    firewalls:
-        main:
-            pattern: ^/
-            trusted_sso:
-                manager: admin_sso
-                create_users: true
-                created_users_roles: [ 'ROLE_USER' ]
-                login_action: false
-                logout_action: false
-                login_path: /login
-                check_path: /login
-                failure_path: /register
-            provider: fos_userbundle
-            anonymous:    true
-            switch_user: true
-            logout:
-              path:   /logout
-              target: /home
-
-    providers:
-        chain_provider:
-            chain:
-                providers: [fos_userbundle]
-
-        fos_userbundle:
-            id: fos_user.user_provider.username
-
-#Dev security
-#security:
-#    providers:
-#        fos_userbundle:
-#            id: fos_user.user_provider.username
-#
-#    encoders:
-#        FOS\UserBundle\Model\UserInterface: sha512
-#
 #    firewalls:
 #        main:
 #            pattern: ^/
-#            form_login:
-#                provider: fos_userbundle
-#                csrf_provider: form.csrf_provider
-#                default_target_path: /issue
-#            logout:
-#                path:   /logout
-#                target: /
+#            trusted_sso:
+#                manager: admin_sso
+#                create_users: true
+#                created_users_roles: [ 'ROLE_USER' ]
+#                login_action: false
+#                logout_action: false
+#                login_path: /login
+#                check_path: /login
+#                failure_path: /register
+#            provider: fos_userbundle
 #            anonymous:    true
+#            switch_user: true
+#            logout:
+#              path:   /logout
+#              target: /home
 #
+#    providers:
+#        chain_provider:
+#            chain:
+#                providers: [fos_userbundle]
 #
-#    encoders:
-#        FOS\UserBundle\Model\UserInterface: sha512
+#        fos_userbundle:
+#            id: fos_user.user_provider.username
+
+#Dev security
+security:
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                default_target_path: /issue
+            logout:
+                path:   /logout
+                target: /
+            anonymous:    true
+
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
 
 
     access_control:
