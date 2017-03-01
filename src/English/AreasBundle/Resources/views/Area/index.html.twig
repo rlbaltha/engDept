@@ -5,7 +5,7 @@
         <table class="table table-striped">
             {% for area in areas %}
                 <tr>
-                    <td>{{ area.area }}
+                    <td><a href="{{ path('directory_area', {'area': area.id}) }} "  title="Select area" >{{area.area}}</a>
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="pull-right" href="{{ path('area_edit', { 'id': area.id }) }}">Update/Delete</a>
                         {% endif %}
