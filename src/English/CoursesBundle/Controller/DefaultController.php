@@ -173,8 +173,9 @@ class DefaultController extends Controller
         $area3 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'3');
         $area4 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'4');
         $area5 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'5');
+        $area6 = $em->getRepository('EnglishCoursesBundle:Course')->upperbyarea($term,'6');
         
-        return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, 'search_form' => $form->createView(), ));
+        return $this->render('EnglishCoursesBundle:Default:byarea.html.twig', array('terms'=> $terms,'currentTerm'=> $currentTerm,'currentType'=> $currentType,'area1' => $area1,'area2' => $area2,'area3' => $area3,'area4' => $area4,'area5' => $area5, 'area6' => $area6,'search_form' => $form->createView(), ));
             
     }      
     

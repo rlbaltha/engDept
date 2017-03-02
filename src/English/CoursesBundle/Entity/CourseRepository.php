@@ -73,7 +73,7 @@ class CourseRepository extends EntityRepository
     public function findCoursesByType($term, $type)
     {
         if ($type == 'Upper') {
-            $andwhere ="c.area IN ('1','2','3','4','5')";
+            $andwhere ="c.area IN ('1','2','3','4','5','6')";
         } elseif ($type == 'FYC') {
             $andwhere ="c.courseName LIKE 'ENGL1%'";
         } elseif ($type == 'Surveys') {
