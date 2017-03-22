@@ -143,4 +143,9 @@ EnglishAdvisorsBundle:
     type:     annotation
     prefix:   /
 
+EnglishPagessBundle:
+    resource: "@EnglishPagesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 
