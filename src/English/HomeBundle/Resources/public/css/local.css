@@ -1,7 +1,7 @@
 body {
-    font-family:'PT Sans', sans-serif;
+    font-family: 'Merriweather Sans', sans-serif;
     color: #333;
-    font-size: 11pt;
+    font-size: 13pt;
 }
 
 dd {
@@ -12,9 +12,6 @@ a {
     color: #5c6878;
 }
 
-h3 {
-    font-size: 14pt;
-}
 
 input[type="checkbox"], input[type="radio"] {
     margin-left: 8px;margin-right: 3px;
@@ -24,33 +21,21 @@ label {
     margin-top: 5px;
 }
 
-.page-header {
-    margin-top: 60px;
-}
 
 .navbar-brand, nav, h1, h2, h3 {
-    font-family: 'PT Serif', serif;
-    color: #5c6878;
+    font-family: 'Merriweather Sans', sans-serif;
+    color: #fff;
     text-transform: uppercase;
     font-weight: bold;
 }
 
 
-
-div#content {
-}
-
 div#content > div {
-
     min-height: 100vh
 }
 
 .btn-warning {
     margin-top: -55px;
-}
-
-.navbar-brand {
-    font-size: 1em;
 }
 
 
@@ -63,22 +48,26 @@ div#content > div {
 }
 
 .navbar-default{
-    background-color: #fffaf0;
+    background-color: #000;
     border-top: 0;
+    padding:1em;
 
 }
 .navbar .navbar-nav > li > a {
-    color: #5c6878;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bolder;
+    padding:1em;
 }
 
 .navbar .navbar-nav > li > a:hover {
-    color: #000000;
+    color: #fff;
     text-decoration: underline;
 }
 
 
 .navbar .navbar-brand {
-    color: #5c6878;
+    color: #fff;
 }
 
 .navbar-default .navbar-nav > li > a.active {
@@ -86,18 +75,17 @@ div#content > div {
 }
 
 .navbar form label {
-    color: #5c6878;
+    color: #fff;
 }
 
 .header-img {
-    max-height: 10em;
+    max-height: 8em;
 }
 
 .header-row {
-    margin-top: 4em;
-    background-color: #fffaf0;
-    height: 13em;
-    border-top: 1px solid #e7e7e7;
+    margin-top: 0;
+    background-color: #fff;
+    height: 10em;
 }
 
 .margin-left {
@@ -113,18 +101,18 @@ div#content > div {
 }
 
 .subnav {
-    margin-bottom: 0;
-    background-color: #eeeeee;
-    color: #5c6878;
-    margin-top: -15px;
+    margin-top: -1em;
+    margin-bottom: 1em;
+    background-color: #000;
+    color: #fff;
 }
 
 #subnav > ul {
-    margin-top: 20px;
+    padding: 1em;
 }
 
 #subnav > form {
-    margin-top: 20px;
+    padding: 1em;
 }
 .carousel-indicators li {
     background-color: #777777;

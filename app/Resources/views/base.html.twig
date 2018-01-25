@@ -13,8 +13,8 @@
         <link type="text/css" rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/englishhome/css/local.css') }}">
-        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 
         <style type="text/css">
             th.header {
@@ -63,7 +63,8 @@
 <div class="col-sm-12" style="padding:0; ">
     <div class="header-row" style="padding-left:10%; padding-right:10%">
         <a class="navbar-brand " href="http://www.english.uga.edu"
-           title="English Department Homepage"><img class="header-img img-responsive" alt="UGA English Department logo"
+           title="English Department Homepage">
+            <img class="header-img img-responsive" alt="UGA English Department logo"
                                                     src="{{ asset('bundles/englishhome/images/logo.png') }}"/></a>
 
     </div>
@@ -118,24 +119,6 @@
                 {% endif %}
 
             </ul>
-            {% if 'englvm01' in app.request.uri|lower or 'localhost' in app.request.uri|lower %}
-            {% else %}
-            <ul class="nav navbar-nav navbar-right" id="account-dropdown">
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li>
-                        <a href="{{ path('fos_user_security_logout') }}">Logout</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ path('people_profile') }}">Login</a>
-                    </li>
-                {% endif %}
-                <li id="skip">
-                    <a id="main_content" href="#main_nav">Skip to Top</a>
-                </li>
-            </ul>
-            {% endif %}
-
         </div>
     </nav>
 

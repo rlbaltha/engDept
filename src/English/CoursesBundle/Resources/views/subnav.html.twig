@@ -11,7 +11,8 @@
 
 {% block subnav %}
     <!-- Static navbar -->
-    <div class="navbar navbar-default subnav" role="navigation"  style="padding-left:10%; padding-right:10%; min-height:90px;">
+    <div class="navbar navbar-default subnav" role="navigation"
+         style="padding-left:10%; padding-right:10%; min-height:90px;">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#subnav">
@@ -20,36 +21,44 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><h3>{% if currentType != 'Search' %}{{ currentTerm.termName}}{% endif %} {{ currentType }}</h3></a>
             </div>
             <div id="subnav" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a class="navbar-brand" href="#">
+                            {% if currentType != 'Search' %}{{ currentTerm.termName }}{% endif %} {{ currentType }}
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Term <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
 
                             {% for terms in terms %}
-                                <li><a id="termLink{{ terms.term }}" href="{{ path('listings_list', { 'term': terms.term, 'type': currentType  }) }}" title="Select term" >{{ terms.termName }}</a></li>
+                                <li><a id="termLink{{ terms.term }}"
+                                       href="{{ path('listings_list', { 'term': terms.term, 'type': currentType  }) }}"
+                                       title="Select term">{{ terms.termName }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
 
 
-                    <li><a id="compLink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'FYC'  }) }}" title="List Composition Courses" >Composition</a></li>
-                    <li><a id="sophLink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Surveys'  }) }}" title="List Survey Courses" >2nd Year Surveys</a></li>
-                    <li><a id="upperink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Upper'  }) }}" title="List Upper Division Courses" >Upper Division</a></li>
-                    <li><a id="upperink" href="{{ path('listings_byarea', { 'term': currentTerm.term }) }}" title="List Upper Division Courses by Area" >Upper by Area</a></li>
-                    <li><a id="gradink" href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Graduate'  }) }}" title="List Graduate Courses" >Graduate</a></li>
+                    <li><a id="compLink"
+                           href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'FYC'  }) }}"
+                           title="List Composition Courses">Composition</a></li>
+                    <li><a id="sophLink"
+                           href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Surveys'  }) }}"
+                           title="List Survey Courses">2nd Year Surveys</a></li>
+                    <li><a id="upperink"
+                           href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Upper'  }) }}"
+                           title="List Upper Division Courses">Upper Division</a></li>
+                    <li><a id="upperink" href="{{ path('listings_byarea', { 'term': currentTerm.term }) }}"
+                           title="List Upper Division Courses by Area">Upper by Area</a></li>
+                    <li><a id="gradink"
+                           href="{{ path('listings_list', { 'term': currentTerm.term, 'type': 'Graduate'  }) }}"
+                           title="List Graduate Courses">Graduate</a></li>
                     {% if is_granted('ROLE_COURSEADMIN') %}
                         <li><a title="Term" href="{{ path('term') }}">Term</a></li>
                     {% endif %}
                 </ul>
-                <form class="navbar-form navbar-right hidden-sm" role="search" action="{{ path('listings') }}" method="post" {{ form_enctype(search_form) }}>
-                    <div class="form-group">
-                        {{ form_row(search_form.courseName) }}{{ form_row(search_form.term) }}
-                    </div>
-                    <button type="submit" class="btn btn-default">Go</button>
-                </form>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </div>
