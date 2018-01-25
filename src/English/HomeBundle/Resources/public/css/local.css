@@ -50,14 +50,15 @@ div#content > div {
 .navbar-default{
     background-color: #000;
     border-top: 0;
-    padding:1em;
+    padding:.8em;
+    margin-top: -1em;
 
 }
 .navbar .navbar-nav > li > a {
     color: #fff;
     font-size: 1em;
     font-weight: bolder;
-    padding:1em;
+    padding:.8em;
 }
 
 .navbar .navbar-nav > li > a:hover {
@@ -79,7 +80,8 @@ div#content > div {
 }
 
 .header-img {
-    max-height: 8em;
+    max-height: 6em;
+    padding-left: 1em;
 }
 
 .header-row {
