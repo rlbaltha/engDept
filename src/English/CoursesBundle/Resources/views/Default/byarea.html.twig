@@ -40,6 +40,7 @@
                     {% elseif '4400' in courses.courseName or '4410' in courses.courseName or '4420' in courses.courseName or '4430' in courses.courseName or '4440' in courses.courseName or '4450' in courses.courseName
                     or '4460' in courses.courseName or '4470' in courses.courseName or '4480' in courses.courseName or '4490' in courses.courseName or '4700'
                     in courses.courseName or '4491' in courses.courseName %}(4)
+                    {% elseif '4332' in courses.courseName or '4333' in courses.courseName or '4334' in courses.courseName or '4380' in courses.courseName %}(3)
                     {% endif %}
                     <strong><a href="{{ path('listings_detail', { 'callNumber': courses.callNumber, 'term': courses.term }) }}"
                                title="Course Detail">{{ courses.courseName }}</a></strong>
