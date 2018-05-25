@@ -31,42 +31,16 @@ twig:
 
 # Assetic Configuration
 assetic:
-  java: /usr/bin/java
-  filters:
-    yui_js:
-      jar: %kernel.root_dir%/../vendor/packagist/yuicompressor-bin/bin/yuicompressor.jar
-    lessphp:
-      apply_to: "\.less$"
-      #file:   %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
-    cssrewrite: ~
-  assets:
-    jquery_js:
-        inputs:
-            - '%kernel.root_dir%/../vendor/components/jquery/jquery.js'
-        filters: [yui_js]
-    jqueryui_js:
-        inputs:
-            - '%kernel.root_dir%/../vendor/components/jqueryui/jquery-ui.js'
-        filters: [yui_js]
-    bootstrap_js:
-        inputs:
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/modal.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/dropdown.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/scrollspy.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/tab.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/tooltip.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/popover.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/button.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/collapse.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/carousel.js'
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js'
-        filters: [yui_js]
-    bootstrap_less:
-        inputs:
-            - '%kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less'
-        filters: [lessphp]
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 
 # Doctrine Configuration
@@ -128,36 +102,25 @@ stof_doctrine_extensions:
             timestampable: true
             sluggable: true
 
-knp_paginator:
-    page_range: 5                      # default page range used in pagination control
-    default_options:
-        page_name: page                # page query parameter name
-        sort_field_name: sort          # sort field query parameter name
-        sort_direction_name: direction # sort direction query parameter name
-        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
-    template:
-        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+#vich_uploader:
+#    db_driver: orm # or mongodb
+#    twig: true
+#    gaufrette: false # set to true to enable gaufrette support
+#    storage: vich_uploader.storage.file_system
+#    mappings:
+#        property_file:
+#            uri_prefix: %upload_path%   # uri prefix to resource
+#            upload_destination: %upload_path%   # gaufrette storage fs id, required
+#            namer: vich_uploader.namer_origname # namer.upload_file  specify a file namer service id for this entity, null default
+#            directory_namer: directory_namer.upload_file  # specify a directory namer service id for this entity, null default
+#            delete_on_remove: true # determines whether to delete file upon removal of entity
+#            inject_on_load: true # determines whether to inject a File instance upon load
 
-vich_uploader:
-    db_driver: orm # or mongodb
-    twig: true
-    gaufrette: false # set to true to enable gaufrette support
-    storage: vich_uploader.storage.file_system
-    mappings:
-        property_file:
-            uri_prefix: %upload_path%   # uri prefix to resource
-            upload_destination: %upload_path%   # gaufrette storage fs id, required
-            namer: vich_uploader.namer_origname # namer.upload_file  specify a file namer service id for this entity, null default
-            directory_namer: directory_namer.upload_file  # specify a directory namer service id for this entity, null default
-            delete_on_remove: true # determines whether to delete file upon removal of entity
-            inject_on_load: true # determines whether to inject a File instance upon load
-
-knp_snappy:
-    pdf:
-        enabled:    true
-        binary:     %wkhtmltopdf_path%
-        options:    []
+#knp_snappy:
+#    pdf:
+#        enabled:    true
+#        binary:     %wkhtmltopdf_path%
+#        options:    []
 
 ivory_ck_editor:
     plugins:
