@@ -34,7 +34,7 @@ BISPIndexSlashRedirect:
 
 default:
     path:  /
-    defaults: { _controller: EnglishHomeBundle:Default:index }
+    defaults: { _controller: EnglishCoursesBundle:Default:index }
     
 EnglishDonateBundle:
     resource: "@EnglishDonateBundle/Controller/"
