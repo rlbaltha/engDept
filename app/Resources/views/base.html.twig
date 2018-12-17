@@ -85,15 +85,7 @@
                     <a id="main_nav" href="#main_content">Skip Navigation</a>
                 </li>
 
-                {% if 'englvm01' in app.request.uri|lower or 'localhost' in app.request.uri|lower %}
-                    <li><a href="http://www.english.uga.edu/first-year-composition">First Year Composition</a></li>
-                    <li><a href="http://www.english.uga.edu/undergraduate-studies">Undergraduate Studies</a>
-                    </li>
-                    <li><a href="http://www.english.uga.edu/graduate-studies">Graduate Studies</a></li>
-                    <li><a href="http://www.english.uga.edu/creative-writing-program">The Creative Writing Program</a></li>
-                    <li><a href="http://www.english.uga.edu/park-hall-monitor">Newsletter</a></li>
-                    <li><a href="http://www.english.uga.edu/make-gift">Make a Gift</a></li>
-
+                    <li><a href="http://www.english.uga.edu/first-year-composition">Programs</a></li>
                     <li><a href="{{ path('listings') }}">Courses</a></li>
                     <li><a href="http://www.english.uga.edu/directory/graduate-faculty">People</a></li>
                     <li><a href="http://www.english.uga.edu/news/all">News</a></li>
@@ -104,20 +96,6 @@
                     {% if is_granted('ROLE_ADVISOR') %}
                         <li><a title="Majors" href="{{ path('major') }}">Majors</a></li>
                     {% endif %}
-                {% else %}
-                    <li><a href="{{ path('pages_show', { 'id': 1, 'sub':'fyc' }) }}">First Year Composition</a></li>
-                    <li><a href="{{ path('pages_show', { 'id': 9, 'sub':'undergrad' }) }}">Undergraduate Studies</a>
-                    </li>
-                    <li><a href="{{ path('pages_show', { 'id': 5, 'sub':'grad' }) }}">Graduate Studies</a></li>
-                    <li><a href="{{ path('pages_show', { 'id': 143, 'sub':'cwp' }) }}">Creative Writing</a></li>
-                    <li><a href="{{ path('pages_newsletter') }}">Newsletter</a></li>
-                    <li><a href="{{ path('pages_show', { 'id': 156, 'sub':'donate' }) }}">Make a Gift</a></li>
-
-                    <li><a href="{{ path('listings') }}">Courses</a></li>
-                    <li><a href="{{ path('directory') }}">People</a></li>
-                    <li><a href="{{ path('calendar_index') }}">Events</a></li>
-                {% endif %}
-
             </ul>
         </div>
     </nav>
